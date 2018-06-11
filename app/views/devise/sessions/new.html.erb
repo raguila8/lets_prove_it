@@ -1,0 +1,127 @@
+<!--<h2>Log in</h2>
+
+<%#= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%#= f.label :email %><br />
+    <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%#= f.label :password %><br />
+    <%#= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <%# if devise_mapping.rememberable? -%>
+    <div class="field">
+      <%#= f.check_box :remember_me %>
+      <%#= f.label :remember_me %>
+    </div>
+  <%# end -%>
+
+  <div class="actions">
+    <%#= f.submit "Log in" %>
+  </div>
+<%# end %>
+
+<%#= render "devise/shared/links" %>
+-->
+<!-- ========== Login From ========== -->
+
+<div class="login-2">
+  <div class="bg-overlay">
+            
+    <div class="container">
+      <div class="row ws-m">
+        <div class="col-md-offset-3 col-md-6">
+
+          <div class="form-wrapper">
+            <div class="form-content">
+              <h3 class="form-header">Login to your account</h3>
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                <!-- Email -->
+                <div class="form-group">
+                  <%= f.email_field :email, id: "username-login-2", class: "form-control", placeholder: "Enter your name" %>
+                  <%= f.label :email %>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                  <%= f.password_field :password, id: "pass-login-2", class: "form-control", placeholder: "Enter your password" %>
+                  <%= f.label :password %>
+                  <span class="pull-right"><a href="#" class="forget-pass-link">Forget password?</a></span>
+                </div>
+                <!-- Submit -->
+                <%= f.submit "Login", class: "btn" %>
+              <% end %>
+              <span class="cards-header">or signup with</span>
+            </div><!-- / .form-content -->
+
+            <!-- Social Signup -->
+            <div class="social-signup">
+              <a href="#" class="social-card fb-card">
+                <span class="sc-lead">Facebook</span>
+                <span class="sc-info">Sign up with</span>
+                <i class="fa fa-facebook"></i>
+              </a>
+              <a href="#" class="social-card tw-card">
+                <span class="sc-lead">Twitter</span>
+                <span class="sc-info">Sign up with</span>
+                <i class="fa fa-twitter"></i>
+              </a>
+            </div><!-- / .social-signup -->
+          </div><!-- / .form-wrapper -->
+
+          <a href="#" class="email-signup pull-right">Signup with email</a>
+
+        </div><!-- / .col-md-6 -->
+      </div><!-- / .row -->
+    </div><!-- / .container -->
+
+  </div><!-- / .bg-overlay -->
+</div><!-- / .bg-login -->
+
+<!--
+                      <form action="post">
+                       
+                        <div class="form-group">
+                          <input type="text" id="username-login-2" class="form-control" placeholder="Enter your name">
+                          <label for="username-login-2">Username</label>
+                        </div>
+                      
+                        <div class="form-group">
+                          <input type="password" id="pass-login-2" class="form-control" placeholder="Enter your email">
+                          <label for="pass-login-2">Password</label>
+                          <span class="pull-right"><a href="#" class="forget-pass-link">Forget password?</a></span>
+                        </div>
+                     
+                        <input type="submit" value="Login" class="btn">
+                      </form>
+                      <span class="cards-header">or signup with</span>
+                    </div>
+
+                  
+                    <div class="social-signup">
+                      <a href="#" class="social-card fb-card">
+                        <span class="sc-lead">Facebook</span>
+                        <span class="sc-info">Sign up with</span>
+                        <i class="fa fa-facebook"></i>
+                      </a>
+                      <a href="#" class="social-card tw-card">
+                        <span class="sc-lead">Twitter</span>
+                        <span class="sc-info">Sign up with</span>
+                        <i class="fa fa-twitter"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  
+                  <a href="#" class="email-signup pull-right">Signup with email</a>
+
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+-->
