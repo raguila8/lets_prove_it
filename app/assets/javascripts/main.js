@@ -1,4 +1,4 @@
-$(document).on('ready turbolinks:load', function() {
+$(document).on('turbolinks:load', function() {
   initNavbar();
   initScroller();
   initAnimation();
@@ -12,6 +12,15 @@ $(document).on('ready turbolinks:load', function() {
 			hideDistantElements: false
 		});
 	}
+
+
+  // Preloader
+  $('.preloader img').fadeOut(); // will first fade out the loading animation
+	$('.preloader').delay(400).fadeOut('slow', function() {
+
+
+	});
+
 
    
 });
