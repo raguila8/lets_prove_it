@@ -40,23 +40,43 @@
               <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                 <!-- Email -->
                 <div class="form-group">
-                  <%= f.email_field :email, id: "username-login-2", class: "form-control", placeholder: "Enter your name" %>
+                  <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
                   <%= f.label :email %>
                 </div>
 
                 <!-- Password -->
                 <div class="form-group">
-                  <%= f.password_field :password, id: "pass-login-2", class: "form-control", placeholder: "Enter your password" %>
+                  <%= f.password_field :password, class: "form-control", placeholder: "Enter your password" %>
                   <%= f.label :password %>
                   <span class="pull-right"><a href="#" class="forget-pass-link">Forget password?</a></span>
                 </div>
+
+                <div class="form-group">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me, class: "ml-5 font-weight-normal" %>
+                </div>
+
                 <!-- Submit -->
                 <%= f.submit "Login", class: "btn" %>
               <% end %>
-              <span class="cards-header">or signup with</span>
-            </div><!-- / .form-content -->
+            </div> <!-- form-content -->
 
-            <!-- Social Signup -->
+            <!-- Register Account -->
+            <div class="panel bottom-panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" href=" <%= new_user_registration_path %>" aria-expanded="false" aria-controls="register-login-page-2">
+                  Register account
+                </a>
+              </h4>
+            </div> <!-- / .panel-heading-->
+            </div> <!-- / .panel -->
+          </div> <!-- / .form-wrapper -->
+<!--
+              <span class="cards-header">or signup with</span>
+            </div>
+
+            
             <div class="social-signup">
               <a href="#" class="social-card fb-card">
                 <span class="sc-lead">Facebook</span>
@@ -68,11 +88,11 @@
                 <span class="sc-info">Sign up with</span>
                 <i class="fa fa-twitter"></i>
               </a>
-            </div><!-- / .social-signup -->
-          </div><!-- / .form-wrapper -->
+            </div>
+          </div>
 
           <a href="#" class="email-signup pull-right">Signup with email</a>
-
+-->
         </div><!-- / .col-md-6 -->
       </div><!-- / .row -->
     </div><!-- / .container -->

@@ -1,29 +1,101 @@
+<!-- ========== Registration From ========== -->
+
+<div class="login-2">
+  <div class="bg-overlay">
+            
+    <div class="container">
+      <div class="row ws-m">
+        <div class="col-md-offset-3 col-md-6">
+
+          <div class="form-wrapper">
+            <div class="form-content">
+              <h3 class="form-header">Register Account</h3>
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                <!-- Username -->
+                <div class="form-group">
+                  <%= f.text_field :username, class: "form-control", placeholder: "Enter your username" %>
+                  <%= f.label :username %>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                  <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
+                  <%= f.label :email %>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                  <%= f.password_field :password, class: "form-control", placeholder: "Enter your password" %>
+                  <%= f.label :password %>
+                  <span class="pull-right"><a href="#" class="forget-pass-link">Forget password?</a></span>
+                </div>
+
+                <!-- Password Confirmation -->
+                <div class="form-group">
+                  <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm your password" %>
+                  <%= f.label :password_confirmation %>
+                </div>
+ 
+                <!-- Submit -->
+                <%= f.submit "Register", class: "btn" %>
+              <% end %>
+
+            </div> <!-- form-content -->
+
+            <!-- Register Account -->
+            <div class="panel bottom-panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" href="<%= new_user_session_path %>" aria-expanded="false" aria-controls="login-page-2">
+                    Login to Your Account
+                  </a>
+                </h4>
+              </div> <!-- / .panel-heading-->
+            </div> <!-- / .panel -->
+          </div> <!-- / .form-wrapper -->
+
+        </div><!-- / .col-md-6 -->
+      </div><!-- / .row -->
+    </div><!-- / .container -->
+
+  </div><!-- / .bg-overlay -->
+</div><!-- / .bg-login -->
+
+
+
+
+
+
+
+<!--
+
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<%#= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%#= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%#= f.label :email %><br />
+    <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%#= f.label :password %>
+    <%# if @minimum_password_length %>
+    <em>(<%#= @minimum_password_length %> characters minimum)</em>
+    <%# end %><br />
+    <%#= f.password_field :password, autocomplete: "off" %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%#= f.label :password_confirmation %><br />
+    <%#= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%#= f.submit "Sign up" %>
   </div>
-<% end %>
+<%# end %>
 
-<%= render "devise/shared/links" %>
+<%#= render "devise/shared/links" %>
+-->
