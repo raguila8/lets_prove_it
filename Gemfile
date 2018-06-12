@@ -37,6 +37,7 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem "font-awesome-rails"
 
+gem 'toastr-rails'
 
 # authentication
 gem 'devise'

@@ -1,0 +1,16 @@
+<% if @user %>
+	<% model = @user %>
+<% end %>
+<% if model.errors.any? %>
+  <div id="error_explanation">
+   <ul>
+    <li><%= model.errors.full_messages.first %></li>
+    </ul>
+  </div>
+<% elsif flash[:failed_login] %>
+  <div id="error_explanation">
+   <ul>
+    <li><%= flash[:failed_login] %></li>
+    </ul>
+  </div>
+<% end %>

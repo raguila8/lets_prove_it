@@ -1,0 +1,45 @@
+<% if flash.present? %>
+  <script>
+    // toastr flash messages
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-bottom-left",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "8000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+
+  </script>
+ 
+  <div id='flash'>
+   <script> 
+     <% if flash[:success] %>
+       var $toastContent = $('<span><%= flash[:success] %></span>');
+       toastr.success($toastContent)
+     <% end %>
+     <% if flash[:notice] %>
+       var $toastContent = $('<span><%= flash[:notice] %></span>');
+       toastr.info($toastContent)
+     <% end %>
+     <% if flash[:error] %>
+       var $toastContent = $('<span><%= flash[:error] %></span>');
+       toastr.error($toastContent)
+     <% end %>
+     <% if flash[:alert] %>
+       var $toastContent = $('<span><%= flash[:alert] %></span>');
+       toastr.warning($toastContent)
+     <% end %> 
+
+   </script>
+  </div>
+<% end %>

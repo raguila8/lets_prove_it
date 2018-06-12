@@ -14,6 +14,7 @@
 //= require turbolinks
 //= require jquery
 //= require bootstrap-sprockets
+//= require toastr
 //= require google-fonts.js
 //= require animated-heading.js
 //= require jquery.easing.js

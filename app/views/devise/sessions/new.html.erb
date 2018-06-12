@@ -38,6 +38,9 @@
             <div class="form-content">
               <h3 class="form-header">Login to your account</h3>
               <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+                <%= render 'shared/error_messages' %>
+
                 <!-- Email -->
                 <div class="form-group">
                   <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
