@@ -13,9 +13,9 @@
 //= require rails-ujs
 //= require turbolinks
 //= require jquery
+//= require google-fonts.js
 //= require bootstrap-sprockets
 //= require toastr
-//= require google-fonts.js
 //= require animated-heading.js
 //= require jquery.easing.js
 //= require jquery.localScroll.min.js

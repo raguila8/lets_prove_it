@@ -38,6 +38,7 @@ gem 'jquery-rails'
 gem "font-awesome-rails"
 
 gem 'toastr-rails'
+gem 'figaro'
 
 # authentication
 gem 'devise'

@@ -1,0 +1,129 @@
+.round-thumb {
+	border-radius: 50%;
+	float: left;
+}
+
+.username-feed {
+	color: #262626;
+	font-weight: 600;
+	font-size: 14px;
+	padding-left: 15px;
+}
+
+
+/* problems#index */
+
+.problem-desc {
+  margin-bottom: 20px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #dedede;
+}
+
+.problem-details, .problem-done, .problem-date, .problem-view, .problem-comment {
+  float: left;
+}
+
+.problem-answered-done {
+  color: #318e08;
+}
+
+.problem-date, .problem-view, .problem-comment {
+  color: #2F323C;
+}
+
+.problem-date, .problem-comment, .problem-answered {
+  margin: 0 20px 0 0;
+  display: block;
+}
+
+.problem-answered {
+  float: left;
+  font-weight: bold;
+}
+
+.problem-view {
+  margin-right: 0;
+}
+
+
+.single-problem-vote-result {
+  float: right;
+}
+
+.problem-vote-result, .single-problem-vote-result {
+  font-size: 13px;
+  color: #2f3239;
+}
+
+.single-problem-vote > li:first-child a {
+    margin-right: 10px;
+}
+
+.single-problem-vote-up, .single-problem-vote-down {
+    background-color: #eee;
+    color: #666;
+    -webkit-transition: all 0.6s linear;
+    transition: all 0.6s linear;
+    font-size: 13px;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.single-problem-vote {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  display: inline;
+
+  li {
+    display: inline;
+    float: left;
+  }
+}
+
+.single-problem-vote-up:hover {
+  color: #fff;
+  background: #33833A;
+}
+
+.single-problem-vote-down:hover {
+  color: #fff;
+  background: #ff7361;
+}
+
+.voting-meta {
+  float: right;
+}
+
+.blog-post .bp-content .tag-list {
+  padding: 0;
+  margin: 0;
+
+  li  {
+    list-style: none;
+    display: inline-block;
+
+    a {
+      display: block;
+      padding: 0 10px;
+      margin-bottom: 5px;
+      border: 1px solid #ccc;
+      font-family: "Open Sans", "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
+      color: #999;
+      transition: all .5s;
+      font-weight: 300;
+      line-height: 1.8em;
+      margin-top: 0;
+      font-size: 0.85em;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+  }
+}

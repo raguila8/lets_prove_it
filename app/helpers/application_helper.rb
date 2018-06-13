@@ -4,6 +4,8 @@ module ApplicationHelper
       "Login"
     elsif controller_name == "registrations" and (action_name == "new" || action_name == "create")
       "Register"
+    elsif controller_name == "problems" and action_name == "index"
+      "Home"
     end
   end
 
@@ -12,6 +14,8 @@ module ApplicationHelper
       "Login or create an account"
     elsif controller_name == "registrations" and (action_name == "new" || action_name == "create")
       "Create and Account or Login"
+    elsif controller_name == "problems" and action_name == "index"
+      "Filter problems by topic"
     end
   end
 
@@ -22,7 +26,8 @@ module ApplicationHelper
     elsif controller_name == "registrations" and (action_name == "new" || action_name == "create")
       content = "<a href='#{new_user_session_path}'><button class='btn-text-light btn-large'>Login</button></a>"
       return content.html_safe
+    elsif controller_name == "problems" and action_name == "index"
+      
     end
-
   end
 end
