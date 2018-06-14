@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :topics, through: :user_topics, :dependent => :destroy
+
   validates :email, presence: true, length: { maximum: 255 },
 										uniqueness: { case_sensitive: false }
   validates :name, length: { maximum: 70 }

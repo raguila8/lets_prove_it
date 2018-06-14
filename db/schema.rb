@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180612173053) do
+ActiveRecord::Schema.define(version: 20180614013718) do
+
+  create_table "problem_topics", force: :cascade do |t|
+    t.integer "problem_id"
+    t.integer "topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_problem_topics_on_problem_id"
+    t.index ["topic_id"], name: "index_problem_topics_on_topic_id"
+  end
 
   create_table "problems", force: :cascade do |t|
     t.text "content"
@@ -19,6 +28,22 @@ ActiveRecord::Schema.define(version: 20180612173053) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_problems_on_user_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_topics_on_name"
+  end
+
+  create_table "user_topics", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_user_topics_on_topic_id"
+    t.index ["user_id"], name: "index_user_topics_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
