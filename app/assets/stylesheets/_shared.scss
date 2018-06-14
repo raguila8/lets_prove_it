@@ -78,3 +78,78 @@
     /*float: left !important;*/
   }
 }
+
+/* Sidebar */
+
+.stats-widget ul, .highest-points-widget ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stats-widget ul li {
+  color: #2f3239;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #eaeaeb;
+  margin-bottom: 10px;
+  padding: 10px !important;
+}
+
+.stats-widget ul li, .highest-points-widget ul li {
+  position: relative;
+  overflow: hidden;
+}
+
+.circle-icon {
+  background: #2f3239;
+  color: #fff;
+  width: 23px;
+  height: 23px;
+  
+  text-align: center;
+  line-height: 23px;
+  vertical-align: middle;
+}
+
+.highest-points-widget ul li {
+  padding-bottom: 15px;
+}
+
+.author-img {
+  float: left;
+  display: block;
+  overflow: hidden;
+  width: 71px;
+  height: 71px;
+  position: relative;
+  margin-right: 20px;
+  overflow: hidden;
+  padding: 2px;
+  border: 1px solid #dedede;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.highest-points-widget ul li h6 {
+
+  a {
+   color: #111 !important;
+  }
+
+  text-transform: none;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 10px 0 5px;
+  font-weight: bold;
+
+}
+
+
+.highest-points-widget .comment {
+  padding: 0;
+  border-bottom: 0;
+  color: #2f3239;
+  font-size: 13px;
+}

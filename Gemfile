@@ -37,6 +37,11 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem "font-awesome-rails"
 
+gem 'fog'
+gem 'carrierwave'
+gem 'mini_magick'
+
+
 gem 'toastr-rails'
 gem 'figaro'
 

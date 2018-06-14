@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :proofs
   get 'users/show'
 
   get 'static_pages/landing'

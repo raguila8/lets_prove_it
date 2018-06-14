@@ -4,8 +4,12 @@ module ApplicationHelper
       "Login"
     elsif controller_name == "registrations" and (action_name == "new" || action_name == "create")
       "Register"
-    elsif controller_name == "problems" and action_name == "index"
-      "Home"
+    elsif controller_name == "problems"
+      if action_name == "index"
+        "Home"
+      elsif action_name == "new"
+        "Add Problem"
+      end
     end
   end
 
@@ -14,8 +18,12 @@ module ApplicationHelper
       "Login or create an account"
     elsif controller_name == "registrations" and (action_name == "new" || action_name == "create")
       "Create and Account or Login"
-    elsif controller_name == "problems" and action_name == "index"
-      "Filter problems by topic"
+    elsif controller_name == "problems"
+      if action_name == "index"
+        "Filter problems by topic"
+      elsif action_name == "new"
+        "Make a statement to prove"
+      end
     end
   end
 
