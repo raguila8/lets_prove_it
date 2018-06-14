@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/show'
+
   get 'static_pages/landing'
 
   get 'static_pages/about'
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
 			root 'static_pages#landing'
 		end
   end
+  resources :users, only: [:show]
   resources :problems
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -20,7 +20,7 @@
 
         <!-- Home -->
         <li>
-          <a href="#">Home</a>
+          <%= link_to "Home", problems_path %>
         </li><!-- / Home -->
                
       </ul><!-- / .nav .navbar-nav -->
@@ -37,11 +37,43 @@
 
           <!-- Signup -->
           <li>
-          
             <a href="<%= new_user_registration_path %>">
               <button class="btn btn-light btn-small">Signup</button>
             </a>
           </li><!-- / Signup -->
+
+        <% else %>
+
+          <!-- New Problem -->
+          <li>
+            <a href="<%= new_problem_path %>">
+              <button class="btn-ghost-light btn-small" style="bottom: 6px;">Add Problem</button>
+            </a>
+          </li><!-- / New Problem -->
+
+          <!-- User dropdown -->
+          <li class="dropdown">
+					  <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button" aria-haspopup="true" aria-expanded="false" href="#">
+						  <span class="glyphicon glyphicon-user g-mr-5"></span>
+						  <span><%=current_user.username%></span>
+						  <span class="caret"></span>
+					  </a>
+        	  <ul class="dropdown-menu">
+          	  <li class="g-mh-20">
+							  <%= link_to "Profile", current_user %>
+						  </li>	
+
+          	  <li class="g-mh-20">
+							  <%= link_to "Account", edit_user_registration_path %>
+						  </li>
+
+          	  <li class="g-mh-20">
+							  <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+						  </li>
+       		  </ul>
+				  </li> <!-- / user dropdown -->
+
+                   
         <% end %>
  
         <!-- Search -->

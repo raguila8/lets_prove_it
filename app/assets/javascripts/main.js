@@ -56,6 +56,7 @@ $(document).on('turbolinks:load', function() {
 
 		// Nav on mobile screens
 		$(window).resize(function() {
+      console.log("hello");
 	        if ($(window).width() <= 1259) {
 				$('nav').addClass('mobile-nav');		        
 		    } else {
