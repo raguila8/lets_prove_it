@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, UserImageUploader
 
-
+  has_many :user_topics
   has_many :topics, through: :user_topics, :dependent => :destroy
   has_many :proofs, :dependent => :destroy
   has_many :problem_images, :dependent => :destroy

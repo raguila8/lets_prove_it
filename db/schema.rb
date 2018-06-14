@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614072038) do
+ActiveRecord::Schema.define(version: 20180614073842) do
+
+  create_table "problem_images", force: :cascade do |t|
+    t.string "image"
+    t.integer "user_id"
+    t.integer "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_problem_images_on_problem_id"
+    t.index ["user_id"], name: "index_problem_images_on_user_id"
+  end
 
   create_table "problem_topics", force: :cascade do |t|
     t.integer "problem_id"
@@ -28,6 +38,26 @@ ActiveRecord::Schema.define(version: 20180614072038) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_problems_on_user_id"
+  end
+
+  create_table "proof_images", force: :cascade do |t|
+    t.string "image"
+    t.integer "user_id"
+    t.integer "proof_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proof_id"], name: "index_proof_images_on_proof_id"
+    t.index ["user_id"], name: "index_proof_images_on_user_id"
+  end
+
+  create_table "proofs", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
+    t.integer "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_proofs_on_problem_id"
+    t.index ["user_id"], name: "index_proofs_on_user_id"
   end
 
   create_table "topics", force: :cascade do |t|

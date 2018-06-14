@@ -127,3 +127,147 @@
     }
   }
 }
+
+/********************
+
+  NEW PROBLEM
+
+********************/
+
+.author-img img {
+    display: block;
+    float: left;
+    width: 65px;
+    height: 65px;
+    overflow: hidden;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+
+
+.page-content  {
+  overflow: hidden;
+  height: 100%;
+  padding: 20px;
+}
+
+.page-content .boxedtitle.add-problem-title {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: transparent;
+  position: relative;
+  margin-bottom: 10px !important;
+}
+
+.page-content .boxedtitle.add-problem-title, .post-box .boxedtitle {
+  margin: -20px -20px 20px;
+}
+
+.page-content .boxedtitle {
+  margin-bottom: 20px;
+  padding-left: 20px;
+  border-bottom: 0;
+}
+
+.page-content .boxedtitle.add-problem-title h2 {
+  padding: 20px 0 10px;
+  margin: 0 20px 20px 0;
+  border-bottom: 2px solid #dedede;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.page-content p {
+  font-size: 13px;
+  font-weight: normal;
+}
+
+#problem-submit .form-inputs p {
+  margin-bottom: 30px;
+}
+
+.form-style-3 .form-inputs p {
+  width: 100% !important;
+  margin-right: 0;
+  float: none;
+}
+
+.form-inputs p {
+  width: 32%;
+  margin-right: 2%;
+  margin-bottom: 10px;
+  float: left;
+  overflow: hidden;
+  height: 100%;
+}
+
+.add-problem .form-style label {
+    float: left;
+    width: 17%;
+    margin-right: 1%;
+    margin-top: 9px;
+}
+
+
+.form-style-3 label, .form-style-4 label {
+  margin-top: 0;
+}
+
+.form-style label {
+  color: #2f3239;
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: 9px;
+}
+
+@media (min-width: 1200px) {
+  .add-problem .form-style label {
+    width: 17%;
+  }
+}
+
+.form-style label.required span {
+    margin-left: 3px;
+    color: #F00;
+}
+
+.form-style p span {
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 5px;
+  color: #848991;
+}
+
+#problem-title {
+  float: left;
+  width: 82%;
+}
+
+.form-style input, .form-style textarea {
+  display: block;
+  width: 100%;
+  margin: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.add-problem .form-description {
+  width: 80%;
+  display: inline-block;
+}
+
+.form-style p span {
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 5px;
+  color: #848991;
+}
+
+.form-description {
+  margin-left: 18%;
+}
