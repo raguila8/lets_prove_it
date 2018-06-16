@@ -15,15 +15,17 @@
 					
 					<p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p>
 					
-					<%= form_with(model: @problem) do |form| %>
+					<%= form_with(model: @problem, local: true, id: "problem-form") do |form| %>
+            <%= render 'shared/error_messages' %>
+            <%= form.hidden_field :tags, value: "", id: "problem-tags" %>
             <div class="form-group">
               <%= form.label :title, "Problem Title:" %>
               <%= form.text_field :title, class: "form-control" %>
-            </div>
+            </div> 
 
             <div class="form-group">
-              <%= form.label :tags, "Topics:" %>
-              <%= form.text_field :tags, class: "form-control" %>
+              <label for="topic_name">Topics:</label>
+              <input class="form-control" type="text" name="topic[name]" id="topics-input" data-provide="typeahead">
             </div>
 
             <div class="form-group">
@@ -126,9 +128,3 @@
     </aside><!-- / .sidebar -->
   </div>
 </div>
-
-<h1>New Problem</h1>
-
-<%= render 'form', problem: @problem %>
-
-<%= link_to 'Back', problems_path %>

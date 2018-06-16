@@ -1,4 +1,9 @@
 <p id="notice"><%= notice %></p>
+<% @problem.topics.each do |topic| %>
+  <p><%=topic.name%></p>
+<% end %>
+
+<p><%=@problem.topics.count%></p>
 
 <%= link_to 'Edit', edit_problem_path(@problem) %> |
 <%= link_to 'Back', problems_path %>

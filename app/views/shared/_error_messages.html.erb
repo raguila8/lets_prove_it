@@ -1,5 +1,7 @@
 <% if @user %>
 	<% model = @user %>
+<% elsif @problem %>
+  <% model = @problem %>
 <% end %>
 <% if model.errors.any? %>
   <div id="error_explanation">
@@ -11,6 +13,12 @@
   <div id="error_explanation">
    <ul>
     <li><%= flash[:failed_login] %></li>
+    </ul>
+  </div>
+<% elsif flash[:failed_problem_create] %>
+  <div id="error_explanation">
+   <ul>
+    <li><%= flash[:failed_problem_create] %></li>
     </ul>
   </div>
 <% end %>

@@ -16,6 +16,9 @@
 //= require google-fonts.js
 //= require bootstrap-sprockets
 //= require toastr
+//= require bloodhound.js
+//= require bootstrap3-typeahead.js
+//= require bootstrap-tagsinput.js
 //= require animated-heading.js
 //= require jquery.easing.js
 //= require jquery.localScroll.min.js

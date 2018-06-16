@@ -25,13 +25,27 @@ class ProblemsController < ApplicationController
   # POST /problems.json
   def create
     @problem = Problem.new(problem_params)
-
+    @problem.user_id = current_user.id
+    tags = problem_tags_params["tags"]
+    tagsArray = tags.split(",")
     respond_to do |format|
-      if @problem.save
+=begin
+      tagsArray.each do |tag|
+        topic = Topic.find_by(name: tag)
+        if topic
+          @problem << topic
+        end
+      end
+=end
+        exception = @problem.save_with_topics(tagsArray)[:exception]
+      if !exception
         format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
         format.json { render :show, status: :created, location: @problem }
       else
-        format.html { render :new }
+        format.html { 
+          flash.now[:failed_problem_create] = exception.message
+          render :new 
+        }
         format.json { render json: @problem.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +83,11 @@ class ProblemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
-      params.fetch(:problem, {})
+      params.require(:problem).permit(:title, :content)
     end
+
+    def problem_tags_params
+      params.require(:problem).permit(:tags)
+    end
+
 end

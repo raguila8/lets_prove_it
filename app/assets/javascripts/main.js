@@ -21,6 +21,14 @@ $(document).on('turbolinks:load', function() {
 
 	});
 
+  if ($("#topics-input").length) {
+    initTopicsTags();
+  }
+
+  if ($("#problem-form").length) {
+    initProblemForm();
+  }
+
 
    
 });
@@ -56,7 +64,6 @@ $(document).on('turbolinks:load', function() {
 
 		// Nav on mobile screens
 		$(window).resize(function() {
-      console.log("hello");
 	        if ($(window).width() <= 1259) {
 				$('nav').addClass('mobile-nav');		        
 		    } else {
@@ -145,4 +152,82 @@ $(document).on('turbolinks:load', function() {
 		new WOW().init();
 
 	}
+
+/* ------------------------------------------------
+  Problem Form
+--------------------------------------------------*/
+
+  function initProblemForm () {
+    $(document).on("keypress", "#problem-form", function(event) { 
+      if (event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+  }
+
+/* --------------------------------------------------
+  Topics Tags
+ ----------------------------------------------------*/
+  
+  function initTopicsTags () {
+    var numOfTags = 0;
+    var tags = "";
+    $('#topics-input').change(function(){
+      $(this).find('input').val('');
+    });
+
+    var data = ['Amsterdam', 'Sydney', 'Los Angeles', 'new york'];
+
+  var bloodHoundObj = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    // url points to a json file that contains an array of country names, see
+    // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+    local: data
+  });
+  bloodHoundObj.initialize();
+
+    
+    $('#topics-input').tagsinput({
+      typeahead: {
+        afterSelect: function(val) { this.$element.val(""); },
+        source: data,
+      },
+      freeInput: false
+    });
+
+    $('#topics-input').on('itemAdded', function(event) {
+      $('.bootstrap-tagsinput .tag').removeClass('label label-info');
+      //var hidden_field = "<input type='hidden' name='topics[name{numOfTags}' id = '{event.item}-tag'} value='{event.item}'>
+      tags = $("#problem-tags").val();
+      if (numOfTags >= 1) {
+        $("#problem-tags").val(tags += "," + event.item.toUpperCase())
+      } else {
+        $("#problem-tags").val(event.item.toUpperCase())
+      }
+      numOfTags += 1;
+      //$('#problem-form').prepend(hidden_field)
+    });
+
+    $('input').on('itemRemoved', function(event) {
+      tags = $("#problem-tags").val();
+      if (numOfTags > 1) {
+        tags = tags.replace("," + event.item.toUpperCase(), "");
+      } else {
+        tags = tags.replace(event.item.toUpperCase(), "");
+      }
+      $("#problem-tags").val(tags);
+      numOfTags -= 1;
+    });
+
+    $('#topics-input').on('beforeItemAdd', function(event) {
+      
+      // event.cancel: set to true to prevent the item getting added
+    });
+
+
+    $('.bootstrap-tagsinput').addClass('form-group');
+    $('.bootstrap-tagsinput input').addClass('form-control');
+  }
 
