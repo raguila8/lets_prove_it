@@ -10,16 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614073842) do
+ActiveRecord::Schema.define(version: 20180617083952) do
+
+  create_table "images", force: :cascade do |t|
+    t.string "image_data"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_images_on_user_id"
+  end
 
   create_table "problem_images", force: :cascade do |t|
-    t.string "image"
-    t.integer "user_id"
     t.integer "problem_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "image_id"
+    t.index ["image_id"], name: "index_problem_images_on_image_id"
     t.index ["problem_id"], name: "index_problem_images_on_problem_id"
-    t.index ["user_id"], name: "index_problem_images_on_user_id"
   end
 
   create_table "problem_topics", force: :cascade do |t|
@@ -41,13 +48,12 @@ ActiveRecord::Schema.define(version: 20180614073842) do
   end
 
   create_table "proof_images", force: :cascade do |t|
-    t.string "image"
-    t.integer "user_id"
     t.integer "proof_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "image_id"
+    t.index ["image_id"], name: "index_proof_images_on_image_id"
     t.index ["proof_id"], name: "index_proof_images_on_proof_id"
-    t.index ["user_id"], name: "index_proof_images_on_user_id"
   end
 
   create_table "proofs", force: :cascade do |t|

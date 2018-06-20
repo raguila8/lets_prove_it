@@ -158,7 +158,7 @@ $(document).on('turbolinks:load', function() {
 --------------------------------------------------*/
 
   function initProblemForm () {
-    $(document).on("keypress", "#problem-form", function(event) { 
+    $(document).on("keypress", ".bootstrap-tagsinput input", function(event) { 
       if (event.keyCode == 13) {
         event.preventDefault();
         return false;

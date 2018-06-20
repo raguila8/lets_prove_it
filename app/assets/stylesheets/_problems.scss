@@ -102,7 +102,7 @@
   float: right;
 }
 
-.blog-post .bp-content .tag-list {
+.blog-post .bp-content .tag-list, .blog-post-single .tag-list {
   padding: 0;
   margin: 0;
 
@@ -358,3 +358,124 @@
   }
 
 }
+
+.vote-container {
+	.glyphicon {
+		cursor: pointer;
+		font-weight: 800;
+		display: block;
+		overflow: hidden;
+		margin-top: 0;
+		margin-bottom: 0;
+		font-weight: 400;
+		font-size: 16px;
+		color: #333;
+	}
+
+	span {
+		display: block;
+		margin-top: 0;
+		margin-bottom: 0;
+		font-weight: 400;
+    font-size: 16px;
+	}
+
+
+	a {
+		.glyphicon:hover {
+			color: #9c6283;
+		}
+	}
+}
+
+.vote-container-post {
+	padding-left: 0;
+	padding-right: 0;
+	vertical-align: middle;
+	float: left;
+	margin-top: -15px;
+  margin-right: 20px;
+}
+
+.bp-comment .vote-container {
+  display: inline-block;
+  width: 60px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+.blog-post-comments .bp-comment .comment-content, .blog-post-comments .bp-comment-reply .comment-content {
+  padding-bottom: 0px;
+  border-bottom: none;
+}
+
+.bp-comment, .bp-comment-reply {
+  border-bottom: 1px solid #ececec;
+  padding-bottom: 20px;
+}
+
+.bp-comment {
+  .btn-small {
+    line-height: 1em;
+    padding: 5px 20px;
+    font-size: 0.8em;
+    letter-spacing: 2px;
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .blog-post-comments .bp-comment-reply .comment-info {
+    margin-left: 90px;
+    margin-top: -40px;
+    vertical-align: text-top;
+  }
+
+  .blog-post-comments .bp-comment-reply .comment-content {
+    margin-top: 30px;
+  }
+
+  .bp-comment-reply .vote-container {
+    margin-top: -60px;
+  }
+}
+
+
+@media (max-width: 992px) {
+  .bp-comment .vote-container, .bp-comment-reply .vote-container {
+    margin-top: -20px;
+  }
+
+  .blog-post-comments .bp-comment-reply {
+    margin-left: 45px;
+  }
+
+  .blog-post-comments .bp-comment-reply .comment-info {
+    margin-left: 30px;
+  }
+}
+
+@media (max-width: 414px) {
+  .blog-post-comments .bp-comment-reply .comment-info {
+    margin-left: 90px;
+  }
+}
+
+@media (max-width: 383px) {
+  .blog-post-comments .bp-comment .comment-info {
+    margin-left: 90px;
+  }
+
+  .bp-comment .vote-container {
+    margin-top: -60px;
+  }
+
+}
+
+@media (max-width: 378px) {
+  .bp-comment .vote-container {
+    margin-top: -80px;
+  }
+}
+

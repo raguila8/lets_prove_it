@@ -1,4 +1,4 @@
 class ProofImage < ApplicationRecord
   belongs_to :proof
-  belongs_to :user
+  belongs_to :image
 end

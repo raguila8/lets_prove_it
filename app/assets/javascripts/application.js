@@ -28,4 +28,6 @@
 //= require smoothscroll.js
 //= require modernizr-2.8.3.min.js
 //= require wow.min.js
+//= require trix
+//= require trix_uploads.js
 //= require_tree .

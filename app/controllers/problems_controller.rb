@@ -29,14 +29,6 @@ class ProblemsController < ApplicationController
     tags = problem_tags_params["tags"]
     tagsArray = tags.split(",")
     respond_to do |format|
-=begin
-      tagsArray.each do |tag|
-        topic = Topic.find_by(name: tag)
-        if topic
-          @problem << topic
-        end
-      end
-=end
         exception = @problem.save_with_topics(tagsArray)[:exception]
       if !exception
         format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
@@ -89,5 +81,4 @@ class ProblemsController < ApplicationController
     def problem_tags_params
       params.require(:problem).permit(:tags)
     end
-
 end

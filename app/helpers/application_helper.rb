@@ -9,6 +9,8 @@ module ApplicationHelper
         "Home"
       elsif action_name == "new"
         "Add Problem"
+      elsif action_name == "show"
+        @problem.title
       end
     end
   end
@@ -23,6 +25,12 @@ module ApplicationHelper
         "Filter problems by topic"
       elsif action_name == "new"
         "Make a statement to prove"
+      elsif action_name == "show"
+        content = "<div class='post-meta'>" + 
+                    "<i class='fa fa-calendar-o'> </i>" +
+                    "<span> August 01.2015</span>" +
+                  "</div>"
+        return content.html_safe
       end
     end
   end
@@ -36,6 +44,8 @@ module ApplicationHelper
       return content.html_safe
     elsif controller_name == "problems" and action_name == "index"
       
+    elsif action_name == "show"
+
     end
   end
 end

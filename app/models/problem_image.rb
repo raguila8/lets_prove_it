@@ -1,4 +1,4 @@
 class ProblemImage < ApplicationRecord
-  belongs_to :user
   belongs_to :problem
+  belongs_to :image
 end

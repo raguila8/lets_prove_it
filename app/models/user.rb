@@ -8,9 +8,9 @@ class User < ApplicationRecord
 
   has_many :user_topics
   has_many :topics, through: :user_topics, :dependent => :destroy
+  has_many :problems
   has_many :proofs, :dependent => :destroy
-  has_many :problem_images, :dependent => :destroy
-  has_many :proof_images, :dependent => :destroy
+  has_many :images
 
   validates :email, presence: true, length: { maximum: 255 },
 										uniqueness: { case_sensitive: false }

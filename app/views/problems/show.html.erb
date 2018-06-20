@@ -1,9 +1,283 @@
-<p id="notice"><%= notice %></p>
-<% @problem.topics.each do |topic| %>
-  <p><%=topic.name%></p>
-<% end %>
+<!-- ========== Single Blog Post ========== -->
 
-<p><%=@problem.topics.count%></p>
+<div id="problem-page" class="pt-100 section container blog-classic">
+  <div class="row">
+    <div class="col-md-8 mb-sm-160">
+      
+        <!-- Blog Post -->
+        <div class="col-md-12 blog-post-single wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+<!--
+          
+          <img class="img-responsive post-img" src="http://placehold.it/750x400" alt="Blog Post 1">
+-->
+          <!-- Meta data -->
+          <div class="post-meta">
+            <ul class="tag-list mt-20">
+              <li><a href="#">Photography</a></li>
+              <li><a href="#">Design</a></li>
+              <li><a href="#">Development</a></li>
+              <li><a href="#">PHP</a></li>
+              <li><a href="#">UI/UX</a></li>
+              <li><a href="#">Design</a></li>
+              <li><a href="#">HTML5</a></li>
+              <li><a href="#">CSS3</a></li>
+              <li><a href="#">iOS</a></li>
+            </ul> <!-- / .tag-list -->
 
-<%= link_to 'Edit', edit_problem_path(@problem) %> |
-<%= link_to 'Back', problems_path %>
+          </div><!-- / .meta -->
+
+          <!-- Title -->
+          <h2 class="post-title font-weight-600 pt-20 problem-desc mb-30 "><%= @problem.title %></h2>
+          
+          <div class="vote-container vote-container-post">
+				    <span class="glyphicon glyphicon-triangle-top"></span>
+						<span id="" style="text-align: center; margin-left: -2px;">10 </span>
+						<span class="glyphicon glyphicon-triangle-bottom light-purple"></span>
+					</div>
+          <div class="problem-details">
+              <span class="problem-answered problem-answered-done"><i class="mr-5 glyphicon glyphicon-ok"></i>solved</span>
+          </div>
+            <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i>5 Answer</span>
+            <span class="problem-view"><i class="glyphicon glyphicon-eye-open mr-5"></i>70 views</span>
+
+          <div class="clearfix"></div>
+
+          <div class="mb-20 mt-20 blog-post-content problem-desc">
+            <%= sanitize @problem.content %>
+          </div>
+        </div><!-- / .blog-post-single -->
+        
+        
+
+        <!-- ========== Comments ========== -->
+
+        <div class="row">
+          <div class="col-md-12 blog-post-comments">
+            <h4 class="blog-section-title">Proofs <span>(4)</span></h4>
+
+            <!-- Comment 1 -->
+            <div class="bp-comment">
+              <div class="comment-avatar"><i class="fa fa-user"></i></div>
+              <div class="comment-info">
+                <h6 class="comment-name">Stella Hartmann</h6>
+                <span class="comment-time">on June 23,2015, at 22:34</span>
+                <button class="comment-replay-btn"><i class="fa fa-mail-reply-all"></i> Reply</button>
+              </div>
+              <br>
+              <div class="vote-container vote-container-post">
+				        <span class="glyphicon glyphicon-triangle-top"></span>
+						    <span id="" style="text-align: center; margin-left: -2px;">10 </span>
+						    <span class="glyphicon glyphicon-triangle-bottom light-purple"></span>
+					    </div>
+
+              <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+              <br>
+            </div><!-- / .bp-comment -->
+
+            <!-- Replay Comment -->
+            <div class="bp-comment-reply">
+              <div class="comment-avatar"><i class="fa fa-user"></i></div>
+              <div class="comment-info">
+                <h6 class="comment-name">Stella Hartmann</h6>
+                <span class="comment-time">on June 23,2015, at 22:34</span>
+              </div>
+              <br>
+              <div class="vote-container vote-container-post">
+				        <span class="glyphicon glyphicon-triangle-top"></span>
+						    <span id="" style="text-align: center; margin-left: -2px;">10 </span>
+						    <span class="glyphicon glyphicon-triangle-bottom light-purple"></span>
+					    </div>
+
+              <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+            </div><!-- / .bp-comment-reply -->
+            
+            <!-- Comment 2 -->
+            <div class="bp-comment">
+              <div class="comment-avatar"><i class="fa fa-user"></i></div>
+              <div class="comment-info">
+                <h6 class="comment-name">Stella Hartmann</h6>
+                <span class="comment-time">on June 23,2015, at 22:34</span>
+                <button class="comment-replay-btn"><i class="fa fa-mail-reply-all"></i> Reply</button>
+              </div>
+              <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+            </div><!-- / .bp-comment -->
+
+            <!-- Comment 3 -->
+            <div class="bp-comment">
+              <div class="comment-avatar"><i class="fa fa-user"></i></div>
+              <div class="comment-info">
+                <h6 class="comment-name">Stella Hartmann</h6>
+                <span class="comment-time">on June 23,2015, at 22:34</span>
+                <button class="comment-replay-btn"><i class="fa fa-mail-reply-all"></i> Reply</button>
+              </div>
+              <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa.</p>
+            </div><!-- / .bp-comment -->
+
+
+            <!-- Leave a comment -->
+            <div class="comment-form">
+              <h4 class="blog-section-title">Leave a comment</h4>
+
+              <form action="post">
+                <!-- Name -->
+                <div class="col-md-6 form-group no-gap-left">
+                  <input type="text" class="form-control" id="inpt-name-forms" placeholder="Enter your name">
+                  <label for="inpt-name-forms">Name *</label>
+                </div>
+                
+                <!-- Email -->
+                <div class="col-md-6 form-group no-gap-right">
+                  <input type="email" class="form-control" id="inpt-email-forms" placeholder="Enter your email">
+                  <label for="inpt-email-forms">Email *</label>
+                </div>
+                
+                <!-- Website -->
+                <div class="col-md-12 form-group no-gap">
+                  <input type="url" class="form-control" id="inpt-web-forms" placeholder="http://...">
+                  <label for="inpt-name-forms">Website</label>
+                </div>
+                
+                <!-- Comment -->
+                <div class="col-md-12 form-group no-gap">
+                  <textarea class="form-control" name="textarea" id="txt-forms" rows="5" placeholder="Your Comment"></textarea>
+                  <label for="txt-forms">Comment *</label>
+                </div>
+
+                <input type="submit" value="Send Comment" class="btn pull-right">
+              </form>
+            </div><!-- / .comment-form -->
+
+          </div><!-- / .blog-post-comments -->
+        </div><!-- / .row -->
+        
+        <!-- Post Navigation -->
+        <div class="row">
+          <nav class="blog-post-nav">
+            <a href="#" class="prev-btn">Prev post</a>
+            <a href="#" class="next-btn">Next post</a>
+          </nav>
+        </div>
+
+    </div><!-- / .col-md-8 -->
+
+
+
+    <!-- ========== Sidebar ========== -->
+
+    <aside class="col-md-offset-1 col-md-3 sidebar">
+
+      <!-- Search - Widget -->
+      <div class="col-md-12 ws-s search-widget">
+        <div class="form-group">
+          <input type="search" placeholder="Search ..." class="form-control">
+          <button class="inside-input-btn"><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+
+
+      <!-- Tags - Widget -->
+      <div class="col-md-12 ws-s tags-widget">
+        <h5 class="header-widget">Tags</h5>
+        <ul class="tag-list">
+          <li><a href="#">Photography</a></li>
+          <li><a href="#">Design</a></li>
+          <li><a href="#">Development</a></li>
+          <li><a href="#">PHP</a></li>
+          <li><a href="#">UI/UX</a></li>
+          <li><a href="#">Design</a></li>
+          <li><a href="#">HTML5</a></li>
+          <li><a href="#">CSS3</a></li>
+          <li><a href="#">iOS</a></li>
+        </ul>
+      </div>
+      
+
+      <!-- Recent Posts - Widget -->
+      <div class="col-md-12 ws-s recent-posts-widget">
+        <h5 class="header-widget">Recent Posts</h5>
+
+        <!-- Item 1 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Another Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+      </div><!-- / .recent-posts-widget -->
+
+
+      <!-- Categories - Widget -->
+      <div class="col-md-12 ws-s categories-widget">
+        <h5 class="header-widget">Categories</h5>
+
+        <!-- Item 1 -->
+        <div class="widget-item">
+          <a href="#">Web Design - <span>15</span></a>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="widget-item">
+          <a href="#">Graphic Design - <span>6</span></a>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="widget-item">
+          <a href="#">iOS Development - <span>12</span></a>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="widget-item">
+          <a href="#">Other - <span>3</span></a>
+        </div>
+
+      </div><!-- / .categories-widget -->
+
+
+      <!-- Comments - Widget -->
+      <div class="col-md-12 ws-s comments-widget">
+        <h5 class="header-widget">Comments</h5>
+
+        <!-- Item 1 -->
+        <div class="widget-item">
+          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Lorem ipsum dolor sit amet</a></span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="widget-item">
+          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Sed do eiusmod</a></span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="widget-item">
+          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Lorem ipsum dolor sit amet</a></span>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="widget-item">
+          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Sed do eiusmod</a></span>
+        </div>
+        
+      </div><!-- / .comments-widget -->
+
+
+      <!-- Text - Widget -->
+      <div class="col-md-12 text-widget">
+        <h5 class="header-widget">Text Widget</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae qui error, incidunt quia pariatur facere quasi totam inventore amet rerum.</p>
+      </div><!-- / .text-widget -->
+
+    </aside><!-- / .sidebar -->
+
+  </div><!-- / .row -->
+</div><!-- / .container -->

@@ -24,4 +24,11 @@
   }
 }
 
+textarea.form-control {
+  min-height: 10em;
+}
 
+/* trix textarea */
+trix-editor {
+  min-height: 10em;
+}
