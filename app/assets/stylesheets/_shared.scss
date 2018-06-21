@@ -19,6 +19,10 @@
   float: left !important;
 }
 
+.float-right {
+  float: right !important;
+}
+
 .clearfix {
   clear: both;
 }
@@ -152,4 +156,10 @@
   border-bottom: 0;
   color: #2f3239;
   font-size: 13px;
+}
+
+/* Toastr */
+
+.toast-top-left {
+  margin-top: 75px !important;
 }

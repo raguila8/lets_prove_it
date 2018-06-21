@@ -10,6 +10,7 @@ class ProblemsController < ApplicationController
   # GET /problems/1
   # GET /problems/1.json
   def show
+    @proof = Proof.new
   end
 
   # GET /problems/new
@@ -19,6 +20,9 @@ class ProblemsController < ApplicationController
 
   # GET /problems/1/edit
   def edit
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   # POST /problems
@@ -31,6 +35,7 @@ class ProblemsController < ApplicationController
     respond_to do |format|
         exception = @problem.save_with_topics(tagsArray)[:exception]
       if !exception
+        @problem.add_new_images(current_user)
         format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
         format.json { render :show, status: :created, location: @problem }
       else
@@ -46,12 +51,21 @@ class ProblemsController < ApplicationController
   # PATCH/PUT /problems/1
   # PATCH/PUT /problems/1.json
   def update
+    @proof.update_attributes(problem_params)
+    tags = problem_tags_params["tags"]
+    tagsArray = tags.split(",")
+
     respond_to do |format|
-      if @problem.update(problem_params)
+      exception = @problem.save_with_topics(tagsArray)[:exception]
+      if !exception
+        @problem.add_new_images(current_user)
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
         format.json { render :show, status: :ok, location: @problem }
       else
-        format.html { render :edit }
+        format.html { 
+          flash.now[:failed_problem_create] = exception.message
+          render :edit 
+        }
         format.json { render json: @problem.errors, status: :unprocessable_entity }
       end
     end
@@ -60,11 +74,9 @@ class ProblemsController < ApplicationController
   # DELETE /problems/1
   # DELETE /problems/1.json
   def destroy
-    @problem.destroy
     respond_to do |format|
-      format.html { redirect_to problems_url, notice: 'Problem was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+      format.js {}
+    end  
   end
 
   private

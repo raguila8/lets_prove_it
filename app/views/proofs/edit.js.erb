@@ -1,0 +1,6 @@
+<% if !@proof.nil? %>
+  $('#proof-<%=@proof.id%>').find('.proof-remove').css('display', 'none');
+  $('#proof-<%=@proof.id%>').find('.proof-edit').css('display', 'none');
+
+  $('#proof-content-<%=@proof.id%>').html("<%= escape_javascript render(:partial => '/proofs/proof_form', :locals => { :@proof => @proof }) %>");
+<% end %>

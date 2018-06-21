@@ -1,0 +1,7 @@
+<% if !@proof.nil? %>
+  $('#proof-<%=@proof.id%> .proof-remove').css('display', 'block');
+  $('#proof-<%=@proof.id%> .proof-edit').css('display', 'block');
+
+  $('#proof-content-<%=@proof.id%>').html("<%= escape_javascript render(:partial => '/proofs/proof_content', :locals => { :@proof => @proof }) %>");
+
+<% end %>

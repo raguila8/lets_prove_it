@@ -1,5 +1,5 @@
 class ProofsController < ApplicationController
-  before_action :set_proof, only: [:show, :edit, :update, :destroy]
+  before_action :set_proof, only: [:show, :edit, :cancel_edit, :update, :destroy]
 
   # GET /proofs
   # GET /proofs.json
@@ -19,19 +19,32 @@ class ProofsController < ApplicationController
 
   # GET /proofs/1/edit
   def edit
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
+  def cancel_edit
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   # POST /proofs
   # POST /proofs.json
   def create
     @proof = Proof.new(proof_params)
+    @problem = Problem.find(@proof.problem_id)
+    @proof.problem_id = @problem.id
+    @proof.user_id = current_user.id
 
     respond_to do |format|
       if @proof.save
-        format.html { redirect_to @proof, notice: 'Proof was successfully created.' }
+        @proof.add_new_images(current_user)
+        format.html { redirect_to @problem, notice: 'Proof was successfully created.' }
         format.json { render :show, status: :created, location: @proof }
       else
-        format.html { render :new }
+        format.html {  render :template => "problems/show", locale: {id: @problem.id} }
         format.json { render json: @proof.errors, status: :unprocessable_entity }
       end
     end
@@ -40,13 +53,15 @@ class ProofsController < ApplicationController
   # PATCH/PUT /proofs/1
   # PATCH/PUT /proofs/1.json
   def update
+    @proof.update_attributes(proof_params)
+    @problem = Problem.find(@proof.problem_id)
+
     respond_to do |format|
-      if @proof.update(proof_params)
-        format.html { redirect_to @proof, notice: 'Proof was successfully updated.' }
-        format.json { render :show, status: :ok, location: @proof }
+      if @proof.save 
+        @proof.add_new_images(current_user)
+        format.js {}
       else
-        format.html { render :edit }
-        format.json { render json: @proof.errors, status: :unprocessable_entity }
+        format.js {}
       end
     end
   end
@@ -54,9 +69,13 @@ class ProofsController < ApplicationController
   # DELETE /proofs/1
   # DELETE /proofs/1.json
   def destroy
+    @problem = @proof.problem
     @proof.destroy
     respond_to do |format|
-      format.html { redirect_to proofs_url, notice: 'Proof was successfully destroyed.' }
+      format.html { 
+        flash[:notice] = "Proof was successfully destroyed."
+        redirect_to @problem
+      }
       format.json { head :no_content }
     end
   end
@@ -69,6 +88,6 @@ class ProofsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def proof_params
-      params.require(:proof).permit(:content)
+      params.require(:proof).permit(:content, :problem_id)
     end
 end

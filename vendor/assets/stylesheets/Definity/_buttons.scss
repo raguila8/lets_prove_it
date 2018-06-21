@@ -136,7 +136,34 @@ input[class="btn-ghost"] {
 	}
 }
 
+.btn-text-danger {
+  border: 2px solid rgba(17,17,17, 0);
+	color: #a94442;
 
+  &:visited {
+		color: #a94442;
+		background: none;
+
+		&:hover {
+			color: #a94442;
+			background: none;
+			border: 2px solid rgba(17,17,17, 1);
+		}
+  }
+
+  &:hover {
+		color: #a94442;
+		background: none;
+		border: 2px solid #a94442;
+	}
+
+	&:focus {
+		color: #a94442;
+		outline: none;
+		text-decoration: none;
+	}
+
+}
 
 /* ---- 2.5 Button Sizes ---- */
 .btn-large {

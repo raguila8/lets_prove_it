@@ -42,7 +42,7 @@
 
           <div class="clearfix"></div>
 
-          <div class="mb-20 mt-20 blog-post-content problem-desc">
+          <div class="mb-20 mt-20 blog-post-content">
             <%= sanitize @problem.content %>
           </div>
         </div><!-- / .blog-post-single -->
@@ -50,114 +50,90 @@
         
 
         <!-- ========== Comments ========== -->
-
         <div class="row">
           <div class="col-md-12 blog-post-comments">
-            <h4 class="blog-section-title">Proofs <span>(4)</span></h4>
+            <h4 class="blog-section-title">Proofs <span>(<%= @problem.proofs.count %>)</span></h4>
+            <% @problem.proofs.each do |proof| %>
+              <!-- Comment 1 -->
+              <div class="bp-comment" id="proof-<%=proof.id%>">
+                <div class="comment-avatar"><i class="fa fa-user"></i></div>
+                <div class="comment-info">
+                  <h6 class="comment-name"><%= proof.user.username %></h6>
+                  <span class="comment-time">on <%= proof.created_at.strftime("%Y-%m-%d") %> </span>
+                  <button class="comment-replay-btn"><i class="fa fa-mail-reply-all"></i> Reply</button>
+                </div>
+                <br>
+                <div class="vote-container vote-container-post">
+				          <span class="glyphicon glyphicon-triangle-top"></span>
+						      <span id="" style="text-align: center; margin-left: -2px;">10 </span>
+						      <span class="glyphicon glyphicon-triangle-bottom light-purple"></span>
+					      </div>
 
-            <!-- Comment 1 -->
-            <div class="bp-comment">
-              <div class="comment-avatar"><i class="fa fa-user"></i></div>
-              <div class="comment-info">
-                <h6 class="comment-name">Stella Hartmann</h6>
-                <span class="comment-time">on June 23,2015, at 22:34</span>
-                <button class="comment-replay-btn"><i class="fa fa-mail-reply-all"></i> Reply</button>
-              </div>
-              <br>
-              <div class="vote-container vote-container-post">
-				        <span class="glyphicon glyphicon-triangle-top"></span>
-						    <span id="" style="text-align: center; margin-left: -2px;">10 </span>
-						    <span class="glyphicon glyphicon-triangle-bottom light-purple"></span>
-					    </div>
+                <div class="comment-content" id= "proof-content-<%=proof.id%>">
+                  <%= sanitize proof.content %>
+                </div>
+                <br>
+                <% if signed_in? and proof.user == current_user %>
+                  <%= link_to proof_path(proof.id), method: :delete, class: "btn-text btn-small btn-text-danger float-right", data: { confirm: "Are you sure you want to delete your proof?" } do %>
+                    <span class="proof-remove"><i class="mr-5 glyphicon glyphicon-remove"></i>Delete</span>
+                  <% end %>
 
-              <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-              <br>
-            </div><!-- / .bp-comment -->
+                  <%= link_to edit_proof_path(proof.id),  remote: true, class: "btn-text btn-small float-right" do %>
+                    <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+                  <% end %>
 
-            <!-- Replay Comment -->
-            <div class="bp-comment-reply">
-              <div class="comment-avatar"><i class="fa fa-user"></i></div>
-              <div class="comment-info">
-                <h6 class="comment-name">Stella Hartmann</h6>
-                <span class="comment-time">on June 23,2015, at 22:34</span>
-              </div>
-              <br>
-              <div class="vote-container vote-container-post">
-				        <span class="glyphicon glyphicon-triangle-top"></span>
-						    <span id="" style="text-align: center; margin-left: -2px;">10 </span>
-						    <span class="glyphicon glyphicon-triangle-bottom light-purple"></span>
-					    </div>
+                  <div class="clearfix"></div>
 
-              <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-            </div><!-- / .bp-comment-reply -->
-            
-            <!-- Comment 2 -->
-            <div class="bp-comment">
-              <div class="comment-avatar"><i class="fa fa-user"></i></div>
-              <div class="comment-info">
-                <h6 class="comment-name">Stella Hartmann</h6>
-                <span class="comment-time">on June 23,2015, at 22:34</span>
-                <button class="comment-replay-btn"><i class="fa fa-mail-reply-all"></i> Reply</button>
-              </div>
-              <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-            </div><!-- / .bp-comment -->
+                <% end %>
+              </div><!-- / .bp-comment -->
+              
+              <% proof.comments.each do |comment| %>
+          
+                <!-- Replay Comment -->
+                <div class="bp-comment-reply">
+                  <div class="comment-avatar"><i class="fa fa-user"></i></div>
+                  <div class="comment-info">
+                    <h6 class="comment-name"><%= comment.user.username %></h6>
+                    <span class="comment-time">on <%= comment.created_at.strftime("%Y-%m-%d") %></span>
+                  </div>
+                  <br>
+                  <div class="vote-container vote-container-post">
+				            <span class="glyphicon glyphicon-triangle-top"></span>
+						        <span id="" style="text-align: center; margin-left: -2px;">10 </span>
+						        <span class="glyphicon glyphicon-triangle-bottom light-purple"></span>
+					        </div>
 
-            <!-- Comment 3 -->
-            <div class="bp-comment">
-              <div class="comment-avatar"><i class="fa fa-user"></i></div>
-              <div class="comment-info">
-                <h6 class="comment-name">Stella Hartmann</h6>
-                <span class="comment-time">on June 23,2015, at 22:34</span>
-                <button class="comment-replay-btn"><i class="fa fa-mail-reply-all"></i> Reply</button>
-              </div>
-              <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa.</p>
-            </div><!-- / .bp-comment -->
-
-
+                  <div class="comment-content">
+                    <%= sanitize comment.content %>
+                  </div>
+                </div><!-- / .bp-comment-reply -->
+              <% end %>
+            <% end %>     
+           
             <!-- Leave a comment -->
             <div class="comment-form">
-              <h4 class="blog-section-title">Leave a comment</h4>
+              <% if @problem.proofs.count == 0 %>
+                <h4 class="blog-section-title">Be the first to proove</h4>
+              <% else %>
+                <h4 class="blog-section-title">Leave a proof</h4>
+              <% end %>
 
-              <form action="post">
-                <!-- Name -->
-                <div class="col-md-6 form-group no-gap-left">
-                  <input type="text" class="form-control" id="inpt-name-forms" placeholder="Enter your name">
-                  <label for="inpt-name-forms">Name *</label>
-                </div>
-                
-                <!-- Email -->
-                <div class="col-md-6 form-group no-gap-right">
-                  <input type="email" class="form-control" id="inpt-email-forms" placeholder="Enter your email">
-                  <label for="inpt-email-forms">Email *</label>
-                </div>
-                
-                <!-- Website -->
-                <div class="col-md-12 form-group no-gap">
-                  <input type="url" class="form-control" id="inpt-web-forms" placeholder="http://...">
-                  <label for="inpt-name-forms">Website</label>
-                </div>
-                
-                <!-- Comment -->
-                <div class="col-md-12 form-group no-gap">
-                  <textarea class="form-control" name="textarea" id="txt-forms" rows="5" placeholder="Your Comment"></textarea>
-                  <label for="txt-forms">Comment *</label>
+              <%= form_with(model: Proof.new, local: true, id: "proof-form") do |form| %>
+                <%= form.hidden_field :problem_id, value: "#{@problem.id}", id: "problem-id" %>
+                <%= render 'shared/error_messages' %>
+
+                <div class="form-group">
+                  <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
+                  <trix-editor input="proof_content"></trix-editor>
                 </div>
 
-                <input type="submit" value="Send Comment" class="btn pull-right">
-              </form>
+               
+                <input type="submit" value="Submit Proof" class="btn pull-right">
+              <% end %>
             </div><!-- / .comment-form -->
 
           </div><!-- / .blog-post-comments -->
-        </div><!-- / .row -->
-        
-        <!-- Post Navigation -->
-        <div class="row">
-          <nav class="blog-post-nav">
-            <a href="#" class="prev-btn">Prev post</a>
-            <a href="#" class="next-btn">Next post</a>
-          </nav>
-        </div>
-
+        </div><!-- / .row --> 
     </div><!-- / .col-md-8 -->
 
 
@@ -281,3 +257,9 @@
 
   </div><!-- / .row -->
 </div><!-- / .container -->
+
+<script>
+  <% if @proof.errors.any? %>
+    document.getElementById('proof-form').scrollIntoView();
+  <% end %>
+</script>

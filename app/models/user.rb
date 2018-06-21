@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :problems
   has_many :proofs, :dependent => :destroy
   has_many :images
+  has_many :comments, :dependent => :destroy
 
   validates :email, presence: true, length: { maximum: 255 },
 										uniqueness: { case_sensitive: false }
@@ -20,6 +21,7 @@ class User < ApplicationRecord
   validate :avatar_size
 
 
+  
   private
 	
 		# Validates the size of an uploaded image

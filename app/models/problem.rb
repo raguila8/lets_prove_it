@@ -2,10 +2,10 @@ class Problem < ApplicationRecord
   include Exceptions
   belongs_to :user
   has_many :proofs, :dependent => :destroy
-  has_many :problem_images, :dependent => :destroy
-  has_many :images, through: :problem_images
-  has_many :problem_topics
-  has_many :topics, through: :problem_topics, :dependent => :destroy
+  has_many :problem_images
+  has_many :images, through: :problem_images, :dependent => :destroy
+  has_many :problem_topics, :dependent => :destroy
+  has_many :topics, through: :problem_topics
   validates :topics, length: { minimum: 1 },
                        unless: :new_record?
 
@@ -22,7 +22,7 @@ class Problem < ApplicationRecord
         #event = Event.create!(args)
         tagsArray.each do |tag|
           topic = Topic.find_by(name: tag)
-          if topic
+          if topic and !ProblemTopic.find_by(problem_id: self.id, topic_id: topic.id)
             ProblemTopic.create!(problem_id: self.id, topic_id: topic.id)
           end
         end
@@ -37,5 +37,13 @@ class Problem < ApplicationRecord
       return { exception: exception }
     end
     return { }
+  end
+
+  def add_new_images(current_user)
+    current_user.images.each do |image|
+      if !ProblemImage.find_by(image_id: image.id)
+        ProblemImage.create(problem_id: self.id, image_id: image.id)
+      end
+    end
   end
 end

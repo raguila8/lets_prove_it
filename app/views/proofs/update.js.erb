@@ -1,0 +1,34 @@
+<% if !@proof.nil? and !@proof.errors.any? %>
+  $('#proof-<%=@proof.id%> .proof-remove').css('display', 'block');
+  $('#proof-<%=@proof.id%> .proof-edit').css('display', 'block');
+
+  $('#proof-content-<%=@proof.id%>').html("<%= escape_javascript render(:partial => '/proofs/proof_content', :locals => { :@proof => @proof }) %>");
+
+
+  // toastr flash messages
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-bottom-left",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "8000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+
+  var $toastContent = $('<span>Proof was successfully updated.</span>');
+  toastr.info($toastContent)
+
+
+<% else %>
+  $('#proof-form-<%=@proof.id%>').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@proof => @proof }) %>");
+
+<% end %>

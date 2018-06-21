@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
+  get 'comments/create'
+
+  get 'comments/edit'
+
+  get 'comments/update'
+
   resources :proofs
+  get '/proofs/:id/cancel_edit', to: 'proofs#cancel_edit', as: :cancel_edit
   get 'users/show'
 
   get 'static_pages/landing'
