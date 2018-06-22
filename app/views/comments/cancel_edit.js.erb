@@ -1,0 +1,7 @@
+<% if !@comment.nil? %>
+  $('#comment-<%=@comment.id%> .comment-remove').css('display', 'block');
+  $('#comment-<%=@comment.id%> .comment-edit').css('display', 'block');
+
+  $('#comment-content-<%=@comment.id%>').html("<%= escape_javascript render(:partial => '/comments/comment_content', :locals => { :@comment => @comment }) %>");
+
+<% end %>

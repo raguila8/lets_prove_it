@@ -51,7 +51,7 @@
 
         <!-- ========== Comments ========== -->
         <div class="row">
-          <div class="col-md-12 blog-post-comments">
+          <div class="col-md-12 blog-post-comments proofs-section">
             <h4 class="blog-section-title">Proofs <span>(<%= @problem.proofs.count %>)</span></h4>
             <% @problem.proofs.each do |proof| %>
               <!-- Comment 1 -->
@@ -60,7 +60,9 @@
                 <div class="comment-info">
                   <h6 class="comment-name"><%= proof.user.username %></h6>
                   <span class="comment-time">on <%= proof.created_at.strftime("%Y-%m-%d") %> </span>
-                  <button class="comment-replay-btn"><i class="fa fa-mail-reply-all"></i> Reply</button>
+                  <%= link_to new_comment_path(proof_id: proof.id), remote: true, class: "comment-replay-btn" do %>
+                    <i class="fa fa-mail-reply-all"></i> Reply
+                  <% end %>
                 </div>
                 <br>
                 <div class="vote-container vote-container-post">
@@ -81,16 +83,14 @@
                   <%= link_to edit_proof_path(proof.id),  remote: true, class: "btn-text btn-small float-right" do %>
                     <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
                   <% end %>
-
-                  <div class="clearfix"></div>
-
                 <% end %>
+                <div class="clearfix"></div>
               </div><!-- / .bp-comment -->
               
               <% proof.comments.each do |comment| %>
           
                 <!-- Replay Comment -->
-                <div class="bp-comment-reply">
+                <div class="bp-comment-reply" id="comment-<%=comment.id%>">
                   <div class="comment-avatar"><i class="fa fa-user"></i></div>
                   <div class="comment-info">
                     <h6 class="comment-name"><%= comment.user.username %></h6>
@@ -103,9 +103,23 @@
 						        <span class="glyphicon glyphicon-triangle-bottom light-purple"></span>
 					        </div>
 
-                  <div class="comment-content">
+                  <div class="comment-content" id="comment-content-<%=comment.id%>">
                     <%= sanitize comment.content %>
                   </div>
+                  <br>
+                  <% if signed_in? and comment.user == current_user %>
+                    <%= link_to comment_path(comment.id), method: :delete, class: "btn-text btn-small btn-text-danger float-right", data: { confirm: "Are you sure you want to delete your comment?" } do %>
+                      <span class="comment-remove"><i class="mr-5 glyphicon glyphicon-remove"></i>Delete</span>
+                    <% end %>
+
+                    <%= link_to edit_comment_path(comment.id),  remote: true, class: "btn-text btn-small float-right" do %>
+                      <span class="comment-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+                    <% end %>
+                  <% end %>
+
+
+
+                  <div class="clearfix"></div>
                 </div><!-- / .bp-comment-reply -->
               <% end %>
             <% end %>     

@@ -1,0 +1,7 @@
+// Cancel all other new comment forms if any
+$('#new-comment-form').remove();
+$('.comment-replay-btn').css('display', 'inine-block');
+
+$('#proof-<%=@proof.id%>').find('.comment-replay-btn').css('display', 'none');
+
+$('#proof-<%=@proof.id%>').after("<%= escape_javascript render(:partial => '/comments/comment_form', :locals => { :@comment => @comment, :@action_name => 'cancel_new' }) %>");

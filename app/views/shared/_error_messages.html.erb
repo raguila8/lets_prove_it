@@ -1,5 +1,7 @@
 <% if @user %>
 	<% model = @user %>
+<% elsif @comment %>
+  <% model = @comment %>
 <% elsif @proof %>
   <% model = @proof %>
 <% elsif @problem %>

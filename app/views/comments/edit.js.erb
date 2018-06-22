@@ -1,0 +1,8 @@
+// Cancel all other new comment forms if any
+<% if !@comment.nil? %>
+  $('#comment-<%=@comment.id%>').find('.comment-remove').css('display', 'none');
+  $('#comment-<%=@comment.id%>').find('.comment-edit').css('display', 'none');
+
+  $('#comment-content-<%=@comment.id%>').html("<%= escape_javascript render(:partial => '/comments/comment_form', :locals => { :@comment => @comment, :@action_name => 'cancel_edit' }) %>");
+<% end %>
+

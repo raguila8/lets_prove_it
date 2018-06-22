@@ -1,5 +1,5 @@
 class ProofsController < ApplicationController
-  before_action :set_proof, only: [:show, :edit, :cancel_edit, :update, :destroy]
+  before_action :set_proof, only: [:show, :edit, :cancel_edit, :cancel_new, :update, :destroy]
 
   # GET /proofs
   # GET /proofs.json
@@ -25,6 +25,12 @@ class ProofsController < ApplicationController
   end
 
   def cancel_edit
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
+  def cancel_new
     respond_to do |format|
       format.js {}
     end

@@ -4,7 +4,7 @@
 
   <div class="form-group">
     <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof-input-#{@proof.id}" %>
-    <trix-editor input="proof-input-<%=@proof.id%>"></trix-editor>
+    <trix-editor input="proof-input-<%=@proof.id%>" autofocus ></trix-editor>
   </div>
   
   <input type="submit" value="Submit Proof" class="btn pull-right">

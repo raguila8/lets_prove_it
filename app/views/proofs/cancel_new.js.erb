@@ -1,0 +1,4 @@
+<% if !@proof.nil? %>
+  $('#proof-<%=@proof.id%> .comment-replay-btn').css('display', 'inline-block');
+  $('#proof-<%=@proof.id%>').next().remove();
+<% end %>

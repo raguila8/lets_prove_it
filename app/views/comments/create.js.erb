@@ -1,0 +1,32 @@
+<% if !@comment.nil? and !@comment.errors.any? %>
+  $('#proof-<%=@comment.proof.id%> .comment-replay-btn').css('display', 'inline-block');
+  $('#proof-<%= @comment.proof.id %>').next().remove();
+  $('#proof-<%= @comment.proof.id %>').after("<%= escape_javascript render(:partial => '/comments/comment', :locals => { :@comment => @comment }) %>");
+
+
+  // toastr flash messages
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-left",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "8000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+
+  var $toastContent = $('<span>Comment was successfully created.</span>');
+  toastr.info($toastContent)
+
+<% else %>
+  $('#new-comment-form').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@comment => @comment }) %>");
+
+<% end %>
