@@ -1,5 +1,8 @@
 class Problem < ApplicationRecord
   include Exceptions
+ 
+  acts_as_votable
+
   belongs_to :user
   has_many :proofs, :dependent => :destroy
   has_many :problem_images

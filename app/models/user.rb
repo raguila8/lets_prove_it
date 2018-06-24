@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   mount_uploader :avatar, UserImageUploader
+  acts_as_voter
 
   has_many :user_topics
   has_many :topics, through: :user_topics, :dependent => :destroy
