@@ -19,6 +19,7 @@ class ProofsController < ApplicationController
 
   # GET /proofs/1/edit
   def edit
+    @new_images = ""
     respond_to do |format|
       format.js {}
     end
@@ -41,16 +42,24 @@ class ProofsController < ApplicationController
   def create
     @proof = Proof.new(proof_params)
     @problem = Problem.find(@proof.problem_id)
-    @proof.problem_id = @problem.id
+    #@proof.problem_id = @problem.id
     @proof.user_id = current_user.id
+    @new_images = proof_images_params["images"]
+    images_array = @new_images.split(",")
+
 
     respond_to do |format|
-      if @proof.save
-        @proof.add_new_images(current_user)
+      exception = @proof.save_with_images(images_array, current_user)[:exception]
+      if !exception
+        #@proof.add_new_images(current_user)
         format.html { redirect_to @problem, notice: 'Proof was successfully created.' }
         format.json { render :show, status: :created, location: @proof }
       else
-        format.html {  render :template => "problems/show", locale: {id: @problem.id} }
+        format.html {
+          flash.now[:failed_proof_create] = exception.message
+          render :template => "problems/show", locale: { id: @problem.id } 
+        }
+
         format.json { render json: @proof.errors, status: :unprocessable_entity }
       end
     end
@@ -60,15 +69,14 @@ class ProofsController < ApplicationController
   # PATCH/PUT /proofs/1.json
   def update
     @proof.update_attributes(proof_params)
-    @problem = Problem.find(@proof.problem_id)
+    @new_images = proof_images_params["images"]
+    images_array = @new_images.split(",")
+
+    #@problem = Problem.find(@proof.problem_id)
 
     respond_to do |format|
-      if @proof.save 
-        @proof.add_new_images(current_user)
-        format.js {}
-      else
-        format.js {}
-      end
+      @exception = @proof.save_with_images(images_array, current_user)[:exception]
+      format.js {}
     end
   end
 
@@ -96,4 +104,9 @@ class ProofsController < ApplicationController
     def proof_params
       params.require(:proof).permit(:content, :problem_id)
     end
+
+    def proof_images_params
+      params.require(:proof).permit(:images)
+    end
+
 end

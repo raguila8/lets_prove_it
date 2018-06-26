@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/proofs/:id/cancel_new_comment', to: 'proofs#cancel_new', as: :cancel_new_comment
 
 
+  resources :topics
   resources :proofs
   get '/proofs/:id/cancel_edit', to: 'proofs#cancel_edit', as: :cancel_edit
   get 'users/show'

@@ -4,4 +4,10 @@ module Exceptions
     def initialize()
     end
   end
+
+  class ImagesFieldInvalid < StandardError
+    def initialize()
+
+    end
+  end
 end

@@ -1,4 +1,4 @@
-<% if !@proof.nil? and !@proof.errors.any? %>
+<% if !@proof.nil? and !@exception %>
   $('#proof-<%=@proof.id%> .proof-remove').css('display', 'block');
   $('#proof-<%=@proof.id%> .proof-edit').css('display', 'block');
 
@@ -29,6 +29,6 @@
 
 
 <% else %>
-  $('#proof-form-<%=@proof.id%>').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@proof => @proof }) %>");
+  $('#proof-form-<%=@proof.id%>').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@exception => @exception }) %>");
 
 <% end %>

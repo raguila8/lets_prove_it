@@ -11,28 +11,22 @@
         
 
           <div class="page-content add-problem">
-					<div class="boxedtitle add-problem-title"><h2>Ask Question</h2></div>
+					<div class="boxedtitle add-problem-title"><h2>New Topic</h2></div>
 					
 					<p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p>
 					
-					<%= form_with(model: @problem, local: true, id: "problem-form") do |form| %>
+					<%= form_with(model: @topic, local: true, id: "problem-form") do |form| %>
             <%= render 'shared/error_messages' %>
-            <%= form.hidden_field :tags, value: "", id: "problem-tags" %>
-            <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
+
             <div class="form-group">
-              <%= form.label :title, "Problem Title:" %>
-              <%= form.text_field :title, class: "form-control" %>
+              <%= form.label :name, "Topic Name:" %>
+              <%= form.text_field :name, class: "form-control" %>
             </div> 
 
             <div class="form-group">
-              <label for="topic_name">Topics:</label>
-              <input class="form-control" type="text" name="topic[name]" id="topics-input" data-provide="typeahead">
-            </div>
-
-            <div class="form-group">
-              <%= form.label :content, "body:" %>
-              <%= form.hidden_field :content, class: "mb-20 form-control", id: "problem_content" %>
-              <trix-editor input="problem_content"></trix-editor>
+              <%= form.label :description, "Description:" %>
+              <%= form.hidden_field :description, class: "mb-20 form-control", id: "topic_description" %>
+              <trix-editor input="topic_description"></trix-editor>
             </div>
 
             <!-- Submit -->
@@ -66,6 +60,23 @@
 					<li><i class="fa fa-comment circle-icon mr-5"></i> Proofs ( <span>50</span> )</li>
 				</ul>
       </div><!-- / .stats-widget -->
+
+      <!-- Tags - Widget -->
+      <div class="col-md-12 ws-s tags-widget">
+        <h5 class="header-widget">Popular Topics</h5>
+        <ul class="tag-list">
+          <li><a href="#">Photography</a></li>
+          <li><a href="#">Design</a></li>
+          <li><a href="#">Development</a></li>
+          <li><a href="#">PHP</a></li>
+          <li><a href="#">UI/UX</a></li>
+          <li><a href="#">Design</a></li>
+          <li><a href="#">HTML5</a></li>
+          <li><a href="#">CSS3</a></li>
+          <li><a href="#">iOS</a></li>
+        </ul>
+      </div><!-- / .tags-widget -->
+
 
       <!-- Highest Points - Widget -->
       <div class="col-md-12 ws-s highest-points-widget">

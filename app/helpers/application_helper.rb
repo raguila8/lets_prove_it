@@ -12,6 +12,10 @@ module ApplicationHelper
       elsif action_name == "show"
         @problem.title
       end
+    elsif controller_name == "topics"
+      if action_name == "new"
+        "New Topic"
+      end
     end
   end
 
@@ -32,6 +36,10 @@ module ApplicationHelper
                   "</div>"
         return content.html_safe
       end
+    elsif controller_name == "topics"
+      if action_name == "new"
+        "Create a New Topic"
+      end
     end
   end
 
@@ -44,8 +52,11 @@ module ApplicationHelper
       return content.html_safe
     elsif controller_name == "problems" and action_name == "index"
       
-    elsif action_name == "show"
-
+    elsif controller_name == "topics"
+      if action_name == "new"
+        content = "<a href='#{topics_path}'><button class='btn-text-light btn-large'>Browse Topics</button></a>"
+        return content.html_safe
+      end
     end
   end
 end

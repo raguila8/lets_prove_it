@@ -1,5 +1,13 @@
-<% if @user %>
+<% if @exception %>
+  <div id="error_explanation">
+   <ul>
+    <li><%= @exception.message %></li>
+    </ul>
+  </div>
+<% elsif @user %>
 	<% model = @user %>
+<% elsif @topic %>
+  <% model = @topic %>
 <% elsif @comment %>
   <% model = @comment %>
 <% elsif @proof %>
@@ -23,6 +31,11 @@
   <div id="error_explanation">
    <ul>
     <li><%= flash[:failed_problem_create] %></li>
+    </ul>
+  </div>
+<% elsif flash[:failed_proof_create]%>
+  <ul>
+    <li><%= flash[:failed_proof_create] %></li>
     </ul>
   </div>
 <% end %>

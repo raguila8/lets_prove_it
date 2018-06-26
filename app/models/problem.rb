@@ -1,6 +1,6 @@
 class Problem < ApplicationRecord
   include Exceptions
- 
+  is_impressionable 
   acts_as_votable
 
   belongs_to :user
@@ -18,7 +18,7 @@ class Problem < ApplicationRecord
                     length: { maximum: 255, minimum: 3 }
 
 
-  def save_with_topics(tagsArray)
+  def save_with_topics_and_images(tagsArray, images, user)
     begin
       ActiveRecord::Base.transaction do
         self.save!
@@ -32,21 +32,20 @@ class Problem < ApplicationRecord
         if self.topics.count == 0
           raise Exceptions::ProblemHasNoTopicsError.new, "Problem needs at least one topic."
         end
+
+        Image.add_new_images!("problem", images, user)
       end
 
     rescue ActiveRecord::RecordInvalid => exception
       return { exception: exception }
     rescue Exceptions::ProblemHasNoTopicsError => exception
       return { exception: exception }
+    rescue Exceptions::ImagesFieldInvalid => exception
+      return { exception: exception }
     end
+
     return { }
   end
 
-  def add_new_images(current_user)
-    current_user.images.each do |image|
-      if !ProblemImage.find_by(image_id: image.id)
-        ProblemImage.create(problem_id: self.id, image_id: image.id)
-      end
-    end
-  end
+  private
 end

@@ -1,6 +1,8 @@
 <div class="clearfix"></div>
 <%= form_with(model: @proof, remote: true, id: "proof-form-#{@proof.id}") do |form| %>
   <%= form.hidden_field :problem_id, value: "#{@proof.problem.id}" %>
+  <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
+
 
   <div class="form-group">
     <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof-input-#{@proof.id}" %>

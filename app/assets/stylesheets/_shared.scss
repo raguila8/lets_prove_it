@@ -174,3 +174,10 @@
   color: #FF8B60 !important;
 }
 
+.blog-post-content img, .comment-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  text-align: center;
+  clear: both;
+}

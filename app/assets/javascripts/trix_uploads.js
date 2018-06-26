@@ -36,6 +36,14 @@ function uploadAttachment(attachment) {
         href: data.image_url,
         id: data.id
       })
+      if ($('#new-images').length) {
+        images = $('#new-images').val();
+        if ($('#new-images').val().length >= 1) {
+          $('#new-images').val(images += "," + data.id);
+        } else {
+          $('#new-images').val(data.id);
+        }
+      }
     }
   }
   return xhr.send(form);

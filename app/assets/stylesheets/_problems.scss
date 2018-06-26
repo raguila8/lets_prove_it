@@ -443,8 +443,12 @@
 
 
 @media (max-width: 992px) {
-  .bp-comment .vote-container, .bp-comment-reply .vote-container {
+  .bp-comment .vote-container {
     margin-top: -20px;
+  }
+
+  .blog-post-comments .bp-comment-reply .vote-container {
+    margin-top: 10px;
   }
 
   .blog-post-comments .bp-comment-reply {
@@ -464,18 +468,24 @@
 
 @media (max-width: 383px) {
   .blog-post-comments .bp-comment .comment-info {
-    margin-left: 90px;
+    /*margin-left: 90px;*/
   }
 
   .bp-comment .vote-container {
-    margin-top: -60px;
+    /*margin-top: -60px;*/
   }
 
 }
 
 @media (max-width: 378px) {
   .bp-comment .vote-container {
-    margin-top: -80px;
+    /*margin-top: -80px;*/
+  }
+}
+
+@media (max-width: 370px) {
+  .blog-post-comments .bp-comment-reply .vote-container {
+    margin-top: -20px;
   }
 }
 

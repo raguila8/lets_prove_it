@@ -1,4 +1,5 @@
 class ProblemsController < ApplicationController
+  impressionist actions: [:show]
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
 
   # GET /problems
@@ -11,11 +12,13 @@ class ProblemsController < ApplicationController
   # GET /problems/1.json
   def show
     @proof = Proof.new
+    @new_images = ""
   end
 
   # GET /problems/new
   def new
     @problem = Problem.new
+    @new_images = ""
   end
 
   # GET /problems/1/edit
@@ -30,12 +33,14 @@ class ProblemsController < ApplicationController
   def create
     @problem = Problem.new(problem_params)
     @problem.user_id = current_user.id
+    @new_images = problem_images_params["images"]
+    images_array = @new_images.split(",")
     tags = problem_tags_params["tags"]
     tagsArray = tags.split(",")
+
     respond_to do |format|
-        exception = @problem.save_with_topics(tagsArray)[:exception]
+        exception = @problem.save_with_topics_and_images(tagsArray, images_array, current_user)[:exception]
       if !exception
-        @problem.add_new_images(current_user)
         format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
         format.json { render :show, status: :created, location: @problem }
       else
@@ -92,5 +97,9 @@ class ProblemsController < ApplicationController
 
     def problem_tags_params
       params.require(:problem).permit(:tags)
+    end
+
+    def problem_images_params
+      params.require(:problem).permit(:images)
     end
 end
