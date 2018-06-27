@@ -2,6 +2,7 @@ $(document).on('turbolinks:load', function() {
   initNavbar();
   initScroller();
   initAnimation();
+  initSelector();
 
 
   // Parallax disabled for mobile screens
@@ -164,6 +165,22 @@ $(document).on('turbolinks:load', function() {
         return false;
       }
     });
+  }
+
+/* -------------------------------------------------
+  Selector Filters
+---------------------------------------------------*/
+
+  function initSelector () {
+    // Filters
+		$('.portfolio-filters a').click(function (e) {
+			  e.preventDefault();
+
+			  $('li').removeClass('active');
+			  $(this).parent().addClass('active');
+    
+        $('.page-title .subheading').text($(this).text());
+		});
   }
 
 /* --------------------------------------------------

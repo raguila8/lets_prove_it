@@ -17,6 +17,8 @@
 					
 					<%= form_with(model: @topic, local: true, id: "problem-form") do |form| %>
             <%= render 'shared/error_messages' %>
+            <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
+
 
             <div class="form-group">
               <%= form.label :name, "Topic Name:" %>
@@ -31,8 +33,6 @@
 
             <!-- Submit -->
             <%= form.submit "Submit", class: "btn" %>
-
-
           <% end %>      
                       
             

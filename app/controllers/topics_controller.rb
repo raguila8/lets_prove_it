@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  before_action :set_topic, only: [:show, :edit, :update, :destroy, :problems, :users]
 
   # GET /topics
   # GET /topics.json
@@ -22,14 +22,24 @@ class TopicsController < ApplicationController
   def edit
   end
 
+  def problems
+    @problems = @topic.feed
+  end
+
+  def users
+    
+  end
+
   # POST /topics
   # POST /topics.json
   def create
     @topic = Topic.new(topic_params)
+    @new_images = topic_images_params["images"]
+    images_array = @new_images.split(",")
+    @exception = @topic.save_with_images(images_array, current_user)[:exception]
 
     respond_to do |format|
-      if @topic.save
-        @topic.add_new_images(current_user)
+      if !@exception
         format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
         format.json { render :show, status: :created, location: @topic }
       else
@@ -73,4 +83,9 @@ class TopicsController < ApplicationController
     def topic_params
       params.require(:topic).permit(:name, :description)
     end
+
+    def topic_images_params
+      params.require(:topic).permit(:images)
+    end
+
 end

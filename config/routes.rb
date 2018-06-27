@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
 
   resources :topics
+
+  get '/topics/:id/problems', to: 'topics#problems', as: :topic_problems
+  get '/topics/:id/users', to: 'topics#users', as: :topic_users
   resources :proofs
   get '/proofs/:id/cancel_edit', to: 'proofs#cancel_edit', as: :cancel_edit
   get 'users/show'

@@ -15,6 +15,8 @@ module ApplicationHelper
     elsif controller_name == "topics"
       if action_name == "new"
         "New Topic"
+      elsif action_name == "show"
+        @topic.name
       end
     end
   end
@@ -39,6 +41,8 @@ module ApplicationHelper
     elsif controller_name == "topics"
       if action_name == "new"
         "Create a New Topic"
+      elsif action_name == "show"
+        "Description"
       end
     end
   end
@@ -50,11 +54,19 @@ module ApplicationHelper
     elsif controller_name == "registrations" and (action_name == "new" || action_name == "create")
       content = "<a href='#{new_user_session_path}'><button class='btn-text-light btn-large'>Login</button></a>"
       return content.html_safe
-    elsif controller_name == "problems" and action_name == "index"
-      
+    elsif controller_name == "problems"
+      if action_name == "index"
+
+      elsif action_name == "show"
+        content = "<button class='btn btn-light'>Follow</button>"
+        return content.html_safe
+      end
     elsif controller_name == "topics"
       if action_name == "new"
         content = "<a href='#{topics_path}'><button class='btn-text-light btn-large'>Browse Topics</button></a>"
+        return content.html_safe
+      elsif action_name == "show"
+        content = "<button class='btn btn-light'>Follow</button>"
         return content.html_safe
       end
     end

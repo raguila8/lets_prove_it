@@ -11,14 +11,7 @@ class Proof < ApplicationRecord
   validates_uniqueness_of :user_id, :scope => [:problem_id]
 
 
-  def add_new_images(current_user)
-    current_user.images.each do |image|
-      if !ProofImage.find_by(image_id: image.id)
-        ProofImage.create(proof_id: self.id, image_id: image.id)
-      end
-    end
-  end
-
+  
   def save_with_images(images, user)
     begin
       ActiveRecord::Base.transaction do

@@ -1,0 +1,3 @@
+$('.topic-content').empty();
+$('.topic-content').append("<%= escape_javascript render(:partial => '/topics/topic_description', :locals => { :@topic => @topic }) %>");
+

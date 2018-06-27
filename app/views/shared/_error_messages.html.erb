@@ -15,7 +15,7 @@
 <% elsif @problem %>
   <% model = @problem %>
 <% end %>
-<% if model.errors.any? %>
+<% if  !@exception and model.errors.any? %>
   <div id="error_explanation">
    <ul>
     <li><%= model.errors.full_messages.first %></li>
