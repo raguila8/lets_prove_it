@@ -58,6 +58,18 @@
           <div class="mb-20 mt-20 blog-post-content">
             <%= sanitize @problem.content %>
           </div>
+
+          <% if signed_in? %>
+            <%= link_to "",  class: "btn-text btn-small float-right small-padding" do %>
+              <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Report</span>
+            <% end %>
+
+            <%= link_to edit_problem_path(@problem.id),  class: "btn-text btn-small float-right small-padding" do %>
+              <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+            <% end %>
+          <% end %>
+          <div class="clearfix"></div>
+
         </div><!-- / .blog-post-single -->
         
         
@@ -187,7 +199,7 @@
                 <h4 class="blog-section-title">Leave a proof</h4>
               <% end %>
 
-              <%= form_with(model: Proof.new, local: true, id: "proof-form") do |form| %>
+              <%= form_with(model: Proof.new, local: true, id: "proof-form", class: "new-model-form") do |form| %>
                 <%= form.hidden_field :problem_id, value: "#{@problem.id}", id: "problem-id" %>
                 <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
 

@@ -188,31 +188,59 @@ $(document).on('turbolinks:load', function() {
  ----------------------------------------------------*/
   
   function initTopicsTags () {
+    console.log($('#problem-topics-container').data());
+    
     var numOfTags = 0;
     var tags = "";
     $('#topics-input').change(function(){
       $(this).find('input').val('');
     });
 
-    var data = ['Amsterdam', 'Sydney', 'Los Angeles', 'new york'];
+    var data = ['AMSTERDAM', 'SYDNEY', 'LOS ANGELES', 'NEW YORK'];
 
-  var bloodHoundObj = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    var users = [{
+    label: "Super 1",
+    value: "8"
+}, {
+    label: "Super2",
+    value: "9"
+}, {
+    label: "Almindelig1",
+    value: "10"
+}, {
+    label: "Almindelig2",
+    value: "11"
+}];
+
+var users = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    // url points to a json file that contains an array of country names, see
-    // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
-    local: data
-  });
-  bloodHoundObj.initialize();
+    local: users
+});
+
+users.initialize();
 
     
     $('#topics-input').tagsinput({
       typeahead: {
         afterSelect: function(val) { this.$element.val(""); },
-        source: data,
+        name: 'users',
+        displayKey: 'label',
+        valueKey: 'label',
+        source: users.ttAdapter()
       },
       freeInput: false
     });
+
+    if ($('#problem-topics-data').length) {
+      var default_tags = $('#problem-topics-data').data()["topics"].split(",");
+
+      for (var i = 0; i < default_tags.length; i++) {
+        //console.log(default_tags[i]);
+        $('#topics-input').tagsinput('add', default_tags[i]);
+      }
+    }
+
 
     $('#topics-input').on('itemAdded', function(event) {
       $('.bootstrap-tagsinput .tag').removeClass('label label-info');

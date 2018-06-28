@@ -31,11 +31,6 @@ function uploadAttachment(attachment) {
   xhr.onload = function() {
     if (xhr.status === 201) {
       var data = JSON.parse(xhr.responseText);
-      return attachment.setAttributes({
-        url: data.image_url,
-        href: data.image_url,
-        id: data.id
-      })
       if ($('#new-images').length) {
         images = $('#new-images').val();
         if ($('#new-images').val().length >= 1) {
@@ -44,6 +39,12 @@ function uploadAttachment(attachment) {
           $('#new-images').val(data.id);
         }
       }
+
+      return attachment.setAttributes({
+        url: data.image_url,
+        href: data.image_url,
+        id: data.id
+      })
     }
   }
   return xhr.send(form);

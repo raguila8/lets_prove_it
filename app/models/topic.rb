@@ -1,5 +1,8 @@
 class Topic < ApplicationRecord
-
+  has_many :problem_topics
+  has_many :problems, through: :problem_topics, dependent: :destroy
+  has_many :version_topics
+  has_many :versions, through: :versions, :dependent => :destroy
   has_many :topic_images
   has_many :images, through: :topic_images, :dependent => :destroy
 
@@ -11,7 +14,7 @@ class Topic < ApplicationRecord
     begin
       ActiveRecord::Base.transaction do
         self.save!
-        Image.add_new_images!("topic", images, user)
+        Image.add_new_images!(self, images, user)
       end
 
     rescue ActiveRecord::RecordInvalid => exception

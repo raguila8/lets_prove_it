@@ -1,0 +1,43 @@
+Image Deletion
+-----------------------------------------------------------------------------
+- If model is being created reomving an image attachment should									(DONE)
+  delete the image.
+- If image does not have a proof_image or problem_image or topic_image model 		(DONE)
+  then image should be deleted.
+
+- On editing, remove an image attachment should not delete the  								(DONE)
+  image if image belongs to one of the 3 models.
+
+  -  The image should still be available if the edit is not submitted (only for 
+     existing images from previous versions). 																	(DONE)
+  -  The image should still be available for previous versions of the model (only
+     for existing images from previous versions).                               (DONE)
+
+- If an image is successfully created and belongs to a content model then that
+  image cannot be deleted anymore. It should always be available for versioning (DONE)
+
+Image Attachment
+------------------------------------------------------------------------------
+-  If an image is attached the image is created on db                           (DONE)
+
+-  If an image is attached but the form is never submitted, the image should be (NOT DONE)
+   deleted. an ajax request will be sent to server containing the attached 
+   images that were never submitted. ( This is not 100% success rate because
+  user can change the front end. We can do clean up later.)
+
+Problem Edits
+------------------------------------------------------------------------------
+-  An edit submission should create a new version that has a label that describes
+  the changes made, the changes made, and the current content.
+
+- Change types:
+  1.) Image changes
+  2.) Text Changes
+  3.) Spacing changes
+  4.) topics changes
+  5.) Title Changes
+  6.) Creation
+
+- One update can contain multiple change types. How do we store that information?
+   - Create a change_type model that has all 6 types.
+   - A version has_many change_types through VersionChange model.

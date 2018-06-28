@@ -23,7 +23,9 @@ class ProblemsController < ApplicationController
 
   # GET /problems/1/edit
   def edit
+    @new_images = ""
     respond_to do |format|
+      format.html {}
       format.js {}
     end
   end
@@ -59,9 +61,10 @@ class ProblemsController < ApplicationController
     @proof.update_attributes(problem_params)
     tags = problem_tags_params["tags"]
     tagsArray = tags.split(",")
+    version_description = params["version"]["description"]
 
     respond_to do |format|
-      exception = @problem.save_with_topics(tagsArray)[:exception]
+      exception = @problem.save_with_topics(tagsArray, version_description)[:exception]
       if !exception
         @problem.add_new_images(current_user)
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }

@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180625231247) do
+ActiveRecord::Schema.define(version: 20180627235932) do
+
+  create_table "change_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "changes", force: :cascade do |t|
+    t.integer "version_id"
+    t.integer "change_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["change_type_id"], name: "index_changes_on_change_type_id"
+    t.index ["version_id"], name: "index_changes_on_version_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -168,6 +183,30 @@ ActiveRecord::Schema.define(version: 20180625231247) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "version_topics", force: :cascade do |t|
+    t.integer "version_id"
+    t.integer "topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_version_topics_on_topic_id"
+    t.index ["version_id"], name: "index_version_topics_on_version_id"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.integer "problem_id"
+    t.integer "topic_id"
+    t.integer "version_number"
+    t.integer "user_id"
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "description"
+    t.index ["problem_id"], name: "index_versions_on_problem_id"
+    t.index ["topic_id"], name: "index_versions_on_topic_id"
+    t.index ["user_id"], name: "index_versions_on_user_id"
   end
 
   create_table "votes", force: :cascade do |t|

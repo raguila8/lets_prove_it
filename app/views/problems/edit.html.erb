@@ -1,6 +1,137 @@
-<h1>Editing Problem</h1>
+<div class="pt-100 section container blog-classic" id="edit-problem-page">
+  <div class="row">
 
-<%= render 'form', problem: @problem %>
+    <!-- ========== Blog Posts ========== -->
 
-<%= link_to 'Show', @problem %> |
-<%= link_to 'Back', problems_path %>
+    <div class="col-md-8">
+
+      <!-- Blog Post 1 -->
+      <div class="col-md-12">
+        <div class="wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+        
+
+          <div class="page-content add-problem">
+					<div class="boxedtitle add-problem-title"><h2>Edit Problem</h2></div>
+					
+					<p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p>
+					
+					<%= form_with(model: @problem, local: true, id: "problem-form") do |form| %>
+            <%= render 'shared/error_messages' %>
+            <%= form.hidden_field :tags, value: @problem.topics.map{|t| t.name}.join(","), id: "problem-tags" %>
+            <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
+            <div class="form-group">
+              <%= form.label :title, "Problem Title:" %>
+              <%= form.text_field :title, class: "form-control" %>
+            </div> 
+
+            <div class="form-group" id="problem-topics-data" data-topics="<%=@problem.topics.map{|t| t.name}.join(",")%>">
+              <label for="topic_name">Topics:</label>
+              <input class="form-control" type="text" name="topic[name]" id="topics-input" data-provide="typeahead">
+            </div>
+
+            <div class="form-group">
+              <%= form.label :content, "body:" %>
+              <%= form.hidden_field :content, class: "mb-20 form-control", id: "problem_content" %>
+              <trix-editor input="problem_content"></trix-editor>
+            </div>
+
+            <div class="form-group">
+              <%= label_tag "version[description]", "What are you changing?" %>
+              <%= text_area_tag "version[description]", nil, class: "mb-20 form-control" %>
+            </div>
+
+            <!-- Submit -->
+            <%= form.submit "Submit", class: "btn" %>
+
+
+          <% end %>      
+                      
+            
+            
+          </div><!-- / .add-problem -->
+
+        </div><!-- / .blog-post -->
+      </div><!-- / .col-md-12 --> 
+                               
+    </div><!-- / .col-md-8 -->
+
+
+
+
+    <!-- ========== Sidebar ========== -->
+
+    <aside class="col-md-offset-1 col-md-3 sidebar">
+ 
+
+      <!-- Stats - Widget -->
+      <div class="col-md-12 ws-s stats-widget">
+        <h5 class="header-widget">Stats</h5>
+        <ul>
+			    <li><i class="fa fa-question mr-5 circle-icon"></i> Problems ( <span>20</span> )</li>
+					<li><i class="fa fa-comment circle-icon mr-5"></i> Proofs ( <span>50</span> )</li>
+				</ul>
+      </div><!-- / .stats-widget -->
+
+      <!-- Highest Points - Widget -->
+      <div class="col-md-12 ws-s highest-points-widget">
+        <h5 class="header-widget">Highest Points</h5>
+        <ul>
+					<li>
+						<div class="author-img">
+							<a href="#"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+						</div> 
+						<h6><a href="#">admin</a></h6>
+						<span class="comment">12 Points</span>
+					</li>
+					<li>
+						<div class="author-img">
+							<a href="#"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/avatar.png" alt=""></a>
+						</div> 
+						<h6><a href="#">vbegy</a></h6>
+						<span class="comment">10 Points</span>
+					</li>
+					<li>
+						<div class="author-img">
+							<a href="#"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/avatar.png" alt=""></a>
+						</div> 
+						<h6><a href="#">ahmed</a></h6>
+						<span class="comment">5 Points</span>
+					</li>
+				</ul>
+      </div><!-- / .highest points - widget -->
+              
+
+      <!-- Recent Posts - Widget -->
+      <div class="col-md-12 ws-s recent-posts-widget">
+        <h5 class="header-widget">Recent Posts</h5>
+
+        <!-- Item 1 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Another Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+      </div><!-- / .recent-posts-widget -->
+      
+
+      <!-- Text - Widget -->
+      <div class="col-md-12 text-widget">
+        <h5 class="header-widget">Text Widget</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae qui error, incidunt quia pariatur facere quasi totam inventore amet rerum.</p>
+      </div><!-- / .text-widget -->
+
+    </aside><!-- / .sidebar -->
+  </div>
+</div>

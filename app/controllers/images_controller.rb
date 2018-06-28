@@ -2,7 +2,7 @@ class ImagesController < ApplicationController
   before_action :set_image, only: [:destroy]
 
   def destroy
-    @image.destroy
+    @image.destroy if @image.belongs_to_a_model?
     respond_to do |format|
       format.json { head :no_content }
     end

@@ -1,8 +1,9 @@
 class Image < ApplicationRecord
   mount_uploader :image_data, ImageUploader
-  has_many :problem_images, :dependent => :destroy
-  has_many :proof_images, :dependent => :destroy
-  has_many :topic_images, :dependent => :destroy
+  has_one :problem_image, :dependent => :destroy
+  has_one :proof_image, :dependent => :destroy
+  has_one :topic_image, :dependent => :destroy
+  belongs_to :user
 
   def belongs_to_a_model?
     ProblemImage.exists?(self.id) || ProofImage.exists?(self.id) || TopicImage.exists?(self.id)
@@ -21,12 +22,13 @@ class Image < ApplicationRecord
         if image.user != user
           raise Exceptions::ImagesFieldInvalid.new, "Images field is invalid"
         end
-        if model == "problem"
-          ProblemImage.create!(problem_id: self.id, image_id: image.id)
-        elsif model == "proof"
-          ProofImage.create!(proof_id: self.id, image_id: image.id)
-        elsif model == "topic"
-          TopicImage.create!(topic_id: self.id, image_id: image.id)
+
+        if model.class.name == "Problem"
+          ProblemImage.create!(problem_id: model.id, image_id: image.id)
+        elsif model.class.name == "Proof"
+          ProofImage.create!(proof_id: model.id, image_id: image.id)
+        elsif model.class.name == "Topic"
+          TopicImage.create!(topic_id: model.id, image_id: image.id)
         end
       end
     end
@@ -56,7 +58,6 @@ class Image < ApplicationRecord
         end
       end
     end
-
   end
 
 end

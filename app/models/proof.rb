@@ -16,7 +16,7 @@ class Proof < ApplicationRecord
     begin
       ActiveRecord::Base.transaction do
         self.save!
-        Image.add_new_images!("proof", images, user)
+        Image.add_new_images!(self, images, user)
       end
 
     rescue ActiveRecord::RecordInvalid => exception
