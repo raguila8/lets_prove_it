@@ -4,6 +4,16 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.json
   def index
+    respond_to do |format|
+      format.html {
+
+      }
+
+      format.json { 
+        data = Topic.where("name LIKE :name", { name: "#{params[:term]}%" }).map {|t| t.name}
+        render json: { suggestions: data, success: true }
+      }
+    end
     @topics = Topic.all
   end
 

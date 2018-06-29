@@ -198,36 +198,40 @@ $(document).on('turbolinks:load', function() {
 
     var data = ['AMSTERDAM', 'SYDNEY', 'LOS ANGELES', 'NEW YORK'];
 
-    var users = [{
-    label: "Super 1",
-    value: "8"
-}, {
-    label: "Super2",
-    value: "9"
-}, {
-    label: "Almindelig1",
-    value: "10"
-}, {
-    label: "Almindelig2",
-    value: "11"
-}];
-
-var users = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: users
+    // instantiate the bloodhound suggestion engine
+var numbers = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  local:  ["(A)labama","Alaska","Arizona","Arkansas","Arkansas2","Barkansas"]
 });
 
-users.initialize();
-
+// initialize the bloodhound suggestion engine
+numbers.initialize();
     
     $('#topics-input').tagsinput({
       typeahead: {
         afterSelect: function(val) { this.$element.val(""); },
-        name: 'users',
-        displayKey: 'label',
-        valueKey: 'label',
-        source: users.ttAdapter()
+        source: function(query) {
+                var result = null;
+                $.ajax({
+                   url: "/topics",
+                   type: "get",
+                   headers: {
+                     Accept: "application/json"
+                   },
+                   data: {
+                     term: query
+                   },
+                   async: false,
+                   success: function(data) {
+                       result = data;
+                   } 
+                });
+                console.log(result);
+
+                return result.suggestions; 
+
+        }
       },
       freeInput: false
     });
