@@ -24,7 +24,9 @@
           
           <div class="mb-20 mt-20 blog-post-content">
             <%= sanitize @topic.description %>
-            <button class="btn-text btn-small small-padding">Edit</button>
+            <%= link_to edit_topic_path(@topic.id) do %>
+              <button class="btn-text btn-small small-padding">Edit</button>
+            <% end %>
             <button class="btn-text btn-small small-padding">Report</button>
           </div>
         </div><!-- / .blog-post-single -->

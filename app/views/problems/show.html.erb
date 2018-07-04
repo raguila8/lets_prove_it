@@ -1,3 +1,4 @@
+<%= render 'problems/edit_topics' if signed_in? %>
 <!-- ========== Single Blog Post ========== -->
 
 <div id="problem-page" class="pt-100 section container blog-classic">
@@ -11,12 +12,12 @@
           <img class="img-responsive post-img" src="http://placehold.it/750x400" alt="Blog Post 1">
 -->
           <!-- Meta data -->
-          <div class="post-meta">
+          <div class="post-meta" id="problem-tags-list">
             <ul class="tag-list mt-20">
               <% @problem.topics.each do |topic| %>
                 <li><a href="#"><%= topic.name %></a></li>
               <% end %>
-                <a href="#" class="ml-10"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="#" id="edit-topics" class="ml-10" data-toggle="modal" data-target="#editTopicsModal"><span class="glyphicon glyphicon-pencil"></span></a>
             </ul> <!-- / .tag-list -->
 
           </div><!-- / .meta -->
@@ -225,15 +226,6 @@
     <!-- ========== Sidebar ========== -->
 
     <aside class="col-md-offset-1 col-md-3 sidebar">
-
-      <!-- Search - Widget -->
-      <div class="col-md-12 ws-s search-widget">
-        <div class="form-group">
-          <input type="search" placeholder="Search ..." class="form-control">
-          <button class="inside-input-btn"><i class="fa fa-search"></i></button>
-        </div>
-      </div>
-
 
       <!-- Tags - Widget -->
       <div class="col-md-12 ws-s tags-widget">

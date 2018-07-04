@@ -1,0 +1,29 @@
+<div id="editTopicsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Topics</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_with(model: @problem, id: "problem-form") do |form| %>
+          <%= render 'shared/error_messages' %>
+          <%= form.hidden_field :tags, value: @problem.topics.map{|t| t.name}.join(","), id: "problem-tags" %>
+          <%= hidden_field_tag "version[description]", "Changed Topics" %>
+
+          <div class="form-group" id="problem-topics-data" data-topics="<%=@problem.topics.map{|t| t.name}.join(",")%>">
+            <label for="topic_name">Topics:</label>
+            <input class="form-control" type="text" name="topic[name]" id="topics-input" data-provide="typeahead" placeholder="Search for a topic">
+          </div>
+ 
+          <!-- Submit -->
+          <%= form.submit "Save Changes", class: "btn float-right mt-20" %>
+          <div class="clearfix"></div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

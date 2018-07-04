@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get '/topics/:id/problems', to: 'topics#problems', as: :topic_problems
   get '/topics/:id/users', to: 'topics#users', as: :topic_users
+  get '/topics/:id/logs', to: 'topics#logs', as: :topic_logs
+
   resources :proofs
   get '/proofs/:id/cancel_edit', to: 'proofs#cancel_edit', as: :cancel_edit
   get 'users/show'
@@ -30,6 +32,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:show]
   resources :problems
+  get '/problems/:id/logs', to: 'problems#logs', as: :problem_logs
   resources :images, only: [:create, :destroy]
   put '/vote', to: 'users#vote', as: :vote
 

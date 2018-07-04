@@ -11,4 +11,16 @@ class Version < ApplicationRecord
   validates :content, presence: true, length: { maximum: 5000, minimum: 3 }
   validates :description, presence: true, length: { maximum: 500, minimum: 3 }
 
+  def get_version_topics
+    it = 1
+    while self.topics.empty?
+      self.topics = prev_version(it).topics
+      it += 1
+    end
+    return self.topics
+  end
+
+  def prev_version(it)
+    Version.find_by(problem_id: self.problem_id, version_number: self.version_number - it)
+  end
 end

@@ -4,7 +4,7 @@ class Problem < ApplicationRecord
   acts_as_votable
 
   belongs_to :user
-  has_many :versions, :dependent => :destroy
+  has_many :versions, -> { order(created_at: :desc) }, :dependent => :destroy
   has_many :proofs, :dependent => :destroy
   has_many :problem_images
   has_many :images, through: :problem_images, :dependent => :destroy
@@ -19,7 +19,7 @@ class Problem < ApplicationRecord
                     length: { maximum: 255, minimum: 3 }
 
 
-  def save_with_topics_and_images(tagsArray, images, user)
+  def save_new(tagsArray, images, user)
     begin
       ActiveRecord::Base.transaction do
         self.save!
@@ -51,6 +51,95 @@ class Problem < ApplicationRecord
     end
 
     return { }
+  end
+
+  def save_edit(tagsArray, images, version_description, user)
+
+    begin
+      ActiveRecord::Base.transaction do
+        self.save!
+        version = Version.create!(problem_id: self.id, 
+                      version_number: self.next_version_number, 
+                      user_id: user.id, title: self.title,
+                      content: self.content, description: version_description)
+
+        #event = Event.create!(args)
+        if changed_topics?(tagsArray)
+          create_version_topics!(version, tagsArray)
+        end
+
+        clear_topics!(tagsArray)
+        tagsArray.each do |tag|
+          topic = Topic.find_by(name: tag)
+          if topic and !ProblemTopic.find_by(problem_id: self.id, topic_id: topic.id)
+            ProblemTopic.create!(problem_id: self.id, topic_id: topic.id)
+          end
+        end
+
+        if self.topics.count == 0
+          raise Exceptions::ProblemHasNoTopicsError.new, "Problem needs at least one topic."
+        end
+
+        Image.add_new_images!(self, images, user)
+      end
+
+    rescue ActiveRecord::RecordInvalid => exception
+      return { exception: exception }
+    rescue Exceptions::ProblemHasNoTopicsError => exception
+      return { exception: exception }
+    rescue Exceptions::ImagesFieldInvalid => exception
+      return { exception: exception }
+    end
+
+    return { }
+  end
+
+  def changed_topics?(tagsArray)
+    self.topics.each do |topic|
+      if !tagsArray.include?(topic.name)
+        return true
+      end
+    end
+
+    tagsArray.each do |tag|
+      if !self.topics.map{|t| t.name}.include?(tag)
+        return true
+      end
+    end
+
+    return false
+  end
+
+  def create_version_topics!(version, tagsArray)
+    tagsArray.each do |tag|
+      topic = Topic.find_by(name: tag)
+        if topic
+          VersionTopic.create!(version_id: version.id, topic_id: topic.id)
+        end
+    end
+  end
+
+  def clear_topics!(tags)
+    topic_delete = true
+    self.topics.each do |topic|
+      topic_delete = true
+      tags.each do |tag|
+        if topic.name == tag
+          topic_delete = false
+        end
+      end
+      if topic_delete
+        ProblemTopic.find_by(problem_id: self.id, topic_id: topic.id).destroy!
+      end
+    end
+  end
+
+  def next_version_number
+    versions.order(:created_at).last.version_number + 1
+  end
+
+  def self.random_problem
+    Problem.order("random()").first.id
   end
 
   private

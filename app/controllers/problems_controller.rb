@@ -1,6 +1,10 @@
 class ProblemsController < ApplicationController
   impressionist actions: [:show]
-  before_action :set_problem, only: [:show, :edit, :update, :destroy]
+  before_action :set_problem, only: [:show, :edit, :update, :destroy, :logs]
+
+  def logs
+   
+  end
 
   # GET /problems
   # GET /problems.json
@@ -41,13 +45,13 @@ class ProblemsController < ApplicationController
     tagsArray = tags.split(",")
 
     respond_to do |format|
-        exception = @problem.save_with_topics_and_images(tagsArray, images_array, current_user)[:exception]
-      if !exception
+        @exception = @problem.save_new(tagsArray, images_array, current_user)[:exception]
+      if !@exception
         format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
         format.json { render :show, status: :created, location: @problem }
       else
         format.html { 
-          flash.now[:failed_problem_create] = exception.message
+          flash.now[:failed_problem_create] = @exception.message
           render :new 
         }
         format.json { render json: @problem.errors, status: :unprocessable_entity }
@@ -58,24 +62,27 @@ class ProblemsController < ApplicationController
   # PATCH/PUT /problems/1
   # PATCH/PUT /problems/1.json
   def update
-    @proof.update_attributes(problem_params)
+    @problem.update_attributes(problem_params)
+    @new_images = problem_images_params["images"]
+    @new_images = "" if !@new_images
+    images_array = @new_images.split(",")
     tags = problem_tags_params["tags"]
     tagsArray = tags.split(",")
     version_description = params["version"]["description"]
 
     respond_to do |format|
-      exception = @problem.save_with_topics(tagsArray, version_description)[:exception]
-      if !exception
-        @problem.add_new_images(current_user)
+      @exception = @problem.save_edit(tagsArray, images_array, version_description, current_user)[:exception]
+      if !@exception
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
         format.json { render :show, status: :ok, location: @problem }
       else
         format.html { 
-          flash.now[:failed_problem_create] = exception.message
+          flash.now[:failed_problem_create] = @exception.message
           render :edit 
         }
         format.json { render json: @problem.errors, status: :unprocessable_entity }
       end
+      format.js { @problem.reload }
     end
   end
 

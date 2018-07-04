@@ -1,0 +1,8 @@
+<% if @exception %>
+  $('#editTopicsModal #problem-form').prepend("<%= escape_javascript render(:partial => '/problems/_topics_list', :locals => { :@problem => @problem, :@exception => @exception }) %>");
+
+<% else %>
+  $('#editTopicsModal').modal('toggle');
+  $('#problem-tags-list').empty();
+  $('#problem-tags-list').append("<%= escape_javascript render(:partial => '/problems/topics_list', :locals => { :@problem => @problem }) %>");
+<% end %>

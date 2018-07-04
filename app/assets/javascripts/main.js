@@ -188,10 +188,8 @@ $(document).on('turbolinks:load', function() {
  ----------------------------------------------------*/
   
   function initTopicsTags () {
-    console.log($('#problem-topics-container').data());
-    
-    var numOfTags = 0;
-    var tags = "";
+    var numOfTags = $('#problem-tags').val().split(",").length;
+    var tags = $('#problem-tags').val();
     $('#topics-input').change(function(){
       $(this).find('input').val('');
     });
@@ -261,11 +259,12 @@ numbers.initialize();
 
     $('input').on('itemRemoved', function(event) {
       tags = $("#problem-tags").val();
-      if (numOfTags > 1) {
-        tags = tags.replace("," + event.item.toUpperCase(), "");
-      } else {
+      if (tags.includes(event.item.toUpperCase())) {
         tags = tags.replace(event.item.toUpperCase(), "");
+      } else {
+        tags = tags.replace("," + event.item.toUpperCase(), "");
       }
+
       $("#problem-tags").val(tags);
       numOfTags -= 1;
     });

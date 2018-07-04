@@ -6,7 +6,7 @@ class Image < ApplicationRecord
   belongs_to :user
 
   def belongs_to_a_model?
-    ProblemImage.exists?(self.id) || ProofImage.exists?(self.id) || TopicImage.exists?(self.id)
+    ProblemImage.exists?(image_id: self.id) || ProofImage.exists?(image_id: self.id) || TopicImage.exists?(image_id: self.id)
   end
 
   def self.add_new_images!(model, images, user)

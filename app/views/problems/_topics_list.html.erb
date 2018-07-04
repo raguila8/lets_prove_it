@@ -1,0 +1,6 @@
+<ul class="tag-list mt-20">
+  <% @problem.topics.each do |topic| %>
+    <li><a href="#"><%= topic.name %></a></li>
+  <% end %>
+  <a href="#" id="edit-topics" class="ml-10" data-toggle="modal" data-target="#editTopicsModal"><span class="glyphicon glyphicon-pencil"></span></a>
+</ul>

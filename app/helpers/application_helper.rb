@@ -7,15 +7,23 @@ module ApplicationHelper
     elsif controller_name == "problems"
       if action_name == "index"
         "Home"
-      elsif action_name == "new"
+      elsif action_name == "new" || action_name == "create"
         "Add Problem"
       elsif action_name == "show"
         @problem.title
+      elsif action_name == "logs"
+        @problem.title
+      elsif action_name == "edit" || action_name == "update"
+        @problem.title
       end
     elsif controller_name == "topics"
-      if action_name == "new"
+      if action_name == "new" || action_name == "create"
         "New Topic"
       elsif action_name == "show"
+        @topic.name
+      elsif action_name == "logs"
+        @topic.name
+      elsif action_name == "edit" || action_name == "update"
         @topic.name
       end
     end
@@ -29,7 +37,7 @@ module ApplicationHelper
     elsif controller_name == "problems"
       if action_name == "index"
         "Filter problems by topic"
-      elsif action_name == "new"
+      elsif action_name == "new" || action_name == "create"
         "Make a statement to prove"
       elsif action_name == "show"
         content = "<div class='post-meta'>" + 
@@ -37,12 +45,20 @@ module ApplicationHelper
                     "<span> August 01.2015</span>" +
                   "</div>"
         return content.html_safe
+      elsif action_name == "logs"
+        "Problem Edits"
+      elsif action_name == "edit" || action_name == "update"
+        "Edit Problem"
       end
     elsif controller_name == "topics"
-      if action_name == "new"
+      if action_name == "new" || action_name == "create"
         "Create a New Topic"
       elsif action_name == "show"
         "Description"
+      elsif action_name == "logs"
+        "Topic Edits"
+      elsif action_name == "edit" || action_name == "update"
+        "Edit Topic"
       end
     end
   end
@@ -56,18 +72,27 @@ module ApplicationHelper
       return content.html_safe
     elsif controller_name == "problems"
       if action_name == "index"
-
+        content = "<a href='#{problem_path(Problem.random_problem)}'><button class='btn-text-light btn-large'>I'm Feeling Lucky</button></a>"
+        return content.html_safe
       elsif action_name == "show"
         content = "<button class='btn btn-light'>Follow</button>"
         return content.html_safe
+      elsif action_name == "logs"
+        content = "<a href='#{edit_problem_path(@problem.id)}'><button class='btn-text-light btn-large'>Edit Problem</button></a>"
+        return content.html_safe
       end
     elsif controller_name == "topics"
-      if action_name == "new"
+      if action_name == "new" || action_name == "create"
         content = "<a href='#{topics_path}'><button class='btn-text-light btn-large'>Browse Topics</button></a>"
         return content.html_safe
       elsif action_name == "show"
         content = "<button class='btn btn-light'>Follow</button>"
         return content.html_safe
+      elsif action_name == "logs"
+        content = "<a href='#{edit_topic_path(@topic.id)}'><button class='btn-text-light btn-large'>Edit Topic</button></a>"
+        return content.html_safe
+      elsif action_name == "edit" || action_name == "update"
+        
       end
     end
   end
