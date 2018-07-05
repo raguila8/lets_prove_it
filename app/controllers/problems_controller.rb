@@ -1,6 +1,15 @@
 class ProblemsController < ApplicationController
   impressionist actions: [:show]
-  before_action :set_problem, only: [:show, :edit, :update, :destroy, :logs]
+  before_action :set_problem, only: [:show, :edit, :update, :destroy, :logs, 
+                                     :follow, :unfollow]
+
+  def follow
+    current_user.follow @problem
+  end
+
+  def unfollow
+    current_user.unfollow @problem
+  end
 
   def logs
    
@@ -9,6 +18,16 @@ class ProblemsController < ApplicationController
   # GET /problems
   # GET /problems.json
   def index
+    respond_to do |format|
+      format.html {
+        if signed_in? 
+          @problems = current_user.problem_feed
+        else
+          @problems = Problem.all.order(:created_at)
+        end
+      }
+      
+    end
     @problems = Problem.all
   end
 

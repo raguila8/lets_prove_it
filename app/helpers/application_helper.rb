@@ -75,8 +75,17 @@ module ApplicationHelper
         content = "<a href='#{problem_path(Problem.random_problem)}'><button class='btn-text-light btn-large'>I'm Feeling Lucky</button></a>"
         return content.html_safe
       elsif action_name == "show"
-        content = "<button class='btn btn-light'>Follow</button>"
-        return content.html_safe
+        content = ""
+        if signed_in?
+          if !current_user.following?(@problem)
+            content = "<a href='#{problem_follow_path(@problem.id)}' data-remote='true' data-method='post'>"
+            content += "<button class='btn btn-light mr-20'>Follow</button></a>"
+          else
+            content = "<a href='#{problem_unfollow_path(@problem.id)}' data-remote='true' data-method='delete'>"
+            content += "<button class='btn btn-light mr-20'>Following</button></a>"
+          end
+          return content.html_safe
+        end
       elsif action_name == "logs"
         content = "<a href='#{edit_problem_path(@problem.id)}'><button class='btn-text-light btn-large'>Edit Problem</button></a>"
         return content.html_safe
@@ -86,7 +95,17 @@ module ApplicationHelper
         content = "<a href='#{topics_path}'><button class='btn-text-light btn-large'>Browse Topics</button></a>"
         return content.html_safe
       elsif action_name == "show"
-        content = "<button class='btn btn-light'>Follow</button>"
+        content = ""
+        if signed_in?
+          if !current_user.following?(@topic)
+            content = "<a href='#{topic_follow_path(@topic.id)}' data-remote='true' data-method='post'>"
+            content += "<button class='btn btn-light mr-20'>Follow</button></a>"
+          else
+            content = "<a href='#{topic_unfollow_path(@topic.id)}' data-remote='true' data-method='delete'>"
+            content += "<button class='btn btn-light mr-20'>Following</button></a>"
+          end
+          return content.html_safe
+        end
         return content.html_safe
       elsif action_name == "logs"
         content = "<a href='#{edit_topic_path(@topic.id)}'><button class='btn-text-light btn-large'>Edit Topic</button></a>"

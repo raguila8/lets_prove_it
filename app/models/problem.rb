@@ -4,6 +4,7 @@ class Problem < ApplicationRecord
   acts_as_votable
 
   belongs_to :user
+  has_many :problems_following, class_name: "ProblemFollowing", :dependent => :destroy
   has_many :versions, -> { order(created_at: :desc) }, :dependent => :destroy
   has_many :proofs, :dependent => :destroy
   has_many :problem_images

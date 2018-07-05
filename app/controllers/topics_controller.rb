@@ -1,5 +1,13 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: [:show, :edit, :update, :destroy, :problems, :users, :logs]
+  before_action :set_topic, only: [:show, :edit, :update, :destroy, :problems, :users, :logs, :follow, :unfollow]
+
+  def follow
+    current_user.follow @topic
+  end
+
+  def unfollow
+    current_user.unfollow @topic
+  end
   
   def logs
 

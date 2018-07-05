@@ -7,6 +7,8 @@ class User < ApplicationRecord
   mount_uploader :avatar, UserImageUploader
   acts_as_voter
 
+  has_many :problems_following, class_name: "ProblemFollowing", :dependent => :destroy
+  has_many :topics_following, class_name: "TopicFollowing", :dependent => :destroy
   has_many :user_topics
   has_many :topics, through: :user_topics, :dependent => :destroy
   has_many :problems
@@ -21,7 +23,35 @@ class User < ApplicationRecord
 											uniqueness: true
   validate :avatar_size
 
+  def following?(model)
+    if model.class.name == "Problem"
+      ProblemFollowing.exists?(user_id: self.id, problem_id: model.id)
+    elsif model.class.name == "Topic"
+      TopicFollowing.exists?(user_id: self.id, topic_id: model.id)
+    elsif model.class.name == "User"
+      self.following.include?(model)
+    end
+  end
 
+  def follow(model)
+    if model.class.name == "Problem"
+      ProblemFollowing.create(user_id: self.id, problem_id: model.id)
+    elsif model.class.name == "Topic"
+      TopicFollowing.create(user_id: self.id, topic_id: model.id)
+    elsif model.class.name == "User"
+      self.following << model
+    end
+  end
+
+  def unfollow(model)
+    if model.class.name == "Problem"
+      ProblemFollowing.find_by(user_id: self.id, problem_id: model.id)
+    elsif model.class.name == "Topic"
+      ProblemFollowing.find_by(user_id: self.id, problem_id: model.id)
+    elsif model.class.name == "User"
+      self.following.delete(model)
+    end
+  end
   
   private
 	
