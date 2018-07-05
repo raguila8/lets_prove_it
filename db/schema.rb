@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180705025943) do
+ActiveRecord::Schema.define(version: 20180705060206) do
 
   create_table "change_types", force: :cascade do |t|
     t.string "name"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20180705025943) do
     t.integer "problem_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["problem_id", "user_id"], name: "index_problem_followings_on_problem_id_and_user_id", unique: true
     t.index ["problem_id"], name: "index_problem_followings_on_problem_id"
     t.index ["user_id"], name: "index_problem_followings_on_user_id"
   end
@@ -152,6 +153,7 @@ ActiveRecord::Schema.define(version: 20180705025943) do
     t.integer "topic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["topic_id", "user_id"], name: "index_topic_followings_on_topic_id_and_user_id", unique: true
     t.index ["topic_id"], name: "index_topic_followings_on_topic_id"
     t.index ["user_id"], name: "index_topic_followings_on_user_id"
   end

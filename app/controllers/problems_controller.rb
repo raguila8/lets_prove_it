@@ -25,10 +25,8 @@ class ProblemsController < ApplicationController
         else
           @problems = Problem.all.order(:created_at)
         end
-      }
-      
+      } 
     end
-    @problems = Problem.all
   end
 
   # GET /problems/1

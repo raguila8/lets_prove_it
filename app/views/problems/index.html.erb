@@ -121,7 +121,7 @@
 
     <div class="col-md-8">
 
-
+      <% @problems.each do |problem| %>
       <!-- Blog Post 1 -->
       <div class="col-md-12">
         <div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
@@ -154,22 +154,16 @@
             </div><!-- / .meta -->
 
             <!-- Post Title -->
-            <a href="#" class="post-title"><h3>Blog Post Title</h3></a>
+            <a href="#" class="post-title"><h3><%=problem.title%></h3></a>
 
-            <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i>5 Answer</span>
-            <span class="problem-view"><i class="glyphicon glyphicon-eye-open mr-5"></i>70 views</span>
+            <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(problem.proofs.count, "Proof") %></span>
+            <span class="problem-view"><i class="glyphicon glyphicon-eye-open mr-5"></i><%=pluralize(problem.impressionist_count, "view")%></span>
             <div class="clearfix"></div>
             <!-- Problem topics -->
             <ul class="tag-list mt-20">
-              <li><a href="#">Photography</a></li>
-              <li><a href="#">Design</a></li>
-              <li><a href="#">Development</a></li>
-              <li><a href="#">PHP</a></li>
-              <li><a href="#">UI/UX</a></li>
-              <li><a href="#">Design</a></li>
-              <li><a href="#">HTML5</a></li>
-              <li><a href="#">CSS3</a></li>
-              <li><a href="#">iOS</a></li>
+              <% problem.topics.each do |topic| %>
+                <li><a href="<%= topic_path(topic.id)%>"><%= topic.name %></a></li>
+              <% end %>
             </ul> <!-- / .tag-list -->
 
             <!-- Link -->
@@ -181,7 +175,7 @@
 
         </div><!-- / .blog-post -->
       </div><!-- / .col-md-12 -->
-                                    
+      <% end %>                                    
               
       <!-- Pagination -->
       <nav class="blog-pagination">

@@ -52,6 +52,19 @@ class User < ApplicationRecord
       self.following.delete(model)
     end
   end
+
+  def problem_feed
+=begin
+    topic_ids = "SELECT topic_id FROM topic_followings
+                 WHERE user_id = #{id}"
+    problem_ids = "SELECT problem_id FROM problem_topics
+                     WHERE  topic_id IN (#{topic_ids})"
+=end
+    Problem.joins("inner join problem_topics as pt on problems.id = pt.problem_id").
+            joins("inner join topic_followings as tf on pt.topic_id = tf.topic_id").order(:created_at).distinct
+    #Problem.where("id IN (#{problem_ids})").order(:created_at)
+  end
+
   
   private
 	
