@@ -42,6 +42,9 @@ Rails.application.routes.draw do
   post '/topics/:id/follow', to: 'topics#follow', as: :topic_follow
 	delete '/topics/:id/unfollow', to: 'topics#unfollow', as: :topic_unfollow
 
+  resources :conversations do
+    resources :messages
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

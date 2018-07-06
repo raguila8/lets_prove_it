@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/mailboxer/mailboxer.git
+  revision: 03543e8a06dea8c9bfb52963da8abbf1157d5d21
+  specs:
+    mailboxer (0.15.1)
+      carrierwave (>= 0.5.8)
+      rails (>= 5.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -417,6 +425,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
+  mailboxer!
   mini_magick
   puma (~> 3.7)
   rails (~> 5.1.6)

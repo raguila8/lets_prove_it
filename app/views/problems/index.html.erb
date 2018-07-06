@@ -2,17 +2,7 @@
   <div class="row">
     <!-- ========== Sidebar ========== -->
 
-    <aside class="col-md-3 sidebar mb-sm-160">
-
-
-      <!-- Search - Widget -->
-      <div class="col-md-12 ws-s search-widget">
-        <div class="form-group">
-          <input type="search" placeholder="Search ..." class="form-control">
-          <button class="inside-input-btn"><i class="fa fa-search"></i></button>
-        </div>
-      </div><!-- / .searh-widget -->
-
+    <aside class="col-md-3 sidebar mb-sm-160"> 
 
       <!-- Tags - Widget -->
       <div class="col-md-12 ws-s tags-widget">
@@ -134,7 +124,7 @@
             <div class="post-meta">
               <div class="post-date float-left">
                 <i class="fa fa-calendar-o"></i>
-                <span>August 01.2015</span>
+                <span><%=problem.created_at.strftime('%B %d, %Y')%></span>
               </div>
               <div class="voting-meta">
                 <span class="single-problem-vote-result">+22</span>
@@ -154,7 +144,9 @@
             </div><!-- / .meta -->
 
             <!-- Post Title -->
-            <a href="#" class="post-title"><h3><%=problem.title%></h3></a>
+            <%= link_to problem_path(problem.id), class: "post-title" do %>
+              <h3><%=problem.title%></h3>
+            <% end %>
 
             <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(problem.proofs.count, "Proof") %></span>
             <span class="problem-view"><i class="glyphicon glyphicon-eye-open mr-5"></i><%=pluralize(problem.impressionist_count, "view")%></span>
@@ -162,7 +154,9 @@
             <!-- Problem topics -->
             <ul class="tag-list mt-20">
               <% problem.topics.each do |topic| %>
-                <li><a href="<%= topic_path(topic.id)%>"><%= topic.name %></a></li>
+                <li>
+                  <%= link_to topic.name, topic_path(topic.id) %>
+                </li>
               <% end %>
             </ul> <!-- / .tag-list -->
 
@@ -175,28 +169,7 @@
 
         </div><!-- / .blog-post -->
       </div><!-- / .col-md-12 -->
-      <% end %>                                    
-              
-      <!-- Pagination -->
-      <nav class="blog-pagination">
-        <ul class="pagination">
-          <li>
-            <a href="#" aria-label="Previous">
-              <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span>
-            </a>
-          </li>
-          <li><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">...</a></li>
-          <li><a href="#">7</a></li>
-          <li>
-            <a href="#" aria-label="Next">
-              <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
+      <% end %>
     </div><!-- / .col-md-8 -->
 
 

@@ -15,6 +15,7 @@
 //= require jquery
 //= require google-fonts.js
 //= require bootstrap-sprockets
+//= require jquery.mCustomScrollbar.js
 //= require toastr
 //= require bootstrap3-typeahead.js
 //= require bootstrap-tagsinput.js

@@ -55,6 +55,8 @@ gem 'acts_as_votable'
 gem 'impressionist'
 
 gem "audited", "~> 4.7"
+gem 'mailboxer', github: 'mailboxer/mailboxer'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

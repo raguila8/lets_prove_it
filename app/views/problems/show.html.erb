@@ -15,7 +15,9 @@
           <div class="post-meta" id="problem-tags-list">
             <ul class="tag-list mt-20">
               <% @problem.topics.each do |topic| %>
-                <li><a href="#"><%= topic.name %></a></li>
+                <li>
+                  <%= link_to topic.name, topic_path(topic.id) %>
+                </li>
               <% end %>
                 <a href="#" id="edit-topics" class="ml-10" data-toggle="modal" data-target="#editTopicsModal"><span class="glyphicon glyphicon-pencil"></span></a>
             </ul> <!-- / .tag-list -->
@@ -48,9 +50,6 @@
               <% end %>
             <% end %>
 				  </div>
-          <div class="problem-details">
-              <span class="problem-answered problem-answered-done"><i class="mr-5 glyphicon glyphicon-ok"></i>solved</span>
-          </div>
             <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(@problem.proofs.count, "Proof") %></span>
             <span class="problem-view"><i class="glyphicon glyphicon-eye-open mr-5"></i><%=pluralize(@problem.impressionist_count, "view")%></span>
 

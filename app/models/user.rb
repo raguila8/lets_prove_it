@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, UserImageUploader
   acts_as_voter
+  acts_as_messageable
 
   has_many :problems_following, class_name: "ProblemFollowing", :dependent => :destroy
   has_many :topics_following, class_name: "TopicFollowing", :dependent => :destroy

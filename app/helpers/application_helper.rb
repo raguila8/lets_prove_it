@@ -42,7 +42,7 @@ module ApplicationHelper
       elsif action_name == "show"
         content = "<div class='post-meta'>" + 
                     "<i class='fa fa-calendar-o'> </i>" +
-                    "<span> August 01.2015</span>" +
+                    "<span> #{@problem.created_at.strftime('%B %d, %Y')} </span>" +
                   "</div>"
         return content.html_safe
       elsif action_name == "logs"
