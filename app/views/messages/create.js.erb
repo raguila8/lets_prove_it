@@ -1,0 +1,6 @@
+<% if !@receipt.nil? and !@receipt.message.nil? %>
+  $('#frame .content .messages ul').append("<%= escape_javascript render(:partial => '/messages/message', :locals => { :receipt => @receipt }) %>");
+  $('#frame .content .messages').animate({ scrollTop: $('#frame .content .messages ul').prop("scrollHeight")}, 1000);
+  $('#msg-text-area').val('');
+
+<% end %>

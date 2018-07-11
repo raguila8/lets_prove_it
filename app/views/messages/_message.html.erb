@@ -1,0 +1,22 @@
+<% if receipt.message.sender.id == current_user.id %>
+  <li class="replies">
+    <% if current_user.avatar? %>
+      <img id="profile-img" src="<%=current_user.avatar.thumb.url%>" alt="profile image" />
+    <% else %>
+      <img id="profile-img" src="/einstein.png" alt="profile image" />
+    <% end %>
+
+    <p><%=receipt.message.body%></p>
+  </li>
+<% else %>
+  <li class="sent">
+    <% if current_user.avatar? %>
+      <img id="profile-img" src="<%=current_user.avatar.thumb.url%>" alt="profile image" />
+-->	<% else %>
+      <img id="profile-img" src="/einstein.png" alt="profile image" />
+    <% end %>
+
+    <p><%=receipt.message.body%></p>
+  </li>
+<% end %>
+

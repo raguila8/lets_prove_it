@@ -1,14 +1,11 @@
-<div class="container">
+<%= render 'conversations/new_conversation_modal' if signed_in? %>
+
+<div class="container mb-40">
 <div id="frame" class="primary-bs">
 	<div id="sidepanel">
 		<div id="profile" class="dark-grey-circle">
 			<div class="wrap">
-				<%# if current_user.profile_image? %>
-<!--
-					<img id="profile-img" src="<%#=current_user.profile_image.thumb.url%>" alt="profile image" />
--->				<%# else %>
-					<img id="profile-img" src="/einstein.png" alt="profile image" />
-				<%# end %>
+				<img id="profile-img" src="<%= user_avatar_src(current_user) %>" alt="profile image" />
 				<h4 class="g-ml-10 font-weight-600"><%=current_user.username%></h4>
 			</div>
 		</div>
@@ -19,21 +16,17 @@
 					<% if @conversation.id == conversation.id %>
 						<li class="contact active">
 					<% else %>
-						<li class="contact <%= "read" if conversation.is_read?(current_user)%>">
+						<li class="contact <%= "not-read" if !conversation.is_read?(current_user)%>">
 					<% end %>
 					<div class="wrap">
-						<%# if (conversation.participants - [current_user])[0].profile_image? %>
-<!--							<img id="profile-img" src="<%#=conversation.other_user(current_user).profile_image.thumb.url%>" alt="profile image" />
--->						<%# else %>
-							<img id="profile-img" src="/einstein.png" alt="profile image" />
-						<%# end %>
+					  <img id="profile-img" src="<%= user_avatar_src(other_user(conversation)) %>" alt="profile image" />
 
 						<div class="meta">
 							<p class="name"><%=(conversation.participants - [current_user])[0].username%></p>
 							<% if conversation.last_sender.id == current_user.id %>
-							<p class="preview"><span>You: </span> <%=conversation.last_message%></p>
+							<p class="preview"><span>You: </span> <%=conversation.last_message.body%></p>
 							<% else %>
-								<p class="preview"><%=conversation.last_message%></p>
+								<p class="preview"><%=conversation.last_message.body%></p>
 							<% end %>
 						</div>
 					</div>
@@ -49,23 +42,12 @@
 				<% @conversation.receipts_for(current_user).each do |receipt| %>
 					<% if receipt.message.sender.id == current_user.id %>
 						<li class="replies">
-							<%# if current_user.profile_image? %>
-<!--
-								<img id="profile-img" src="<%#=current_user.profile_image.thumb.url%>" alt="profile image" />
--->							<%# else %>
-								<img id="profile-img" src="/einstein.png" alt="profile image" />
-							<%# end %>
-
+              <img id="profile-img" src="<%= user_avatar_src(current_user) %>" alt="profile image" />
 							<p><%=receipt.message.body%></p>
 						</li>
 					<% else %>
 						<li class="sent">
-							<%# if current_user.profile_image? %>
-<!--								<img id="profile-img" src="<%#=current_user.profile_image.thumb.url%>" alt="profile image" />
--->							<%# else %>
-								<img id="profile-img" src="/einstein.png" alt="profile image" />
-							<%# end %>
-
+              <img id="profile-img" src="<%= user_avatar_src(receipt.message.sender) %>" alt="profile image" />
 							<p><%=receipt.message.body%></p>
 						</li>
 					<% end %>
@@ -73,35 +55,15 @@
 			</ul>
 		</div>
 		<div class="message-form-container">
-			<%= form_tag conversation_message_path(@conversation), html: { multipart: true, class: "messages-form" }, :remote => true, :authenticity_token => true do |f| %>
-				<%= text_area_tag :body, nil, placeholder: "Add a message...", class: "message-text-area" %>
-				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-				
-	
+			<%= form_tag conversation_messages_path(@conversation), html: { multipart: true, class: "messages-form" }, :remote => true, method: :post do |f| %>
+
+				<%= text_area_tag :body, nil, placeholder: "Add a message...", class: "message-text-area", id:"msg-text-area" %>	
 		
 		<div class="msg-actions">
-		  <span id="" class="msg-submit">Send</span>
+		  <%= submit_tag "Send", class: "msg-submit" %>
 		</div>
 		</div>
 		<% end %>
 	</div>
 </div>
 </div>
-
-
-<h1><%= @conversation.subject %></h1>
-
-<% @conversation.receipts_for(current_user).each do |receipt| %>
-  <div>
-    <div><%= receipt.message.sender.name %> commented: </div>
-    <p><%= receipt.message.body %></p>
-  </div>
-<% end %>
-
-<%= form_tag conversation_message_path(@conversation), method: :post do %>
-  <div>
-    <%= text_area_tag :body %>
-  </div>
-
-  <%= submit_tag %>
-<% end %>

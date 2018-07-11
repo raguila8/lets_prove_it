@@ -53,4 +53,13 @@ class UsersController < ApplicationController
     end
 
   end
+
+  def index
+    respond_to do |format|
+      format.json {
+        data = User.where("username LIKE :name", { name: "#{params[:term]}%" }).map {|t| t.username}
+        render json: { suggestions: data, success: true }
+      }
+    end
+  end
 end

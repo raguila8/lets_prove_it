@@ -3,6 +3,11 @@ $(document).on('turbolinks:load', function() {
   initScroller();
   initAnimation();
   initSelector();
+  initMessageNotifications();
+
+  if ($('#frame').length) {
+    initMessages();
+  }
 
 
   // Parallax disabled for mobile screens
@@ -28,6 +33,10 @@ $(document).on('turbolinks:load', function() {
 
   if ($("#problem-form").length) {
     initProblemForm();
+  }
+
+  if ($("#newConversationModal").length) {
+    initNewConversationForm();
   }
 
 
@@ -277,5 +286,57 @@ numbers.initialize();
 
     $('.bootstrap-tagsinput').addClass('form-group');
     $('.bootstrap-tagsinput input').addClass('form-control');
+  }
+
+/* --------------------------------------------------
+ Conversations
+ ----------------------------------------------------*/
+
+  function initNewConversationForm() {
+    $('#user-input').typeahead({
+      source: function(query, process) {
+              return $.get('/users?term=' + query, function(data) {
+                return process(data.suggestions);
+              });
+      },
+
+      freeInput: false
+    });
+  }
+
+
+/* --------------------------------------------------
+  Messages
+ ----------------------------------------------------*/
+  
+  function initMessages () {
+    var $messages = $('#frame .content .messages');
+    $messages.animate({ scrollTop: $messages.prop("scrollHeight")}, 1000);
+    //$messages.scrollTop($messages.prop("scrollHeight"));
+  }
+
+/* --------------------------------------------------
+  Message Notifications
+ ---------------------------------------------------*/
+
+  function initMessageNotifications() {
+    $('.messages-notifications').on('click', '.mark-as-read', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      console.log('yes');
+      var id = $(this).closest('.notification').attr('id');
+      var conversationID = parseInt(id.substring(26, id.length));
+
+      $.ajax({
+				type: "POST",
+				url: "/conversations/" + conversationID + "/mark_as_read",
+				headers: {
+					Accept: "text/javascript; charset=utf-8",
+					"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+
+				}
+			});
+
+    });
   }
 

@@ -51,6 +51,14 @@
             </a>
           </li><!-- / New Problem -->
 
+          <!-- Messages dropdown -->
+          <li class="dropdown dropdown-notifications messages-notifications">
+            <a href="#notifications-panel" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="glyphicon glyphicon-comment"><%= messages_badge %></i>
+            </a>
+            <%= render 'shared/messages_dropdown' %>
+          </li> <!-- / message dropdown -->
+
           <!-- User dropdown -->
           <li class="dropdown">
 					  <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button" aria-haspopup="true" aria-expanded="false" href="#">

@@ -1,0 +1,5 @@
+$('.messages-notifications .notification').removeClass('active');
+$('.messages-notifications .notification .mark-as-read').replaceWith("<%=mark_as_read_icon%>");
+$('.messages-notifications .glyphicon-comment').empty().append("<%=messages_badge%>");
+$('.messages-notifications .dropdown-toolbar-actions').empty();
+

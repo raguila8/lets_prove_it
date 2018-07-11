@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 			root 'static_pages#landing'
 		end
   end
-  resources :users, only: [:show]
+  resources :users, only: [:show, :index]
   resources :problems
   get '/problems/:id/logs', to: 'problems#logs', as: :problem_logs
   resources :images, only: [:create, :destroy]
@@ -45,6 +45,9 @@ Rails.application.routes.draw do
   resources :conversations do
     resources :messages
   end
+
+  post '/conversations/:id/mark_as_read', to: 'conversations#mark_as_read', as: :mark_as_read
+  post '/conversations/mark_all_as_read', to: 'conversations#mark_all_as_read', as: :mark_all_as_read
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

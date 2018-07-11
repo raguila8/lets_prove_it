@@ -1,0 +1,6 @@
+$('#new-conversation-form #error_explanation').remove();
+<% if @error_message %>
+  $('#new-conversation-form').prepend("<%= error_message @error_message %>");
+<% elsif @receipt.message.nil? %>
+  $('#new-conversation-form').prepend("<%= error_message "Invalid message" %>");
+<% end %>

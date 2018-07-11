@@ -66,6 +66,10 @@ class User < ApplicationRecord
     #Problem.where("id IN (#{problem_ids})").order(:created_at)
   end
 
+  def unread_messages
+    self.mailbox.conversations.unread(self)
+  end
+
   
   private
 	

@@ -124,6 +124,14 @@
 							border-left: $dropdown-link-left-border;
 						}
 
+            &:focus {
+              padding-left: $dropdown-link-shift;
+							padding-right: 30px; // -10px so it won`t shrink;
+							background: rgba(255, 255, 255, 0.1);
+              outline: 0;
+              border-left: 3px solid #ececec;
+            }
+
 						i {
 							padding-right: 5px;
 						}

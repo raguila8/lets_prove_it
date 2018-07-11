@@ -1,0 +1,16 @@
+<% if @conversation.is_read?(current_user) %>
+  $('#conversation-notification-<%=@conversation.id%>').removeClass('active');
+  <% if current_user.unread_messages.count == 0 %>
+    $('.messages-notifications .dropdown-toolbar-actions').empty();
+  <% end %>
+
+<% else %>
+  $('#conversation-notification-<%=@conversation.id%>').addClass('active');
+  <% if current_user.unread_messages.count == 1 %>
+    $('.messages-notifications .dropdown-toolbar-actions').append("<%= mark_all_as_read_link %>");
+  <% end %>
+<% end %>
+
+$('#conversation-notification-<%=@conversation.id%> .mark-as-read').replaceWith("<%=mark_as_read_icon(@conversation)%>");
+
+$('.messages-notifications .glyphicon-comment').empty().append("<%=messages_badge%>");

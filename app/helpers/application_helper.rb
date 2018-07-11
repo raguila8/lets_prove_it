@@ -26,6 +26,10 @@ module ApplicationHelper
       elsif action_name == "edit" || action_name == "update"
         @topic.name
       end
+    elsif controller_name == "conversations"
+      if action_name == "show"
+        "Conversations"
+      end
     end
   end
 
@@ -59,6 +63,10 @@ module ApplicationHelper
         "Topic Edits"
       elsif action_name == "edit" || action_name == "update"
         "Edit Topic"
+      end
+    elsif controller_name == "conversations"
+      if action_name == "show"
+        "Message Users Privately"
       end
     end
   end
@@ -113,6 +121,53 @@ module ApplicationHelper
       elsif action_name == "edit" || action_name == "update"
         
       end
+    elsif controller_name == "conversations"
+      if action_name == "show"
+        content = "<a href='#' id='new-conversation-toggle' data-toggle='modal', data-target='#newConversationModal'><button class='btn btn-light btn-large'><span class='glyphicon glyphicon-pencil'></span> New Conversation</button></a>"
+        return content.html_safe
+      end
+    end
+  end
+
+  def error_message (msg)
+    html = "<div id='error_explanation'><ul><li>#{msg}</li></ul></div>"
+    return html.html_safe
+  end
+
+  def user_avatar_src(user)
+    if user.avatar.thumb.url
+      user.avatar.thumb.url
+    else
+      "/assets/avatar.png"
+    end
+  end
+
+  def other_user(conversation)
+    (conversation.participants - [current_user])[0]
+  end
+
+  def sent_icon(conversation)
+    if conversation.last_sender == current_user
+      icon = "<span class='ml-5 glyphicon glyphicon-send'></span>"
+      return icon.html_safe
+    end
+  end
+
+  def messages_badge
+    unread_messages = current_user.mailbox.conversations.unread(current_user).count
+    if unread_messages > 0
+      badge = "<span class='badge notification-badge'>#{unread_messages}</span>"
+      return badge.html_safe
+    end
+  end
+
+  def mark_as_read_icon(conversation="mark")
+    if conversation == "mark" || conversation.is_read?(current_user)
+      icon = "<i class='mark-as-read fa fa-circle float-right mr-20' title='Mark as unread'></i>"
+      return icon.html_safe
+    else
+      icon = "<i class='mark-as-read fa fa-circle-o float-right mr-20' title='Mark as read'></i>"
+      return icon.html_safe
     end
   end
 end
