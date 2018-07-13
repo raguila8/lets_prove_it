@@ -10,28 +10,6 @@
   </div><!-- /dropdown-toolbar -->
 
   <ul class="dropdown-menu-notifications">
-    <% current_user.mailbox.conversations.each do |conversation| %>
-      <%= link_to conversation_path(conversation.id), class: "notifications-link" do %>
-        <li id="conversation-notification-<%=conversation.id%>" class="notification <%= "active" if !conversation.is_read?(current_user) %>">
-          <div class="media">
-            <div class="media-left">
-              <div class="media-object">
-                <img class="img-circle" alt="50x50" style="width: 50px; height: 50px;" src="<%= user_avatar_src(other_user(conversation)) %>" data-holder-rendered="true">
-              </div>
-            </div>
-            <div class="media-body">
-              <strong class="notification-title"><%= other_user(conversation).username %> <%= sent_icon(conversation) %></strong>
-              <p class="notification-desc truncate-75"><%= conversation.last_message.body %></p>
-
-              <div class="notification-meta">
-                <small class="timestamp"><%= conversation.last_message.created_at %></small>
-                <%= mark_as_read_icon(conversation) %>
-              </div>
-            </div>
-          </div>
-        </li>
-      <% end %>
-    <% end %>
   </ul>
   <% if current_user.mailbox.conversations.count == 0 %>
     <div class="no-messages-container">
@@ -42,7 +20,7 @@
   
   <% if current_user.mailbox.conversations.count > 0 %>
     <div class="dropdown-footer text-center">
-      <a href="#">View All</a>
+      <%= link_to "View All", conversation_path(current_user.mailbox.conversations.last) %>
     </div><!-- /dropdown-footer -->
   <% end %>
 </div><!-- /dropdown-container -->

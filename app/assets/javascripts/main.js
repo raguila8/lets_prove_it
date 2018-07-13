@@ -3,7 +3,6 @@ $(document).on('turbolinks:load', function() {
   initScroller();
   initAnimation();
   initSelector();
-  initMessageNotifications();
 
   if ($('#frame').length) {
     initMessages();
@@ -11,6 +10,10 @@ $(document).on('turbolinks:load', function() {
 
   if ($("[data-behavior='general-notifications']").length > 0) {
     initGeneralNotifications();
+  }
+
+  if ($("[data-behavior='message-notifications']").length > 0) {
+    initMessageNotifications();
   }
 
 
@@ -324,6 +327,17 @@ numbers.initialize();
  ---------------------------------------------------*/
 
   function initMessageNotifications() {
+    // Load navbar messages through ajax
+    $.ajax({
+			type: "GET",
+			url: "/conversations/",
+			headers: {
+				Accept: "text/javascript; charset=utf-8",
+					"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			}
+	  });
+
+
     $('.messages-notifications').on('click', '.mark-as-read', function(e) {
       e.stopPropagation();
       e.preventDefault();
