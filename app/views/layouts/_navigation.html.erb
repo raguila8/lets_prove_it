@@ -51,6 +51,14 @@
             </a>
           </li><!-- / New Problem -->
 
+          <li class="dropdown dropdown-notifications general-notifications" data-behavior="general-notifications">
+            <a href="#notifications-panel" class="dropdown-toggle" data-toggle="dropdown" data-behavior="general-notifications-link">
+              <i class="glyphicon glyphicon-bell"><%= notifications_badge %></i>
+            </a>
+            <%= render 'shared/notifications_dropdown' %>
+          </li> <!-- / message dropdown -->
+
+
           <!-- Messages dropdown -->
           <li class="dropdown dropdown-notifications messages-notifications">
             <a href="#notifications-panel" class="dropdown-toggle" data-toggle="dropdown">

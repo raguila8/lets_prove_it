@@ -46,8 +46,14 @@ Rails.application.routes.draw do
     resources :messages
   end
 
-  post '/conversations/:id/mark_as_read', to: 'conversations#mark_as_read', as: :mark_as_read
-  post '/conversations/mark_all_as_read', to: 'conversations#mark_all_as_read', as: :mark_all_as_read
+  post '/conversations/:id/mark_as_read', to: 'conversations#mark_as_read', as: :mark_as_read_message
+  post '/conversations/mark_all_as_read', to: 'conversations#mark_all_as_read', as: :mark_all_as_read_messages
+ 
+  resources :notifications, only: [:index, :destroy] do
+    collection do
+      post :mark_all_as_read
+    end
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

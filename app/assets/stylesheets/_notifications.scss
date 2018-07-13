@@ -56,7 +56,7 @@
 .notification-badge {
   position: absolute;
   margin-left: -6.8775px;
-  margin-top: -6.8775px;
+  margin-top: -9.8775px;
   background-image: linear-gradient(#54a3ff, #006eed);
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
   font-size: 10 !important;
@@ -73,3 +73,13 @@
 	}
 }
 
+/* -------------------------------------------------------
+ Notifications page
+
+ --------------------------------------------------------*/
+
+#notifications-page {
+  h3 {
+    text-transform: none;
+  }
+}

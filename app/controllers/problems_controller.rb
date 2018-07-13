@@ -64,6 +64,12 @@ class ProblemsController < ApplicationController
     respond_to do |format|
         @exception = @problem.save_new(tagsArray, images_array, current_user)[:exception]
       if !@exception
+        # Notify users that follow @problem.topics
+        @problem.topics.each do |topic|
+          (topic.followers - [current_user]).each do |follower|
+            Notification.notify_user(follower, current_user, "created", @problem)
+          end
+        end
         format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
         format.json { render :show, status: :created, location: @problem }
       else
@@ -90,6 +96,9 @@ class ProblemsController < ApplicationController
     respond_to do |format|
       @exception = @problem.save_edit(tagsArray, images_array, version_description, current_user)[:exception]
       if !@exception
+        (@problem.followers  - [current_user]).each do |follower|
+          Notification.notify_user(follower, current_user, "edited", @problem)
+        end
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
         format.json { render :show, status: :ok, location: @problem }
       else

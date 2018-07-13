@@ -1,4 +1,5 @@
 class Version < ApplicationRecord
+  belongs_to :user
   has_one :problem
   has_one :topic
   has_many :version_changes, foreign_key: "version_id", class_name: "Change"

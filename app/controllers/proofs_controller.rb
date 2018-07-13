@@ -51,7 +51,16 @@ class ProofsController < ApplicationController
     respond_to do |format|
       exception = @proof.save_with_images(images_array, current_user)[:exception]
       if !exception
-        #@proof.add_new_images(current_user)
+        #Any user who proofs a problem automatically follows it
+        if !current_user.following? @problem
+          current_user.follow @problem
+        end
+
+        # Create notifications for users following the problem
+        (@problem.followers - [current_user]).each do |follower|
+          Notification.notify_user(follower, current_user, "wrote a proof for", @proof.problem)
+        end
+
         format.html { redirect_to @problem, notice: 'Proof was successfully created.' }
         format.json { render :show, status: :created, location: @proof }
       else
@@ -76,6 +85,13 @@ class ProofsController < ApplicationController
 
     respond_to do |format|
       @exception = @proof.save_with_images(images_array, current_user)[:exception]
+      if !@exception
+        # Notify users that follow the problem
+        (@proof.problem.followers - [current_user]).each do |follower|
+          Notification.notify_user(follower, current_user, "edited a proof for", @proof.problem)
+        end
+
+      end
       format.js {}
     end
   end

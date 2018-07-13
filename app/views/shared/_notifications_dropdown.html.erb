@@ -1,0 +1,19 @@
+<div class="dropdown-container">
+  <div class="dropdown-toolbar">
+    <span class="dropdown-toolbar-title">Notifications (<%=current_user.unread_notifications.count%>)</span>
+  </div><!-- /dropdown-toolbar -->
+
+  <ul class="dropdown-menu-notifications">
+      
+  </ul>
+  <% if current_user.unread_notifications.count == 0 %>
+    <div class="no-messages-container">
+      <img src="/assets/no_notifications_icon.png" alt="conversations icon">
+		  <p class="font-weight-600 font-size-15">You have no notifications.</p>
+	  </div>
+  <% end %>
+  
+  <div class="dropdown-footer text-center">
+    <%= link_to "View All", notifications_path %>
+  </div><!-- /dropdown-footer -->
+</div><!-- /dropdown-container -->

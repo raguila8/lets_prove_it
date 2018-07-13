@@ -1,0 +1,4 @@
+$("[data-behavior='notification-<%=@notification.id%>']").remove();
+<% if current_user.notifications.count  == 0 %>
+  $(".main-content").html("<%= no_results_content('notifications') %>");
+<% end %>

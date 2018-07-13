@@ -2,7 +2,7 @@
   <div class="dropdown-toolbar">
     <div class="dropdown-toolbar-actions">
       <% if current_user.unread_messages.count > 0 %>
-        <%= link_to "Mark all as read", mark_all_as_read_path, method: :post, remote: true, class: "mark-all-as-read-link" %>
+        <%= link_to "Mark all as read", mark_all_as_read_messages_path, method: :post, remote: true, class: "mark-all-as-read-link" %>
       <% end %>
     </div>
     <span class="dropdown-toolbar-title">Messages (<%=current_user.unread_messages.count%>)</span>

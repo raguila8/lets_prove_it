@@ -17,6 +17,14 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     respond_to do |format|
       if @comment.save
+        # Notify people who have commented on the proof
+        ((@comment.proof.comments.map{ |comment| comment.user }).uniq - [current_user, @comment.proof.user]).each do |commenter|
+          Notification.notify_user(commenter, current_user, "commented on a proof you have commented on for", @comment.proof.problem)
+        end
+
+        # Notify the person who wrote the proof
+        Notification.notify_user(@comment.proof.user, current_user, "commented on your proof for", @comment.proof.problem) if @comment.proof.user != current_user
+
         format.js {}
       else
         format.js {}

@@ -1,0 +1,160 @@
+<div id="notifications-page" class="section container blog-classic">
+  <div class="row">
+    <!-- ========== Sidebar ========== -->
+
+    <aside class="col-md-3 sidebar mb-sm-160"> 
+
+      <!-- Tags - Widget -->
+      <div class="col-md-12 ws-s tags-widget">
+        <h5 class="header-widget">Tags</h5>
+        <ul class="tag-list">
+          <li><a href="#">Photography</a></li>
+          <li><a href="#">Design</a></li>
+          <li><a href="#">Development</a></li>
+          <li><a href="#">PHP</a></li>
+          <li><a href="#">UI/UX</a></li>
+          <li><a href="#">Design</a></li>
+          <li><a href="#">HTML5</a></li>
+          <li><a href="#">CSS3</a></li>
+          <li><a href="#">iOS</a></li>
+        </ul>
+      </div><!-- / .tags-widget -->
+              
+
+      <!-- Recent Posts - Widget -->
+      <div class="col-md-12 ws-s recent-posts-widget">
+        <h5 class="header-widget">Recent Posts</h5>
+
+        <!-- Item 1 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Another Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+      </div><!-- / .recent-posts-widget -->
+
+
+      <!-- Categories - Widget -->
+      <div class="col-md-12 ws-s categories-widget">
+        <h5 class="header-widget">Categories</h5>
+
+        <!-- Item 1 -->
+        <div class="widget-item">
+          <a href="#">Web Design - <span>15</span></a>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="widget-item">
+          <a href="#">Graphic Design - <span>6</span></a>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="widget-item">
+          <a href="#">iOS Development - <span>12</span></a>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="widget-item">
+          <a href="#">Other - <span>3</span></a>
+        </div>
+
+      </div><!-- / .categories-widget -->
+
+      <!-- Comments - Widget -->
+      <div class="col-md-12 ws-s comments-widget">
+        <h5 class="header-widget">Comments</h5>
+
+        <!-- Item 1 -->
+        <div class="widget-item">
+          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Lorem ipsum dolor sit amet</a></span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="widget-item">
+          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Sed do eiusmod</a></span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="widget-item">
+          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Lorem ipsum dolor sit amet</a></span>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="widget-item">
+          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Sed do eiusmod</a></span>
+        </div>
+                
+      </div><!-- / .comments-widget -->
+
+
+      <!-- Text - Widget -->
+      <div class="col-md-12 text-widget">
+        <h5 class="header-widget">Text Widget</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae qui error, incidunt quia pariatur facere quasi totam inventore amet rerum.</p>
+      </div><!-- / .text-widget -->
+
+    </aside><!-- / .sidebar -->
+
+    <!-- ========== Blog Posts ========== -->
+
+    <div class="col-md-8 main-content">
+
+      <% @notifications.each do |notification| %>
+      <!-- Blog Post 1 -->
+      <div class="col-md-12" data-behavior="notification-<%=notification.id%>">
+        <div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+        
+
+          <div class="bp-content">
+            <!-- Meta data -->
+            <div class="post-meta">
+              <div class="post-date float-left">
+                <i class="fa fa-calendar-o"></i>
+                <span><%=notification.created_at.strftime('%B %d, %Y')%></span>
+              </div>
+              <div class="float-right">
+                <%= link_to notification_path(notification), remote: true, method: :delete, data: { confirm: "Are you sure you want to delete this notification?" } do %>
+                  <button class="btn-text-danger btn-small">Delete</button>
+                <% end %>
+              </div>
+              <div class="clearfix"></div>
+            </div><!-- / .meta -->
+
+            <!-- Post Title -->
+            <h3 class="mb-20">
+              <strong><%= notification.actor.username %> </strong>
+              <span><%= notification.message %></span>
+            </h3>
+ 
+            <!-- Link -->
+            <%= link_to "View", notification.link, class: "btn btn-small" %>
+
+          </div><!-- / .bp-content -->
+
+        </div><!-- / .blog-post -->
+      </div><!-- / .col-md-12 -->
+      <% end %>
+      <% if @notifications.count == 0 %>
+        <div class="no-results-container">
+          <img src="/assets/no_notifications_icon.png" alt="conversations icon">
+		      <h3 class="font-weight-600">You have no notifications.</h3>
+	      </div>
+
+      <% end %>
+    </div><!-- / .col-md-8 -->
+
+
+  </div>
+</div>

@@ -9,15 +9,22 @@ class UsersController < ApplicationController
       @problem = Problem.find(params[:id])
       if @vote_type == "like"
         if !current_user.liked? @problem
-          @problem.liked_by current_user
+          @problem.liked_by current_user 
           @voted = true
         end
       else
         if !current_user.voted_down_on? @problem
-          @problem.downvote_from current_user
+          @problem.downvote_from current_user 
           @voted = true
         end
       end
+      if @voted
+        # Notify problem editors that the problem has been liked/disliked
+        ((@problem.versions.map{ |version| version.user }).uniq - [current_user]).each do |editor|
+          Notification.notify_user(editor, current_user, @vote_type == "like" ? "liked": "disliked", @problem) if editor != current_user
+        end
+      end
+
     elsif @votable_type == "comment"
       @comment = Comment.find(params[:id])
       if @vote_type == "like"
@@ -30,6 +37,10 @@ class UsersController < ApplicationController
           @comment.downvote_from current_user
           @voted = true
         end
+      end
+      if @voted
+        # Notify owner of comment 
+        Notification.notify_user(@comment.user, current_user, (@vote_type == "like" ? "liked": "disliked") + " your comment on a proof for", @comment.proof.problem) if @comment.user != current_user
       end
     elsif @votable_type == "proof"
       @proof = Proof.find(params[:id])
@@ -44,6 +55,10 @@ class UsersController < ApplicationController
           @voted = true
         end
       end
+      if @voted
+        # Notify owner of proof
+        Notification.notify_user(@proof.user, current_user, (@vote_type == "like" ? "liked": "disliked") + " your proof for", @proof.problem) if @proof.user != current_user
+      end
     end
 
     respond_to do |format|
@@ -51,7 +66,6 @@ class UsersController < ApplicationController
       format.json
       format.html
     end
-
   end
 
   def index

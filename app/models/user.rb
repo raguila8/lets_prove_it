@@ -8,8 +8,11 @@ class User < ApplicationRecord
   acts_as_voter
   acts_as_messageable
 
-  has_many :problems_following, class_name: "ProblemFollowing", :dependent => :destroy
-  has_many :topics_following, class_name: "TopicFollowing", :dependent => :destroy
+  has_many :notifications, foreign_key: :recipient_id
+  has_many :problems_relationships, class_name: "ProblemFollowing", :dependent => :destroy
+  has_many :problems_following, through: :problems_relationships, source: :problem
+  has_many :topics_relationships, class_name: "TopicFollowing", :dependent => :destroy
+  has_many :topics_following, through: :topics_relationships, source: :topic
   has_many :user_topics
   has_many :topics, through: :user_topics, :dependent => :destroy
   has_many :problems
@@ -26,9 +29,11 @@ class User < ApplicationRecord
 
   def following?(model)
     if model.class.name == "Problem"
-      ProblemFollowing.exists?(user_id: self.id, problem_id: model.id)
+      self.problems_following.include?(model)
+      #ProblemFollowing.exists?(user_id: self.id, problem_id: model.id)
     elsif model.class.name == "Topic"
-      TopicFollowing.exists?(user_id: self.id, topic_id: model.id)
+      self.topics_following.include?(model)
+      #TopicFollowing.exists?(user_id: self.id, topic_id: model.id)
     elsif model.class.name == "User"
       self.following.include?(model)
     end
@@ -36,9 +41,11 @@ class User < ApplicationRecord
 
   def follow(model)
     if model.class.name == "Problem"
-      ProblemFollowing.create(user_id: self.id, problem_id: model.id)
+      self.problems_following << model
+      #ProblemFollowing.create(user_id: self.id, problem_id: model.id)
     elsif model.class.name == "Topic"
-      TopicFollowing.create(user_id: self.id, topic_id: model.id)
+      self.topics_following << model
+      #TopicFollowing.create(user_id: self.id, topic_id: model.id)
     elsif model.class.name == "User"
       self.following << model
     end
@@ -46,9 +53,11 @@ class User < ApplicationRecord
 
   def unfollow(model)
     if model.class.name == "Problem"
-      ProblemFollowing.find_by(user_id: self.id, problem_id: model.id)
+      self.problems_following.delete(model)
+      #ProblemFollowing.find_by(user_id: self.id, problem_id: model.id)
     elsif model.class.name == "Topic"
-      ProblemFollowing.find_by(user_id: self.id, problem_id: model.id)
+      self.topics_following.delete(model)
+      #ProblemFollowing.find_by(user_id: self.id, problem_id: model.id)
     elsif model.class.name == "User"
       self.following.delete(model)
     end
@@ -68,6 +77,14 @@ class User < ApplicationRecord
 
   def unread_messages
     self.mailbox.conversations.unread(self)
+  end
+ 
+  def unread_notifications
+    Notification.where(recipient: self).unread
+  end
+
+  def notifications
+    Notification.where(recipient: self)
   end
 
   

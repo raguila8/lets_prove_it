@@ -9,6 +9,10 @@ $(document).on('turbolinks:load', function() {
     initMessages();
   }
 
+  if ($("[data-behavior='general-notifications']").length > 0) {
+    initGeneralNotifications();
+  }
+
 
   // Parallax disabled for mobile screens
   if ($(window).width() >= 1260) {
@@ -323,7 +327,6 @@ numbers.initialize();
     $('.messages-notifications').on('click', '.mark-as-read', function(e) {
       e.stopPropagation();
       e.preventDefault();
-      console.log('yes');
       var id = $(this).closest('.notification').attr('id');
       var conversationID = parseInt(id.substring(26, id.length));
 
@@ -337,6 +340,32 @@ numbers.initialize();
 				}
 			});
 
+    });
+  }
+
+/* ---------------------------------------------------
+  General Notifications
+ ----------------------------------------------------*/
+
+  function initGeneralNotifications() {
+    $.ajax({
+			type: "GET",
+			url: "/notifications/",
+			headers: {
+				Accept: "text/javascript; charset=utf-8",
+					"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			}
+	  });
+
+    $("[data-behavior='general-notifications-link']").on('click', function() {
+      $.ajax({
+        type: "POST",
+			  url: "/notifications/mark_all_as_read",
+			  headers: {
+				  Accept: "text/javascript; charset=utf-8",
+					  "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			  }
+      });
     });
   }
 

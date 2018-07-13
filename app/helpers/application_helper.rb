@@ -153,6 +153,14 @@ module ApplicationHelper
     end
   end
 
+  def notifications_badge
+    unread_notifications_count = current_user.unread_notifications.count
+    if unread_notifications_count > 0
+      badge = "<span class='badge notification-badge'>#{unread_notifications_count}</span>"
+      return badge.html_safe
+    end
+  end
+
   def messages_badge
     unread_messages = current_user.mailbox.conversations.unread(current_user).count
     if unread_messages > 0
@@ -169,5 +177,10 @@ module ApplicationHelper
       icon = "<i class='mark-as-read fa fa-circle-o float-right mr-20' title='Mark as read'></i>"
       return icon.html_safe
     end
+  end
+
+  def no_results_content(model)
+    content = "<div class='no-results-container'><img src='/assets/no_#{model}_icon.png'><h3 class='font-weight-600'>No #{model} to show.</h3></div>"
+    content.html_safe
   end
 end
