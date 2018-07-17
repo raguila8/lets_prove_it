@@ -1,2 +1,314 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="pt-100 section container-fluid blog-classic">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="profile-main-div mb-40 primary-card g-pa-20" id="profile-<%=@user.id%>">
+        <div class="row">
+          <div class="col-lg-3 col-md-3">
+            <!-- User Image -->
+            <div class="profile-img-container <%= "camera-toggle" if current_user == @user %>  g-mb-40">
+              <img class="profile-img img-responsive w-100" src="<%=user_avatar_src(@user)%>">
+            </div><!-- End User Image -->
+
+            <!-- User Contact Buttons -->
+            <% if signed_in? and current_user != @user %>
+              <div class="user-contact-btns-<%=@user.id%>">
+                <button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary new-msg" data-toggle="modal" data-target="#new-conversation-modal">Message</button>
+              </div>
+            <% end %>
+              <!-- End User Contact Buttons -->		
+          </div>
+
+          <div class="col-lg-9 col-md-9">
+            <div class="col-md-10 col-lg-10">
+
+              <!-- User details -->
+              <h2 class="font-weight-600 dont-break-out username"><%=@user.username%></h2>
+              <%# if @user.name and !@user.name.blank?%>
+                <h4 class="font-weight-500 no-transform opacity-8 g-mb-10 g-mt-0 ellipsis-wrap">
+                  <%#=@user.name%>
+                  Rodrigo Aguilar
+                </h4>
+              <%# end %>
+              <!-- End User details -->
+              <!-- User position -->
+      <!--
+              <ul class="list-inline g-mb-10 font-weight-200">
+                <%# if @user.occupation and !@user.occupation.blank?%>
+                  <li class="list-inline-item g-mr-20"><span class="glyphicon glyphicon-briefcase g-mr-8"></span><%#=@user.occupation%> </li>
+                <%# end %>
+                <%# if @user.school and !@user.school.blank? %>
+                  <li class="list-inline-item g-mr-20"><span class="glyphicon glyphicon-education g-mr-8"></span><%#=@user.school%></li>
+
+                <%# end %>
+              </ul>
+    -->
+              <!-- End User position -->
+            </div>	
+              
+            <hr class="g-mv-20 light-gray-border clear-both">
+            <!-- User Bio -->
+<!--
+            <%# if @user.bio and !@user.bio.blank? %>
+              <p class="dont-break-out"><%#= @user.bio %></p>
+
+              <hr class="g-mv-20 light-gray-border">
+            <%# end %>
+      -->
+            <!-- End User Bio  -->
+
+          </div>
+        </div>
+      </div>
+
+      <div class="mh-auto ft-tabs">
+        <div class="row">
+            
+          <!-- Tabs -->
+          <div class="col-lg-4 no-gap">
+            <ul class="tabs-list" role="tablist">
+
+              <!-- Tab 1 -->
+              <li role="presentation" class="active">
+                <a href="<%= proofs_user_path(@user) %>" aria-controls="tab1" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>500</h1>
+                    <i class="fa fa-comment"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Proofs</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 2 -->
+              <li role="presentation">
+                <a href="<%= problem_edits_user_path(@user) %>" aria-controls="tab2" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>500</h1>
+                    <i class="fa fa-pencil-square"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Problem Edits</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 3 -->
+              <li role="presentation">
+                <a href="<%= problems_following_user_path(@user) %>" aria-controls="tab3" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>500</h1>
+                    <i class="fa fa-question-circle"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Problems Following</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 4 -->
+              <li role="presentation">
+                <a href="<%= topics_following_user_path(@user) %>" aria-controls="tab4" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>500</h1>
+                    <i class="fa fa-tag"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Topics Following</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 5 -->
+              <li role="presentation">
+                <a href="<%= topic_edits_user_path(@user) %>" aria-controls="tab5" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>500</h1>
+                    <i class="fa fa-pencil-square"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Topic Edits</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 6 -->
+              <li role="presentation">
+                <a href="<%= followers_user_path(@user) %>" aria-controls="tab6" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>500</h1>
+                    <i class="fa fa-users"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Followers</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 7 -->
+              <li role="presentation">
+                <a href="<%= following_user_path(@user) %>" aria-controls="tab8" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>500</h1>
+                    <i class="fa fa-users"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Following</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 8 -->
+              <li role="presentation">
+                <a href="<%= activity_user_path(@user) %>" aria-controls="tab1" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>500</h1>
+                    <i class="fa fa-desktop"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Activity</p>
+                  </div>              
+                </a>
+              </li>
+            </ul>
+          </div><!-- / .col-lg-4 -->
+
+
+          <!-- Tabs Content -->
+          <div class="col-lg-8 no-gap tab-content">
+
+            <!-- Tab Content 1 -->
+            <div class="tab-pane fade active in">
+              <div class="tab-content-text page-content">
+                <div class="boxedtitle add-problem-title mb-40"><h2>Proofs</h2></div>
+                <div class="tab-list-content">
+                <% @user.proofs.each do |proof| %>
+                  <div class="col-md-12">
+                    <div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+        
+                      <div class="bp-content">
+                      
+                        <!-- Meta data -->
+                        <div class="post-meta">
+                          <div class="post-date float-left">
+                            <i class="fa fa-calendar-o"></i>
+                            <span>Prooved on <%=proof.created_at.strftime('%B %d, %Y')%></span>
+                          </div>
+                          <div class="vote-container vote-container-post float-right">
+                            <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+                              <%= upvote_span proof %>
+                            <% end %>
+
+                            <%= vote_count_span proof %>
+                        
+                            <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+                              <%= downvote_span proof %>
+                            <% end %>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div><!-- / .meta -->
+
+                        <!-- Post Title -->
+                        <%= link_to problem_path(proof.problem.id), class: "post-title pa-0" do %>
+                          <h2 class="problem-desc pb-15" title="Problem"><%=proof.problem.title%></h2>
+                        <% end %>
+
+                        <div class="mb-30 mt-20 blog-post-content">
+                          <%= sanitize proof.content %>
+                        </div>
+
+                        <!-- Link -->
+                        <a href="<%=problem_path(proof.problem.id)%>" class="btn btn-small">Read More</a>
+                      </div><!-- / .bp-content -->
+                    </div><!-- / .blog-post -->
+                  </div><!-- / .col-md-12 -->
+                <% end %>
+                </div>
+              </div>
+            </div><!-- / #tab1 -->
+          </div><!-- / .col-lg-8 -->
+
+        </div><!-- / .row -->
+      </div>
+    </div>
+    <!-- ========== Sidebar ========== -->
+
+    <aside class="col-md-3 sidebar">
+ 
+
+      <!-- Stats - Widget -->
+      <div class="col-md-12 ws-s stats-widget">
+        <h5 class="header-widget">Stats</h5>
+        <ul>
+			    <li><i class="fa fa-question mr-5 circle-icon"></i> Problems ( <span>20</span> )</li>
+					<li><i class="fa fa-comment circle-icon mr-5"></i> Proofs ( <span>50</span> )</li>
+				</ul>
+      </div><!-- / .stats-widget -->
+
+      <!-- Highest Points - Widget -->
+      <div class="col-md-12 ws-s highest-points-widget">
+        <h5 class="header-widget">Highest Points</h5>
+        <ul>
+					<li>
+						<div class="author-img">
+							<a href="#"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+						</div> 
+						<h6><a href="#">admin</a></h6>
+						<span class="comment">12 Points</span>
+					</li>
+					<li>
+						<div class="author-img">
+							<a href="#"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/avatar.png" alt=""></a>
+						</div> 
+						<h6><a href="#">vbegy</a></h6>
+						<span class="comment">10 Points</span>
+					</li>
+					<li>
+						<div class="author-img">
+							<a href="#"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/avatar.png" alt=""></a>
+						</div> 
+						<h6><a href="#">ahmed</a></h6>
+						<span class="comment">5 Points</span>
+					</li>
+				</ul>
+      </div><!-- / .highest points - widget -->
+              
+
+      <!-- Recent Posts - Widget -->
+      <div class="col-md-12 ws-s recent-posts-widget">
+        <h5 class="header-widget">Recent Posts</h5>
+
+        <!-- Item 1 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Another Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="widget-item">
+          <a href="#"><h6 class="h-alt">Blog Post Example</h6></a>
+          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
+        </div>
+
+      </div><!-- / .recent-posts-widget -->
+      
+
+      <!-- Text - Widget -->
+      <div class="col-md-12 text-widget">
+        <h5 class="header-widget">Text Widget</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae qui error, incidunt quia pariatur facere quasi totam inventore amet rerum.</p>
+      </div><!-- / .text-widget -->
+
+    </aside><!-- / .sidebar -->
+
+
+  </div>
+</div>
+ 
+    

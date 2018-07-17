@@ -1,0 +1,58 @@
+<div class="row">
+<div class="col-md-12 user_item profile-main-div mb-40 primary-card g-pa-20" id="profile-<%=user.id%>">
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-3">
+      <!-- User Image -->
+      <div class="profile-img-container <%= "camera-toggle" if current_user == user %>  g-mb-40">
+        <img class="profile-img img-responsive w-100" src="<%=user_avatar_src(user)%>">
+      </div><!-- End User Image -->
+    </div>
+
+    <div class="col-lg-9 col-md-9 col-sm-9">
+      <div class="col-md-10 col-lg-10">
+
+        <!-- User details -->
+        <h2 class="font-weight-600 dont-break-out username"><%=user.username%></h2>
+        <%# if @user.name and !@user.name.blank?%>
+          <h4 class="font-weight-500 no-transform opacity-8 g-mb-10 g-mt-0 ellipsis-wrap">
+            <%#=@user.name%>
+            Rodrigo Aguilar
+          </h4>
+          
+        <%# end %>
+        <!-- End User details -->
+        <!-- User position -->
+      <!--
+        <ul class="list-inline g-mb-10 font-weight-200">
+          <%# if @user.occupation and !@user.occupation.blank?%>
+            <li class="list-inline-item g-mr-20"><span class="glyphicon glyphicon-briefcase g-mr-8"></span><%#=@user.occupation%> </li>
+          <%# end %>
+          <%# if @user.school and !@user.school.blank? %>
+            <li class="list-inline-item g-mr-20"><span class="glyphicon glyphicon-education g-mr-8"></span><%#=@user.school%></li>
+          <%# end %>
+        </ul>
+    -->
+        <!-- End User position -->
+      </div>	
+     <!--         
+      <hr class="g-mv-20 light-gray-border clear-both">
+     -->
+      <!-- User Bio -->
+<!--
+      <%# if @user.bio and !@user.bio.blank? %>
+        <p class="dont-break-out"><%#= @user.bio %></p>
+
+        <hr class="g-mv-20 light-gray-border">
+      <%# end %>
+      -->
+      <!-- End User Bio  -->
+    </div>
+    <% if signed_in? and user != current_user %>
+      <div class="user-follow-btn" id="user-follow-<%=user.id%>">
+        <%= follow_link user %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+</div>

@@ -66,4 +66,10 @@ class Topic < ApplicationRecord
     Problem.where("id IN (#{problem_ids})")
   end
 
+  def proofs
+    problem_ids = "SELECT problem_id FROM problem_topics
+                     WHERE  topic_id = #{id}"
+    Proof.where("problem_id IN (#{problem_ids})")
+  end
+
 end

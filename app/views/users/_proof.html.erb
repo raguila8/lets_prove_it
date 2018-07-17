@@ -1,0 +1,36 @@
+<div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+  <div class="bp-content">
+                      
+    <!-- Meta data -->
+    <div class="post-meta">
+      <div class="post-date float-left">
+        <i class="fa fa-calendar-o"></i>
+        <span>Prooved on <%=proof.created_at.strftime('%B %d, %Y')%></span>
+      </div>
+      <div class="vote-container vote-container-post float-right">
+        <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+          <%= upvote_span proof %>
+        <% end %>
+
+        <%= vote_count_span proof %>
+                        
+        <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+          <%= downvote_span proof %>
+        <% end %>
+      </div>
+      <div class="clearfix"></div>
+    </div><!-- / .meta -->
+
+    <!-- Post Title -->
+    <%= link_to problem_path(proof.problem.id), class: "post-title pa-0" do %>
+      <h2 class="problem-desc pb-15" title="Problem"><%=proof.problem.title%></h2>
+    <% end %>
+
+    <div class="mb-30 mt-20 blog-post-content">
+      <%= sanitize proof.content %>
+    </div>
+
+    <!-- Link -->
+    <a href="<%=problem_path(proof.problem.id)%>" class="btn btn-small">Read More</a>
+  </div><!-- / .bp-content -->
+</div><!-- / .blog-post -->

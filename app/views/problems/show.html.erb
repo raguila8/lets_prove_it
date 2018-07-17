@@ -29,25 +29,13 @@
           
           <div class="vote-container vote-container-post">
             <%= link_to vote_path(:vote_type => "like", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
-              <% if !current_user.liked? @problem %>
-				        <span id="problem-upvote-<%=@problem.id%>" class="glyphicon glyphicon-triangle-top"></span>
-              <% else %>
-                <span id="problem-upvote-<%=@problem.id%>" class="glyphicon glyphicon-triangle-top upvoted"></span>
-              <% end %>
+              <%= upvote_span @problem %>
             <% end %>
-            <% if current_user.liked? @problem %>
-						  <span class="upvoted" id="problem-vote-count-<%=@problem.id%>" style="text-align: center; margin-left: -2px;"><%= @problem.cached_votes_score %> </span>
-            <% elsif current_user.voted_down_on? @problem %>
-              <span class="downvoted" id="problem-vote-count-<%=@problem.id%>" style="text-align: center; margin-left: -2px;"><%= @problem.cached_votes_score %> </span>
-            <% else %>
-              <span id="problem-vote-count-<%=@problem.id%>" style="text-align: center; margin-left: -2px;"><%= @problem.cached_votes_score %> </span>
-            <% end %>
+
+            <%= vote_count_span @problem %>
+                        
             <%= link_to vote_path(:vote_type => "dislike", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
-              <% if !current_user.voted_down_on? @problem %>
-                <span id="problem-downvote-<%=@problem.id%>" class="glyphicon glyphicon-triangle-bottom"></span>
-              <% else %>
-                <span id="problem-downvote-<%=@problem.id%>" class="glyphicon glyphicon-triangle-bottom downvoted"></span>
-              <% end %>
+              <%= downvote_span @problem %>
             <% end %>
 				  </div>
             <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(@problem.proofs.count, "Proof") %></span>
@@ -92,28 +80,13 @@
                 <br>
                 <div class="vote-container vote-container-post">
                   <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
-                    <% if !current_user.liked? proof %>
-				              <span id="proof-upvote-<%=proof.id%>" class="glyphicon glyphicon-triangle-top"></span>
-                    <% else %>
-                      <span id="proof-upvote-<%=proof.id%>" class="glyphicon glyphicon-triangle-top upvoted"></span>
-                    <% end %>
+                    <%= upvote_span proof %>
                   <% end %>
-                  <% if current_user.liked? proof %>
-						        <span class="upvoted" id="proof-vote-count-<%=proof.id%>" style="text-align: center; margin-left: -2px;"><%= proof.cached_votes_score %> </span>
-                  <% elsif current_user.voted_down_on? proof %>
-                    <span class="downvoted" id="proof-vote-count-<%=proof.id%>" style="text-align: center; margin-left: -2px;"><%= proof.cached_votes_score %> </span>
 
-                  <% else %>
-                    <span id="proof-vote-count-<%=proof.id%>" style="text-align: center; margin-left: -2px;"><%= proof.cached_votes_score %> </span>
+                  <%= vote_count_span proof %>
 
-                  <% end %>
                   <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
-
-                    <% if !current_user.voted_down_on? proof %>
-                      <span id="proof-downvote-<%=proof.id%>" class="glyphicon glyphicon-triangle-bottom"></span>
-                    <% else %>
-                      <span id="proof-downvote-<%=proof.id%>" class="glyphicon glyphicon-triangle-bottom downvoted"></span>
-                    <% end %>
+                    <%= downvote_span proof %>
                   <% end %>
 					      </div>
 
@@ -145,26 +118,13 @@
                   <br>
                   <div class="vote-container vote-container-post">
                     <%= link_to vote_path(:vote_type => "like", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
-                      <% if !current_user.liked? comment %>
-				                <span id="comment-upvote-<%=comment.id%>" class="glyphicon glyphicon-triangle-top"></span>
-                      <% else %>
-                        <span id="comment-upvote-<%=comment.id%>" class="glyphicon glyphicon-triangle-top upvoted"></span>
-                      <% end %>
+                      <%= upvote_span comment %>
                     <% end %>
-                    <% if current_user.liked? comment %>
-						          <span class="upvoted" id="comment-vote-count-<%=comment.id%>" style="text-align: center; margin-left: -2px;"><%= comment.cached_votes_score %> </span>
-                    <% elsif current_user.voted_down_on? comment %>
-                      <span class="downvoted" id="comment-vote-count-<%=comment.id%>" style="text-align: center; margin-left: -2px;"><%= comment.cached_votes_score %> </span>
-                    <% else %>
-                      <span id="comment-vote-count-<%=comment.id%>" style="text-align: center; margin-left: -2px;"><%= comment.cached_votes_score %> </span>
-                    <% end %>
-                    <%= link_to vote_path(:vote_type => "dislike", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+                                        
+                    <%= vote_count_span comment %>
 
-                      <% if !current_user.voted_down_on? comment %>
-                        <span id="comment-downvote-<%=comment.id%>" class="glyphicon glyphicon-triangle-bottom"></span>
-                      <% else %>
-                        <span id="comment-downvote-<%=comment.id%>" class="glyphicon glyphicon-triangle-bottom downvoted"></span>
-                      <% end %>
+                    <%= link_to vote_path(:vote_type => "dislike", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+                      <%= downvote_span comment %>                      
                     <% end %>
 				          </div>
 

@@ -112,66 +112,60 @@
     <div class="col-md-8">
 
       <% @problems.each do |problem| %>
-      <!-- Blog Post 1 -->
-      <div class="col-md-12">
-        <div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
-        
+        <!-- Blog Post 1 -->
+        <div class="col-md-12">
+          <div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+            <div class="bp-content">
+              <!-- Meta data -->
+              <div class="post-meta">
+                <div class="post-date float-left">
+                  <i class="fa fa-calendar-o"></i>
+                  <span><%=problem.created_at.strftime('%B %d, %Y')%></span>
+                </div>
+                <div class="vote-container vote-container-post float-right">
+                  <%= link_to vote_path(:vote_type => "like", :votable_type => "problem", :id => problem.id ), method: :put, remote: true do %>
+                    <%= upvote_span problem %>
+                  <% end %>
 
-          <div class="bp-content">
-        
-                      
-            <!-- Meta data -->
-            <div class="post-meta">
-              <div class="post-date float-left">
-                <i class="fa fa-calendar-o"></i>
-                <span><%=problem.created_at.strftime('%B %d, %Y')%></span>
-              </div>
-              <div class="voting-meta">
-                <span class="single-problem-vote-result">+22</span>
-                <ul class="single-problem-vote">
-                  <li><a href="#" class="single-problem-vote-down" title="Dislike"><i class="pa-2 glyphicon glyphicon-thumbs-down"></i></a></li>
-                  <li><a href="#" class="single-problem-vote-up" title="Like"><i class="pa-2 glyphicon glyphicon-thumbs-up"></i></a></li>
-                </ul>
-              </div>
-              <div class="clearfix"></div>
-              
-<!--
-              <a href="#" class="post-comments">
-                <i class="fa fa-comments-o"></i>
-                <span>12</span>
-              </a>
--->
-            </div><!-- / .meta -->
+                  <%= vote_count_span problem %>
+                        
+                  <%= link_to vote_path(:vote_type => "dislike", :votable_type => "problem", :id => problem.id ), method: :put, remote: true do %>
+                    <%= downvote_span problem %>
+                  <% end %>
+                </div>
 
-            <!-- Post Title -->
-            <%= link_to problem_path(problem.id), class: "post-title" do %>
-              <h3><%=problem.title%></h3>
-            <% end %>
+                <div class="clearfix"></div> 
+              </div><!-- / .meta -->
 
-            <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(problem.proofs.count, "Proof") %></span>
-            <span class="problem-view"><i class="glyphicon glyphicon-eye-open mr-5"></i><%=pluralize(problem.impressionist_count, "view")%></span>
-            <div class="clearfix"></div>
-            <!-- Problem topics -->
-            <ul class="tag-list mt-20">
-              <% problem.topics.each do |topic| %>
-                <li>
-                  <%= link_to topic.name, topic_path(topic.id) %>
-                </li>
+              <!-- Problem Topics -->
+              <ul class="tag-list mt-5">
+                <% problem.topics.each do |topic| %>
+                  <li>
+                    <%= link_to topic.name, topic_path(topic.id) %>
+                  </li>
+                <% end %>
+              </ul> <!-- / .tag-list -->
+
+              <!-- Post Title -->
+              <%= link_to problem_path(problem.id), class: "post-title" do %>
+                <h3><%=problem.title%></h3>
               <% end %>
-            </ul> <!-- / .tag-list -->
 
-            <!-- Link -->
-            <!--
-            <a href="blog-post.html" class="btn btn-small">Read More</a>
-            -->
+              <span class="problem-comment"><i class="glyphicon glyphicon-user mr-5"></i> <span id="problem-<%=problem.id%>-followers"><%= pluralize(problem.followers.count, "Follower") %></span></span>
 
-          </div><!-- / .bp-content -->
+              <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(problem.proofs.count, "Proof") %></span>
+              <span class="problem-comment"><i class="glyphicon glyphicon-eye-open mr-5"></i><%=pluralize(problem.impressionist_count, "view")%></span>
 
-        </div><!-- / .blog-post -->
-      </div><!-- / .col-md-12 -->
+              <span class="problem-view"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(problem.versions.count, "Edit")%></span>
+
+              <div class="clearfix mb-20"></div>
+              <div id="problem-follow-<%=problem.id%>">
+                <%= follow_link problem %>
+              </div>
+            </div><!-- / .bp-content -->
+          </div><!-- / .blog-post -->
+        </div><!-- / .col-md-12 -->
       <% end %>
     </div><!-- / .col-md-8 -->
-
-
   </div>
 </div>

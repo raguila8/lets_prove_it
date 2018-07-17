@@ -8,6 +8,7 @@ class User < ApplicationRecord
   acts_as_voter
   acts_as_messageable
 
+  has_many :versions, :dependent => :destroy
   has_many :notifications, foreign_key: :recipient_id
   has_many :problems_relationships, class_name: "ProblemFollowing", :dependent => :destroy
   has_many :problems_following, through: :problems_relationships, source: :problem
@@ -19,6 +20,15 @@ class User < ApplicationRecord
   has_many :proofs, :dependent => :destroy
   has_many :images
   has_many :comments, :dependent => :destroy
+  has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
 
   validates :email, presence: true, length: { maximum: 255 },
 										uniqueness: { case_sensitive: false }
@@ -64,15 +74,11 @@ class User < ApplicationRecord
   end
 
   def problem_feed
-=begin
-    topic_ids = "SELECT topic_id FROM topic_followings
-                 WHERE user_id = #{id}"
-    problem_ids = "SELECT problem_id FROM problem_topics
-                     WHERE  topic_id IN (#{topic_ids})"
-=end
-    Problem.joins("inner join problem_topics as pt on problems.id = pt.problem_id").
-            joins("inner join topic_followings as tf on pt.topic_id = tf.topic_id").order(:created_at).distinct
-    #Problem.where("id IN (#{problem_ids})").order(:created_at)
+    Problem.joins(topics: :user_relationships).
+      where(topic_followings: { user_id: id} ).
+      union(Problem.joins(:user_relationships).
+        where(problem_followings: { user_id: id } )).
+      distinct.order(created_at: :desc)
   end
 
   def unread_messages

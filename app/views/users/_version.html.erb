@@ -1,0 +1,51 @@
+<% index = version_counter + 1 %>
+<div class="col-md-12">
+<div class="panel panel-default">   
+  <div class="panel-heading" role="tab" id="heading-<%=index + 1%>">
+    <!-- Meta data -->
+    <div class="post-meta">
+      <div class="post-date float-left">
+        <i class="fa fa-calendar-o"></i>
+        <span><%= version.created_at.strftime('%B %d, %Y') %></span>
+      </div>
+      <span class="label label-dark float-right">Version <%= version.version_number %></span>
+      <div class="clearfix"></div>
+    </div><!-- / .meta -->
+
+    <h2 class="panel-title">
+      <span class="collapsed" role="button" data-toggle="collapse" href="#collapse-<%=index + 1%>" aria-expanded="false" aria-controls="collapse-<%= index + 1%>">
+        <span class="glyphicon glyphicon-plus float-right"></span>
+        <%= version.title %>
+      </span>
+    </h2>
+    <div class="version-description">
+      <p>
+        <%= version.description %>
+      </p>
+    </div>
+  </div>
+  <div id="collapse-<%=index + 1%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%=index + 1 %>">
+    <div class="panel-body">
+      <!-- Version Post -->
+      <div class="blog-post-single  mb-0 wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+        <% if !version.problem_id.nil? %>
+          <!-- Meta data -->
+          <div class="post-meta" id="problem-tags-list">
+            <ul class="tag-list mt-20">
+              <% version.get_version_topics.each do |topic| %>
+                <li><a href="#"><%= topic.name %></a></li>
+              <% end %>
+            </ul> <!-- / .tag-list -->
+          </div><!-- / .meta -->
+        <% end %>
+
+        <!-- Title -->
+        <h2 class="post-title font-weight-600 pt-20  mb-30 "><%= version.title %></h2>
+        <div class="mb-20 mt-20 blog-post-content">
+          <%= sanitize version.content %>
+        </div>
+      </div><!-- / .blog-post-single -->
+    </div>
+  </div>
+</div><!-- / .panel -->
+</div>

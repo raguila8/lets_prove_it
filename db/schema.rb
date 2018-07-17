@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180711083037) do
+ActiveRecord::Schema.define(version: 20180713004046) do
 
   create_table "change_types", force: :cascade do |t|
     t.string "name"
@@ -211,6 +211,16 @@ ActiveRecord::Schema.define(version: 20180711083037) do
     t.float "cached_weighted_average", default: 0.0
     t.index ["problem_id"], name: "index_proofs_on_problem_id"
     t.index ["user_id"], name: "index_proofs_on_user_id"
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "topic_followings", force: :cascade do |t|

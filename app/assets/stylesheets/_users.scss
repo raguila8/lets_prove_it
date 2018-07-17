@@ -1,0 +1,217 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.username {
+  text-transform: none;
+}
+
+.ft-tabs {
+  .tabs-list {
+    li {
+      a {
+        padding: 18px 24px !important;
+      }
+      .tab-top {
+        display: flex;
+
+        h1 {
+          flex-grow: 1;
+          font-weight: 800;
+          font-size: 21px;
+          margin-top: 0;
+          letter-spacing: 0;
+        }
+
+        .fa {
+          color: #111;
+          font-weight: 900;
+          font-size: 18px;
+          margin-right: 5px;
+        }
+      }
+
+      .tab-bottom {
+        margin-top: 10px;
+        
+        p {
+          color: #111;
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+
+    }
+  }
+}
+
+/* ----------------------------------------------------------------
+ user ui card
+ --------------------------------------------------------------- */
+
+.ui-card-wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media (max-width: 991px) {
+  .ui-card-wrapper {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+}
+
+.user-ui-card{
+  margin-bottom: 100px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  background: #fff;
+  padding-left: 0;
+  padding-right: 0;
+
+  .ui-card-container{ 
+  
+    .ui-card-img-container{
+      width: 30%;
+      height: 100%;
+      float: left;
+      position: relative;
+
+      img{
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+    }
+
+    .ui-card-content{
+      width: 60%;
+      height: 100%;
+      float: left;
+      padding: 30px 40px;
+      box-sizing: border-box;
+
+      .head{
+        padding-bottom: 30px;
+      }
+
+      .head p{
+        font-size: 28px;
+        color: #444444;
+        font-weight: 600;
+      }
+
+      .head span{
+        color: #aaabaf;
+        font-size: 14px;
+      }
+
+      .ui-data{
+        width: 90%;
+        overflow: hidden;
+      }
+
+      .ui-inner-data{
+        width: 50%;
+        float: left;
+        text-align: left;
+        color: #aaabaf;
+      }
+
+      .ui-inner-data p{
+        font-size: 14px;
+        padding-bottom: 5px;
+      }
+
+      .ui-inner-data span{
+        font-size: 18px;
+        font-weight: 400;
+      }
+
+    }
+  }
+}
+
+.user_item:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid #EAEAEC;
+  border-top: 30px solid #EAEAEC;
+  border-bottom: 30px solid transparent;
+  cursor: pointer;
+  border-top-left-radius: 5px;
+  z-index: 100;
+}
+
+.user_item:after{
+  font-family: fontawesome;
+  content:"\f091";
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  color: #333;
+  font-size: 18px;
+  z-index: 101;
+}
+
+
+.floating-icon{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 38%;
+  right: -5%;
+  background: #1DA1F2;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@media (min-width: 1679px) {
+  .floating-icon {
+    right: -4%;
+  }
+}
+
+@media (max-width: 1199px) {
+  .floating-icon {
+    right: -4%;
+  }
+}
+
+@media (max-width: 991px) {
+  .floating-icon {
+    right: -3%;
+  }
+}
+
+
+.floating-icon .fa{
+  position: absolute;
+  left: 18px;
+  top: 15px;
+  color: #fff;
+  font-size: 20px;
+  transition: all 1s ease;
+}
+
+.floating-icon.active .fa{
+    transform: rotate(45deg); 
+    transition: all 1s ease;
+}
+
+.user_item {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+
+ .user-follow-btn {
+   a {
+     margin-left: 30px;
+   }
+ } 
+}

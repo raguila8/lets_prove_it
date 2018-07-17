@@ -30,6 +30,14 @@ module ApplicationHelper
       if action_name == "show"
         "Conversations"
       end
+    elsif controller_name == "notifications"
+      if action_name == "index"
+        "Notifications"
+      end
+    elsif controller_name == "users"
+      if action_name == "show"
+        @user.username
+      end
     end
   end
 
@@ -68,63 +76,91 @@ module ApplicationHelper
       if action_name == "show"
         "Message Users Privately"
       end
+    elsif controller_name == "notifications"
+      if action_name == "index"
+        "Manage all your notifications"
+      end
+    elsif controller_name == "users"
+      if action_name == "show"
+        @user.name
+      end
     end
   end
 
   def right_heading_content
     if controller_name == "sessions" and (action_name == "new" || action_name == "create")
-      content = "<a href='#{new_user_registration_path}'><button class='btn-text-light btn-large'>Create an Account</button></a>"
+      content = "<a href='#{new_user_registration_path}'><button class='btn-text-light'>Create an Account</button></a>"
       return content.html_safe
     elsif controller_name == "registrations" and (action_name == "new" || action_name == "create")
-      content = "<a href='#{new_user_session_path}'><button class='btn-text-light btn-large'>Login</button></a>"
+      content = "<a href='#{new_user_session_path}'><button class='btn-text-light'>Login</button></a>"
       return content.html_safe
     elsif controller_name == "problems"
       if action_name == "index"
-        content = "<a href='#{problem_path(Problem.random_problem)}'><button class='btn-text-light btn-large'>I'm Feeling Lucky</button></a>"
+        content = "<a href='#{problem_path(Problem.random_problem)}'><button class='btn-text-light'>I'm Feeling Lucky</button></a>"
         return content.html_safe
       elsif action_name == "show"
         content = ""
         if signed_in?
+          content += "<div id='problem-follow-#{@problem.id}'>"
           if !current_user.following?(@problem)
-            content = "<a href='#{problem_follow_path(@problem.id)}' data-remote='true' data-method='post'>"
+            content += "<a href='#{problem_follow_path(@problem.id)}' data-remote='true' data-method='post'>"
             content += "<button class='btn btn-light mr-20'>Follow</button></a>"
           else
-            content = "<a href='#{problem_unfollow_path(@problem.id)}' data-remote='true' data-method='delete'>"
-            content += "<button class='btn btn-light mr-20'>Following</button></a>"
+            content += "<a href='#{problem_unfollow_path(@problem.id)}' data-remote='true' data-method='delete'>"
+            content += "<button class='btn btn-light mr-20'>Following</button></a></div>"
           end
           return content.html_safe
         end
       elsif action_name == "logs"
-        content = "<a href='#{edit_problem_path(@problem.id)}'><button class='btn-text-light btn-large'>Edit Problem</button></a>"
+        content = "<a href='#{edit_problem_path(@problem.id)}'><button class='btn-text-light'>Edit Problem</button></a>"
         return content.html_safe
       end
     elsif controller_name == "topics"
       if action_name == "new" || action_name == "create"
-        content = "<a href='#{topics_path}'><button class='btn-text-light btn-large'>Browse Topics</button></a>"
+        content = "<a href='#{topics_path}'><button class='btn-text-light'>Browse Topics</button></a>"
         return content.html_safe
       elsif action_name == "show"
         content = ""
         if signed_in?
+          content += "<div id='topic-follow-#{@topic.id}'>"
           if !current_user.following?(@topic)
-            content = "<a href='#{topic_follow_path(@topic.id)}' data-remote='true' data-method='post'>"
+            content += "<a href='#{topic_follow_path(@topic.id)}' data-remote='true' data-method='post'>"
             content += "<button class='btn btn-light mr-20'>Follow</button></a>"
           else
-            content = "<a href='#{topic_unfollow_path(@topic.id)}' data-remote='true' data-method='delete'>"
-            content += "<button class='btn btn-light mr-20'>Following</button></a>"
+            content += "<a href='#{topic_unfollow_path(@topic.id)}' data-remote='true' data-method='delete'>"
+            content += "<button class='btn btn-light mr-20'>Following</button></a></div>"
           end
           return content.html_safe
         end
         return content.html_safe
       elsif action_name == "logs"
-        content = "<a href='#{edit_topic_path(@topic.id)}'><button class='btn-text-light btn-large'>Edit Topic</button></a>"
+        content = "<a href='#{edit_topic_path(@topic.id)}'><button class='btn-text-light'>Edit Topic</button></a>"
         return content.html_safe
       elsif action_name == "edit" || action_name == "update"
         
       end
     elsif controller_name == "conversations"
       if action_name == "show"
-        content = "<a href='#' id='new-conversation-toggle' data-toggle='modal', data-target='#newConversationModal'><button class='btn btn-light btn-large'><span class='glyphicon glyphicon-pencil'></span> New Conversation</button></a>"
+        content = "<a href='#' id='new-conversation-toggle' data-toggle='modal', data-target='#newConversationModal'><button class='btn btn-light'><span class='glyphicon glyphicon-pencil'></span> New Conversation</button></a>"
         return content.html_safe
+      end
+    elsif controller_name == "notifications"
+      if action_name == "index"
+        content = "<a href='#{problem_path(Problem.random_problem)}'><button class='btn-text-light'>I'm Feeling Lucky</button></a>".html_safe
+      end
+    elsif controller_name == "users"
+      if action_name == "show"
+        if signed_in? and @user != current_user
+          content = "<div id='user-follow-#{@user.id}'>"
+          if !current_user.following?(@user)
+            content += "<a href='#{follow_user_path(@user.id)}' data-remote='true' data-method='post'>"
+            content += "<button class='btn btn-light mr-20'>Follow</button></a>"
+          else
+            content += "<a href='#{unfollow_user_path(@user.id)}' data-remote='true' data-method='delete'>"
+            content += "<button class='btn btn-light mr-20'>Following</button></a></div>"
+          end
+          return content.html_safe
+        end
       end
     end
   end
@@ -181,6 +217,37 @@ module ApplicationHelper
 
   def no_results_content(model)
     content = "<div class='no-results-container'><img src='/assets/no_#{model}_icon.png'><h3 class='font-weight-600'>No #{model} to show.</h3></div>"
+    content.html_safe
+  end
+
+  def upvote_span(model)
+    model_str = model.class.name.downcase
+    "<span id='#{model_str}-upvote-#{model.id}' class='glyphicon glyphicon-triangle-top #{"upvoted" if current_user.liked? model}'></span>".html_safe
+  end
+
+  def vote_count_span(model)
+    model_str = model.class.name.downcase
+    vote = ""
+    vote = "upvoted" if current_user.liked? model
+    vote = "downvoted" if current_user.voted_down_on? model
+    "<span class='#{vote}' id='#{model_str}-vote-count-#{model.id}' style='text-align: center; margin-left: -2px;'>#{model.cached_votes_score} </span>".html_safe
+  end
+
+  def downvote_span(model)
+    model_str = model.class.name.downcase
+    "<span id='#{model_str}-downvote-#{model.id}' class='glyphicon glyphicon-triangle-bottom #{"downvoted" if current_user.voted_down_on? model}'></span>".html_safe
+  end
+
+  def follow_link(model)
+    model_str = model.class.name.downcase.pluralize
+    content = ""
+    if !current_user.following?(model)
+      content = "<a href='/#{model_str}/#{model.id}/follow' data-remote='true' data-method='post'>"
+      content += "<button class='btn btn-light mr-20'>Follow</button></a>"
+    else
+      content += "<a href='/#{model_str}/#{model.id}/unfollow' data-remote='true' data-method='delete'>"
+      content += "<button class='btn btn-light mr-20'>Following</button></a>"
+    end
     content.html_safe
   end
 end

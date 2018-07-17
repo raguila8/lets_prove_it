@@ -150,19 +150,24 @@
 .page-content  {
   overflow: hidden;
   height: 100%;
-  padding: 20px;
 }
 
-.page-content .boxedtitle.add-problem-title {
+@media (min-width: 992px) {
+  .page-content {  
+    padding: 20px;
+  }
+}
+
+.page-content .boxedtitle {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
   background: transparent;
   position: relative;
-  margin-bottom: 10px !important;
+  margin-bottom: 10px;
 }
 
-.page-content .boxedtitle.add-problem-title, .post-box .boxedtitle {
+.page-content .boxedtitle, .post-box .boxedtitle {
   margin: -20px -20px 20px;
 }
 
@@ -172,7 +177,7 @@
   border-bottom: 0;
 }
 
-.page-content .boxedtitle.add-problem-title h2 {
+.page-content .boxedtitle h2 {
   padding: 20px 0 10px;
   margin: 0 20px 20px 0;
   border-bottom: 2px solid #dedede;

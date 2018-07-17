@@ -30,7 +30,21 @@ Rails.application.routes.draw do
 			root 'static_pages#landing'
 		end
   end
-  resources :users, only: [:show, :index]
+  resources :users, only: [:show, :index] do
+    member do
+      get :problem_edits
+      get :problems_following
+      get :proofs
+      get :activity
+      get :followers
+      get :following
+      get :topic_edits
+      get :topics_following
+      post :follow
+      delete :unfollow
+    end
+  end
+
   resources :problems
   get '/problems/:id/logs', to: 'problems#logs', as: :problem_logs
   resources :images, only: [:create, :destroy]

@@ -1,0 +1,3 @@
+$('#user-follow-<%=@user.id%>').html("<a href='<%=unfollow_user_path(@user.id)%>' data-remote='true' data-method='delete'><button class='btn btn-light'>Following</button></a>");
+
+$('#user-<%=@user.id%>-followers').text('<%= pluralize(@user.followers.count, "Follower") %>');

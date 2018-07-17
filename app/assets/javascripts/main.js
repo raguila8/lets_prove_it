@@ -3,6 +3,7 @@ $(document).on('turbolinks:load', function() {
   initScroller();
   initAnimation();
   initSelector();
+  initAccordion();
 
   if ($('#frame').length) {
     initMessages();
@@ -197,6 +198,13 @@ $(document).on('turbolinks:load', function() {
     
         $('.page-title .subheading').text($(this).text());
 		});
+
+    if ($('.ft-tabs').length > 0) {
+      $('.ft-tabs .tabs-list li').on('click', function() {
+        $('.ft-tabs .tabs-list li').removeClass('active');
+        $(this).addClass('active');
+      });
+    }
   }
 
 /* --------------------------------------------------
@@ -383,3 +391,19 @@ numbers.initialize();
     });
   }
 
+/* ---------------------------------------------------------
+  Accordion
+ ----------------------------------------------------------*/
+
+  function initAccordion() {
+    $("body").on('click', ".accordions-1 .panel-title", function() {
+      console.log("lehfle");
+      if ($(this).find(".glyphicon").hasClass("glyphicon-plus")) {
+        $(this).find(".glyphicon").removeClass("glyphicon-plus");
+        $(this).find(".glyphicon").addClass("glyphicon-minus");
+      } else {
+        $(this).find(".glyphicon").removeClass("glyphicon-minus");
+        $(this).find(".glyphicon").addClass("glyphicon-plus");
+      }
+    });
+  }

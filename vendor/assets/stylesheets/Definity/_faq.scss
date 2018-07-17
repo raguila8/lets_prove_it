@@ -31,13 +31,19 @@
 			}
 		} // .panel-heading
 
+    @media (max-width: 767px) {
+      .panel-heading {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    }
+
 		.panel-collapse {
 
 			.panel-body {
 				border: none;
 				border-top: 1px solid #eaeaea;
 				background: $lighter;
-				padding: 30px 50px;
 			} // .panel-body
 		} // .panel-collapse
 	} // .panel

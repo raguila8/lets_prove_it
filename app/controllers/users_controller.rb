@@ -1,4 +1,46 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only:  [:follow, :unfollow, :vote]
+  before_action :set_user, only: [:follow, :unfollow, :proofs,
+                                     :problem_edits, :problems_following,
+                                     :topics_following, :topic_edits, :show, 
+                                     :followers, :following]
+
+  def follow
+    current_user.follow @user 
+  end
+
+  def unfollow
+    current_user.unfollow @user
+  end
+
+  def followers
+    @users = @user.followers
+  end
+
+  def following
+    @users = @user.following
+  end
+
+  def proofs
+    @proofs = @user.proofs.order(:created_at)
+  end
+
+  def problem_edits
+    @versions = @user.versions.where(topic_id: nil).order(created_at: :desc)
+  end
+
+  def problems_following
+    @problems = @user.problems_following.order(created_at: :desc)
+  end
+
+  def topics_following
+    @topics = @user.topics_following.order(created_at: :desc)
+  end
+
+  def topic_edits
+    @versions = @user.versions.where(problem_id: nil).order(created_at: :desc)
+  end
+
   def show
   end
 
@@ -76,4 +118,12 @@ class UsersController < ApplicationController
       }
     end
   end
+
+  private
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user = User.find(params[:id])
+    end
+
 end

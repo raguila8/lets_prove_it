@@ -1,1 +1,3 @@
-$('#right-header-content').html("<a href='<%=topic_follow_path(@topic.id)%>' data-remote='true' data-method='post'><button class='btn btn-light'>Follow</button></a>");
+$('#topic-follow-<%=@topic.id%>').html("<a href='<%=topic_follow_path(@topic.id)%>' data-remote='true' data-method='post'><button class='btn btn-light'>Follow</button></a>");
+
+$('#topic-<%=@topic.id%>-followers').text('<%= pluralize(@topic.followers.count, "Follower") %>');
