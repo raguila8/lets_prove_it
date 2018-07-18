@@ -7,10 +7,6 @@
       
         <!-- Blog Post -->
         <div class="col-md-12 blog-post-single wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
-<!--
-          
-          <img class="img-responsive post-img" src="http://placehold.it/750x400" alt="Blog Post 1">
--->
           <!-- Meta data -->
           <div class="post-meta" id="problem-tags-list">
             <ul class="tag-list mt-20">
@@ -69,31 +65,53 @@
             <% @problem.proofs.each do |proof| %>
               <!-- Comment 1 -->
               <div class="bp-comment" id="proof-<%=proof.id%>">
+                <div class="post-meta pl-15 mt-0">
+                  <div class="post-date float-left">
+                    <i class="fa fa-calendar-o"></i>
+                    <span><%=proof.created_at.strftime('%B %d, %Y')%></span>
+                  </div>
+
+                  <div class="vote-container vote-container-post float-right">
+                    <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+                      <%= upvote_span proof %>
+                    <% end %>
+
+                    <%= vote_count_span proof %>
+                        
+                    <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+                      <%= downvote_span proof %>
+                    <% end %>
+                  </div>
+                  <div class="clearfix"></div> 
+                </div><!-- / .meta -->
+
+                <div class="author-container">
+                  <div class="author-img">
+                    <a href="<%= user_path(proof.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+                  </div>
+                    <h6><a href="<%= user_path(proof.user) %>"><%= proof.user.username %></a></h6>
+						        <span class="author-data">12 Points</span>
+                    <%= link_to new_comment_path(proof_id: proof.id), remote: true, class: "btn btn-small float-right mh-15" do %>
+                      <i class="fa fa-mail-reply-all"></i> Reply
+                    <% end %>
+                </div>
+<!--
                 <div class="comment-avatar"><i class="fa fa-user"></i></div>
                 <div class="comment-info">
-                  <h6 class="comment-name"><%= proof.user.username %></h6>
-                  <span class="comment-time">on <%= proof.created_at.strftime("%Y-%m-%d") %> </span>
-                  <%= link_to new_comment_path(proof_id: proof.id), remote: true, class: "comment-replay-btn" do %>
+                  <h6 class="comment-name"><%#= proof.user.username %></h6>
+                  <span class="comment-time">on <%#= proof.created_at.strftime("%Y-%m-%d") %> </span>
+                  <%#= link_to new_comment_path(proof_id: proof.id), remote: true, class: "comment-replay-btn" do %>
                     <i class="fa fa-mail-reply-all"></i> Reply
-                  <% end %>
+                  <%# end %>
                 </div>
+-->
                 <br>
-                <div class="vote-container vote-container-post">
-                  <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
-                    <%= upvote_span proof %>
-                  <% end %>
-
-                  <%= vote_count_span proof %>
-
-                  <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
-                    <%= downvote_span proof %>
-                  <% end %>
-					      </div>
-
+                
                 <div class="comment-content" id= "proof-content-<%=proof.id%>">
                   <%= sanitize proof.content %>
                 </div>
                 <br>
+
                 <% if signed_in? and proof.user == current_user %>
                   <%= link_to proof_path(proof.id), method: :delete, class: "btn-text btn-small btn-text-danger float-right", data: { confirm: "Are you sure you want to delete your proof?" } do %>
                     <span class="proof-remove"><i class="mr-5 glyphicon glyphicon-remove"></i>Delete</span>
@@ -106,28 +124,47 @@
                 <div class="clearfix"></div>
               </div><!-- / .bp-comment -->
               
-              <% proof.comments.each do |comment| %>
+              <% proof.comments.order(created_at: :desc).each do |comment| %>
           
                 <!-- Replay Comment -->
                 <div class="bp-comment-reply" id="comment-<%=comment.id%>">
+                  <div class="post-meta pl-15 mt-0">
+                    <div class="post-date float-left">
+                      <i class="fa fa-calendar-o"></i>
+                      <span><%=comment.created_at.strftime('%B %d, %Y')%></span>
+                    </div>
+
+                    <div class="vote-container vote-container-post float-right mt-0">
+                      <%= link_to vote_path(:vote_type => "like", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+                        <%= upvote_span comment %>
+                      <% end %>
+                                        
+                      <%= vote_count_span comment %>
+
+                      <%= link_to vote_path(:vote_type => "dislike", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+                        <%= downvote_span comment %>                      
+                      <% end %>
+				            </div>
+
+                    <div class="clearfix"></div> 
+                  </div><!-- / .meta -->
+<!--
                   <div class="comment-avatar"><i class="fa fa-user"></i></div>
                   <div class="comment-info">
-                    <h6 class="comment-name"><%= comment.user.username %></h6>
-                    <span class="comment-time">on <%= comment.created_at.strftime("%Y-%m-%d") %></span>
+                    <h6 class="comment-name"><%#= comment.user.username %></h6>
+                    <span class="comment-time">on <%#= comment.created_at.strftime("%Y-%m-%d") %></span>
                   </div>
+-->
+                  <div class="author-container">
+                    <div class="author-img">
+                      <a href="<%= user_path(comment.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+                    </div>
+                    <h6><a href="<%= user_path(comment.user) %>"><%= comment.user.username %></a></h6>
+						        <span class="author-data">12 Points</span>
+                  </div>
+
                   <br>
-                  <div class="vote-container vote-container-post">
-                    <%= link_to vote_path(:vote_type => "like", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
-                      <%= upvote_span comment %>
-                    <% end %>
-                                        
-                    <%= vote_count_span comment %>
-
-                    <%= link_to vote_path(:vote_type => "dislike", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
-                      <%= downvote_span comment %>                      
-                    <% end %>
-				          </div>
-
+                  
                   <div class="comment-content" id="comment-content-<%=comment.id%>">
                     <%= sanitize comment.content %>
                   </div>

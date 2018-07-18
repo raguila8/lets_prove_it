@@ -41,3 +41,25 @@ Problem Edits
 - One update can contain multiple change types. How do we store that information?
    - Create a change_type model that has all 6 types.
    - A version has_many change_types through VersionChange model.
+
+
+
+Activity
+-----------------------------------------------------------------------
+
+1.) you liked comment
+2.) you liked proof
+3.) you liked problem
+4.) you disliked comment
+5.) you disliked proof
+6.) you disliked problem
+7.) you commented on proof																			
+8.) you proved problem
+10.) you edited proof
+11.) you created problem
+12.) you edited problem
+13.) you created topic
+14.) you edited topic
+15.) you followed user
+
+Need to destroy notifications and activities when problem, comments, topics, and users are destroyed. ( NOT DONE)

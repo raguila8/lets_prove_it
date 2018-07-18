@@ -1,0 +1,17 @@
+<div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+  <div class="bp-content">
+                      
+    <!-- Meta data -->
+    <div class="post-meta">
+      <div class="post-date float-left">
+        <i class="fa fa-calendar-o"></i>
+        <span><%= activity.action %>  on <%=activity.created_at.strftime('%B %d, %Y')%></span>
+      </div>
+      <div class="clearfix"></div>
+    </div><!-- / .meta -->
+
+    <%= activity_content activity %>
+        
+    <a href="<%= activity.link %>" class="btn btn-small">Read More</a>
+  </div><!-- / .bp-content -->
+</div><!-- / .blog-post -->

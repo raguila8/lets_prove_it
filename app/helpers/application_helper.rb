@@ -250,4 +250,20 @@ module ApplicationHelper
     end
     content.html_safe
   end
+
+  def activity_content(activity)
+    acted_on_type = activity.acted_on_type
+    if acted_on_type == "Comment"
+      render partial: "activities/comment", locals: { comment: activity.acted_on }
+    elsif acted_on_type == "Proof"
+
+    elsif acted_on_type == "Problem"
+
+    elsif acted_on_type == "Topic"
+  
+    elsif acted_on_type == "User"
+
+    end
+
+  end
 end

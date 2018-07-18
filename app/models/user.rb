@@ -9,7 +9,9 @@ class User < ApplicationRecord
   acts_as_messageable
 
   has_many :versions, :dependent => :destroy
-  has_many :notifications, foreign_key: :recipient_id
+  has_many :notifications, foreign_key: :recipient_id, :dependent => :destroy
+  has_many :activities, :dependent => :destroy
+
   has_many :problems_relationships, class_name: "ProblemFollowing", :dependent => :destroy
   has_many :problems_following, through: :problems_relationships, source: :problem
   has_many :topics_relationships, class_name: "TopicFollowing", :dependent => :destroy

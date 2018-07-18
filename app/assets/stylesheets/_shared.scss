@@ -120,6 +120,12 @@ body {
   vertical-align: middle;
 }
 
+.author-container {
+  padding-bottom: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
 .highest-points-widget ul li {
   padding-bottom: 15px;
 }
@@ -140,7 +146,7 @@ body {
   border-radius: 50%;
 }
 
-.highest-points-widget ul li h6 {
+.highest-points-widget ul li h6, .author-container h6 {
 
   a {
    color: #111 !important;
@@ -155,7 +161,7 @@ body {
 }
 
 
-.highest-points-widget .comment {
+.highest-points-widget .comment, .author-container, .author-data {
   padding: 0;
   border-bottom: 0;
   color: #2f3239;

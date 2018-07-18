@@ -3,14 +3,22 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:follow, :unfollow, :proofs,
                                      :problem_edits, :problems_following,
                                      :topics_following, :topic_edits, :show, 
-                                     :followers, :following]
+                                     :activity, :followers, :following]
 
   def follow
-    current_user.follow @user 
+    current_user.follow @user
+    # Notify user
+    Notification.notify_user(@user, current_user, "started following", @user)
   end
 
   def unfollow
     current_user.unfollow @user
+    #Noticication.find_by(recipient: @user, actor: current_user, 
+    #               action: "followed", notifiable: @user).destroy
+  end
+
+  def activity
+    @activities = @user.activities.order(created_at: :desc)
   end
 
   def followers

@@ -1,0 +1,80 @@
+<!-- ========== Comments ========== -->
+<div class="row mt-20">
+  <div class="col-md-12 blog-post-comments proofs-section">
+      <!-- Comment 1 -->
+    <div class="bp-comment" id="proof-<%=comment.proof.id%>">
+      <div class="post-meta pl-15 mt-0">
+        <div class="post-date float-left">
+          <i class="fa fa-calendar-o"></i>
+          <span><%=comment.proof.created_at.strftime('%B %d, %Y')%></span>
+        </div>
+
+        <div class="vote-container vote-container-post float-right">
+          <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => comment.proof.id ), method: :put, remote: true do %>
+            <%= upvote_span comment.proof %>
+          <% end %>
+
+          <%= vote_count_span comment.proof %>
+                        
+          <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => comment.proof.id ), method: :put, remote: true do %>
+            <%= downvote_span comment.proof %>
+          <% end %>
+        </div>
+        <div class="clearfix"></div> 
+      </div><!-- / .meta -->
+
+      <div class="author-container">
+        <div class="author-img">
+          <a href="<%= user_path(comment.proof.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+        </div>
+        <h6><a href="<%= user_path(comment.proof.user) %>"><%= comment.proof.user.username %></a></h6>
+			  <span class="author-data">12 Points</span>
+      </div>
+      <br>
+
+      <div class="comment-content" id= "proof-content-<%=comment.proof.id%>">
+        <%= sanitize comment.proof.content %>
+      </div>
+      <br>
+      <div class="clearfix"></div>
+    </div><!-- / .bp-comment -->
+          
+    <!-- Replay Comment -->
+    <div class="bp-comment-reply" id="comment-<%=comment.id%>">
+      <div class="post-meta pl-15 mt-0">
+        <div class="post-date float-left">
+          <i class="fa fa-calendar-o"></i>
+          <span><%=comment.created_at.strftime('%B %d, %Y')%></span>
+        </div>
+
+        <div class="vote-container vote-container-post float-right mt-0">
+          <%= link_to vote_path(:vote_type => "like", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+            <%= upvote_span comment %>
+          <% end %>
+                                        
+          <%= vote_count_span comment %>
+
+          <%= link_to vote_path(:vote_type => "dislike", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+            <%= downvote_span comment %>                      
+          <% end %>
+				</div>
+
+        <div class="clearfix"></div> 
+      </div><!-- / .meta -->
+      <div class="author-container">
+        <div class="author-img">
+          <a href="<%= user_path(comment.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+        </div>
+        <h6><a href="<%= user_path(comment.user) %>"><%= comment.user.username %></a></h6>
+			  <span class="author-data">12 Points</span>
+      </div>
+      <br>
+
+      <div class="comment-content" id="comment-content-<%=comment.id%>">
+        <%= sanitize comment.content %>
+      </div>
+      <br>
+      <div class="clearfix"></div>
+    </div><!-- / .bp-comment-reply --> 
+  </div><!-- / .blog-post-comments -->
+</div><!-- / .row --> 
