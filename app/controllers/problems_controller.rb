@@ -70,6 +70,7 @@ class ProblemsController < ApplicationController
             Notification.notify_user(follower, current_user, "created", @problem)
           end
         end
+
         format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
         format.json { render :show, status: :created, location: @problem }
       else

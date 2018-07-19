@@ -1,0 +1,70 @@
+<% if model.class.name == "Proof" %>
+  <% proof = model %>
+<% else %>
+  <% proof = model.acted_on %>
+<% end %>
+<div class="blog-post primary-card wow fadeIn activity_item mb-40" data-wow-delay=".1s" data-wow-duration="2s">
+  <div class="bp-content">
+    <!-- Meta data -->
+    <div class="post-meta">
+      <div class="post-date float-left font-weight-500">
+        <span class="no-transform"> 
+          <%= meta_data_icon model %>
+          <% if model.class.name == "Activity" %>
+            <%= model.message %>  on <%=model.created_at.strftime('%B %d, %Y')%>
+          <% else %>
+            <%=proof.created_at.strftime('%B %d, %Y')%>
+          <% end %>
+        </span>
+      </div>
+      <div class="clearfix"></div>
+    </div><!-- / .meta -->
+
+    <!-- Post Title -->
+    <%= link_to problem_path(proof.problem.id), class: "post-title pa-0" do %>
+      <h2 class="problem-desc pb-15" title="Problem"><%=proof.problem.title%></h2>
+    <% end %>
+
+    <div class="row mt-20">
+      <div class="col-md-12 blog-post-comments proofs-section">
+       <!-- Comment 1 --> 
+        <div class="bp-comment" id="proof-<%=proof.id%>">
+          <div class="post-meta pl-15 mt-0">
+            <div class="post-date float-left">
+              <i class="fa fa-calendar-o"></i>
+              <span><%=proof.created_at.strftime('%B %d, %Y')%></span>
+            </div>
+
+            <div class="vote-container vote-container-post float-right mt--10">
+              <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+                <%= upvote_span proof %>
+              <% end %>
+
+              <%= vote_count_span proof %>
+                        
+              <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+                <%= downvote_span proof %>
+              <% end %>
+            </div>
+            <div class="clearfix"></div> 
+          </div><!-- / .meta -->
+
+          <div class="author-container">
+            <div class="author-img">
+              <a href="<%= user_path(proof.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+            </div>
+            <h6><a href="<%= user_path(proof.user) %>"><%= proof.user.username %></a></h6>
+			      <span class="author-data">12 Points</span>
+          </div>
+          <br>
+
+          <div class="comment-content" id= "proof-content-<%=proof.id%>">
+            <%= sanitize proof.content %>
+          </div>
+          <br>
+          <div class="clearfix"></div>
+        </div><!-- / .bp-comment -->        
+      </div><!-- / .blog-post-comments -->
+    </div><!-- / .row --> 
+  </div>
+</div>

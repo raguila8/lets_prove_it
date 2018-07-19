@@ -1,4 +1,4 @@
 $('.tab-content .boxedtitle h2').text("Topic Edits");
 $('.tab-content .tab-list-content').empty();
 $('.tab-content .tab-list-content').html("<div class='accordions-1'></div>");
-$('.tab-content .tab-list-content .accordions-1').html("<%= escape_javascript render(:partial => '/users/version', collection:  @versions, as: :version ) %>");
+$('.tab-content .tab-list-content .accordions-1').html("<%= escape_javascript render(:partial => '/activities/version', collection:  @versions, as: :model ) %>");

@@ -1,0 +1,19 @@
+<!-- ========== Comments ========== -->
+<div class="blog-post primary-card wow fadeIn activity_item pa-30 mb-40" data-wow-delay=".1s" data-wow-duration="2s">
+
+    <div class="post-meta">
+      <div class="post-date float-left font-weight-500">
+        <span class="no-transform"> 
+          <div class='meta_data_img'>
+            <a href='<%=user_path(activity.user)%>'>
+              <img src='<%=user_avatar_src(activity.user)%>'></img>
+            </a>
+          </div>
+          <%= activity.message %>  on <%=activity.created_at.strftime('%B %d, %Y')%>
+        </span>
+      </div>
+      <div class="clearfix"></div>
+    </div><!-- / .meta -->
+    <p class="mt-8"><%= activity.deleted_message if activity.action != "deleted" %></p>
+    <%= link_to "View #{activity.linkable_type}", activity.link, class: "btn btn-small mt-20" if activity.linkable? and activity.linkable_type != "User" %>
+</div>

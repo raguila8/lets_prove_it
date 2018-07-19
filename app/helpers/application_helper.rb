@@ -253,17 +253,28 @@ module ApplicationHelper
 
   def activity_content(activity)
     acted_on_type = activity.acted_on_type
-    if acted_on_type == "Comment"
-      render partial: "activities/comment", locals: { comment: activity.acted_on }
+    if activity.deleted_on
+      render partial: "activities/deleted_item", locals: { activity: activity }
+    elsif acted_on_type == "Comment"
+      render partial: "activities/comment", locals: { comment: activity.acted_on, activity: activity }
     elsif acted_on_type == "Proof"
-
-    elsif acted_on_type == "Problem"
-
-    elsif acted_on_type == "Topic"
-  
+      render partial: "activities/proof", locals: { model: activity }
+    elsif acted_on_type == "Version"
+      render partial: "activities/version", locals: { model: activity }
     elsif acted_on_type == "User"
-
+      render partial: "activities/user", locals: { model: activity }
+    elsif acted_on_type == "Problem"
+      render partial: "activities/problem_item", locals: { activity: activity }
+    elsif acted_on_type == "Topic"
+      render partial: "activities/topic_item", locals: { activity: activity }
     end
+  end
 
+  def meta_data_icon model
+    if model.class.name == "Activity"
+      "<div class='meta_data_img'><a href='#{user_path(model.user)}'><img src='#{user_avatar_src(model.user)}'></img></a></div>".html_safe
+    elsif model.class.name != "User"
+      "<i class='fa fa-calendar-o'></i>".html_safe
+    end
   end
 end

@@ -1,0 +1,51 @@
+<% if model.class.name == "User" %>
+  <% user = model %>
+<% else %>
+  <% user = model.acted_on %>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12 user_item profile-main-div mb-40 primary-card g-pa-20" id="profile-<%=user.id%>">
+    <% if model.class.name == "Activity" %>
+    <div class="post-meta">
+      <div class="post-date float-left font-weight-500">
+        <span class="no-transform"> 
+          <%= meta_data_icon model %>
+          <%= model.message %>  on <%=model.created_at.strftime('%B %d, %Y')%>
+        </span>
+      </div>
+      <div class="clearfix"></div>
+    </div><!-- / .meta -->
+    <% end %>
+
+<div class="row mt-20">
+  <div class="col-lg-3 col-md-3 col-sm-3">
+    <!-- User Image -->
+    <div class="profile-img-container <%= "camera-toggle" if current_user == user %>  g-mb-40">
+      <img class="profile-img img-responsive w-100" src="<%=user_avatar_src(user)%>">
+    </div><!-- End User Image -->
+  </div>
+
+  <div class="col-lg-9 col-md-9 col-sm-9">
+    <div class="col-md-10 col-lg-10">
+
+      <!-- User details -->
+      <h2 class="font-weight-600 dont-break-out username"><%=user.username%></h2>
+      <%# if @user.name and !@user.name.blank?%>
+        <h4 class="font-weight-500 no-transform opacity-8 g-mb-10 g-mt-0 ellipsis-wrap">
+          <%#=@user.name%>
+          Rodrigo Aguilar
+        </h4>
+          
+      <%# end %>
+      <!-- End User details -->
+        </div>	
+       </div>
+  <% if signed_in? and user != current_user %>
+    <div class="user-follow-btn" id="user-follow-<%=user.id%>">
+      <%= follow_link user %>
+    </div>
+  <% end %>
+</div>
+</div>
+</div>

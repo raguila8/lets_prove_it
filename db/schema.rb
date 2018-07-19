@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180717224500) do
+ActiveRecord::Schema.define(version: 20180718083454) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -19,7 +19,11 @@ ActiveRecord::Schema.define(version: 20180717224500) do
     t.string "acted_on_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_on"
+    t.integer "linkable_id"
+    t.string "linkable_type"
     t.index ["acted_on_id"], name: "index_activities_on_acted_on_id"
+    t.index ["linkable_id"], name: "index_activities_on_linkable_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 

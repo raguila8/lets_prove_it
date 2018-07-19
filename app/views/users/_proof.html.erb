@@ -1,11 +1,12 @@
 <div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
-  <div class="bp-content">
-                      
+  <div class="bp-content">                      
     <!-- Meta data -->
     <div class="post-meta">
       <div class="post-date float-left">
-        <i class="fa fa-calendar-o"></i>
-        <span>Prooved on <%=proof.created_at.strftime('%B %d, %Y')%></span>
+        <span class="no-transform">
+          <i class="fa fa-calendar-o"></i>
+          Prooved on <%=proof.created_at.strftime('%B %d, %Y')%>
+        </span>
       </div>
       <div class="vote-container vote-container-post float-right">
         <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>

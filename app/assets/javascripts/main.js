@@ -396,8 +396,7 @@ numbers.initialize();
  ----------------------------------------------------------*/
 
   function initAccordion() {
-    $("body").on('click', ".accordions-1 .panel-title", function() {
-      console.log("lehfle");
+    $("body").on('click', ".panel-title", function() {
       if ($(this).find(".glyphicon").hasClass("glyphicon-plus")) {
         $(this).find(".glyphicon").removeClass("glyphicon-plus");
         $(this).find(".glyphicon").addClass("glyphicon-minus");

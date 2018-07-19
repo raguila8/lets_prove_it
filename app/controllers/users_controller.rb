@@ -4,6 +4,7 @@ class UsersController < ApplicationController
                                      :problem_edits, :problems_following,
                                      :topics_following, :topic_edits, :show, 
                                      :activity, :followers, :following]
+  after_action :create_activity, only: [:vote]
 
   def follow
     current_user.follow @user
@@ -30,7 +31,7 @@ class UsersController < ApplicationController
   end
 
   def proofs
-    @proofs = @user.proofs.order(:created_at)
+    @proofs = @user.proofs.order(created_at: :desc)
   end
 
   def problem_edits
@@ -57,6 +58,7 @@ class UsersController < ApplicationController
     @votable_type = params[:votable_type]
     if @votable_type == "problem"
       @problem = Problem.find(params[:id])
+      @model = @problem
       if @vote_type == "like"
         if !current_user.liked? @problem
           @problem.liked_by current_user 
@@ -77,6 +79,7 @@ class UsersController < ApplicationController
 
     elsif @votable_type == "comment"
       @comment = Comment.find(params[:id])
+      @model = @comment
       if @vote_type == "like"
         if !current_user.liked? @comment
           @comment.liked_by current_user
@@ -94,6 +97,7 @@ class UsersController < ApplicationController
       end
     elsif @votable_type == "proof"
       @proof = Proof.find(params[:id])
+      @model = @proof
       if @vote_type == "like"
         if !current_user.liked? @proof
           @proof.liked_by current_user
@@ -110,7 +114,7 @@ class UsersController < ApplicationController
         Notification.notify_user(@proof.user, current_user, (@vote_type == "like" ? "liked": "disliked") + " your proof for", @proof.problem) if @proof.user != current_user
       end
     end
-
+    
     respond_to do |format|
       format.js
       format.json
@@ -134,4 +138,24 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def create_activity
+      if @voted
+        if @vote_type == "like"
+          if @votable_type == "problem"
+            Activity.create(user: current_user, action: "liked", 
+                      acted_on: @problem, linkable: @problem)
+          elsif @votable_type == "proof"
+            Activity.create(user: current_user, action: "liked", 
+                      acted_on: @proof, linkable: @proof.problem)
+          elsif @votable_type == "comment"
+            Activity.create(user: current_user, action: "liked", 
+                      acted_on: @comment, linkable: @comment.proof.problem)
+          end
+        else
+          Activity.where(user: current_user, action: "liked", acted_on: @model).each do |activity|
+            activity.destroy
+          end
+        end
+      end
+    end
 end

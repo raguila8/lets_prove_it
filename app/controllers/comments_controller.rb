@@ -24,10 +24,7 @@ class CommentsController < ApplicationController
 
         # Notify the person who wrote the proof
         Notification.notify_user(@comment.proof.user, current_user, "commented on your proof for", @comment.proof.problem) if @comment.proof.user != current_user
-
-        # Create activity
-        Activity.create(user: current_user, action: "commented on a proof", acted_on: @comment)
-
+ 
         format.js {}
       else
         format.js {}

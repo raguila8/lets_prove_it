@@ -5,8 +5,23 @@
 .accordions-1 .panel .panel-heading .panel-title {
   font-size: 1.1em;
 }
+.panel-default {
+  border: 1px solid transparent;
+}
 
-.accordions-1 {
+.panel-default > .panel-heading {
+  background-color: #fff;
+}
+
+
+
+  .panel-default {
+    border: 1px solid transparent;
+  }
+
+  .panel-default > .panel-heading {
+    background-color: #fff;
+  }
 
 	.panel {
 		border-radius: 0;
@@ -14,7 +29,7 @@
 		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 
 		.panel-heading {
-			background: $lighter;
+			background: #fff;
 			padding: 25px 50px;
 			border: none;
 			border-radius: 0;
@@ -41,9 +56,11 @@
 		.panel-collapse {
 
 			.panel-body {
+        padding-left: 10px;
+        padding-right: 10px;
 				border: none;
 				border-top: 1px solid #eaeaea;
-				background: $lighter;
+				background: #fff;
 			} // .panel-body
 		} // .panel-collapse
 	} // .panel
@@ -51,7 +68,6 @@
 	.panel+.panel {
 		margin-top: 20px;
 	}
-} // .accordions-1
 
 .faq-contact-links {
 	color: $gray-light;

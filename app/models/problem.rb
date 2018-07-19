@@ -1,4 +1,6 @@
 class Problem < ApplicationRecord
+  before_destroy :update_activities
+
   include Exceptions
   is_impressionable 
   acts_as_votable
@@ -145,4 +147,6 @@ class Problem < ApplicationRecord
   end
 
   private
+
+
 end

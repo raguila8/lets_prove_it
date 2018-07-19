@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  before_destroy :update_activities
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -65,13 +66,13 @@ class User < ApplicationRecord
 
   def unfollow(model)
     if model.class.name == "Problem"
-      self.problems_following.delete(model)
+      self.problems_following.destroy(model)
       #ProblemFollowing.find_by(user_id: self.id, problem_id: model.id)
     elsif model.class.name == "Topic"
-      self.topics_following.delete(model)
+      self.topics_following.destroy(model)
       #ProblemFollowing.find_by(user_id: self.id, problem_id: model.id)
     elsif model.class.name == "User"
-      self.following.delete(model)
+      self.following.destroy(model)
     end
   end
 

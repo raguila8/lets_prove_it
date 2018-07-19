@@ -1,4 +1,6 @@
 class Topic < ApplicationRecord
+  before_destroy :update_activities
+
   has_many :user_relationships, class_name: "TopicFollowing", :dependent => :destroy
   has_many :followers, through: :user_relationships, source: :user
   has_many :problem_topics

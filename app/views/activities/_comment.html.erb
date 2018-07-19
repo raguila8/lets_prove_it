@@ -1,4 +1,21 @@
 <!-- ========== Comments ========== -->
+<div class="blog-post primary-card wow fadeIn activity_item mb-40" data-wow-delay=".1s" data-wow-duration="2s">
+  <div class="bp-content">
+
+    <div class="post-meta">
+      <div class="post-date float-left font-weight-500">
+        <span class="no-transform"> 
+          <div class='meta_data_img'>
+            <a href='<%=user_path(comment.user)%>'>
+              <img src='<%=user_avatar_src(comment.user)%>'></img>
+            </a>
+          </div>
+          <%= activity.message %>  on <%=activity.created_at.strftime('%B %d, %Y')%>
+        </span>
+      </div>
+      <div class="clearfix"></div>
+    </div><!-- / .meta -->
+
 <div class="row mt-20">
   <div class="col-md-12 blog-post-comments proofs-section">
       <!-- Comment 1 -->
@@ -25,7 +42,7 @@
 
       <div class="author-container">
         <div class="author-img">
-          <a href="<%= user_path(comment.proof.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+          <a href="<%= user_path(comment.proof.user) %>"><img width="60" height="60" src="<%= user_avatar_src(comment.user)%>" alt=""></a>
         </div>
         <h6><a href="<%= user_path(comment.proof.user) %>"><%= comment.proof.user.username %></a></h6>
 			  <span class="author-data">12 Points</span>
@@ -63,7 +80,7 @@
       </div><!-- / .meta -->
       <div class="author-container">
         <div class="author-img">
-          <a href="<%= user_path(comment.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+          <a href="<%= user_path(comment.user) %>"><img width="60" height="60" src="<%= user_avatar_src(comment.user)%>" alt=""></a>
         </div>
         <h6><a href="<%= user_path(comment.user) %>"><%= comment.user.username %></a></h6>
 			  <span class="author-data">12 Points</span>
@@ -78,3 +95,5 @@
     </div><!-- / .bp-comment-reply --> 
   </div><!-- / .blog-post-comments -->
 </div><!-- / .row --> 
+</div>
+</div>

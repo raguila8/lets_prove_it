@@ -1,4 +1,7 @@
 class Proof < ApplicationRecord
+  after_create :create_activity
+  before_destroy :update_activities
+
   acts_as_votable
 
   belongs_to :user
@@ -27,5 +30,12 @@ class Proof < ApplicationRecord
 
     return { }
   end
+
+  private
+ 
+    def create_activity
+      Activity.create(user: self.user, action: "created", acted_on: self, linkable: self.problem)
+    end
+
 
 end

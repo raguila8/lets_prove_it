@@ -19,6 +19,10 @@ body {
   font-weight: 600 !important;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .float-left {
   float: left !important;
 }
@@ -199,6 +203,12 @@ body {
   max-width: 75ch;
 }
 
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .navbar .navbar-nav li a:focus {
   color: inherit;
   text-decoration: none;
@@ -236,6 +246,53 @@ body {
   border-radius: 4px;
 }
 
+.primary-shadow {
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  background: #fff;
+  border-radius: 4px;
+}
+
 .no-transform {
   text-transform: none !important;
 }
+
+.post-date {
+  max-width: calc(100% - 80px);
+  a {
+    color: inherit;
+    font-weight: 600;
+  }
+}
+
+.post-meta .label {
+  margin-left: 10px;
+}
+
+.meta_data_img {
+  float: left;
+  display: block;
+  overflow: hidden;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  margin-right: 5px;
+  overflow: hidden;
+  padding: 2px;
+  border: 1px solid #dedede;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+
+  img {
+    display: block;
+    float: left;
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }
+}
+
+

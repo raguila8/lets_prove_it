@@ -1,0 +1,42 @@
+<% if !defined?(activity).nil? %>
+  <% topic = activity.acted_on %>
+<% end %>
+
+<div class="">
+  <div class="mb-40 blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+    <div class="bp-content">                  
+      <!-- Meta data -->
+      <div class="post-meta">
+        <div class="post-date float-left font-weight-500">
+          <span class="no-transform">
+            <%= meta_data_icon (!defined?(activity).nil? ? activity : topic) %>
+            <% if defined? activity %>
+              <%= activity.message %>  on <%=activity.created_at.strftime('%B %d, %Y')%>
+            <% else %>
+              <%=topic.created_at.strftime('%B %d, %Y')%>
+            <% end %>
+          </span>
+        </div>
+
+        <div class="clearfix"></div>        
+      </div><!-- / .meta -->
+
+      <!-- Post Title -->
+      <%= link_to topic_path(topic.id), class: "post-title" do %>
+        <h3><%=topic.name%></h3>
+      <% end %>
+      <span class="problem-comment"><i class="glyphicon glyphicon-user mr-5"></i> <span id="topic-<%=topic.id%>-followers"> <%= pluralize(topic.followers.count, "Follower") %></span></span>
+
+      <span class="problem-comment"><i class="glyphicon glyphicon-question-sign mr-5"></i> <%= pluralize(topic.problems.count, "Problem") %></span>
+
+      <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i> <%= pluralize(topic.proofs.count, "Proof") %></span>
+      <span class="problem-view"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(topic.versions.count, "Edit")%></span>
+      <div class="clearfix mb-20"></div>
+
+      <div id="topic-follow-<%=topic.id%>">
+        <%= follow_link topic %>
+      </div>
+
+    </div><!-- / .bp-content -->
+  </div><!-- / .blog-post -->
+</div><!-- / .col-md-12 -->
