@@ -17,6 +17,10 @@ $(document).on('turbolinks:load', function() {
     initMessageNotifications();
   }
 
+  if ($('#img-edit-form').length > 0) {
+    initProfileImage();
+  }
+
 
   // Parallax disabled for mobile screens
   if ($(window).width() >= 1260) {
@@ -404,5 +408,15 @@ numbers.initialize();
         $(this).find(".glyphicon").removeClass("glyphicon-minus");
         $(this).find(".glyphicon").addClass("glyphicon-plus");
       }
+    });
+  }
+
+/* --------------------------------------------------------
+  Profile Image
+  ---------------------------------------------------------- */
+
+  function initProfileImage() {
+    $('#user_avatar').on('change', function() {
+      $('#img-edit-form').submit();
     });
   }

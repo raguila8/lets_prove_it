@@ -1,21 +1,41 @@
-<div class="boxedtitle add-problem-title mb-40"><h2>Profile</h2></div>
+<div class="boxedtitle add-problem-title mb-40"><h2>Edit Profile</h2></div>
 <%= form_with(model: @user, id: "user-form") do |form| %>
   <%= render 'shared/error_messages' %>
 
   <div class="form-group">
-    <%= form.label :email, "Email:" %>
+    <%= form.label :email %>
     <%= form.email_field :email, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :username, "Username:" %>
+    <%= form.label :username %>
     <%= form.text_field :username, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :name, "Name:" %>
+    <%= form.label :name %>
     <%= form.text_field :name, class: "form-control" %>
-  </div> 
+  </div>
+
+  <div class="form-group">
+    <%= form.label :occupation %>
+    <%= form.text_field :occupation, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :education %>
+    <%= form.text_field :education, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :location %>
+    <%= form.text_field :location, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :bio %>
+    <%= form.text_area :bio, class: "form-control" %>
+  </div>
 
   <!-- Submit -->
   <%= form.submit "Submit", class: "btn" %>

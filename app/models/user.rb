@@ -35,7 +35,13 @@ class User < ApplicationRecord
 
   validates :email, presence: true, length: { maximum: 255 },
 										uniqueness: { case_sensitive: false }
+  validates :bio, length: { maximum: 500 }
   validates :name, length: { maximum: 70 }
+  validates :occupation, length: { maximum: 70 }
+  validates :education, length: { maximum: 70 }
+  validates :location, length: { maximum: 70 }
+
+
   validates :username, presence: true, length: { minimum: 5, maximum: 18 },
 											uniqueness: true
   validate :avatar_size

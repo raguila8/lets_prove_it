@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       get :topics_following
       post :follow
       delete :unfollow
+      patch :update_image
     end
   end
 
