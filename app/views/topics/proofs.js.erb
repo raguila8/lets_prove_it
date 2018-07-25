@@ -1,0 +1,8 @@
+<% if @proofs.count > 0 %>
+  $('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/activities/proof_item', collection: @proofs, as: :model ) %>");
+<% else %>
+  $(".tab-content .tab-list-content").html("<%= no_results_content('proofs') %>");
+<% end %>
+
+$('.tab-content .tab-list-content').prepend("<div class='boxedtitle add-problem-title mb-40'><h2>Proofs (<%=@proofs.count%>)</h2></div>");
+

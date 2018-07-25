@@ -1,8 +1,8 @@
-$('.topic-content').empty();
 <% if @problems.count > 0 %>
-  <% @problems.each do |problem| %>
-    $('.topic-content').append("<%= escape_javascript render(:partial => '/problems/problem_post', :locals => { :@problem => @problem }) %>");
-  <% end %>
+  $('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/activities/problem_item', collection: @problems, as: :problem ) %>");
 <% else %>
-  
+  $(".tab-content .tab-list-content").html("<%= no_results_content('problems') %>");
 <% end %>
+
+$('.tab-content .tab-list-content').prepend("<div class='boxedtitle add-problem-title mb-40'><h2>Problems (<%=@problems.count%>)</h2></div>");
+

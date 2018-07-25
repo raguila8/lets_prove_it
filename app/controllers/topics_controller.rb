@@ -1,5 +1,7 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: [:show, :edit, :update, :destroy, :problems, :users, :logs, :follow, :unfollow]
+  before_action :set_topic, only: [:show, :edit, :update, :destroy, :problems, 
+                                   :followers, :follow, :unfollow, 
+                                   :log, :proofs, :description]
 
   def follow
     current_user.follow @topic
@@ -7,10 +9,6 @@ class TopicsController < ApplicationController
 
   def unfollow
     current_user.unfollow @topic
-  end
-  
-  def logs
-
   end
 
   # GET /topics
@@ -46,11 +44,22 @@ class TopicsController < ApplicationController
   end
 
   def problems
-    @problems = @topic.feed
+    @problems = @topic.feed.order(created_at: :desc)
   end
 
-  def users
-    
+  def followers
+    @followers = @topic.followers.order(created_at: :desc)
+  end
+
+  def log
+    @versions = @topic.versions.order(created_at: :desc)
+  end
+
+  def proofs
+    @proofs = @topic.proofs.order(created_at: :desc)
+  end
+
+  def description
   end
 
   # POST /topics

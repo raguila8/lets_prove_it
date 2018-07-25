@@ -194,19 +194,22 @@ $(document).on('turbolinks:load', function() {
 
   function initSelector () {
     // Filters
-		$('.portfolio-filters a').click(function (e) {
-			  e.preventDefault();
 
-			  $('li').removeClass('active');
-			  $(this).parent().addClass('active');
+    if ($('.portfolio-filters').length > 0) {
+		  $('.portfolio-filters a').click(function (e) {
+			    e.preventDefault();
+			    $('.portfolio-filters li').removeClass('active');
+			    $(this).parent().addClass('active');
     
-        $('.page-title .subheading').text($(this).text());
-		});
+          $('.page-title .subheading').text($(this).text());
+		  });
+    }
 
     if ($('.ft-tabs').length > 0) {
       $('.ft-tabs .tabs-list li').on('click', function() {
         $('.ft-tabs .tabs-list li').removeClass('active');
         $(this).addClass('active');
+        $('.page-title .subheading').text($(this).find('.tab-top h1').text());
       });
     }
   }

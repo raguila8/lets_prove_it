@@ -1,17 +1,15 @@
+<div class="boxedtitle add-problem-title mb-40"><h2>Description</h2></div>
 <!-- Blog Post -->
 <div class="col-md-12 blog-post-single wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
-<!--
-          
-          <img class="img-responsive post-img" src="http://placehold.it/750x400" alt="Blog Post 1">
--->
           
   <!-- Title -->
   <h2 class="post-title font-weight-600 pt-20 problem-desc mb-30 "><%= @topic.name %></h2>
-              
+          
   <div class="mb-20 mt-20 blog-post-content">
     <%= sanitize @topic.description %>
-    <button class="btn-text btn-small small-padding">Edit</button>
+    <%= link_to edit_topic_path(@topic.id) do %>
+      <button class="btn-text btn-small small-padding">Edit</button>
+    <% end %>
     <button class="btn-text btn-small small-padding">Report</button>
   </div>
 </div><!-- / .blog-post-single -->
-

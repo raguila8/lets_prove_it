@@ -258,11 +258,11 @@ module ApplicationHelper
     elsif acted_on_type == "Comment"
       render partial: "activities/comment", locals: { comment: activity.acted_on, activity: activity }
     elsif acted_on_type == "Proof"
-      render partial: "activities/proof", locals: { model: activity }
+      render partial: "activities/proof_item", locals: { model: activity }
     elsif acted_on_type == "Version"
-      render partial: "activities/version", locals: { model: activity }
+      render partial: "activities/version_item", locals: { model: activity }
     elsif acted_on_type == "User"
-      render partial: "activities/user", locals: { model: activity }
+      render partial: "activities/user_item", locals: { model: activity }
     elsif acted_on_type == "Problem"
       render partial: "activities/problem_item", locals: { activity: activity }
     elsif acted_on_type == "Topic"
