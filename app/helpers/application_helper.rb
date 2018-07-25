@@ -277,4 +277,12 @@ module ApplicationHelper
       "<i class='fa fa-calendar-o'></i>".html_safe
     end
   end
+
+  def edit_account_content(user)
+    if controller_name == "users"
+      render partial: "users/edit", locals: { :@user => user }
+    else
+      render partial: "devise/registrations/edit"
+    end
+  end
 end

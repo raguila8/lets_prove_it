@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only:  [:follow, :unfollow, :vote]
+  before_action :correct_user, only: [:edit, :update]
   before_action :set_user, only: [:follow, :unfollow, :proofs,
                                      :problem_edits, :problems_following,
                                      :topics_following, :topic_edits, :show, 
-                                     :activity, :followers, :following]
+                                     :activity, :followers, :following, :edit]
   after_action :create_activity, only: [:vote]
 
   def follow
@@ -51,6 +52,19 @@ class UsersController < ApplicationController
   end
 
   def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @user.update_attributes(user_params)
+			# Handle a successful update
+			flash[:success] = "Profile updated"
+			redirect_to @user
+		else
+			render 'edit'
+		end
   end
 
   def vote
@@ -132,6 +146,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def user_params
+      params.require(:user).permit(:username, :email, :name)
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user

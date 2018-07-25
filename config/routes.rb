@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 			root 'static_pages#landing'
 		end
   end
-  resources :users, only: [:show, :index] do
+  resources :users, only: [:show, :index, :edit, :update] do
     member do
       get :problem_edits
       get :problems_following
