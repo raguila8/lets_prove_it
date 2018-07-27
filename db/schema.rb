@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725044535) do
+ActiveRecord::Schema.define(version: 20180726005709) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20180725044535) do
     t.index ["acted_on_id"], name: "index_activities_on_acted_on_id"
     t.index ["linkable_id"], name: "index_activities_on_linkable_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
+    t.index [nil], name: "index_activities_on_reportable_id"
   end
 
   create_table "change_types", force: :cascade do |t|
@@ -236,6 +237,17 @@ ActiveRecord::Schema.define(version: 20180725044535) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "reason"
+    t.integer "reportable_id"
+    t.string "reportable_type"
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
   create_table "topic_followings", force: :cascade do |t|

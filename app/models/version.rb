@@ -9,6 +9,8 @@ class Version < ApplicationRecord
   has_many :change_types, through: :version_changes, :dependent => :destroy
   has_many :version_topics
   has_many :topics, through: :version_topics, dependent: :destroy
+  has_many :reports, as: :reportable, :dependent => :destroy
+  has_many :reported
 
   validates :title, presence: true, length: { maximum: 255, minimum: 3 }
 

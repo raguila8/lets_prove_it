@@ -1,4 +1,5 @@
 $(document).on('turbolinks:load', function() {
+  console.log("hello");
   initNavbar();
   initScroller();
   initAnimation();
@@ -21,6 +22,12 @@ $(document).on('turbolinks:load', function() {
     initProfileImage();
   }
 
+  if ($("#reportModal").length > 0) {
+    $('.reportModalToggle').on('click', function() {
+      $('#reportModal').modal('toggle');
+    });
+  }
+
 
   // Parallax disabled for mobile screens
   if ($(window).width() >= 1260) {
@@ -39,8 +46,11 @@ $(document).on('turbolinks:load', function() {
 
 	});
 
-  if ($("#topics-input").length) {
-    initTopicsTags();
+  if ($("#topics-input").length > 0) {
+    if ($('#topics-input').attr('data-behavior')) {
+      $('.bootstrap-tagsinput').remove(); 
+    }
+      initTopicsTags();
   }
 
   if ($("#problem-form").length) {
@@ -219,23 +229,19 @@ $(document).on('turbolinks:load', function() {
  ----------------------------------------------------*/
   
   function initTopicsTags () {
-    var numOfTags = $('#problem-tags').val().split(",").length;
+    var tags = $('#problem-tags').val().split(",");
+    var numOfTags = 0;
+    if (tags[0] == "") {
+      numOfTags = 0;
+    } else {
+      numOfTags = tags.length;
+    }
+
     var tags = $('#problem-tags').val();
     $('#topics-input').change(function(){
       $(this).find('input').val('');
     });
 
-    var data = ['AMSTERDAM', 'SYDNEY', 'LOS ANGELES', 'NEW YORK'];
-
-    // instantiate the bloodhound suggestion engine
-var numbers = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.whitespace,
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-  local:  ["(A)labama","Alaska","Arizona","Arkansas","Arkansas2","Barkansas"]
-});
-
-// initialize the bloodhound suggestion engine
-numbers.initialize();
     
     $('#topics-input').tagsinput({
       typeahead: {
@@ -264,15 +270,17 @@ numbers.initialize();
       },
       freeInput: false
     });
+    
 
-    if ($('#problem-topics-data').length) {
+    if ($('#problem-topics-data').length > 0 && !$('#topics-input').attr('data-behavior')) {
       var default_tags = $('#problem-topics-data').data()["topics"].split(",");
-
       for (var i = 0; i < default_tags.length; i++) {
-        //console.log(default_tags[i]);
         $('#topics-input').tagsinput('add', default_tags[i]);
+        
       }
     }
+
+ 
 
 
     $('#topics-input').on('itemAdded', function(event) {
@@ -288,7 +296,7 @@ numbers.initialize();
       //$('#problem-form').prepend(hidden_field)
     });
 
-    $('input').on('itemRemoved', function(event) {
+    $('#topics-input').on('itemRemoved', function(event) {
       tags = $("#problem-tags").val();
       if (tags.includes(event.item.toUpperCase())) {
         tags = tags.replace(event.item.toUpperCase(), "");
@@ -308,6 +316,7 @@ numbers.initialize();
 
     $('.bootstrap-tagsinput').addClass('form-group');
     $('.bootstrap-tagsinput input').addClass('form-control');
+    $('#topics-input').attr('data-behavior', 'processed') 
   }
 
 /* --------------------------------------------------

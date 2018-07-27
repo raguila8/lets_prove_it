@@ -1,0 +1,13 @@
+<%= form_with(model: Report.new, remote: true, id: "report-form") do |form| %>
+  <%= form.hidden_field :reportable_type, value: "#{reportable.class.name}" %>
+  <%= form.hidden_field :reportable_id, value: "#{reportable.id}" %>
+    
+  <div class="form-group">
+    <%= form.label :reason, "Why are you reporting this #{reportable.class.name.downcase}?" %>
+    <%= form.text_area :reason, class: "mb-20 form-control" %>
+  </div>
+
+  <!-- Submit -->
+  <%= form.submit "Submit", class: "btn" %>
+<% end %>
+

@@ -5,11 +5,14 @@
   <!-- Title -->
   <h2 class="post-title font-weight-600 pt-20 problem-desc mb-30 "><%= @topic.name %></h2>
           
-  <div class="mb-20 mt-20 blog-post-content">
+  <div class="mb-40 mt-20 blog-post-content">
     <%= sanitize @topic.description %>
-    <%= link_to edit_topic_path(@topic.id) do %>
-      <button class="btn-text btn-small small-padding">Edit</button>
+
+    <%= report_button @topic %>
+    <% if signed_in? %>
+      <%= link_to edit_topic_path(@topic.id), class: 'btn-text btn-small, float-right small-padding mr-5' do %>
+        <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+      <% end %>
     <% end %>
-    <button class="btn-text btn-small small-padding">Report</button>
   </div>
 </div><!-- / .blog-post-single -->

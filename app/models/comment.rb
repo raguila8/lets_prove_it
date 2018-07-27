@@ -6,6 +6,8 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :proof
 
+  has_many :reports, as: :reportable, :dependent => :destroy
+
   validates :content, presence: true, length: { maximum: 500, minimum: 3 }
 
   private

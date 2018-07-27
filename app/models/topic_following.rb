@@ -7,6 +7,8 @@ class TopicFollowing < ApplicationRecord
 
   validates :topic_id, presence: true
   validates :user_id, presence: true
+  validates_uniqueness_of :user_id, scope: [:topic_id]
+
 
   private
 

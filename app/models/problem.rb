@@ -14,6 +14,7 @@ class Problem < ApplicationRecord
   has_many :images, through: :problem_images, :dependent => :destroy
   has_many :problem_topics
   has_many :topics, through: :problem_topics, dependent: :destroy
+  has_many :reports, as: :reportable, :dependent => :destroy
   validates :topics, length: { minimum: 1 },
                        unless: :new_record?
 

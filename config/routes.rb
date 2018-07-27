@@ -50,6 +50,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :reports, only: [:new, :create]
+
   resources :problems
   get '/problems/:id/logs', to: 'problems#logs', as: :problem_logs
   resources :images, only: [:create, :destroy]

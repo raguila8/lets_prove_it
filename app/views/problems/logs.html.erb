@@ -1,3 +1,5 @@
+<%= render 'reports/report_modal' if signed_in? %>
+
 <!-- ========== FAQ Layout - 1 ========== -->
 <div id="problem-versions-page" class="pt-100 section container blog-classic">
   <div class="row">
@@ -17,7 +19,7 @@
                         <i class="fa fa-calendar-o"></i>
                         <span><%= version.created_at.strftime('%B %d, %Y') %></span>
                       </div>
-                      <button class="btn-text btn-small float-right">Report</button>
+                      <%= report_button version %>
                       <div class="clearfix"></div>
                     </div><!-- / .meta -->
 

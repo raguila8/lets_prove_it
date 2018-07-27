@@ -285,4 +285,10 @@ module ApplicationHelper
       render partial: "devise/registrations/edit"
     end
   end
+
+  def report_button(model, options={})
+    if signed_in? and !Report.exists?(user_id: current_user.id, reportable_id: model.id)
+      "<a class='btn-text btn-small float-right small-padding reportModalToggle' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}'><span class='proof-edit'><i class='mr-5 glyphicon glyphicon-edit'></i>Report</span></a>".html_safe
+    end
+  end
 end
