@@ -1,13 +1,3 @@
-/*
-$(document).on('turbolinks:load', function() {
-  if ($("#problem-form").length) {
-    window.onbeforeunload = function() {
-      return true;
-    };
-  }
-});
-*/
-
 Trix.config.attachments.preview.caption = {
   name: false,
   size: false

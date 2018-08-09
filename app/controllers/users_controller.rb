@@ -157,6 +157,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def main_search
+    respond_to do |format|
+			format.json {
+				@suggestions = User.search("%#{params[:query]}%")
+				render json: {suggestions: @suggestions }
+			}
+		end
+  end 
+
   private
 
     def user_params

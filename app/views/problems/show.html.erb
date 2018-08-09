@@ -1,5 +1,7 @@
 <%= render 'problems/edit_topics' if signed_in? %>
 <%= render 'reports/report_modal' if signed_in? %>
+<%= render 'shared/preview' %>
+
 <!-- ========== Single Blog Post ========== -->
 
 <div id="problem-page" class="pt-100 section container blog-classic">
@@ -22,7 +24,7 @@
           </div><!-- / .meta -->
 
           <!-- Title -->
-          <h2 class="post-title font-weight-600 pt-20 problem-desc mb-30 "><%= @problem.title %></h2>
+          <h1 class="post-title font-weight-600 pt-20 problem-desc mb-30 "><%= @problem.title %></h1>
           
           <div class="vote-container vote-container-post">
             <%= link_to vote_path(:vote_type => "like", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
@@ -206,10 +208,14 @@
                 <div class="form-group">
                   <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
                   <trix-editor input="proof_content"></trix-editor>
+                  <span class="pull-right"><a target="_blank" href="/static_pages/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
+                  <div class="clearfix"></div>
                 </div>
 
-               
-                <input type="submit" value="Submit Proof" class="btn pull-right">
+                <!-- Action Buttons --> 
+                <input type="submit" value="Submit Proof" class="btn mb-5 btn-mult pull-right">
+                <span class="btn-ghost pull-right mb-5 btn-mult mr-5 preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
+
               <% end %>
             </div><!-- / .comment-form -->
             <% end %>

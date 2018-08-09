@@ -1,2 +1,6 @@
 $('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/topics/topic_description', locals: { :@topic => @topic } ) %>");
+$content = $('.tab-content');
+  setTimeout(function() {
+	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $content[0]]);
+} ,500);
 

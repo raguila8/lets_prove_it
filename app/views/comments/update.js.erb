@@ -25,7 +25,12 @@
   }
 
   var $toastContent = $('<span>Comment was successfully updated.</span>');
-  toastr.info($toastContent)
+  toastr.info($toastContent);
+
+  $comment = $('#comment-content-<%= @comment.id %>');
+  setTimeout(function() {
+	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $comment[0]]);
+  } ,500);
 
 
 <% else %>

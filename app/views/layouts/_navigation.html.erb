@@ -1,6 +1,6 @@
 <!-- ========== Navigation ========== -->
 
-<nav class="navbar navbar-default navbar-static-top mega navbar-inverse">
+<nav class="navbar navbar-default mega navbar-fw navbar-inverse <%= navbar_position %>">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -17,11 +17,6 @@
     <!-- Navbar Links -->
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-
-        <!-- Home -->
-        <li>
-          <%= link_to "Home", problems_path %>
-        </li><!-- / Home -->
                
       </ul><!-- / .nav .navbar-nav -->
 
@@ -96,7 +91,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i> Search</a>
           <ul class="dropdown-menu search-dropdown">
-            <li><form action="post"><input type="search" class="form-control" placeholder="Search..."></form></li>
+            <li><form role="search"><input type="search" class="form-control" id="main-search" placeholder="Search..."></form></li>
           </ul>
         </li><!-- / Search --> 
       </ul><!-- / .nav .navbar-nav .navbar-right -->

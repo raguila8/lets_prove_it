@@ -1,4 +1,25 @@
 module ApplicationHelper
+
+  def navbar_position
+    if controller_name == "static_pages"
+      if action_name == "landing"
+        "navbar-trans navbar-fixed-top"
+      end
+    else
+      "navbar-static-top"
+    end
+  end
+
+  def header
+    if controller_name == "static_pages"
+      if action_name == "mathjax_cheatsheet"
+        render partial: "layouts/header2"
+      end
+    else
+      render partial: "layouts/header1"
+    end
+  end
+
   def page_title
     if controller_name == "sessions" and (action_name == "new" || action_name == "create")
       "Login"
@@ -37,6 +58,10 @@ module ApplicationHelper
     elsif controller_name == "users"
       if action_name == "show"
         @user.username
+      end
+    elsif controller_name == "static_pages"
+      if action_name == "mathjax_cheatsheet"
+        "Mathjax / LaTeX Support"
       end
     end
   end
@@ -83,6 +108,10 @@ module ApplicationHelper
     elsif controller_name == "users"
       if action_name == "show"
         @user.name
+      end
+    elsif controller_name == "static_pages"
+      if action_name == "mathjax_cheatsheet"
+        "Render Math with Ease!"
       end
     end
   end
@@ -254,19 +283,19 @@ module ApplicationHelper
   def activity_content(activity)
     acted_on_type = activity.acted_on_type
     if activity.deleted_on
-      render partial: "activities/deleted_item", locals: { activity: activity }
+      render partial: "shared/items/deleted_item", locals: { activity: activity }
     elsif acted_on_type == "Comment"
-      render partial: "activities/comment", locals: { comment: activity.acted_on, activity: activity }
+      render partial: "shared/items/comment", locals: { comment: activity.acted_on, activity: activity }
     elsif acted_on_type == "Proof"
-      render partial: "activities/proof_item", locals: { model: activity }
+      render partial: "shared/items/proof_item", locals: { model: activity }
     elsif acted_on_type == "Version"
-      render partial: "activities/version_item", locals: { model: activity }
+      render partial: "shared/items/version_item", locals: { model: activity }
     elsif acted_on_type == "User"
-      render partial: "activities/user_item", locals: { model: activity }
+      render partial: "shared/items/user_item", locals: { model: activity }
     elsif acted_on_type == "Problem"
-      render partial: "activities/problem_item", locals: { activity: activity }
+      render partial: "shared/items/problem_item", locals: { activity: activity }
     elsif acted_on_type == "Topic"
-      render partial: "activities/topic_item", locals: { activity: activity }
+      render partial: "shared/items/topic_item", locals: { activity: activity }
     end
   end
 

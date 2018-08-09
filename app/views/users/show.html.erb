@@ -1,4 +1,6 @@
-<div class="pt-100 section container-fluid blog-classic">
+<%= render '/conversations/new_conversation_modal' if signed_in? %>
+
+<div class="user-profile pt-100 section container-fluid blog-classic">
   <div class="row">
     <div class="col-md-8">
       <div class="profile-main-div mb-40 primary-card" id="profile-<%=@user.id%>">
@@ -27,7 +29,7 @@
             <!-- User Contact Buttons -->
             <% if signed_in? and current_user != @user %>
               <div class="user-contact-btns-<%=@user.id%>">
-                <button class="mt-20 btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary new-msg" data-toggle="modal" data-target="#new-conversation-modal">Message</button>
+                <button id='msg-user-btn' class="mt-20 btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary new-msg" data-toggle="modal" data-target="#newConversationModal">Message</button>
               </div>
             <% end %>
 
@@ -45,7 +47,7 @@
             <div class="col-md-12 col-lg-12">
 
               <!-- User details -->
-              <h1 class="font-weight-600 dont-break-out username normal-spacing mb-10"><%=@user.username%></h1>
+              <h1 id='username' class="font-weight-600 dont-break-out username normal-spacing mb-10"><%=@user.username%></h1>
               <h3 class="font-weight-500 no-transform normal-spacing opacity-8 mt-0 mb-20 g-mt-0 ellipsis-wrap">
                 <%= @user.name if @user.name%>
               </h3>
@@ -184,7 +186,7 @@
               <div class="tab-content-text page-content">
                 <div class="boxedtitle add-problem-title mb-40"><h2>Proofs</h2></div>
                 <div class="tab-list-content">
-                <% @user.proofs.each do |proof| %>
+                <% @user.proofs.order(created_at: :desc).each do |proof| %>
                   <div class="col-md-12">
                     <div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
         

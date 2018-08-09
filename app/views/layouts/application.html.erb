@@ -15,8 +15,9 @@
     <%= render 'shared/preloader' %>
     <%= render 'shared/flash_messages' %>
     <%= render 'layouts/navigation' %>
-    <%= render 'layouts/header' %>
+    <%= header %>
     <%= yield %>
+    <%= render 'layouts/mathjax' %>
     <%= render 'layouts/footer' %>
   </body>
 </html>

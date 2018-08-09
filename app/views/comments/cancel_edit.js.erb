@@ -4,4 +4,10 @@
 
   $('#comment-content-<%=@comment.id%>').html("<%= escape_javascript render(:partial => '/comments/comment_content', :locals => { :@comment => @comment }) %>");
 
+  $comment = $('#comment-content-<%= @comment.id %>');
+  setTimeout(function() {
+	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $comment[0]]);
+  } ,500);
+
+
 <% end %>

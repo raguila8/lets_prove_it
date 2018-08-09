@@ -20,12 +20,14 @@ class ProblemsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        if signed_in? 
-          @problems = current_user.problem_feed
-        else
-          @problems = Problem.all.order(:created_at)
-        end
-      } 
+        @problems = Problem.feed({user: current_user})
+      }
+
+      format.js { 
+        @problems = Problem.feed({user: current_user, 
+                                  filter: params[:filter], 
+                                  sorter: params[:sorter]})
+      }
     end
   end
 

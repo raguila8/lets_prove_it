@@ -123,7 +123,7 @@
 		}
 
 		.navbar-right {
-			margin-right: 0;
+			margin-right: 0 !important;
 		}
 	} // .navbar
 
@@ -1871,3 +1871,14 @@
 	
 } // @media (max-width: $screen-sm)
 
+@media (max-width: 1259px) {
+  .navbar-nav .open .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+}

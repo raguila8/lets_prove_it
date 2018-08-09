@@ -1,0 +1,3 @@
+<% if @problems.count > 0 %>
+  $('#problem-feed').append("<%= escape_javascript render(:partial => '/shared/items/problem_item', collection:  @problems, as: :problem ) %>");
+<% end %>

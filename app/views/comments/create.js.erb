@@ -24,7 +24,11 @@
   }
 
   var $toastContent = $('<span>Comment was successfully created.</span>');
-  toastr.info($toastContent)
+  toastr.info($toastContent);
+  $comment = $('#comment-content-<%= @comment.id %>');
+  setTimeout(function() {
+	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $comment[0]]);
+  } ,500);
 
 <% else %>
   $('#new-comment-form').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@comment => @comment }) %>");

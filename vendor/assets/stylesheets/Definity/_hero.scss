@@ -5,7 +5,7 @@
 
 
 /* ---- 20.01 Preloader ---- */
-.preloader {
+.preloader, {
 	position: fixed;
 	top: 0;
   left: 0;
@@ -24,6 +24,22 @@
   	width: 50px;
   	height: 50px;
   	margin: auto;
+  }
+}
+
+.loader {
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+  
+  img {
+  	width: 50px;
+  	height: 50px;
+  	margin: auto;
+    vertical-align: middle;
   }
 }
 
@@ -446,7 +462,7 @@
 /* ---- 20.4 Full Screen Video ---- */
 .fs-video-hero {
 	@extend .main-demo-hero;
-	background: url(http://placehold.it/2440x1578);
+	background: url(/assets/backgrounds/video-bg.png);
 	background-size: cover;
 
 	.bg-overlay {

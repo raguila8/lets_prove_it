@@ -21,6 +21,12 @@
 		}
 	}
 
+  
+
+  .navbar-right {
+    margin-right: 100px;
+  }
+
 	.navbar-nav {
 		margin-top: 12px;
 		
@@ -163,6 +169,7 @@
 
 				li {
 					padding: 0 15px;
+          min-width: 250px;
 
 					form {
 
@@ -537,19 +544,14 @@
 
 
 /* ---- Navbar Utility ---- */
+
 .navbar-trans {
+
 	border-bottom: none;
 	background: rgba(0,0,0, 0);
 	transition: background .3s;
-
-	.navbar-logo {
-		content: url(../images/logo-light.png);
 	}
 
-	.navbar-logo-dark {
-		content: url(../images/logo.png);
-	}
-}
 
 .navbar-trans:not(.navbar-inverse) {
 
@@ -601,6 +603,8 @@
 		}
 	} // .navbvar-nav
 } // .navbar-trans:not
+
+
 
 .navbar-trans-dark {
 

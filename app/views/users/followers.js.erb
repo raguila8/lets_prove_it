@@ -1,4 +1,6 @@
 $('.tab-content .boxedtitle h2').text("Followers");
 $('.tab-content .tab-list-content').addClass('ph-15')
-$('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/activities/user_item', collection:  @users, as: :model ) %>");
 
+$('.tab-content .tab-list-content').append("<%= escape_javascript render(:partial => '/shared/items/user_item', collection:  @users, as: :model ) %>");
+
+$('.spinner').slideUp(1000);

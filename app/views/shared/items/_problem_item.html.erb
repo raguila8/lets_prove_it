@@ -47,12 +47,12 @@
         <h3><%=problem.title%></h3>
       <% end %>
       
-      <span class="problem-comment"><i class="glyphicon glyphicon-user mr-5"></i> <span id="problem-<%=problem.id%>-followers"><%= pluralize(problem.followers.count, "Follower") %></span></span>
+      <span class="problem-comment problem-info"><i class="glyphicon glyphicon-user mr-5"></i> <span id="problem-<%=problem.id%>-followers"><%= pluralize(problem.followers.count, "Follower") %></span></span>
 
-      <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(problem.proofs.count, "Proof") %></span>
-      <span class="problem-comment"><i class="glyphicon glyphicon-eye-open mr-5"></i><%=pluralize(problem.impressionist_count, "view")%></span>
+      <span class="problem-comment problem-info"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(problem.proofs.count, "Proof") %></span>
+      <span class="problem-comment problem-info"><i class="glyphicon glyphicon-eye-open mr-5"></i><%=pluralize(problem.impressionist_count, "view")%></span>
 
-      <span class="problem-view"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(problem.versions.count, "Edit")%></span>
+      <span class="problem-view problem-info"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(problem.versions.count, "Edit")%></span>
 
       <div class="clearfix mb-20"></div>
 

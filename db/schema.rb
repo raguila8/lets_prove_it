@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180726005709) do
+ActiveRecord::Schema.define(version: 20180807041713) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20180726005709) do
     t.integer "cached_weighted_score", default: 0
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
+    t.integer "cached_proofs_count", default: 0
     t.index ["user_id"], name: "index_problems_on_user_id"
   end
 
@@ -301,7 +302,7 @@ ActiveRecord::Schema.define(version: 20180726005709) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "avatar"
+    t.string "avatar", default: "", null: false
     t.text "bio"
     t.string "occupation"
     t.string "education"

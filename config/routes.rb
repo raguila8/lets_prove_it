@@ -21,8 +21,8 @@ Rails.application.routes.draw do
   get 'users/show'
 
   get 'static_pages/landing'
-
   get 'static_pages/about'
+  get 'static_pages/mathjax_cheatsheet'
 
   devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
   devise_scope :user do
@@ -75,6 +75,9 @@ Rails.application.routes.draw do
       post :mark_all_as_read
     end
   end
+
+  get '/main_search', to: 'users#main_search', as: :main_search
+  mathjax 'mathjax'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,0 +1,345 @@
+<% provide(:title, "Formatting") %>
+<div class="container mt-50 mb-50">
+<h3 class="font-weight-600">MathJax</h3>
+<p>
+	We use the Javascript display engine MathJax in order to 
+	render mathematics in all browsers.
+</p>
+
+<h3 class="font-weight-600">TeX and LaTeX support</h3>
+<p>
+	MathJax defines the LaTeX math delimiters, which are <code class="tex2jax_ignore">\(...\)</code> for 
+	in-line math, and <code class="tex2jax_ignore">\[...\]</code> for displayed equations. It also defines the TeX 
+	delimiters <code class="tex2jax_ignore">$$...$$</code> for displayed equations, and <code class="text2jax_ignore">$...$</code> for in-line Math.
+</p>
+
+<p>
+	For example, <code class="tex2jax_ignore">\(x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}\)</code> produces \(x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}\).
+</p>
+<p>
+	<code class="tex2jax_ignore">$x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}$</code> produces $x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}$.
+</p>
+
+<p>
+	<code class="tex2jax_ignore">\[x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}\]</code> produces the following: \[x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}\].
+</p>
+
+<p>
+	<code class="tex2jax_ignore">$$x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}$$</code> produces the following: $$x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}$$.
+</p>
+
+<h3 class="font-weight-600">MathJax basic Tutorial and quick reference</h3>
+
+<p>
+	The following is a basic MathJax and LaTex tutorial and reference derived 
+	from <%= link_to "this Stackexchange post", 
+	"https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial" +
+	"-and-qu%E2%80%8C%E2%80%8Bick-reference" %>. This reference will use the Tex 
+	delimiters <code class="tex2jax_ignore">$$...$$</code> for displayed 
+	equations, and <code class="text2jax_ignore">$...$</code> for in-line Math.
+</p>
+
+<ul>
+	<li>
+		To see how any formula was written right-click on the expression and 
+		choose "Show Math As > TeX Commands". (When you do this, the '$' will not 
+		display. Make sure you add these. See the next point.)
+	</li>
+	<li>
+		<b>For inline formulas, enclose the formula in 
+		<code class="tex2jax_ignore">$...$</code>. For displayed formulas, use 
+		<code class="tex2jax_ignore">$$...$$</code></b>.
+	</li>
+	<li>
+		These render differently. For example, type
+		<code class="tex2jax_ignore">
+			$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$
+		</code>
+		to show $\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$
+		(which is inline mode) or type
+		<code class="tex2jax_ignore">
+			$$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
+		</code>
+		to show $$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
+		(which is display mode).
+	</li>
+	<li>
+		For <b>Greek letters</b>, use 
+		<code class="text2jax_ignore">
+			$\alpha$
+		</code>, 
+		<code class="text2jax_ignore">
+			$\beta$
+		</code>, …, 
+		<code class="text2jax_ignore">
+			$\omega$
+		</code>: $\alpha$, $\beta$, …, $\omega$.
+		For uppercase, use 
+		<code class="text2jax_ignore">
+			$\Gamma$
+		</code>, 
+		<code class="text2jax_ignore">
+			$\Delta$
+		</code>, …, 
+		<code class="text2jax_ignore">
+			$\Omega$
+		</code>: $\Gamma$, $\Delta$, …, $\Omega$.
+	</li>
+	<li>
+		For <b>superscripts and subscripts</b>, use 
+		<code class="text2jax_ignore">
+			$^$
+		</code> and 
+		<code class="text2jax_ignore">
+			$_$
+		</code>. For example, 
+		<code class="text2jax_ignore">
+			$x_i^2$
+		</code>: $x_i^2$, 
+		<code class="text2jax_ignore">
+			$\log_2 x$
+		</code>: $\log_2 x$
+	</li>
+	<li>
+		<b>Groups</b>. Superscripts, subscripts, and other operations apply only 
+		to the next “group”. A “group” is either a single symbol, or any formula 
+		surrounded by curly braces {…}. If you do 
+		<code class="text2jax_ignore">$10^10$</code>, you will get a surprise: 
+		$10^10$. But <code class="text2jax_ignore">$10^{10}$</code> gives what you 
+		probably wanted: $10^{10}$. Use curly braces to delimit a formula to 
+		which a superscript or subscript applies: 
+		<code class="text2jax_ignore">$x^5^6$</code> is an error; 
+		<code class="text2jax_ignore">${x^y}^z$</code> is ${x^y}^z$, and 
+		<code class="text2jax_ignore">$x^{y^z}$</code> is $x^{y^z}$.
+		Observe the difference between <code class="text2jax_ignore">$x_i^2$</code> 
+		$x_i^2$ and <code class="text2jax_ignore">$x_{i^2}$</code> $x_{i^2}$.
+	</li>
+	<li>
+		<b>Parentheses</b>. Ordinary symbols ()[] make parentheses and brackets 
+		(2+3)[4+4](2+3)[4+4]. Use <code class="text2jax_ignore">$\{$</code> and 
+		<code class="text2jax_ignore">$\}$</code> for curly braces $\{\}$.<br>
+		
+		These do not scale with the formula in between, so if you write 
+		<code class="text2jax_ignore">$(\frac{\sqrt x}{y^3})$</code> the 
+		parentheses will be too small: $(\frac{\sqrt x}{y^3})$. Using 
+		<code class="text2jax_ignore">$\left(…\right)$</code> will make the sizes 
+		adjust automatically to the formula they enclose: 
+		<code class="text2jax_ignore">$\left(\frac{\sqrt x}{y^3}\right)$</code> is 
+		$\left(\frac{\sqrt x}{y^3}\right)$.<br>
+
+		<code class="text2jax_ignore">$\left$</code> and 
+		<code class="text2jax_ignore">$\right$</code> apply to all the following 
+		sorts of parentheses: <code class="text2jax_ignore">$($</code> and 
+		<code class="text2jax_ignore">$)$</code> $(x)$, 
+		<code class="text2jax_ignore">$[$</code> and 
+		<code class="text2jax_ignore">$]$</code> $[x]$, 
+		<code class="text2jax_ignore">$\{$</code> and 
+		<code class="text2jax_ignore">$\}$</code> $\{x\}$, 
+		<code class="text2jax_ignore">$|$</code> $|x|$, 
+		<code class="text2jax_ignore">$\vert x \vert$</code> $\vert x \vert$, 
+		<code class="text2jax_ignore">$\Vert x \Vert$</code> $\Vert x \Vert$,
+		<code class="text2jax_ignore">$\langle x \rangle$</code> 
+		$\langle x \rangle$,  
+		<code class="text2jax_ignore">$\lceil x \rceil$</code> $\lceil x \rceil$, 
+		and <code class="text2jax_ignore">$\lfloor x \rfloor$</code> 
+		$\lfloor x \rfloor$. 
+		<code class="text2jax_ignore">$\middle$</code> 
+		can be used to add additional dividers.
+		If manual size adjustments are required: 
+		<code class="text2jax_ignore">
+			$\Biggl(\biggl(\Bigl(\bigl((x)\bigr)\Bigr)\biggr)\Biggr)$
+		</code> gives $\Biggl(\biggl(\Bigl(\bigl((x)\bigr)\Bigr)\biggr)\Biggr)$.
+	</li>
+	<li>
+		<b>Sums and integrals</b>. <code class="text2jax_ignore">$\sum$</code> and 
+		<code class="text2jax_ignore">$\int$</code>; the subscript is the lower 
+		limit and the superscript is the upper limit, so for example 
+		<code class="text2jax_ignore">$\sum_1^n$</code> $\sum_1^n$. Don't forget 
+		{…} if the limits are more than a single symbol. For example, 
+		<code class="text2jax_ignore">$\sum_{i=0}^\infty i^2$</code> is 
+		$\sum_{i=0}^\infty i^2$. Similarly, 
+		<code class="text2jax_ignore">$\prod$</code> $\prod$, 
+		<code class="text2jax_ignore">$\int$</code> $\int$, 
+		<code class="text2jax_ignore">$\bigcup$</code> $\bigcup$, 
+		<code class="text2jax_ignore">$\bigcap$</code> $\bigcup$, 
+		<code class="text2jax_ignore">$\iint$</code> $\iint$, 
+		<code class="text2jax_ignore">$\iiint$</code> $\iiint$.
+	</li>
+	<li>
+		<b>Fractions</b>. There are two ways to make these. 
+		<code class="text2jax_ignore">$\frac ab$</code> applies to the next two 
+		groups, and produces $\frac ab$; for more complicated numerators and 
+		denominators use {…}: 
+		<code class="text2jax_ignore">$\frac{a+1}{b+1}$</code> is 
+		$\frac{a+1}{b+1}$. If the numerator and denominator are complicated, you 
+		may prefer <code class="text2jax_ignore">$\over$</code>, which splits up 
+		the group that it is in: 
+		<code class="text2jax_ignore">${a+1\over b+1}$</code> is ${a+1\over b+1}$.
+	</li>
+	<li>
+		<b>Radical signs</b>. Use sqrt, which adjusts to the size of its argument: 
+		<code class="text2jax_ignore">$\sqrt{x^3}$</code> $\sqrt{x^3}$; 
+		<code class="text2jax_ignore">$\sqrt[3]{\frac xy}$</code> 
+		$\sqrt[3]{\frac xy}$. For complicated expressions, consider using 
+		<code class="text2jax_ignore">${...}^{1/2}$</code> instead.
+	</li>
+	<li>
+		Some <b>special functions</b> such as "lim", "sin", "max", "ln", and 
+		so on are normally set in roman font instead of italic font. Use 
+		<code class="text2jax_ignore">$\lim$</code>, 
+		<code class="text2jax_ignore">$\sin$</code>, etc. to make these: 
+		<code class="text2jax_ignore">$\sin x$</code> $\sin x$, not 
+		<code class="text2jax_ignore">$sin x$</code> $sinx$. Use subscripts to 
+		attach a notation to <code class="text2jax_ignore">$\lim$</code>: 
+		<code class="text2jax_ignore">$$\lim_{x\to 0}$$</code> $$\lim_{x\to 0}$$
+	</li>
+	<li>
+		<b>Spaces</b>. MathJax usually decides for itself how to space formulas, 
+		using a complex set of rules. Putting extra literal spaces into formulas 
+		will not change the amount of space MathJax puts in: a␣b and a␣␣␣␣b are 
+		both ab. To add more space, use <code class="text2jax_ignore">$\,$</code> 
+		for a thin space $a\,b$; <code class="text2jax_ignore">$\;$</code> for a 
+		wider space $a\;b$.  <code class="text2jax_ignore">$\quad$</code> and 
+		<code class="text2jax_ignore">$\qquad$</code> are large spaces: 
+		$a \quad b$, $a \qquad b$.<br>
+
+		To set plain text, use <code class="text2jax_ignore">$\text{…}$</code>: 
+		$\{x\in s\mid x\text{ is extra large}\}$ is extra large}. You can nest 
+		<code class="text2jax_ignore">$…$</code> inside of 
+		<code class="text2jax_ignore">$\text{…}$</code>.
+	</li>
+	<li>
+		<b>Accents and diacritical marks</b>. Use 
+		<code class="text2jax_ignore">$\hat$</code> for a single symbol $\hat x$, 
+		<code class="text2jax_ignore">$\widehat$</code> for a larger formula 
+		$\widehat{xy}$. If you make it too wide, it will look silly. Similarly, 
+		there are <code class="text2jax_ignore">$\bar$</code> $\bar x$ and 
+		<code class="text2jax_ignore">$\overline$</code> $\overline {xyz}$, and 
+		<code class="text2jax_ignore">$\vec$</code> $\vec x$ and 
+		<code class="text2jax_ignore">$\overrightarrow$</code> 
+		$\overrightarrow{xy}$ and 
+		<code class="text2jax_ignore">$\overleftrightarrow$</code> 
+		$\overleftrightarrow{xy}$. For dots, as in 
+		$\frac d{dx}x\dot x =  \dot x^2 +  x\ddot x$, use 
+		<code class="text2jax_ignore">$\dot$</code> and 
+		<code class="text2jax_ignore">$\ddot$</code>.
+	</li>
+	<li>
+		Special characters used for MathJax interpreting can be escaped using the 
+		<code class="text2jax_ignore">\</code> character: 
+		<code class="text2jax_ignore">\$</code> \$, 
+		<code class="text2jax_ignore">\{</code> $\{$, 
+		<code class="text2jax_ignore">\_</code> $\_$, etc. If you want \ itself, 
+		you should use <code class="text2jax_ignore">\backslash</code> 
+		$\backslash$, because <code class="text2jax_ignore">\\</code> is for a 
+		new line.
+	</li>
+	<li>
+		There are a very large number of <b>special symbols and notations</b>, too 
+		many to list here; see 
+		<%= link_to "this shorter listing", 
+								"https://pic.plover.com/MISC/symbols.pdf" 
+		%>, or <%= link_to "this exhaustive listing", 
+												"http://mirrors.sorengard.com/ctan/info/symbols/" + 
+												"comprehensive/symbols-a4.pdf" %>. 
+		Some of the most common include:
+		<ul>
+			<li>
+				<code class="text2jax_ignore">$\lt \gt \le \ge \neq$</code> 
+				$\lt\, \gt\, \le\, \ge\, \neq$. You can use 
+				<code class="text2jax_ignore">\not</code> to put a slash through 
+				almost anything: <code class="text2jax_ignore">$\not\lt$</code> 
+				$\not\lt$ but it often looks bad.
+			</li>
+			<li>
+				<code class="text2jax_ignore">\times \div \pm \mp</code> 
+				$\times\, \div\, \pm\, \mp$. <code class="text2jax_ignore">\cdot</code>
+				 is a centered dot: $x\cdot y$
+			</li>
+			<li>
+				<code class="text2jax_ignore">
+					\cup \cap \setminus \subset \subseteq \subsetneq \supset \in 
+					\notin \emptyset \varnothing
+				</code> 
+				$\cup\, \cap\, \setminus\, \subset\, \subseteq 
+				\,\subsetneq \,\supset\, \in\, \notin\, \emptyset\, \varnothing$
+			</li>
+			<li>
+				<code class="text2jax_ignore">{n+1 \choose 2k}</code> or 
+				<code class="text2jax_ignore">\binom{n+1}{2k}</code> 
+				${n+1 \choose 2k}$
+			</li>
+			<li>
+				<code class="text2jax_ignore">
+					\to \rightarrow \leftarrow \Rightarrow \Leftarrow \mapsto
+				</code> 
+				$\to\, \rightarrow\, \leftarrow\, \Rightarrow\, \Leftarrow\, \mapsto$
+			</li>
+			<li>
+				<code class="text2jax_ignore">
+					\land \lor \lnot \forall \exists \top \bot \vdash \vDash
+				</code> 
+				$\land\, \lor\, \lnot\, \forall\, \exists\, \top\, \bot\, 
+				\vdash\, \vDash$
+			</li>
+			<li>
+				<code class="text2jax_ignore">\star \ast \oplus \circ \bullet</code>
+				$\star\, \ast\, \oplus\, \circ\, \bullet$
+			</li>
+			<li>
+				<code class="text2jax_ignore">
+					\approx \sim \simeq \cong \equiv \prec \lhd
+				</code> 
+				$\approx\, \sim \, \simeq\, \cong\, \equiv\, \prec, \lhd$.
+			</li>
+			<li>
+				<code class="text2jax_ignore">
+					\infty \aleph_0
+				</code> $\infty\, \aleph_0$ 
+				<code class="text2jax_ignore">
+					\nabla \partial
+				</code> $\nabla\, \partial$ 
+				<code class="text2jax_ignore">\Im \Re</code> $\Im\, \Re$
+			</li>
+			<li>
+				For modular equivalence, use 
+				<code class="text2jax_ignore">\pmod</code> like this: 
+				<code class="text2jax_ignore">
+					a\equiv b\pmod n
+				</code> $a\equiv b\pmod n$.
+			</li>
+			<li>
+				<code class="text2jax_ignore">\ldots</code> is the dots in 
+				$a_1, a_2, \ldots ,a_n$ <code class="text2jax_ignore">\cdots</code> 
+				is the dots in $a_1+a_2+\cdots+a_n$
+			</li>
+			<li>
+				Some Greek letters have variant forms: 
+				<code class="text2jax_ignore">\epsilon \varepsilon</code> 
+				$\epsilon\, \varepsilon$, 
+				<code class="text2jax_ignore">\phi \varphi</code> $\phi\, \varphi$, 
+				and others. Script lowercase l is 
+				<code class="text2jax_ignore">\ell</code> $\ell$.
+			</li>
+		</ul>
+		To check that a command is supported, note that MathJax.org maintains a 
+		<%= link_to "list of currently supported $\LaTeX$ commands", 
+			"http://docs.mathjax.org/en/latest/tex.html#supported-latex-commands" %>,
+			 and one can also check Dr. Carol JVF Burns's page of 
+			<%= link_to "$\TeX$ Commands Available in MathJax", 
+			"http://www.onemathematicalcat.org/MathJaxDocumentation/TeXSyntax.htm" %>.
+	</li>
+</ul>
+
+<p> 
+	For more information about TeX and LaTeX support in MathJax visit: 
+	<%= link_to "http://docs.mathjax.org/en/latest/tex.html", 
+							"http://docs.mathjax.org/en/latest/tex.html" %>.
+</p>
+
+<p>
+	If you are not familiar with <%= link_to "TeX/LaTeX", 
+		"https://en.wikipedia.org/wiki/TeX" %> a good starting point is the 
+		<%= link_to "LaTeX Wiki book", "https://en.wikibooks.org/wiki/LaTeX" %>.
+</p>
+</div>

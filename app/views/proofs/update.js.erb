@@ -27,6 +27,10 @@
   var $toastContent = $('<span>Proof was successfully updated.</span>');
   toastr.info($toastContent)
 
+  $proof = $('#proof-content-<%= @proof.id %>');
+  setTimeout(function() {
+	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $proof[0]]);
+  } ,500);
 
 <% else %>
   $('#proof-form-<%=@proof.id%>').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@exception => @exception }) %>");

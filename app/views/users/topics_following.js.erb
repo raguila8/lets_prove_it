@@ -1,2 +1,2 @@
-$('.tab-content .boxedtitle h2').text("Problems Following");
-$('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/activities/topic_item', collection:  @topics, as: :topic ) %>");
+  $('.tab-content .boxedtitle h2').text("Topics Following");
+$('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/shared/items/topic_item', collection:  @topics, as: :topic ) %>");

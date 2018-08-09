@@ -1,3 +1,11 @@
 $('.tab-content .boxedtitle h2').text("Activity");
-$('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/users/activity', collection:  @activities, as: :activity ) %>");
 
+$('.tab-content .tab-list-content').append("<%= escape_javascript render(:partial => '/users/activity', collection:  @activities, as: :activity ) %>");
+
+$content = $('.tab-content');
+  setTimeout(function() {
+	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $content[0]]);
+} ,500);
+
+
+$('.spinner').slideUp(1000);

@@ -147,7 +147,33 @@ class Problem < ApplicationRecord
     Problem.order("random()").first.id
   end
 
+  def self.feed(options = {user: ""})
+    options[:filter] = "all" if options[:filter].nil?
+    options[:sorter] = "created_at" if options[:sorter].nil?
+    self.filter(options[:filter], options[:user]).order("#{options[:sorter]} DESC")
+  end
+
   private
 
+    def self.filter(filter, user)
+      equality_symbol = self.equality_symbol(filter)
+      if user
+        Problem.joins(topics: :user_relationships).
+          where(topic_followings: { user_id: user.id} ).
+          union(Problem.joins(:user_relationships).
+            where(problem_followings: { user_id: user.id } )).
+          where("cached_proofs_count #{equality_symbol} 0").
+          distinct
+      else
+        Problem.all.where("cached_proofs_count #{equality_symbol} 0").
+          distinct
+      end
+    end
+
+    def self.equality_symbol(filter)
+      return ">=" if filter == "all"
+      return ">" if filter == "proved"
+      return "=" if filter == "not_proved"
+    end
 
 end

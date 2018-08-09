@@ -1,3 +1,5 @@
+<%= render 'shared/preview' %>
+
 <div class="pt-100 section container blog-classic">
   <div class="row">
 
@@ -33,10 +35,13 @@
               <%= form.label :content, "body:" %>
               <%= form.hidden_field :content, class: "mb-20 form-control", id: "problem_content" %>
               <trix-editor input="problem_content"></trix-editor>
+              <span class="pull-right"><a target="_blank" href="/static_pages/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
+
             </div>
 
-            <!-- Submit -->
-            <%= form.submit "Submit", class: "btn" %>
+            <!-- Action Buttons -->
+            <span class="btn btn-ghost btn-mult mr-5 mb-5 preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
+            <%= form.submit "Submit", class: "btn btn-mult mb-5" %>
 
 
           <% end %>

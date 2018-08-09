@@ -1,8 +1,13 @@
 <% if @versions.count > 0 %>
-  $('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/activities/version_item', collection: @versions, as: :model ) %>");
+  $('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/shared/items/version_item', collection: @versions, as: :model ) %>");
 <% else %>
   $(".tab-content .tab-list-content").html("<%= no_results_content('edits') %>");
 <% end %>
 
 $('.tab-content .tab-list-content').prepend("<div class='boxedtitle add-problem-title mb-40'><h2>Edits (<%=@versions.count%>)</h2></div>");
+
+$content = $('.tab-content');
+  setTimeout(function() {
+	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $content[0]]);
+} ,500);
 

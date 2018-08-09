@@ -15,6 +15,7 @@
 //= require jquery
 //= require google-fonts.js
 //= require bootstrap-sprockets
+//= require jquery-ui.js
 //= require jquery.mCustomScrollbar.js
 //= require toastr
 //= require bootstrap3-typeahead.js
@@ -26,9 +27,11 @@
 //= require jquery.parallax.js
 //= require jquery.stellar.min.js
 //= require jquery.scrollTo.min.js
+//= require jquery.mb.YTPlayer.min.js
 //= require smoothscroll.js
 //= require modernizr-2.8.3.min.js
 //= require wow.min.js
 //= require trix
 //= require trix_uploads.js
+//= require autocomplete.js
 //= require_tree .

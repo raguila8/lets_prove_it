@@ -102,6 +102,17 @@ class User < ApplicationRecord
     Notification.where(recipient: self)
   end
 
+  def self.search(pattern)
+    users = User.select("username AS label", "id AS id", "'Users' AS category", "CASE avatar WHEN '' THEN '/assets/avatar.png' ELSE avatar END AS image_url").where("username LIKE ?", pattern).limit(5)
+
+    topics = Topic.select("name AS label", "id AS id", "'Topics' AS category").where("name LIKE ?", pattern).limit(5)
+
+    problems = Problem.select("title AS label", "id AS id", "'Problems' AS category", "'/assets/no_problems_icon.png' AS image_url").where("title LIKE ?", pattern).limit(5)
+      
+    users + topics + problems
+  end
+
+
   
   private
 	

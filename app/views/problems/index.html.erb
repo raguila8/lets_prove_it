@@ -111,61 +111,34 @@
 
     <div class="col-md-8">
 
-      <% @problems.each do |problem| %>
-        <!-- Blog Post 1 -->
+      <div class="row">
+        <button class="btn-text font-weight-600" id='filter-btn'><span class="glyphicon glyphicon-filter"></span> Filter</button>
+      </div>
+      <div class="row" id="item-filters" style="display: none;" data-filter="all" data-sorter="created_at">
         <div class="col-md-12">
-          <div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
-            <div class="bp-content">
-              <!-- Meta data -->
-              <div class="post-meta">
-                <div class="post-date float-left">
-                  <i class="fa fa-calendar-o"></i>
-                  <span><%=problem.created_at.strftime('%B %d, %Y')%></span>
-                </div>
-                <div class="vote-container vote-container-post float-right">
-                  <%= link_to vote_path(:vote_type => "like", :votable_type => "problem", :id => problem.id ), method: :put, remote: true do %>
-                    <%= upvote_span problem %>
-                  <% end %>
-
-                  <%= vote_count_span problem %>
-                        
-                  <%= link_to vote_path(:vote_type => "dislike", :votable_type => "problem", :id => problem.id ), method: :put, remote: true do %>
-                    <%= downvote_span problem %>
-                  <% end %>
-                </div>
-
-                <div class="clearfix"></div> 
-              </div><!-- / .meta -->
-
-              <!-- Problem Topics -->
-              <ul class="tag-list mt-5">
-                <% problem.topics.each do |topic| %>
-                  <li>
-                    <%= link_to topic.name, topic_path(topic.id) %>
-                  </li>
-                <% end %>
-              </ul> <!-- / .tag-list -->
-
-              <!-- Post Title -->
-              <%= link_to problem_path(problem.id), class: "post-title" do %>
-                <h3><%=problem.title%></h3>
-              <% end %>
-
-              <span class="problem-comment"><i class="glyphicon glyphicon-user mr-5"></i> <span id="problem-<%=problem.id%>-followers"><%= pluralize(problem.followers.count, "Follower") %></span></span>
-
-              <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(problem.proofs.count, "Proof") %></span>
-              <span class="problem-comment"><i class="glyphicon glyphicon-eye-open mr-5"></i><%=pluralize(problem.impressionist_count, "view")%></span>
-
-              <span class="problem-view"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(problem.versions.count, "Edit")%></span>
-
-              <div class="clearfix mb-20"></div>
-              <div id="problem-follow-<%=problem.id%>">
-                <%= follow_link problem %>
-              </div>
-            </div><!-- / .bp-content -->
-          </div><!-- / .blog-post -->
-        </div><!-- / .col-md-12 -->
+          <div class="col-md-6">
+            <p>Filter:</p>
+            <ul id="pfolio-filters" class="portfolio-filters filter">
+              <li class="active"><a href="#" data-filter="all">All</a></li>
+              <li class=""><a href="#" data-filter="proved">Proved</a></li>
+              <li class=""><a href="#" data-filter="not_proved">Not Proved</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <p>Sort:</p>
+            <ul id="pfolio-filters" class="portfolio-filters sorter">
+              <li class="active"><a href="#" data-sorter="created_at">New</a></li>
+              <li class=""><a href="#" data-sorter="cached_votes_score">Top</a></li>
+              <li class=""><a href="#" data-sorter="cached_proofs_count">Hot</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="mt-20" id="problem-feed">
+      <% @problems.each do |problem| %>
+        <%= render(:partial => 'shared/items/problem_item', locals: { problem: problem }) %>
       <% end %>
+      </div>
     </div><!-- / .col-md-8 -->
   </div>
 </div>

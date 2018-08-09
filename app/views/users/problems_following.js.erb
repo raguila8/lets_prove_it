@@ -1,2 +1,6 @@
 $('.tab-content .boxedtitle h2').text("Problems Following");
-$('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/activities/problem_item', collection:  @problems, as: :problem ) %>");
+
+$('.tab-content .tab-list-content').append("<%= escape_javascript render(:partial => '/shared/items/problem_item', collection:  @problems, as: :problem ) %>");
+
+$('.spinner').slideUp(1000);
+

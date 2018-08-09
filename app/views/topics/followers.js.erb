@@ -1,5 +1,5 @@
 <% if @followers.count > 0 %>
-  $('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/activities/user_item', collection: @followers, as: :model ) %>");
+  $('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/shared/items/user_item', collection: @followers, as: :model ) %>");
 <% else %>
   $(".tab-content .tab-list-content").html("<%= no_results_content('users') %>");
 <% end %>

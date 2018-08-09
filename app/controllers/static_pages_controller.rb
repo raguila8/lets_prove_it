@@ -4,4 +4,8 @@ class StaticPagesController < ApplicationController
 
   def about
   end
+
+  def mathjax_cheatsheet
+  end
+
 end

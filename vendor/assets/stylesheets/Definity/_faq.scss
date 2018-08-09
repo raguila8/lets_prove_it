@@ -4,6 +4,7 @@
 
 .accordions-1 .panel .panel-heading .panel-title {
   font-size: 1.1em;
+  font-weight: 600;
 }
 .panel-default {
   border: 1px solid transparent;
@@ -35,7 +36,8 @@
 			border-radius: 0;
 
 			.panel-title {
-				@extend h6;
+        font-weight: 600;
+        margin-top: 10px;
 
 				a {
 
