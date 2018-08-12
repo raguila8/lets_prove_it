@@ -16,27 +16,62 @@
           <div class="row">
 
             <!-- Heading -->
-            <div class="col-md-5 heading-wrapper wow fadeInLeft" data-wow-duration="1.5s">
-              <h1 class="lead">Reach the top</h1>
-              <h4 class="h-alt subheading">Catchy Subheading</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita neque praesentium eum earum aperiam quas impedit commodi hic, architecto, error, quae. Commodi, similique! Voluptatum iste necessitatibus eum aut temporibus, alias!</p>
-              <a href="#features" class="cta-btn">Learn more</a>
+            <div class="col-md-12 heading-wrapper wow fadeInLeft text-center" data-wow-duration="1.5s">
+              <h1 class="lead">Understand the World Through Mathematics</h1>
+              <h4 class="h-alt subheading">A place to learn and understand nature's patterns.</h4>
+              <button class="btn btn-light btn-large">Start Proving!</button>
             </div>
-
-            <!-- Signup Form -->
-            <div class="col-md-offset-3 col-md-4 form-wrapper wow fadeInRight" data-wow-duration="1.5s">
-              <form action="post" class="form-group">
-                <input class="form-control" type="text" placeholder="Full Name">
-                <input class="form-control" type="password" placeholder="Password">
-                <input class="form-control" type="email" placeholder="Email">
-                <input class="btn-ghost-light" type="submit" value="Start free trial">
-              </form>
-            </div>
-
           </div><!-- / .row -->
         </div><!-- / .container --> 
       </div>
+ 
+      <a id="scroll-down" href="#about">
+        <button class="btn-text-light">Learn More</button>
+      </a>
+
     </div>
             
   </div><!-- / .bg-overlay -->
 </div><!-- / .fs-video-hero -->
+
+<!-- ========== Feature - iframe video ========== -->
+
+        <div id="about" class="white-bg">
+          <section class="container ft-iframe-video">
+            <div class="row">
+              
+              <header class="col-md-offset-1 col-md-10 sec-heading-2 ws-m">
+                <h2>Welcome to Provify</h2>
+                <span class="subheading" style="color: #333">Provify's mission is to grow and share the world's knowledge through mathematics and proofs. It is a platform for lovers of certainty and mathematics to come together and build a world of absolute truth with logic and reasoning. We believe that math is about finding nature's patterns, about finding meaning in the universe's apparent chaos and about finding out why. It is our goal to connect and empower people around the world so that we can unravel the truths of the universe together.</span>
+              </header>
+
+              <div class="col-md-offset-1 col-md-10 ws-m">
+                <!-- 16:9 aspect ratio -->
+                <div class="text-center">
+                  <img class="text-center" style="max-width: 50%; height: auto; display: block; margin: auto;" src="/assets/math_world.jpg">
+                </div>
+              </div><!-- / .col-md-10 -->
+
+            </div><!-- / .row -->
+            <div class="row ws-m">
+            <div class="col-md-12 text-center">
+              <%= link_to "More about us", static_pages_about_path, class: "btn-text" %>
+            </div>
+          </div>
+          </section><!-- / .container -->
+        </div><!-- / .white-bg -->
+
+<!-- ========== CTA - Contact Link ========== -->
+
+<div class="cta-link">
+  <div class="bg-overlay">
+            
+    <div class="cta-wrapper">
+      <h3 class="h-alt wow fadeIn font-weight-600" style="font-size: 2.2em; text-transform: uppercase;" data-wow-delay=".1s" data-wow-duration="1s">Start Proving now!</h3>
+      <%= link_to "Register", new_user_registration_path, class: "btn btn-light btn-large wow fadeIn", data: { 'wow-delay' => '.3s', 'wow-duration' => '1s' } %>
+    </div>
+
+  </div>
+</div><!-- / .dark-bg .cta-link -->
+
+

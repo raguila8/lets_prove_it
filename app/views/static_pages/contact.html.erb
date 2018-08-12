@@ -1,0 +1,54 @@
+<section id="contact" class="contact-3">
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-md-12 col-lg-offset-2 col-lg-8">
+				<div class="form-wrapper">
+					<div class="from-header">
+						<h2>Get in touch</h2>
+						<p>Have a question, idea or just want to say hello? We would love to hear from you. Use the form below to contact us. We promise to get in touch with you shortly.</p>
+					</div>
+
+					<form action="../assets/contact-form/contact-form.php" method="POST" class="form-minimal form-ajax">
+
+						<!-- Name -->
+						<div class="form-group">
+              <label for="name-contact-3">Name *</label>
+							<span class="pull-right alert-error"></span>
+
+							<input type="text" name="name" id="name-contact-3" class="form-control validate-locally">
+						</div>
+
+						<!-- Email -->
+						<div class="form-group">
+              <label for="email-contact-3">Email *</label>
+							<span class="pull-right alert-error"></span>
+
+							<input type="email" name="email" id="email-contact-3" class="form-control validate-locally">
+						</div>
+
+						<!-- Phone -->
+						<div class="form-group ws-s">
+              <label for="email-contact-3">Phone</label>
+							<input type="tel" name="phone" id="phone-contact-3" class="form-control">
+						</div>
+
+						<!-- Message -->
+						<div class="form-group">
+              <label for="message-contact-1">Message *</label>
+							<textarea class="form-control" name="message" id="message-contact-1" rows="5"></textarea>
+						</div>
+
+						<input type="submit" class="btn-text" value="Send Message">
+
+						<!-- Ajax Message -->
+						<div class="ajax-message"></div>
+
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div><!-- / .container -->
+</section><!-- / .contact-3 -->
+

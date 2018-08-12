@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'static_pages/landing'
   get 'static_pages/about'
   get 'static_pages/mathjax_cheatsheet'
+  get 'static_pages/contact'
 
   devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
   devise_scope :user do

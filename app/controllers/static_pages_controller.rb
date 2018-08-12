@@ -8,4 +8,7 @@ class StaticPagesController < ApplicationController
   def mathjax_cheatsheet
   end
 
+  def contact
+  end
+
 end

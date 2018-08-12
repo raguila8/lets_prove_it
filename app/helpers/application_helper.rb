@@ -12,7 +12,7 @@ module ApplicationHelper
 
   def header
     if controller_name == "static_pages"
-      if action_name == "mathjax_cheatsheet"
+      if action_name == "mathjax_cheatsheet" || action_name == "contact"
         render partial: "layouts/header2"
       end
     else
@@ -62,6 +62,8 @@ module ApplicationHelper
     elsif controller_name == "static_pages"
       if action_name == "mathjax_cheatsheet"
         "Mathjax / LaTeX Support"
+      elsif action_name == "contact"
+        "Contact"
       end
     end
   end
@@ -112,6 +114,8 @@ module ApplicationHelper
     elsif controller_name == "static_pages"
       if action_name == "mathjax_cheatsheet"
         "Render Math with Ease!"
+      elsif action_name == "contact"
+        "Love to Hear From You"
       end
     end
   end
