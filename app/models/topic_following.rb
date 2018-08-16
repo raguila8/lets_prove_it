@@ -17,7 +17,8 @@ class TopicFollowing < ApplicationRecord
     end
 
     def destroy_activity
-      Activity.find_by(user: self.user, action: "followed", acted_on: self.topic, linkable: self.topic).destroy
+     a = Activity.find_by(user: self.user, action: "followed", acted_on: self.topic, linkable: self.topic)
+     a.destroy if !a.nil?
     end
 
 

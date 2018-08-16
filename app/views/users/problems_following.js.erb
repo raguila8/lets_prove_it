@@ -1,6 +1,6 @@
 $('.tab-content .boxedtitle h2').text("Problems Following");
 
-$('.tab-content .tab-list-content').append("<%= escape_javascript render(:partial => '/shared/items/problem_item', collection:  @problems, as: :problem ) %>");
+$('.tab-content .tab-list-content').append("<%= escape_javascript render(:partial => '/shared/items/problem_item', locals: { problems_count: @problems.count }, collection:  @problems, as: :problem ) %>");
 
 $('.spinner').slideUp(1000);
 

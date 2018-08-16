@@ -1,0 +1,10 @@
+<%= hidden_field :tags, value: "", id: "followed-topics" %>
+
+<div class="form-group" id="followed-topics-data" data-topics="<%=current_user.topics_following.map{|t| t.name}.join(",")%>">
+  <label for="topic_name">Topics:</label>
+  <input class="form-control" type="text" name="topic[name]" id="follow-topics-input" data-provide="typeahead" placeholder="Search for a topic">
+</div>
+ 
+<!-- Submit -->
+<%= submit_tag "Save Changes", class: "btn float-right mt-20" %>
+<div class="clearfix"></div>

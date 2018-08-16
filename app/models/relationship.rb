@@ -17,6 +17,7 @@ class Relationship < ApplicationRecord
     end
 
     def destroy_activity
-      Activity.find_by(user: self.follower, action: "followed", acted_on: self.followed, linkable: self.followed).destroy
+      a = Activity.find_by(user: self.follower, action: "followed", acted_on: self.followed, linkable: self.followed)
+      a.destroy if !a.nil?
     end
 end

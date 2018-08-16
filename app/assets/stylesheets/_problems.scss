@@ -123,7 +123,7 @@
       margin-top: 0;
       font-size: 0.85em;
       letter-spacing: 2px;
-      text-transform: uppercase;
+      text-transform: lowercase;
     }
   }
 }
@@ -283,7 +283,7 @@
   margin-bottom: 5px;
   border: 1px solid #ccc;
   font-family: "Open Sans", "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
-  color: #999 !important;
+  color: #999;
   transition: all .5s;
   font-weight: 300;
   line-height: 1.8em;

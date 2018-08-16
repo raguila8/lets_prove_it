@@ -154,6 +154,8 @@ class UsersController < ApplicationController
         data = User.where("username LIKE :name", { name: "#{params[:term]}%" }).map {|t| t.username}
         render json: { suggestions: data, success: true }
       }
+
+      format.html {}
     end
   end
 

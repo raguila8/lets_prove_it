@@ -1,25 +1,32 @@
-<p id="notice"><%= notice %></p>
+<div class="section container-fluid blog-classic">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mh-auto ft-tabs">
+        <div class="row">
+            
+          <%= render 'shared/main_site_tabs' %>
 
-<h1>Topics</h1>
+          <!-- Tabs Content -->
+          <div class="col-lg-8 no-gap tab-content">
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            <!-- Tab Content 1 -->
+            <div class="tab-pane fade active in">
+              <div class="col-md-12 tab-content-text page-content pt-0">
+                <div class="tab-list-content">
+                  <div class="row">
+                    <button class="btn-text font-weight-600" id='filter-btn'><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                  </div>
 
-  <tbody>
-    <% @topics.each do |topic| %>
-      <tr>
-        <td><%= link_to 'Show', topic %></td>
-        <td><%= link_to 'Edit', edit_topic_path(topic) %></td>
-        <td><%= link_to 'Destroy', topic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                  <div class="mt-20" id="topic-feed">
+                    <%= render(:partial => 'shared/items/topic_item', locals: { topics_count: @topics.count }, collection: @topics, as: :topic) %>
+                  </div>
+                </div>
+              </div>
+            </div><!-- / #tab1 -->
+          </div><!-- / .col-lg-10 -->
+        </div><!-- / .row -->
+      </div>
 
-<br>
-
-<%= link_to 'New Topic', new_topic_path %>
+    </div>
+  </div>
+</div>

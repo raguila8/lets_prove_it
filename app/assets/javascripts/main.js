@@ -71,6 +71,35 @@ $(document).on('turbolinks:load', function() {
       initTopicsTags();
   }
 
+  if ($("#edit-followed-topics").length > 0) {
+    var topicsMap = new Map();
+    $('.tags-widget .tag-list li a').each(function(idx, topic) {
+      var $topic = $(topic);
+      topicsMap.set($topic.text(), $topic.attr('data-id'));
+    });
+
+    $('.tags-widget #edit-followed-topics').on('click', function() {
+      $(this).hide();
+      var html = `<input value="" id="followed-topics" type="hidden" name="topic_following[topic]">
+        <div class="form-group" id="followed-topics-data" data-topics="${Array.from(topicsMap.keys()).join(',')}">
+        <label for="topic_name">Topics:</label>
+        <input class="form-control" type="text" name="topic[name]" id="follow-topics-input" data-provide="typeahead" placeholder="Search for a topic">
+      </div>`;
+      $(".tags-widget .tag-list-container").html(html);
+      $('#follow-topics-input').focus();
+      $('body').on('click', '.tag-list-container .tag', function() {
+        console.log(topicsMap.get($(this).text()));
+        window.location.href = "/topics/" + topicsMap.get($(this).text());
+      });
+
+      if ($('#follow-topics-input').attr('data-behavior')) {
+        $('.bootstrap-tagsinput').remove(); 
+      }
+      initFollowTopicsWidget(topicsMap);
+
+    });
+  }
+
   if ($("#problem-form").length) {
     initProblemForm();
   }
@@ -323,7 +352,6 @@ $(document).on('turbolinks:load', function() {
                        result = data;
                    } 
                 });
-                console.log(result);
 
                 return result.suggestions; 
 
@@ -349,9 +377,9 @@ $(document).on('turbolinks:load', function() {
       //var hidden_field = "<input type='hidden' name='topics[name{numOfTags}' id = '{event.item}-tag'} value='{event.item}'>
       tags = $("#problem-tags").val();
       if (numOfTags >= 1) {
-        $("#problem-tags").val(tags += "," + event.item.toUpperCase())
+        $("#problem-tags").val(tags += "," + event.item.toLowerCase())
       } else {
-        $("#problem-tags").val(event.item.toUpperCase())
+        $("#problem-tags").val(event.item.toLowerCase())
       }
       numOfTags += 1;
       //$('#problem-form').prepend(hidden_field)
@@ -359,10 +387,10 @@ $(document).on('turbolinks:load', function() {
 
     $('#topics-input').on('itemRemoved', function(event) {
       tags = $("#problem-tags").val();
-      if (tags.includes(event.item.toUpperCase())) {
-        tags = tags.replace(event.item.toUpperCase(), "");
+      if (tags.includes(event.item.toLowerCase())) {
+        tags = tags.replace(event.item.toLowerCase(), "");
       } else {
-        tags = tags.replace("," + event.item.toUpperCase(), "");
+        tags = tags.replace("," + event.item.toLowerCase(), "");
       }
 
       $("#problem-tags").val(tags);
@@ -379,6 +407,121 @@ $(document).on('turbolinks:load', function() {
     $('.bootstrap-tagsinput input').addClass('form-control');
     $('#topics-input').attr('data-behavior', 'processed') 
   }
+
+/* --------------------------------------------------
+  Folow Topics Widget
+  ---------------------------------------------------- */
+  function initFollowTopicsWidget(topicsMap) {
+
+    var valid_click = false;
+    
+    $('#follow-topics-input').change(function(){
+      $(this).find('input').val('');
+    });
+
+    
+    $('#follow-topics-input').tagsinput({
+      typeahead: {
+        afterSelect: function(val) { this.$element.val(""); },
+        source: function(query) {
+                var result = null;
+                $.ajax({
+                   url: "/topics",
+                   type: "get",
+                   headers: {
+                     Accept: "application/json"
+                   },
+                   data: {
+                     term: query
+                   },
+                   async: false,
+                   success: function(data) {
+                       result = data;
+                   } 
+                });
+                return result.suggestions; 
+        }
+      },
+      freeInput: false
+    });
+    
+
+    if ($('#followed-topics-data').length > 0 && !$('#follow-topics-input').attr('data-behavior')) {
+      var default_tags = $('#followed-topics-data').data()["topics"].split(",");
+      for (var i = 0; i < default_tags.length; i++) {
+        $('#follow-topics-input').tagsinput('add', default_tags[i]);
+      }
+    }
+
+ 
+
+
+    $('#follow-topics-input').on('itemAdded', function(event) {
+      $("#followed-topics").val(event.item.toLowerCase());
+      $('.tags-widget .bootstrap-tagsinput .tag').attr('data-id', topicsMap.get(event.item));
+
+
+      $.ajax({
+        type: "POST",
+			  url: "/topics/" + event.item.toLowerCase() + "/follow",
+			  headers: {
+				  Accept: "text/javascript; charset=utf-8",
+				 "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			  },
+
+        success: function() {
+          id = $(".tag-list-container .tag:contains(" + event.item + ")").attr('data-id');
+          topicsMap.set(event.item, id);
+        }
+      });
+
+    });
+
+    $('#follow-topics-input').on('itemRemoved', function(event) {
+      topicsMap.delete(event.item);
+      $.ajax({
+        type: "DELETE",
+			  url: "/topics/" + event.item.toLowerCase() + "/unfollow",
+			  headers: {
+				  Accept: "text/javascript; charset=utf-8",
+				 "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			  }
+      });
+
+    });
+
+
+    $('.tags-widget .bootstrap-tagsinput').addClass('form-group');
+    $('.tags-widget .bootstrap-tagsinput input').addClass('form-control');
+    $('#follow-topics-input').attr('data-behavior', 'processed') 
+    $('.tag-list-container .bootstrap-tagsinput input').focus();
+
+    $('.tags-widget .bootstrap-tagsinput').on('mousedown', function() {
+      valid_click = true;
+    });
+
+    $('.tag-list-container .bootstrap-tagsinput input').on('focusout', function() {
+       if (valid_click) {
+         valid_click = false;
+         return;
+       }
+
+       var html = "<ul class='tag-list'>";
+       for (const k of topicsMap.keys()) {
+         html += "<li><a href='/topics/" + topicsMap.get(k) + "' data-id='" + topicsMap.get(k) + "' class='arial-ff' style='padding: .4em .5em; line-height: 1; text-transform: lowercase; font-size: 12px;'>" + k + "</a></li>";
+       }
+       html += "</ul>";
+       $(".tags-widget .tag-list-container").html(html);
+       $('#edit-followed-topics').show();
+    });
+
+    $('.tags-widget .bootstrap-tagsinput .tag').each(function(idx, item) {
+      var $item = $(item);
+      $item.attr('data-id', topicsMap.get($item.text()));
+    });
+
+  }
+  
 
 /* --------------------------------------------------
  Conversations

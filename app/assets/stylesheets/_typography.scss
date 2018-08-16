@@ -1,3 +1,16 @@
+.arial-ff {
+  font-family: Arial,"Helvetica Neue",Helvetica,sans-serif !important;
+}
+
+.grey-link {
+  color: #777;
+  cursor: pointer;
+
+  &:hover {
+    color: #333;
+  }
+}
+
 code {
   padding-left: 10px;
   padding-right: 10px;

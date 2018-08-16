@@ -1,0 +1,33 @@
+<!-- Tabs -->
+<div class="col-lg-2 no-gap">
+	<ul class="tabs-list" role="tablist">
+
+		<!-- Tab 1 -->
+		<li role="presentation" class="<%='active' if current_page?(problems_path) or (signed_in? and current_page?(root_path)) %>">
+			<a href="<%= problems_path %>">
+				<div class="tab-bottom">
+					<p><span class="glyphicon glyphicon-home mr-5"></span> Home</p>
+				</div>
+			</a>
+		</li>
+
+		<!-- Tab 2 -->
+		<li role="presentation" class="<%= 'active' if current_page?(topics_path)%>">
+			<a href="<%= topics_path %>">
+				<div class="tab-bottom">
+					<p><span class="glyphicon glyphicon-tag mr-5"></span> Browse Topics</p>
+				</div>
+			</a>
+		</li>
+
+		<!-- Tab 2 -->
+		<li role="presentation" class="<%= 'active' if current_page?(users_path)%>">
+			<a href="<%= users_path %>">
+				<div class="tab-bottom">
+					<p><span class="fa fa-users mr-5"></span> Browse Users</p>
+				</div>
+			</a>
+		</li>
+	</ul>
+</div><!-- / .col-lg-2 -->
+

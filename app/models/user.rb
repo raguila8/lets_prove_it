@@ -112,6 +112,14 @@ class User < ApplicationRecord
     users + topics + problems
   end
 
+  def subinfo
+    return name if name
+    return location if location
+    return occupation if occupation
+    return education if education
+    return "<strong style='margin-right: 5px;'>Member Since: </strong> #{created_at.strftime('%B %d, %Y')}"
+  end
+
 
   
   private

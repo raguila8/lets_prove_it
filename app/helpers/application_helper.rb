@@ -275,11 +275,11 @@ module ApplicationHelper
     model_str = model.class.name.downcase.pluralize
     content = ""
     if !current_user.following?(model)
-      content = "<a href='/#{model_str}/#{model.id}/follow' data-remote='true' data-method='post'>"
-      content += "<button class='btn btn-light mr-20'>Follow</button></a>"
+      content = "<a class='#{'mt-0' if model_str == "users"}' href='/#{model_str}/#{model.id}/follow' data-remote='true' data-method='post'>"
+      content += "<button class='btn btn-light #{'btn-small' if model_str == "users"}'>Follow</button></a>"
     else
-      content += "<a href='/#{model_str}/#{model.id}/unfollow' data-remote='true' data-method='delete'>"
-      content += "<button class='btn btn-light mr-20'>Following</button></a>"
+      content += "<a class='#{'mt-0' if model_str == "users"}' href='/#{model_str}/#{model.id}/unfollow' data-remote='true' data-method='delete'>"
+      content += "<button class='btn btn-light #{'btn-small' if model_str == "users"}'>Following</button></a>"
     end
     content.html_safe
   end
