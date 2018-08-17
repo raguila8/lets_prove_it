@@ -24,23 +24,28 @@
                       <div class="col-md-6">
                         <p>Filter:</p>
                         <ul id="pfolio-filters" class="portfolio-filters filter">
-                          <li class="active"><a href="#" data-filter="all">All</a></li>
-                          <li class=""><a href="#" data-filter="proved">Proved</a></li>
-                          <li class=""><a href="#" data-filter="not_proved">Not Proved</a></li>
+                          <li class="active"><a href="#" title="All problems" data-filter="all">All</a></li>
+                          <li class=""><a href="#" title="Problems with proofs" data-filter="proved">Proved</a></li>
+                          <li class=""><a href="#" title="Problems that are not proved" data-filter="not_proved">Not Proved</a></li>
                         </ul>
                       </div>
                       <div class="col-md-6">
                         <p>Sort:</p>
                         <ul id="pfolio-filters" class="portfolio-filters sorter">
-                          <li class="active"><a href="#" data-sorter="created_at">New</a></li>
-                          <li class=""><a href="#" data-sorter="cached_votes_score">Top</a></li>
-                          <li class=""><a href="#" data-sorter="cached_proofs_count">Hot</a></li>
+                          <li class="active"><a href="#" title="Recent problems" data-sorter="created_at">New</a></li>
+                          <li class=""><a href="#" title="Most upvoted problems" data-sorter="cached_votes_score">Top</a></li>
+                          <li class=""><a href="#" title="Problems with most proofs" data-sorter="cached_proofs_count">Hot</a></li>
                         </ul>
                       </div>
                     </div>
                   </div>
                   <div class="mt-20" id="problem-feed">
-                  <%= render(:partial => 'shared/items/problem_item', locals: { problems_count: @problems.count }, collection: @problems, as: :problem) %>
+                    <% @problems.each_with_index do |problem, index| %>
+                      <%= render(:partial => 'shared/items/problem_item', locals: { problem: problem }) %>
+                      <% if index % 2 == 1 or index == @problems.count - 1 %>
+                        <div class="clearfix"></div>
+                      <% end %>
+                    <% end %>
                   </div>
                 </div>
               </div>

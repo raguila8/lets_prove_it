@@ -531,3 +531,37 @@ body {
     background: rgba(0,0,0, .8);
   }
 }
+
+/* --------------------------------------------------
+  Headers
+ ----------------------------------------------------*/
+.page-title {
+
+  #search-header {
+
+    .form-group {
+      position: relative;
+    }
+  }
+
+  .inside-input-btn {
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #ccc;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+
+    &:hover {
+      color: #111;
+    }
+  }
+}
+
+

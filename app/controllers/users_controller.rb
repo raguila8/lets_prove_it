@@ -155,7 +155,15 @@ class UsersController < ApplicationController
         render json: { suggestions: data, success: true }
       }
 
-      format.html {}
+      format.html {
+        @users = User.feed({user: current_user})
+      }
+
+      format.js {
+        @users = User.feed({user: current_user, filter: params[:filter], 
+                             sorter: params[:sorter], 
+                             search_filter: params[:search_filter]})
+      }
     end
   end
 

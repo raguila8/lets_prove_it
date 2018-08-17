@@ -17,39 +17,36 @@
                     <button class="btn-text font-weight-600" id='filter-btn'><span class="glyphicon glyphicon-filter"></span> Filter</button>
                   </div>
 
-                  <section class="ft-boxed-hover" id="users-id">
+                  <div class="row" id="item-filters" style="display: none;" data-filter="all" data-sorter="created_at">
+                    <div class="col-md-12">
+                      <% if signed_in? %>
+                        <div class="col-md-6">
+                          <p>Filter:</p>
+                          <ul id="pfolio-filters" class="portfolio-filters filter">
+                            <li class="active"><a href="#" data-filter="all">All</a></li>
+                            <li class=""><a href="#" data-filter="following">Following</a></li>
+                            <li class=""><a href="#" data-filter="followers">Followers</a></li>
+                          </ul>
+                        </div>
+                      <% end %>
+                      <div class="col-md-6">
+                        <p>Sort:</p>
+                        <ul id="pfolio-filters" class="portfolio-filters sorter">
+                          <li class="active"><a title="Users with the highest reputation scores" href="#" data-sorter="reputation">Repuation</a></li>
+
+                          <li class=""><a title="New Users" href="#" data-sorter="created_at">New</a></li>
+                          <li class=""><a title="Order by username" href="#" data-sorter="username">Username</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <section class="ft-boxed-hover">
                     <div class="row">
                       <div class="col-md-12 no-gap mt-20">
-                        <ul>
-                          <% User.all.each do |user| %>
-                            <div class="col-md-3 col-sm-4 col-xs-6">
-                              <li style="width: 100%; float: none; margin-bottom: 20px; padding: 20px; min-height: 150px;">
-                                <div class="author-img" style="float: none; margin: auto;">
-							                    <a href="#"><img width="60" height="60" src="<%= user_avatar_src(user) %>" alt="User Profile Image"></a>
-						                    </div> 
-
-                                <h5 class="trumcate" style="font-size: 0.85em; font-weight: 600;"><%= user.username %></h5>
-                                <h6 class="truncate h-alt" style="font-size: 0.70em; color: #444; font-weight: 600;"><%= sanitize user.subinfo %></h6>
-
-                                <div class="hover-content" style="padding: 0px; background-image: url('<%=user_avatar_src(user) %>');">
-                                  <div class="bg-overlay" style="padding: 10px;">
-                                    <a href="<%= user_path(user.id)%>" class="ft-heading"><%= user.username %></a>
-                                    <p style='font-size: 0.80em'>
-                                      <%= truncate user.bio, length: 100, separator: /\w+/ %>
-                                    </p>
-                                    <% if signed_in? and user != current_user %>
-                                      <div class="user-follow-btn" id="user-follow-<%=user.id%>">
-                                        <%= follow_link user %>
-                                      </div>
-                                    <% else %>
-                                      <a class='mt-0' href="<%= user_path(user.id) %>">
-                                        <button class="btn-small btn-ghost-light">View Profile</button>
-                                      </a>
-                                    <% end %>
-                                  </div>
-                                </div><!-- / .hover-content -->
-                              </li>
-                            </div>
+                        <ul id="users-feed">
+                          <% @users.each do |user| %>
+                            <%= render partial: 'shared/items/user_item', locals: { user: user } %>
                           <% end %>
                         </ul>
                       </div>

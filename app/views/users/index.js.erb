@@ -1,0 +1,5 @@
+<% if @users.count > 0 %>
+  <% @users.each_with_index do |user, index| %>
+    $('#users-feed').append("<%= escape_javascript render(:partial => '/shared/items/user_item', locals: { user: user }) %>");
+  <% end %>
+<% end %>

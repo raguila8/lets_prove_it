@@ -1,6 +1,6 @@
 class Proof < ApplicationRecord
-  after_create :create_activity
-  before_destroy :update_activities
+  after_create :create_activity, :add_cached_proofs_count
+  before_destroy :update_activities, :subtract_cached_proofs_count
 
   acts_as_votable
 
@@ -36,6 +36,16 @@ class Proof < ApplicationRecord
  
     def create_activity
       Activity.create(user: self.user, action: "created", acted_on: self, linkable: self.problem)
+    end
+
+    def add_cached_proofs_count
+      count = self.problem.cached_proofs_count
+      self.problem.update(cached_proofs_count: count + 1)
+    end
+
+    def subtract_cached_proofs_count
+      count = self.problem.proofs.count
+      self.problem.update(cached_proofs_count: count - 1)
     end
 
 

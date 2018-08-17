@@ -291,7 +291,19 @@
   -----------------------------------------------------*/
 
 @media (max-width: 480px) {
-  #users-feed ul .col-xs-6 {
+  #users-feed ul .col-xs-6, .tab-list-content #user-items ul .col-xs-6 {
     width: 100% !important;
   }
+
+  .tab-list-content .user-item-activity {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
 }
+
+@media (min-width: 768px) and (max-width: 1390px) {
+  .tab-list-content #user-items ul .col-md-3 {
+    width: 33.3%;
+  }
+}
+

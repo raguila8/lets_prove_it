@@ -1,3 +1,9 @@
 <% if @problems.count > 0 %>
-  $('#problem-feed').append("<%= escape_javascript render(:partial => '/shared/items/problem_item', collection:  @problems, as: :problem ) %>");
+  <% @problems.each_with_index do |problem, index| %>
+    $('#problem-feed').append("<%= escape_javascript render(:partial => '/shared/items/problem_item', locals: { problem: problem }) %>");
+
+    <% if index % 2 == 1 or index == @problems.count - 1 %>
+      $('#problem-feed').append("<div class='clearfix'></div>");
+    <% end %>
+  <% end %>
 <% end %>

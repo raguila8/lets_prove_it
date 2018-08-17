@@ -1,2 +1,11 @@
-  $('.tab-content .boxedtitle h2').text("Topics Following");
-$('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/shared/items/topic_item', collection:  @topics, as: :topic ) %>");
+$('.tab-content .boxedtitle h2').text("Topics Following");
+
+<% @topics.each_with_index do |topic, index| %>
+  $('.tab-content .tab-list-content').append("<%= escape_javascript render(:partial => '/shared/items/topic_item', locals: { topic: topic }) %>");
+
+  <% if index % 2 == 1 or index == @topics.count - 1 %>
+    $('.tab-content .tab-list-content').append("<div class='clearfix'></div>");
+  <% end %>
+<% end %>
+
+$('.spinner').slideUp(1000);

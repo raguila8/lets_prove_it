@@ -40,6 +40,7 @@ class User < ApplicationRecord
   validates :occupation, length: { maximum: 70 }
   validates :education, length: { maximum: 70 }
   validates :location, length: { maximum: 70 }
+  validates :reputation, presence: true, numericality: { only_integer: true }
 
 
   validates :username, presence: true, length: { minimum: 5, maximum: 18 },
@@ -120,6 +121,22 @@ class User < ApplicationRecord
     return "<strong style='margin-right: 5px;'>Member Since: </strong> #{created_at.strftime('%B %d, %Y')}"
   end
 
+  def self.feed(options = {user: ""})
+    options[:filter] = "all" if options[:filter].nil?
+    options[:sorter] = "reputation" if options[:sorter].nil?
+    order = "DESC"
+    order = "ASC" if options[:sorter] == "username"
+    if !options[:search_filter].blank?
+      self.filter(options[:filter], options[:user]).
+        where("name LIKE :term OR username LIKE :term", 
+          term: "%#{options[:search_filter]}%").
+        order("#{options[:sorter]} #{order}")
+    else
+      self.filter(options[:filter], options[:user]).
+        order("#{options[:sorter]} #{order}")
+    end
+  end
+
 
   
   private
@@ -130,5 +147,15 @@ class User < ApplicationRecord
 				errors.add(:avatar, "should be less than 5MB")
 			end
 		end
+
+    def self.filter(filter, user)
+      if user.blank? or filter == "all"
+        User.all
+      elsif filter == "following"
+        user.following
+      elsif filter == "followers"
+        user.followers
+      end
+    end
 
 end

@@ -1,4 +1,4 @@
-if ($('#users-feed').length == 0) {
+if ($('.page-title #user-follow-<%=@user.id%>').length > 0) {
   $('#user-follow-<%=@user.id%>').html("<a href='<%=follow_user_path(@user.id)%>' data-remote='true' data-method='post'><button class='btn btn-light'>Follow</button></a>");
 } else {
   $('#user-follow-<%=@user.id%>').html("<a class='mt-0' href='<%=follow_user_path(@user.id)%>' data-remote='true' data-method='post'><button class='btn btn-light btn-small'>Follow</button></a>");

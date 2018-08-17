@@ -1,6 +1,8 @@
 $('.tab-content .boxedtitle h2').text("Following");
-$('.tab-content .tab-list-content').addClass('ph-15')
+$('.tab-content .tab-list-content').append("<section class='ft-boxed-hover' id='user-items'><div class='row'><ul></ul></div></section>");
 
-$('.tab-content .tab-list-content').append("<%= escape_javascript render(:partial => '/shared/items/user_item', collection:  @users, as: :model ) %>");
+<% @users.each do |user| %>
+  $('.tab-content .tab-list-content ul').append("<%= escape_javascript render(:partial => '/shared/items/user_item', locals: { user: user }) %>");
+<% end %>
 
 $('.spinner').slideUp(1000);

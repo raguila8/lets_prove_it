@@ -1,0 +1,9 @@
+<% if @topics.count > 0 %>
+  <% @topics.each_with_index do |topic, index| %>
+    $('#topic-feed').append("<%= escape_javascript render(:partial => '/shared/items/topic_item', locals: { topic: topic }) %>");
+
+    <% if index % 2 == 1 or index == @topics.count - 1 %>
+      $('#topic-feed').append("<div class='clearfix'></div>");
+    <% end %>
+  <% end %>
+<% end %>

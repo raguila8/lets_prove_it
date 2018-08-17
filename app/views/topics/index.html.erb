@@ -17,8 +17,27 @@
                     <button class="btn-text font-weight-600" id='filter-btn'><span class="glyphicon glyphicon-filter"></span> Filter</button>
                   </div>
 
+                  <div class="row" id="item-filters" style="display: none;" data-filter="all" data-sorter="cached_problems_count" data-search-filter="">
+                    <div class="col-md-12">
+                      <div class="col-md-6">
+                        <p>Sort:</p>
+                        <ul id="pfolio-filters" class="portfolio-filters sorter">
+                          <li class="active"><a href="#" title="Sort by Number of Problems" data-sorter="cached_problems_count">Popular</a></li>
+                          <li class=""><a href="#" title="Sort by Name" data-sorter="name">Name</a></li>
+                          <li><a href="#" title="Sort by Date Created" data-sorter="created_at">New</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+
                   <div class="mt-20" id="topic-feed">
-                    <%= render(:partial => 'shared/items/topic_item', locals: { topics_count: @topics.count }, collection: @topics, as: :topic) %>
+                    <% @topics.each_with_index do |topic, index| %>
+                      <%= render(:partial => 'shared/items/topic_item', locals: { topic: topic }) %>
+                      <% if index % 2 == 1 or index == @topics.count - 1 %>
+                        <div class="clearfix"></div>
+                      <% end %>
+                    <% end %>
                   </div>
                 </div>
               </div>

@@ -18,6 +18,10 @@ class Problem < ApplicationRecord
   validates :topics, length: { minimum: 1 },
                        unless: :new_record?
 
+  validates :cached_proofs_count, presence: true, 
+                                    numericality: {only_integer: true,
+                                      greater_than_or_equal_to: 0 }
+
 
   validates :content, presence: true, length: { maximum: 5000, minimum: 3 }
   validates :title, presence: true, uniqueness: { case_sensitive: false }, 
@@ -174,6 +178,5 @@ class Problem < ApplicationRecord
       return ">=" if filter == "all"
       return ">" if filter == "proved"
       return "=" if filter == "not_proved"
-    end
-
+    end 
 end

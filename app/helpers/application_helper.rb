@@ -11,10 +11,12 @@ module ApplicationHelper
   end
 
   def header
-    if controller_name == "static_pages"
-      if action_name == "mathjax_cheatsheet" || action_name == "contact"
+    if "static_pages" == controller_name
+      if %w(mathjax_cheatsheet contact).include? action_name
         render partial: "layouts/header2"
       end
+    elsif %w(users topics).include? controller_name and action_name == "index"
+      render partial: "layouts/header2"
     else
       render partial: "layouts/header1"
     end
@@ -46,6 +48,8 @@ module ApplicationHelper
         @topic.name
       elsif action_name == "edit" || action_name == "update"
         @topic.name
+      elsif action_name == "index"
+        "Topics"
       end
     elsif controller_name == "conversations"
       if action_name == "show"
@@ -58,6 +62,8 @@ module ApplicationHelper
     elsif controller_name == "users"
       if action_name == "show"
         @user.username
+      elsif action_name == "index"
+        "Users"
       end
     elsif controller_name == "static_pages"
       if action_name == "mathjax_cheatsheet"
@@ -98,6 +104,13 @@ module ApplicationHelper
         "Topic Edits"
       elsif action_name == "edit" || action_name == "update"
         "Edit Topic"
+      elsif action_name == "index"
+        content = "<div class='col-sm-offset-3 col-sm-6' id='search-header'><div class='form-group'>" + 
+                    "<input type='search' placeholder='Filter by name' class='form-control'>" +
+                    "<button class='inside-input-btn'><i class='fa fa-search'></i></button>" +
+                  "</div></div>"
+        return content.html_safe
+
       end
     elsif controller_name == "conversations"
       if action_name == "show"
@@ -110,6 +123,12 @@ module ApplicationHelper
     elsif controller_name == "users"
       if action_name == "show"
         @user.name
+      elsif action_name == "index"
+        content = "<div class='col-sm-offset-3 col-sm-6' id='search-header'><div class='form-group'>" + 
+                    "<input type='search' placeholder='Filter by username' class='form-control'>" +
+                    "<button class='inside-input-btn'><i class='fa fa-search'></i></button>" +
+                  "</div></div>"
+        return content.html_safe
       end
     elsif controller_name == "static_pages"
       if action_name == "mathjax_cheatsheet"
@@ -295,7 +314,7 @@ module ApplicationHelper
     elsif acted_on_type == "Version"
       render partial: "shared/items/version_item", locals: { model: activity }
     elsif acted_on_type == "User"
-      render partial: "shared/items/user_item", locals: { model: activity }
+      render partial: "shared/items/user_item", locals: { activity: activity }
     elsif acted_on_type == "Problem"
       render partial: "shared/items/problem_item", locals: { activity: activity }
     elsif acted_on_type == "Topic"

@@ -1,11 +1,11 @@
 <% if !defined?(activity).nil? %>
+  <% default_width = false %>
   <% topic = activity.acted_on %>
-<% end %>
-<% if topic_counter % 2 == 0 %>
-  <div class="row">
+<% else %>
+  <% default_width = true %>
 <% end %>
 
-<div class="col-sm-6">
+<div class="<%=default_width ? 'col-sm-6':'col-md-offset-2 col-md-8' %>">
   <div class="mb-40 blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
     <div class="bp-content">                  
       <!-- Meta data -->
@@ -44,7 +44,6 @@
   </div><!-- / .blog-post -->
 </div><!-- / .col-md-6 -->
 
-<% if topic_counter % 2 == 1 or topic_counter == topics_count - 1 %>
-  </div>
-<% end %> 
-
+<% if !default_width %>
+  <div class="clearfix"></div>
+<% end %>

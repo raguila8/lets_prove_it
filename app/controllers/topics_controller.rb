@@ -16,15 +16,18 @@ class TopicsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-
+        @topics = Topic.feed
       }
 
       format.json { 
         data = Topic.where("name LIKE :name", { name: "#{params[:term]}%" }).map {|t| t.name}
         render json: { suggestions: data, success: true }
       }
+
+      format.js {
+        @topics = Topic.feed({sorter: params[:sorter], search_filter: params[:search_filter]})
+      }
     end
-    @topics = Topic.all
   end
 
   # GET /topics/1
@@ -44,7 +47,7 @@ class TopicsController < ApplicationController
   end
 
   def problems
-    @problems = @topic.feed.order(created_at: :desc)
+    @problems = @topic.problems.order(created_at: :desc)
   end
 
   def followers

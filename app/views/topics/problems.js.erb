@@ -1,5 +1,5 @@
 <% if @problems.count > 0 %>
-  $('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/shared/items/problem_item', collection: @problems, as: :problem ) %>");
+  $('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/shared/items/problem_item', locals: { problems_count: @problems.count }, collection: @problems, as: :problem ) %>");
 <% else %>
   $(".tab-content .tab-list-content").html("<%= no_results_content('problems') %>");
 <% end %>

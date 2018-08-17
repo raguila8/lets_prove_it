@@ -23,7 +23,7 @@ class ProblemsController < ApplicationController
         @problems = Problem.feed({user: current_user})
       }
 
-      format.js { 
+      format.js {
         @problems = Problem.feed({user: current_user, 
                                   filter: params[:filter], 
                                   sorter: params[:sorter]})

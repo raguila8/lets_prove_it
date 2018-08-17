@@ -13,6 +13,9 @@ class Topic < ApplicationRecord
   before_save { self.name = name.downcase }
   validates :name, presence: true, length: { minimum: 3 }
   validates :description, presence: true, length: { minimum: 3 }
+  validates :cached_problems_count, presence: true, 
+                                    numericality: {only_integer: true,
+                                      greater_than_or_equal_to: 0 }
 
   def save_new(images, user)
     begin
@@ -62,10 +65,16 @@ class Topic < ApplicationRecord
 
 
   # Returns a topic's problem feed.
-  def feed
-    problem_ids = "SELECT problem_id FROM problem_topics
-                     WHERE  topic_id = #{id}"
-    Problem.where("id IN (#{problem_ids})")
+  def self.feed(options = {sorter: "cached_problems_count"})
+    options[:sorter] = "cached_problems_count" if options[:sorter].nil?
+    order = "DESC"
+    order = "ASC" if options[:sorter] == "name"
+    if !options[:search_filter].blank?
+      Topic.where("name LIKE ?", "%#{options[:search_filter]}%").
+        order("#{options[:sorter]} #{order}")
+    else
+      Topic.all.order("#{options[:sorter]} #{order}")
+    end
   end
 
   def proofs

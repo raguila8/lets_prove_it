@@ -255,7 +255,7 @@ $(document).on('turbolinks:load', function() {
   }
 
 /* -------------------------------------------------
-  Selector Filters
+  Selector and Search Filters
 ---------------------------------------------------*/
 
   function initSelector () {
@@ -280,28 +280,81 @@ $(document).on('turbolinks:load', function() {
           $('#item-filters').attr('data-sorter', $(this).attr('data-sorter'));
         }
 
- 
+        var url = "";
+
+        var data = new Object();
+        data.sorter = $("#item-filters").attr('data-sorter');
+        
+        if ($('#problem-feed').length > 0) { 
+          url = "/problems"
+          $feed = $('#problem-feed');
+          data.filter = $("#item-filters").attr('data-filter');
+        } else if ($('#topic-feed').length > 0) {
+          url = "/topics";
+          $feed = $('#topic-feed');
+          data.search_filter = $("#item-filters").attr('data-search-filter')
+        } else if ($('#users-feed').length > 0) {
+          url = "/users";
+          $feed = $('#users-feed');
+          data.filter = $("#item-filters").attr('data-filter');
+          data.search_filter = $("#item-filters").attr('data-search-filter')
+        }
+
         $.ajax({
           type: "GET",
-			    url: "/problems",
+			    url: url,
 			    headers: {
 				    Accept: "text/javascript; charset=utf-8",
-					  "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+				   "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
 			    },
-          data: {
-            filter: $("#item-filters").attr('data-filter'),
-            sorter: $("#item-filters").attr('data-sorter')
-          },
+          data: data,
           beforeSend: function() {
-            $('#problem-feed').html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
+            $feed.html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
           },
           success: function() {
             $('.spinner').slideUp(1000);
           }
-      });
+        });
 
       });
 
+    }
+
+    if ($('#search-header').length > 0) {
+      $('#search-header input').on('input', function(e) {
+        e.preventDefault();
+        $('#item-filters').attr('data-search-filter', $(this).val());
+        var data = new Object();
+        data.sorter = $("#item-filters").attr('data-sorter');
+        data.search_filter = $("#item-filters").attr('data-search-filter');
+
+        if ($('#topic-feed').length > 0) {
+          url = "/topics";
+          $feed = $('#topic-feed');
+        } else if ($('#users-feed').length > 0) {
+          url = "/users";
+          $feed = $('#users-feed');
+          data.filter = $("#item-filters").attr('data-filter');
+        }
+
+
+        $.ajax({
+          type: "GET",
+			    url: url,
+			    headers: {
+				    Accept: "text/javascript; charset=utf-8",
+				   "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			    },
+          data: data,
+          beforeSend: function() {
+            $feed.html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
+          },
+          success: function() {
+            $('.spinner').slideUp(1000);
+          }
+        });
+
+      });
     }
 
     if ($('.ft-tabs').length > 0) {

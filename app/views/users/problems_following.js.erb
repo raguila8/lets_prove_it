@@ -1,6 +1,10 @@
 $('.tab-content .boxedtitle h2').text("Problems Following");
+<% @problems.each_with_index do |problem, index| %>
+  $('.tab-content .tab-list-content').append("<%= escape_javascript render(:partial => '/shared/items/problem_item', locals: { problem: problem }) %>");
 
-$('.tab-content .tab-list-content').append("<%= escape_javascript render(:partial => '/shared/items/problem_item', locals: { problems_count: @problems.count }, collection:  @problems, as: :problem ) %>");
+  <% if index % 2 == 1 or index == @problems.count - 1 %>
+    $('.tab-content .tab-list-content').append("<div class='clearfix'></div>");
+  <% end %>
+<% end %>
 
 $('.spinner').slideUp(1000);
-
