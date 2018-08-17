@@ -64,9 +64,9 @@
 
           <!-- User dropdown -->
           <li class="dropdown">
-					  <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button" aria-haspopup="true" aria-expanded="false" href="#" style="text-transform: none; font-weight: 600;">
-						  <span class="glyphicon glyphicon-user g-mr-5" style="font-size: 13px;"></span>
-						  <span style="font-size: 14px; letter-spacing: 0.5px;"><%=current_user.username%></span>
+					  <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button" aria-haspopup="true" aria-expanded="false" href="#" style="text-transform: none; font-weight: 600">
+						  <span class="glyphicon glyphicon-user g-mr-5"></span>
+						  <span><%=current_user.username%></span>
 						  <span class="caret"></span>
 					  </a>
         	  <ul class="dropdown-menu">

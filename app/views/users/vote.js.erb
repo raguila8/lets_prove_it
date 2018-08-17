@@ -1,50 +1,15 @@
-<% if @voted %>
-  <% if @proof %>
-    <% if @vote_type == "like" %>
-			$('#proof-upvote-<%=@proof.id%>').addClass('upvoted');
-			$('#proof-downvote-<%=@proof.id%>').removeClass('downvoted');
-      $('#proof-vote-count-<%=@proof.id%>').addClass('upvoted');
-      $('#proof-vote-count-<%=@proof.id%>').removeClass('downvoted');
-		<% else %>
-			$('#proof-downvote-<%=@proof.id%>').addClass('downvoted');
-			$('#proof-upvote-<%=@proof.id%>').removeClass('upvoted');
-      $('#proof-vote-count-<%=@proof.id%>').addClass('downvoted');
-      $('#proof-vote-count-<%=@proof.id%>').removeClass('upvoted');
-
-		<% end %>
-		$('#proof-vote-count-<%=@proof.id%>').text("<%=@proof.cached_votes_score%>");
-
-  <% elsif @problem %>
-    <% if @vote_type == "like" %>
-			$('#problem-upvote-<%=@problem.id%>').addClass('upvoted');
-			$('#problem-downvote-<%=@problem.id%>').removeClass('downvoted');
-
-      $('#problem-vote-count-<%=@problem.id%>').addClass('upvoted');
-      $('#problem-vote-count-<%=@problem.id%>').removeClass('downvoted');
-
-		<% else %>
-			$('#problem-downvote-<%=@problem.id%>').addClass('downvoted');
-			$('#problem-upvote-<%=@problem.id%>').removeClass('upvoted');
-    
-      $('#problem-vote-count-<%=@problem.id%>').addClass('downvoted');
-      $('#problem-vote-count-<%=@problem.id%>').removeClass('upvoted');
-		<% end %>
-		$('#problem-vote-count-<%=@problem.id%>').text("<%=@problem.cached_votes_score%>");
-
-  <% elsif @comment %>
-    <% if @vote_type == "like" %>
-			$('#comment-upvote-<%=@comment.id%>').addClass('upvoted');
-			$('#comment-downvote-<%=@comment.id%>').removeClass('downvoted');
-      $('#comment-vote-count-<%=@comment.id%>').addClass('upvoted');
-      $('#comment-vote-count-<%=@comment.id%>').removeClass('downvoted');
-
-		<% else %>
-			$('#comment-downvote-<%=@comment.id%>').addClass('downvoted');
-			$('#comment-upvote-<%=@comment.id%>').removeClass('upvoted');
-      $('#comment-vote-count-<%=@comment.id%>').addClass('downvoted');
-      $('#comment-vote-count-<%=@comment.id%>').removeClass('upvoted');
-		<% end %>
-		$('#comment-vote-count-<%=@comment.id%>').text("<%=@comment.cached_votes_score%>");
-
-  <% end %>
+<% if @action_taken == "liked" %>
+  $("#<%=@model.class.name.downcase%>-upvote-<%=@model.id%>").addClass('upvoted');
+  $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").addClass('upvoted');
+<% elsif @action_taken == "downvoted" %>
+  $("#<%=@model.class.name.downcase%>-downvote-<%=@model.id%>").addClass('downvoted');
+  $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").addClass('downvoted');
+<% elsif @action_taken == "undisliked" %>
+  $("#<%=@model.class.name.downcase%>-downvote-<%=@model.id%>").removeClass('downvoted');
+  $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").removeClass('downvoted');
+<% elsif @action_taken == "unliked" %>
+  $("#<%=@model.class.name.downcase%>-upvote-<%=@model.id%>").removeClass('upvoted');
+  $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").removeClass('upvoted');
 <% end %>
+
+$("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").text("<%=@model.cached_votes_score%>");

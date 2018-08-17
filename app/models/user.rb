@@ -137,7 +137,27 @@ class User < ApplicationRecord
     end
   end
 
-
+  def vote(vote_type, model)
+    if vote_type == "like"
+      if self.voted_down_on? model
+        model.undisliked_by self
+        return "undisliked"
+      elsif !self.liked? model
+        model.liked_by self
+        Notification.notify_user_of_vote(self, model)
+        return "liked"
+      end
+    else
+      if self.liked? model
+        model.unliked_by self
+        Notification.remove_vote_notification(self, model)
+        return "unliked"
+      elsif !self.voted_down_on? model
+        model.downvote_from self
+        return "downvoted"
+      end
+    end
+  end
   
   private
 	

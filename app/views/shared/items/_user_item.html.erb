@@ -53,6 +53,10 @@
         <% end %>
       </div>
     </div><!-- / .hover-content -->
+    <div class="reputation-ribbon" style="border-left-color: <%=reputation_color user.reputation %>; border-top-color: <%=reputation_color user.reputation %>;">
+    </div>
+    <span class='reputation-ribbon-score' style="<%=css_rep_score_position number_to_human(user.reputation)%>"><%=number_to_human user.reputation%></span>
+
   </li>
 </div>
 

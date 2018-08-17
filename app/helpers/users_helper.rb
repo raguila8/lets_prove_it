@@ -7,4 +7,26 @@ module UsersHelper
     html += "<li><strong><i class='fa fa-map-marker mr-9'></i>Location:</strong><span>#{user.location}</span></li>" if !user.location.blank?
     html.html_safe
   end
+
+  def css_rep_score_position(reputation)
+    rep_str_len = reputation.to_s.length
+    if rep_str_len == 4
+      "top: 8px; left: 6px;"
+    elsif rep_str_len == 3
+      "top: 8px; left: 8px;"
+    elsif rep_str_len == 2
+      "top: 8px; left: 12px;"
+    elsif rep_str_len == 1
+      "top: 10px; left: 14px;"
+    end
+  end
+
+  def reputation_color(reputation)
+    return "#373940" if reputation < 10
+    return "#ff7361" if reputation < 200
+    return "#2E8B57" if reputation < 1000
+    return "#1e73be" if reputation < 5000
+    return "#544f87" if reputation < 25000
+    return "#DD9934" if reputation >= 25000    
+  end
 end
