@@ -138,29 +138,83 @@ class User < ApplicationRecord
   end
 
   def vote(vote_type, model)
+    action_taken = ""
     if vote_type == "like"
       if self.voted_down_on? model
         model.undisliked_by self
-        return "undisliked"
+        action_taken = "undisliked"
       elsif !self.liked? model
         model.liked_by self
         Notification.notify_user_of_vote(self, model)
-        return "liked"
+        action_taken = "liked"
       end
     else
       if self.liked? model
         model.unliked_by self
         Notification.remove_vote_notification(self, model)
-        return "unliked"
+        action_taken = "unliked"
       elsif !self.voted_down_on? model
         model.downvote_from self
-        return "downvoted"
+        action_taken = "downvoted"
       end
+    end
+  
+    User.update_reputation({action: action_taken, actor: self, voted_on: model})
+    return action_taken
+  end
+
+  def self.update_reputation(options = {})
+    if %w(liked unliked undisliked downvoted).include? options[:action]
+      User.update_reputation_after_vote action: options[:action], 
+                                        actor: options[:actor], 
+                                        voted_on: options[:voted_on]
+    else
+
     end
   end
   
   private
-	
+
+    def self.update_reputation_after_vote(action, actor, voted_on)
+      recipient = voted_on.user
+
+	    if action == "liked"
+        if voted_on.class.name == "Problem"
+          recipient.update(reputation: recipient.reputation += 5)
+        elsif voted_on.class.name == "Proof"
+          recipient.update(reputation: recipient.reputation += 10)
+        elsif voted_on.class.name == "Comment"
+          recipient.update(reputation: recipient.reputation += 2)
+        end
+      elsif action == "unliked"
+        if voted_on.class.name == "Problem"
+          recipient.update(reputation: recipient.reputation -= 5)
+        elsif voted_on.class.name == "Proof"
+          recipient.update(reputation: recipient.reputation -= 10)
+        elsif voted_on.class.name == "Comment"
+          recipient.update(reputation: recipient.reputation -= 2)
+        end
+      elsif action == "undisliked"
+        if voted_on.class.name == "Problem"
+          recipient.update(reputation: recipient.reputation += 2)
+        elsif voted_on.class.name == "Proof"
+          recipient.update(reputation: recipient.reputation += 2)
+        elsif voted_on.class.name == "Comment"
+          recipient.update(reputation: recipient.reputation += 1)
+        end
+        actor.update(reputation: actor.reputation += 1)
+      elsif action == "downvoted"
+        if voted_on.class.name == "Problem"
+          recipient.update(reputation: recipient.reputation -= 2)
+        elsif voted_on.class.name == "Proof"
+          recipient.update(reputation: recipient.reputation -= 2)
+        elsif voted_on.class.name == "Comment"
+          recipient.update(reputation: recipient.reputation -= 1)
+        end
+        actor.update(reputation: actor.reputation -= 1)
+      end
+    end
+
 		# Validates the size of an uploaded image
 		def avatar_size
 			if self.avatar.size > 5.megabytes

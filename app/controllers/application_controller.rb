@@ -13,4 +13,11 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def logged_in_user
+      unless signed_in?
+        flash[:alert] = "You need to sign in or sign up before continuing."
+        redirect_to new_user_session_path
+      end
+    end
+
 end

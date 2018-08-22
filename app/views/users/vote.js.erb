@@ -13,3 +13,6 @@
 <% end %>
 
 $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").text("<%=@model.cached_votes_score%>");
+$(".user-reputation-<%=current_user.id%>").text("<%=current_user.reputation%>";
+$(".user-reputation-<%=@model.user.id%>").text("<%=@model.user.reputation%>";
+

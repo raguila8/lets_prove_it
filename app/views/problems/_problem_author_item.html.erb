@@ -1,0 +1,27 @@
+<div class="col-sm-6 float-right">
+  <div class="primary-shadow" style="border: 2px solid <%=reputation_color user.reputation %>; border-radius: 4px; background-color: #fff; ">
+    <div style="background: #fff; border-color: <%=reputation_color user.reputation %>; padding: 10px 15px; border-bottom: 1px solid transparent; border-top-left-radius: 3px; border-top-right-radius: 3px;">
+      <div class="row">
+        <div class="col-xs-3">
+          <div class="author-img text-center" style="border-color: <%= reputation_color user.reputation %>">
+            <a href="/users/<%=user.id%>">
+              <img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt="">
+            </a>
+          </div>
+        </div>
+        <div class="col-xs-9 text-right" style="color: #111; ">
+          <div style="font-size: 1.5em; font-weight: 600;"><a href="/users/<%=user.id%>" class="username-link"><%=user.username%></a></div>
+          <div style="font-weight: 600; color: <%=reputation_color user.reputation %>;"><i class="fa fa-trophy mr-5"></i><%= user.reputation%> </div>
+        </div>
+      </div>
+    </div>
+    <a href="/problems/<%=@problem.id%>/logs" style="color: #444; text-decoration: none;">
+      <div style="padding: 10px 15px; background: #f5f5f5; border-top: 1px solid #ddd; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; font-weight: 600; font-size: 1em;">
+        <span class="float-left"><%= action %> <%= action_date.strftime('%B %d, %Y')%></span>
+        <span class="float-right"><i class="fa fa-arrow-circle-right"></i></span>
+        <div class="clearfix"></div>
+      </div>
+    </a>
+  </div>
+</div>
+

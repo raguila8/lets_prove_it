@@ -1,7 +1,8 @@
 class ProblemsController < ApplicationController
   impressionist actions: [:show]
-  before_action :set_problem, only: [:show, :edit, :update, :destroy, :logs, 
+  before_action :set_problem, only: [:show, :edit, :update, :destroy, :logs,
                                      :follow, :unfollow]
+  before_action :logged_in_user, :correct_reputation, only: [:edit, :update]
 
   def follow
     current_user.follow @problem
@@ -127,6 +128,20 @@ class ProblemsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_problem
       @problem = Problem.find(params[:id])
+    end
+
+    def correct_reputation
+      if current_user.reputation < 2000 and @problem.user != current_user
+        flash[:alert] = "Action not authorized"
+        redirect_to root_url
+      end
+    end
+ 
+    def correct_problem
+      if @problem.user != current_user
+        flash[:alert] = "Action not authorized"
+        redirect_to root_url
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

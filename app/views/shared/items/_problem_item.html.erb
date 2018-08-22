@@ -48,7 +48,7 @@
 
       <!-- Post Title -->
       <%= link_to problem_path(problem.id), class: "post-title" do %>
-        <h3><%=problem.title%></h3>
+        <h3 class="main-link" style="font-size: 1.4em;"><%=problem.title%></h3>
       <% end %>
       
       <span class="problem-comment problem-info"><i class="glyphicon glyphicon-user mr-5"></i> <span id="problem-<%=problem.id%>-followers"><%= pluralize(problem.followers.count, "Follower") %></span></span>

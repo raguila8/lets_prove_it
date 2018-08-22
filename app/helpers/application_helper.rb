@@ -340,7 +340,39 @@ module ApplicationHelper
 
   def report_button(model, options={})
     if signed_in? and !Report.exists?(user_id: current_user.id, reportable_id: model.id)
-      "<a class='btn-text btn-small float-right small-padding reportModalToggle' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}'><span class='proof-edit'><i class='mr-5 glyphicon glyphicon-edit'></i>Report</span></a>".html_safe
+      "<a class='btn-text btn-xs float-right small-padding reportModalToggle' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}'><span class='proof-edit'><i class='mr-5 glyphicon glyphicon-edit'></i>Report</span></a>".html_safe
     end
+  end
+
+  def problems_widget_items
+    html = ""
+    Problem.where('created_at >= ?', 1.week.ago).limit(5).each_with_index do |problem, index|
+      html += "<div class='' style='padding: 10px; #{'border-top: 1px solid #ddd;' if index != 0 }'><a href='/problems/#{problem.id}'><h6 class='main-link' style='font-weight: 600;'>#{problem.title}</h6></a><span style='color: #777; font-size: .8em; line-height: 1.428;'>#{problem.created_at.strftime('%B %d, %Y')}</span></div>"
+    end
+    return html.html_safe
+  end
+
+  def hot_topics_items
+    html = ""
+    hot_topics = ""
+    if signed_in?
+       topics_following = "SELECT topic_id FROM topic_followings 
+                          WHERE user_id = #{current_user.id}"
+      hot_topics = Topic.where("id NOT IN (#{topics_following})").order("cached_problems_count DESC").limit(10).uniq
+    else
+      hot_topics = Topic.all.order(:cached_problems_count).limit(10).uniq
+    end
+    hot_topics.each_with_index do |topic, index|
+      html += "<div class='' style='padding: 10px; #{'border-top: 1px solid #ddd;' if index != 0 }'><a href='/problems/#{topic.id}'><h6 class='main-link mb-0' style='font-weight: 600;'>#{topic.name}</h6></a><span style='color: #777; font-size: .8em; line-height: 1.428;'>#{topic.cached_problems_count} Problems</span></div>"
+    end
+    return html.html_safe
+  end
+
+  def top_users_items
+    html = ""
+    User.all.order("reputation DESC").limit(5).uniq.each_with_index do |user, index|
+      html += "<li><div class='author-img'><a href='/users/#{user.id}'><img width='60' height='60' src='#{user_avatar_src user}' alt='User Avatar'></a></div><h6><a class='main-link' href='/users/#{user.id}'>#{user.username}</a></h6><span class='label font-weight-600' style='background: #{reputation_color user.reputation};'><i class='mr-5 fa fa-trophy'></i>#{user.reputation}</span></li>"
+    end
+    return html.html_safe
   end
 end

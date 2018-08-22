@@ -9,7 +9,7 @@
     <div class="col-md-8 mb-sm-160">
       
         <!-- Blog Post -->
-        <div class="col-md-12 blog-post-single wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+        <div class="col-md-12 primary-card blog-post-single mb-40 wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
           <!-- Meta data -->
           <div class="post-meta" id="problem-tags-list">
             <ul class="tag-list mt-20">
@@ -18,7 +18,7 @@
                   <%= link_to topic.name, topic_path(topic.id) %>
                 </li>
               <% end %>
-                <a href="#" id="edit-topics" class="ml-10" data-toggle="modal" data-target="#editTopicsModal"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="#" id="edit-topics" class="ml-10" title="Edit Topics" data-toggle="modal" data-target="#editTopicsModal"><span class="glyphicon glyphicon-pencil"></span></a>
             </ul> <!-- / .tag-list -->
 
           </div><!-- / .meta -->
@@ -46,26 +46,33 @@
             <%= sanitize @problem.content %>
           </div>
 
-          <% if signed_in? %>
-            <%= report_button(@problem) %>
+              <% if signed_in? %>
+                <%= report_button(@problem) %>
 
-            <%= link_to edit_problem_path(@problem.id),  class: "btn-text btn-small float-right small-padding" do %>
-              <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
-            <% end %>
-          <% end %>
+                <% if current_user.reputation > 2000 or @problem.user == current_user%>
+                  <%= link_to edit_problem_path(@problem.id),  class: "btn-text btn-xs small-padding float-right" do %>
+                    <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+                  <% end %>
+                <% end %>
+              <% end %>
           <div class="clearfix"></div>
 
         </div><!-- / .blog-post-single -->
         
-        
+        <div class="row mb-20">
+          <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.created_at, action: "Asked", user: @problem.user } %>
+          <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.versions.last.created_at, action: "Edited", user: @problem.versions.last.user} if @problem.versions.count > 1 and @problem.versions.last.user != @problem.user %>
+        </div>
+
 
         <!-- ========== Comments ========== -->
         <div class="row">
           <div class="col-md-12 blog-post-comments proofs-section">
             <h4 class="blog-section-title">Proofs <span>(<%= @problem.proofs.count %>)</span></h4>
             <% @problem.proofs.each do |proof| %>
+              <div class="primary-card mb-20">
               <!-- Comment 1 -->
-              <div class="bp-comment" id="proof-<%=proof.id%>">
+              <div class="bp-comment" id="proof-<%=proof.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if proof.comments.count > 0 %>">
                 <div class="post-meta pl-15 mt-0">
                   <div class="post-date float-left">
                     <i class="fa fa-calendar-o"></i>
@@ -85,27 +92,15 @@
                   </div>
                   <div class="clearfix"></div> 
                 </div><!-- / .meta -->
-
+ 
                 <div class="author-container">
                   <div class="author-img">
                     <a href="<%= user_path(proof.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
                   </div>
-                    <h6><a href="<%= user_path(proof.user) %>"><%= proof.user.username %></a></h6>
-						        <span class="author-data">12 Points</span>
-                    <%= link_to new_comment_path(proof_id: proof.id), remote: true, class: "btn btn-small float-right mh-15" do %>
-                      <i class="fa fa-mail-reply-all"></i> Reply
-                    <% end %>
+                  <h6><a href="<%= user_path(proof.user) %>"><%= proof.user.username %></a></h6>
+						      <span class="label" style="font-weight: 600; background: <%= reputation_color proof.user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%= proof.user.reputation%></span>
                 </div>
-<!--
-                <div class="comment-avatar"><i class="fa fa-user"></i></div>
-                <div class="comment-info">
-                  <h6 class="comment-name"><%#= proof.user.username %></h6>
-                  <span class="comment-time">on <%#= proof.created_at.strftime("%Y-%m-%d") %> </span>
-                  <%#= link_to new_comment_path(proof_id: proof.id), remote: true, class: "comment-replay-btn" do %>
-                    <i class="fa fa-mail-reply-all"></i> Reply
-                  <%# end %>
-                </div>
--->
+
                 <br>
                 
                 <div class="comment-content" id= "proof-content-<%=proof.id%>">
@@ -127,10 +122,10 @@
                 <div class="clearfix"></div>
               </div><!-- / .bp-comment -->
               
-              <% proof.comments.order(created_at: :desc).each do |comment| %>
+              <% proof.comments.order(created_at: :desc).each_with_index do |comment, index| %>
           
                 <!-- Replay Comment -->
-                <div class="bp-comment-reply" id="comment-<%=comment.id%>">
+                <div class="bp-comment-reply" id="comment-<%=comment.id%>" style="<%= 'boder: 1px solid #fafafa;' if index < proof.comments.count - 1 %>">
                   <div class="post-meta pl-15 mt-0">
                     <div class="post-date float-left">
                       <i class="fa fa-calendar-o"></i>
@@ -151,19 +146,12 @@
 
                     <div class="clearfix"></div> 
                   </div><!-- / .meta -->
-<!--
-                  <div class="comment-avatar"><i class="fa fa-user"></i></div>
-                  <div class="comment-info">
-                    <h6 class="comment-name"><%#= comment.user.username %></h6>
-                    <span class="comment-time">on <%#= comment.created_at.strftime("%Y-%m-%d") %></span>
-                  </div>
--->
                   <div class="author-container">
                     <div class="author-img">
                       <a href="<%= user_path(comment.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
                     </div>
                     <h6><a href="<%= user_path(comment.user) %>"><%= comment.user.username %></a></h6>
-						        <span class="author-data">12 Points</span>
+						        <span class="label" style="font-weight: 600; background: <%= reputation_color comment.user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%= comment.user.reputation%></span>
                   </div>
 
                   <br>
@@ -187,8 +175,9 @@
                   <div class="clearfix"></div>
                 </div><!-- / .bp-comment-reply -->
               <% end %>
+              </div>
             <% end %>     
-          
+
             <% if Proof.find_by(user_id: current_user.id, problem_id: @problem.id).nil? %>
  
             <!-- Leave a comment -->
@@ -236,19 +225,6 @@
         <%= link_to new_topic_path do %>
           <button class="btn-ghost"><span class="glyphicon glyphicon-plus"></span> Add Topic</button>
         <% end %>
-<!--
-        <ul class="tag-list">
-          <li><a href="#">Photography</a></li>
-          <li><a href="#">Design</a></li>
-          <li><a href="#">Development</a></li>
-          <li><a href="#">PHP</a></li>
-          <li><a href="#">UI/UX</a></li>
-          <li><a href="#">Design</a></li>
-          <li><a href="#">HTML5</a></li>
-          <li><a href="#">CSS3</a></li>
-          <li><a href="#">iOS</a></li>
-        </ul>
--->
       </div>
       
 
