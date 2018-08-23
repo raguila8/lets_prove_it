@@ -6,11 +6,31 @@
 
 <div id="problem-page" class="pt-100 section container blog-classic">
   <div class="row">
-    <div class="col-md-8 mb-sm-160">
+    <div class="col-md-8 mb-sm-160 primary-card">
       
         <!-- Blog Post -->
-        <div class="col-md-12 primary-card blog-post-single mb-40 wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
-          <!-- Meta data -->
+        <div class="col-md-12 blog-post-single mb-40 wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+          
+          <!-- Title -->
+          <div class="vote-container vote-container-post" style="padding-top: 0px; padding-bottom: 2px; margin-top: 0;">
+            <%= link_to vote_path(:vote_type => "like", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
+              <%= upvote_span @problem %>
+            <% end %>
+
+            <%= vote_count_span @problem %>
+                        
+            <%= link_to vote_path(:vote_type => "dislike", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
+              <%= downvote_span @problem %>
+            <% end %>
+				  </div>
+
+          <h1 class="post-title font-weight-600" style="padding-top: 12px; margin-top: 0px;"><%= @problem.title %></h1>
+          
+
+          <div class="mb-20 pt-20 mt-30 blog-post-content" style="border-top: 1px solid #ddd;">
+            <%= sanitize @problem.content %>
+          </div>
+
           <div class="post-meta" id="problem-tags-list">
             <ul class="tag-list mt-20">
               <% @problem.topics.each do |topic| %>
@@ -23,30 +43,16 @@
 
           </div><!-- / .meta -->
 
-          <!-- Title -->
-          <h1 class="post-title font-weight-600 pt-20 problem-desc mb-30 "><%= @problem.title %></h1>
-          
-          <div class="vote-container vote-container-post">
-            <%= link_to vote_path(:vote_type => "like", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
-              <%= upvote_span @problem %>
-            <% end %>
 
-            <%= vote_count_span @problem %>
-                        
-            <%= link_to vote_path(:vote_type => "dislike", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
-              <%= downvote_span @problem %>
-            <% end %>
-				  </div>
-            <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(@problem.proofs.count, "Proof") %></span>
-            <span class="problem-view"><i class="glyphicon glyphicon-eye-open mr-5"></i><%=pluralize(@problem.impressionist_count, "view")%></span>
+         
+        </div><!-- / .blog-post-single -->
+        
+        <div class="row mb-20">
+          <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.created_at, action: "Asked", user: @problem.user } %>
+          <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.versions.last.created_at, action: "Edited", user: @problem.versions.first.user} if @problem.versions.count > 1 and @problem.versions.first.user != @problem.user %>
+        </div>
 
-          <div class="clearfix"></div>
-
-          <div class="mb-20 mt-20 blog-post-content">
-            <%= sanitize @problem.content %>
-          </div>
-
-              <% if signed_in? %>
+        <% if signed_in? %>
                 <%= report_button(@problem) %>
 
                 <% if current_user.reputation > 2000 or @problem.user == current_user%>
@@ -57,20 +63,14 @@
               <% end %>
           <div class="clearfix"></div>
 
-        </div><!-- / .blog-post-single -->
-        
-        <div class="row mb-20">
-          <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.created_at, action: "Asked", user: @problem.user } %>
-          <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.versions.last.created_at, action: "Edited", user: @problem.versions.last.user} if @problem.versions.count > 1 and @problem.versions.last.user != @problem.user %>
-        </div>
-
-
         <!-- ========== Comments ========== -->
         <div class="row">
-          <div class="col-md-12 blog-post-comments proofs-section">
-            <h4 class="blog-section-title">Proofs <span>(<%= @problem.proofs.count %>)</span></h4>
-            <% @problem.proofs.each do |proof| %>
-              <div class="primary-card mb-20">
+          <div class="col-md-12 blog-post-comments proofs-section pa-30">
+            <% if @problem.proofs.count > 0 %>
+              <h3 class="blog-section-title font-weight-600">Proofs <span>(<%= @problem.proofs.count %>)</span></h3>
+            <% end %>
+            <% @problem.proofs.each_with_index do |proof, index| %>
+              <div class="mb-20" style="<%= 'border-bottom: 1px solid #ddd;' if index == 0 %>">
               <!-- Comment 1 -->
               <div class="bp-comment" id="proof-<%=proof.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if proof.comments.count > 0 %>">
                 <div class="post-meta pl-15 mt-0">
@@ -181,11 +181,11 @@
             <% if Proof.find_by(user_id: current_user.id, problem_id: @problem.id).nil? %>
  
             <!-- Leave a comment -->
-            <div class="comment-form">
+            <div class="comment-form mt-0">
               <% if @problem.proofs.count == 0 %>
-                <h4 class="blog-section-title">Be the first to proove</h4>
+                <h4 class="blog-section-title font-weight-600">Be the first to proove</h4>
               <% else %>
-                <h4 class="blog-section-title">Leave a proof</h4>
+                <h4 class="blog-section-title font-weight-600">Leave a proof</h4>
               <% end %>
 
               <%= form_with(model: Proof.new, local: true, id: "proof-form", class: "new-model-form") do |form| %>
@@ -196,7 +196,7 @@
 
                 <div class="form-group">
                   <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
-                  <trix-editor input="proof_content"></trix-editor>
+                  <trix-editor input="proof_content" class="form-control"></trix-editor>
                   <span class="pull-right"><a target="_blank" href="/static_pages/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
                   <div class="clearfix"></div>
                 </div>
@@ -216,104 +216,8 @@
 
 
     <!-- ========== Sidebar ========== -->
-
-    <aside class="col-md-offset-1 col-md-3 sidebar">
-
-      <!-- Tags - Widget -->
-      <div class="col-md-12 ws-s tags-widget">
-        <h5 class="header-widget">Can't Find a Topic?</h5>
-        <%= link_to new_topic_path do %>
-          <button class="btn-ghost"><span class="glyphicon glyphicon-plus"></span> Add Topic</button>
-        <% end %>
-      </div>
-      
-
-      <!-- Recent Posts - Widget -->
-      <div class="col-md-12 ws-s recent-posts-widget">
-        <h5 class="header-widget">Recent Posts</h5>
-
-        <!-- Item 1 -->
-        <div class="widget-item">
-          <a href="#"><h6 class="h-alt">Blog Post Example</h6></a>
-          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="widget-item">
-          <a href="#"><h6 class="h-alt">Another Blog Post Example</h6></a>
-          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="widget-item">
-          <a href="#"><h6 class="h-alt">Blog Post Example</h6></a>
-          <span>by <a href="#">Joel Fischer</a> / <a href="#">June 23</a></span>
-        </div>
-
-      </div><!-- / .recent-posts-widget -->
-
-
-      <!-- Categories - Widget -->
-      <div class="col-md-12 ws-s categories-widget">
-        <h5 class="header-widget">Categories</h5>
-
-        <!-- Item 1 -->
-        <div class="widget-item">
-          <a href="#">Web Design - <span>15</span></a>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="widget-item">
-          <a href="#">Graphic Design - <span>6</span></a>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="widget-item">
-          <a href="#">iOS Development - <span>12</span></a>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="widget-item">
-          <a href="#">Other - <span>3</span></a>
-        </div>
-
-      </div><!-- / .categories-widget -->
-
-
-      <!-- Comments - Widget -->
-      <div class="col-md-12 ws-s comments-widget">
-        <h5 class="header-widget">Comments</h5>
-
-        <!-- Item 1 -->
-        <div class="widget-item">
-          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Lorem ipsum dolor sit amet</a></span>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="widget-item">
-          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Sed do eiusmod</a></span>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="widget-item">
-          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Lorem ipsum dolor sit amet</a></span>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="widget-item">
-          <span><a href="#">Jon Doe</a> on <a href="#" class="widget-comm-title">Sed do eiusmod</a></span>
-        </div>
-        
-      </div><!-- / .comments-widget -->
-
-
-      <!-- Text - Widget -->
-      <div class="col-md-12 text-widget">
-        <h5 class="header-widget">Text Widget</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae qui error, incidunt quia pariatur facere quasi totam inventore amet rerum.</p>
-      </div><!-- / .text-widget -->
-
-    </aside><!-- / .sidebar -->
+    <%= render "/shared/sidebars/problem_sidebar" %>
+    
 
   </div><!-- / .row -->
 </div><!-- / .container -->

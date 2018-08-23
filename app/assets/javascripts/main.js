@@ -454,9 +454,7 @@ $(document).on('turbolinks:load', function() {
       
       // event.cancel: set to true to prevent the item getting added
     });
-
-
-    $('.bootstrap-tagsinput').addClass('form-group');
+ 
     $('.bootstrap-tagsinput input').addClass('form-control');
     $('#topics-input').attr('data-behavior', 'processed') 
   }

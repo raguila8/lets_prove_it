@@ -1,0 +1,12 @@
+<!-- ========== Sidebar ========== -->
+<aside class="col-lg-3 sidebar mb-sm-160 ph-30"> 
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Problems", value: @problems.count, icon: "fa-question" } %>
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Proofs", value: @problems.pluck(:cached_proofs_count).sum, icon: "fa-comment" } %>
+  <% if signed_in? and current_user.topics_following.count > 0 %>
+    <%= render 'shared/sidebars/widgets/topics_widget' %>
+  <% end %>
+  <%= render 'shared/sidebars/widgets/popular_problems_widget' %>	
+  <%= render 'shared/sidebars/widgets/hot_topics_widget' %> 
+  <%= render 'shared/sidebars/widgets/top_users' %>
+  <%= render 'shared/sidebars/widgets/new_topic_widget' %>
+</aside><!-- / .sidebar -->

@@ -144,7 +144,7 @@ class Problem < ApplicationRecord
   end
 
   def next_version_number
-    versions.order(:created_at).last.version_number + 1
+    versions.order(:created_at).first.version_number + 1
   end
 
   def self.random_problem
@@ -161,17 +161,20 @@ class Problem < ApplicationRecord
 
     def self.filter(filter, user)
       equality_symbol = self.equality_symbol(filter)
+      problems = ""
       if user
-        Problem.joins(topics: :user_relationships).
+        problems = Problem.joins(topics: :user_relationships).
           where(topic_followings: { user_id: user.id} ).
           union(Problem.joins(:user_relationships).
             where(problem_followings: { user_id: user.id } )).
           where("cached_proofs_count #{equality_symbol} 0").
           distinct
       else
-        Problem.all.where("cached_proofs_count #{equality_symbol} 0").
+        problems = Problem.all.where("cached_proofs_count #{equality_symbol} 0").
           distinct
       end
+ 
+      return problems
     end
 
     def self.equality_symbol(filter)

@@ -7,3 +7,7 @@
     <% end %>
   <% end %>
 <% end %>
+
+$('#problems-stat-val').text("<%=@problems.count%>");
+$('#proofs-stat-val').text("<%=@problems.pluck(:cached_proofs_count).sum%>");
+
