@@ -706,3 +706,63 @@ body {
     z-index: 999;
   }
 }
+
+.advanced-mini-stat {
+  overflow: hidden;
+}
+
+
+.advanced-stat-card {
+  border: none;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+  margin-bottom: 30px;
+}
+
+.advanced-stat-card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+}
+
+.advanced-mini-stat .advanced-mini-stat-icon {
+  padding: 0 20px;
+  background: rgba(89,206,181,.6);
+}
+
+.advanced-mini-stat .advanced-mini-stat-icon i {
+  display: inline-block;
+  font-size: 32px;
+  color: #fff;
+  height: 64px;
+  line-height: 64px;
+  width: 64px;
+  text-align: center;
+  position: relative;
+  top: 22px;
+  border-radius: 50%;
+}
+
+
+.mdi {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0,0);
+  transform: translate(0,0);
+}
+
+.mdi-cube-outline:before {
+  content: "\F1A7";
+}

@@ -2,7 +2,10 @@
 <aside class="col-lg-4 sidebar mb-sm-160 ph-30"> 
   <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Asked", value: time_ago_in_words(@problem.created_at), icon: "fa-calendar-o" } %>
   <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Views", value: @problem.impressionist_count, icon: "fa-eye" } %>
-  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Followers", value: @problem.followers.count, icon: "fa fa-users" } %>
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Followers", value: @problem.followers.count, icon: "fa-users" } %>
   <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Edits", value: @problem.versions.count - 1, icon: "fa-edit" } %>
+
+  <%= render 'shared/sidebars/widgets/related_problems' %>
+  <%= render 'shared/sidebars/widgets/new_topic_widget' %>
  
 </aside><!-- / .sidebar -->

@@ -8,6 +8,7 @@ class User < ApplicationRecord
   mount_uploader :avatar, UserImageUploader
   acts_as_voter
   acts_as_messageable
+  is_impressionable 
 
   has_many :versions, :dependent => :destroy
   has_many :notifications, foreign_key: :recipient_id, :dependent => :destroy

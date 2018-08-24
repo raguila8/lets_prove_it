@@ -157,6 +157,10 @@ class Problem < ApplicationRecord
     self.filter(options[:filter], options[:user]).order("#{options[:sorter]} DESC")
   end
 
+  def related_problems
+    Problem.joins(:problem_topics).where(problem_topics: { topic_id: topics.pluck(:id)}).order("cached_votes_score DESC").limit(5)
+  end
+
   private
 
     def self.filter(filter, user)

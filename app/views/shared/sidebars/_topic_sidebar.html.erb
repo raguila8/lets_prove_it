@@ -1,0 +1,14 @@
+<aside class="col-lg-3 sidebar mb-sm-160 ph-30"> 
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Followers", value: @topic.followers.count, icon: "fa-users" } %>
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Problems", value: @topic.problems.count, icon: "fa-question" } %>
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Proofs", value: @topic.proofs.count, icon: "fa-tag" } %>
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Edits", value: @topic.versions.count - 1, icon: "fa-edit" } %>
+  <% if signed_in? and current_user.topics_following.count > 0 %>
+    <%= render 'shared/sidebars/widgets/topics_widget' %>
+  <% end %>
+
+  <%= render 'shared/sidebars/widgets/popular_problems_widget' %>	
+  <%= render 'shared/sidebars/widgets/hot_topics_widget' %> 
+  <%= render 'shared/sidebars/widgets/new_topic_widget' %>
+
+</aside><!-- / .sidebar -->

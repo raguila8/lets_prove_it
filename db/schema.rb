@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180817043930) do
+ActiveRecord::Schema.define(version: 20180824041447) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -309,6 +309,7 @@ ActiveRecord::Schema.define(version: 20180817043930) do
     t.string "education"
     t.string "location"
     t.integer "reputation", default: 0
+    t.datetime "last_seen_at", default: "2018-08-24 04:24:12"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

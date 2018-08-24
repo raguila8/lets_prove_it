@@ -1,0 +1,15 @@
+<aside class="col-lg-3 sidebar mb-sm-160 ph-30"> 
+  <%= render partial: 'shared/sidebars/widgets/advanced_stat_widget' %>
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Member For", value: "#{time_ago_in_words(@user.created_at)}", icon: "fa-calendar-o" } %>
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Profile Views", value: @user.impressionist_count, icon: "fa-eye" } %>
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Last Seen", value: "#{time_ago_in_words(@user.last_seen_at)} ago", icon: "fa-calendar-o" } %>
+
+  <% if signed_in? and current_user.topics_following.count > 0 and current_user == @user %>
+    <%= render 'shared/sidebars/widgets/topics_widget' %>
+  <% end %>
+
+  <%= render 'shared/sidebars/widgets/popular_problems_widget' %>	
+  <%= render 'shared/sidebars/widgets/top_users' %>
+  <%= render 'shared/sidebars/widgets/browse_users_widget' %>
+
+</aside><!-- / .sidebar -->

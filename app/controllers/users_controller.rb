@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  impressionist actions: [:show]
   before_action :authenticate_user!, only:  [:follow, :unfollow, :vote]
   before_action :correct_user, only: [:edit, :update, :update_image]
   before_action :set_user, only: [:follow, :unfollow, :proofs,

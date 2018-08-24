@@ -70,7 +70,7 @@
               <h3 class="blog-section-title font-weight-600">Proofs <span>(<%= @problem.proofs.count %>)</span></h3>
             <% end %>
             <% @problem.proofs.each_with_index do |proof, index| %>
-              <div class="mb-20" style="<%= 'border-bottom: 1px solid #ddd;' if index == 0 %>">
+              <div class="mb-20" style="<%= 'border-bottom: 1px solid #ddd;' if @problem.proofs.count - 1 != index %>">
               <!-- Comment 1 -->
               <div class="bp-comment" id="proof-<%=proof.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if proof.comments.count > 0 %>">
                 <div class="post-meta pl-15 mt-0">
