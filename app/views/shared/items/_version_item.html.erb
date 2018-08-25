@@ -5,28 +5,40 @@
 <% end %>
 
 <div class="panel panel-default primary-card mb-40">   
-  <div class="panel-heading" role="tab" id="heading-<%=version.id%>">
+  <div class="panel-heading" style="padding: 5px 15px;" role="tab" id="heading-<%=version.id%>">
     <!-- Meta data -->
-    <div class="post-meta">
+    <div class="post-meta mb-10">
       <div class="post-date float-left font-weight-500">
         <span class="no-transform">
           <%= meta_data_icon model %>
           <% if model.class.name == "Activity" %>
             <%= model.message %>  on <%=model.created_at.strftime('%B %d, %Y')%>
           <% else %>
-            <%=version.created_at.strftime('%B %d, %Y')%>
+            <a href='/users/<%= version.user.id %>'><%=version.user.username%></a> edited problem on <%=version.created_at.strftime('%B %d, %Y')%>
           <% end %>
         </span>
       </div>
-      <span class="label label-dark float-right">Version <%= version.version_number %></span>
+      <% if model.class.name == "Version" %>
+        <span class="glyphicon glyphicon-plus collapsed float-right" role="button" data-toggle="collapse" href="#collapse-<%=model.id%>" aria-expanded="false" aria-controls="collapse-<%=model.id%>"></span>
+
+      <% else %>
+        <span class="label label-dark float-right">Version <%= version.version_number %></span>
+      <% end %>
       <div class="clearfix"></div>
     </div><!-- / .meta -->
 
-    <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-<%=version.id%>" aria-expanded="false" aria-controls="collapse-<%= version.id%>">
-      <span class="glyphicon glyphicon-plus float-right"></span>
-      <%= version.title %>
-    </h2>
-    <div class="version-description">
+    <% if model.class.name == "Version" %>
+      <h2 class="panel-title label label-dark">
+        <%= report_button model %>
+        <span style="color: #fff;"> Version <%= model.version_number %> </span>
+      </h2>
+    <% else %>
+      <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-<%=version.id%>" aria-expanded="false" aria-controls="collapse-<%= version.id%>">
+        <span class="glyphicon glyphicon-plus float-right"></span>
+        <%= version.title %>
+      </h2>
+    <% end %>
+    <div class="version-description <%= 'mt-10' if model.class.name == "Version" %>">
       <p>
         <%= version.description %>
       </p>

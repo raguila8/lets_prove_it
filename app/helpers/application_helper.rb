@@ -323,7 +323,7 @@ module ApplicationHelper
   end
 
   def meta_data_icon model
-    if model.class.name == "Activity"
+    if model.class.name == "Activity" || model.class.name == "Version"
       "<div class='meta_data_img'><a href='#{user_path(model.user)}'><img src='#{user_avatar_src(model.user)}'></img></a></div>".html_safe
     elsif model.class.name != "User"
       "<i class='fa fa-calendar-o'></i>".html_safe

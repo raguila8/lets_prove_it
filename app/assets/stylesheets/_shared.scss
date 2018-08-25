@@ -766,3 +766,119 @@ body {
 .mdi-cube-outline:before {
   content: "\F1A7";
 }
+
+.version-container {
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: hsla(0, 0, 0, .2) 0 4px 2px -2px;
+  font-family: "adelle-sans", sans-serif;
+  font-weight: 100;
+  margin: 48px auto;
+  width: 32rem;
+  @media screen and (min-width: 480px) {
+    width: 44.8rem;
+  }
+  @media screen and (min-width: 767px) {
+    width: 64rem;
+  }
+  @media screen and (min-width: 959px) {
+    width: 90rem;
+  }
+  @media screen and (min-width: 1054px) {
+    width: 100rem;
+  }
+
+}
+.version-container a {
+  color: #4d4dff;
+  text-decoration: none;
+  transition: .25s ease;
+}
+
+.version-author,
+.version-author--no-cover {
+  margin: 0 auto;
+  padding-top: .125rem;
+  width: 80%;
+}
+.version-author h3::before,
+.version-author--no-cover h3::before {
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/17779/russ.jpeg");
+  background-size: cover;
+  border-radius: 50%;
+  content: " ";
+  display: inline-block;
+  height: 32px;
+  margin-right: .5rem;
+  position: relative;
+  top: 8px;
+  width: 32px;
+}
+.version-author h3 {
+  color: #fff;
+  font-weight: 100;
+}
+.version-author--no-cover h3 {
+  color: lighten(#333, 40%);
+  font-weight: 100;
+}
+
+.version-body {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.version-title h1 a {
+  color: #333;
+  font-weight: 100;
+}
+
+.version-summary p {
+  color: lighten(#333, 10%);
+}
+
+.version-footer {
+  border-top: 1px solid lighten(#333, 70%);
+  margin: 0 auto;
+  padding-bottom: .125rem;
+  width: 80%;
+}
+.version-footer ul {
+  list-style: none;
+  display: flex;
+  flex: row wrap;
+  justify-content: flex-end;
+  padding-left: 0;
+}
+.version-footer li:first-child {
+  margin-right: auto;
+}
+.version-footer li + li {
+  margin-left: .5rem;
+}
+.version-footer li {
+  color: lighten(#333, 40%);
+  font-size: .95rem;
+  height: 1.5rem;
+  letter-spacing: 1px;
+  line-height: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  white-space: nowrap;
+  & a {
+    color: lighten(#333, 40%);
+  }
+}
+
+.published-date {
+  border: 1px solid lighten(#333, 40%);
+  border-radius: 3px;
+  padding: 0 .5rem;
+}
+.numero {
+  position: relative;
+  top: -0.5rem;
+}
+
+
