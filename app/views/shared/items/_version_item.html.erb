@@ -4,7 +4,7 @@
   <% version = model.acted_on %>
 <% end %>
 
-<div class="panel panel-default primary-card mb-40">   
+<div class="panel panel-default primary-card mb-40 version-panel">   
   <div class="panel-heading" style="padding: 5px 15px;" role="tab" id="heading-<%=version.id%>">
     <!-- Meta data -->
     <div class="post-meta mb-10">
@@ -14,12 +14,12 @@
           <% if model.class.name == "Activity" %>
             <%= model.message %>  on <%=model.created_at.strftime('%B %d, %Y')%>
           <% else %>
-            <a href='/users/<%= version.user.id %>'><%=version.user.username%></a> edited problem on <%=version.created_at.strftime('%B %d, %Y')%>
+            <a href='/users/<%= version.user.id %>'><%=version.user.username%></a> edited <%=controller_name == "topics" ? 'topic':'problem'%> on <%=version.created_at.strftime('%B %d, %Y')%>
           <% end %>
         </span>
       </div>
       <% if model.class.name == "Version" %>
-        <span class="glyphicon glyphicon-plus collapsed float-right" role="button" data-toggle="collapse" href="#collapse-<%=model.id%>" aria-expanded="false" aria-controls="collapse-<%=model.id%>"></span>
+        <span class="glyphicon glyphicon-chevron-down collapsed float-right version-toggle-content" role="button" data-toggle="collapse" href="#collapse-<%=model.id%>" aria-expanded="false" aria-controls="collapse-<%=model.id%>"></span>
 
       <% else %>
         <span class="label label-dark float-right">Version <%= version.version_number %></span>
@@ -34,7 +34,7 @@
       </h2>
     <% else %>
       <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-<%=version.id%>" aria-expanded="false" aria-controls="collapse-<%= version.id%>">
-        <span class="glyphicon glyphicon-plus float-right"></span>
+        <span class="glyphicon glyphicon-chevron-down float-right"></span>
         <%= version.title %>
       </h2>
     <% end %>
@@ -53,7 +53,7 @@
           <div class="post-meta" id="problem-tags-list">
             <ul class="tag-list mt-20">
               <% version.get_version_topics.each do |topic| %>
-                <li><a href="#"><%= topic.name %></a></li>
+                <li><a href="<%= topic_path(topic.id)%>"><%= topic.name %></a></li>
               <% end %>
             </ul> <!-- / .tag-list -->
           </div><!-- / .meta -->

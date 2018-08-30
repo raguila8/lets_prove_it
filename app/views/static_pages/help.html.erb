@@ -1,0 +1,436 @@
+<div class="container-fluid blog-classic" id="help_center">
+  <div class="row">
+    <!-- ========== Blog Posts ========== -->
+
+    <div class="col-lg-12">
+
+      <div class="mh-auto ft-tabs">
+        <div class="row">
+            
+          <!-- Tabs -->
+          <div class="col-md-3 col-sm-3 col-lg-3 no-gap tab-navbar">
+	          <ul class="tabs-list" role="tablist">
+
+		          <!-- Tab 1 -->
+		          <li role="presentation" class="active">
+			          <a href="#problems">
+				          <div class="tab-bottom">
+					          <p><span class="fa fa-question mr-5"></span> <span class="tab-text">Problems</span></p>
+				          </div>
+			          </a>
+
+		          <!-- Tab 2 -->
+		          </li><li role="presentation">
+			          <a href="#general">
+				          <div class="tab-bottom">
+					          <p><span class="fa fa-star mr-5"></span> <span class="tab-text"> General</span></p>
+			 	          </div>
+			          </a>
+
+		          <!-- Tab 3 -->
+		          </li><li role="presentation">
+			          <a href="#reputation">
+				          <div class="tab-bottom">
+					          <p><span class="fa fa-trophy mr-5"></span> <span class="tab-text">Reputation</span></p>
+				          </div>
+			          </a>
+
+              <!-- Tab 4 -->
+		          </li><li role="presentation">
+			          <a href="#proofs">
+				          <div class="tab-bottom">
+					          <p><span class="fa fa-comment mr-5"></span> <span class="tab-text">Proofs</span></p>
+				          </div>
+			          </a>
+		          </li>
+
+
+              <!-- Tab 5 -->
+		          </li><li role="presentation">
+			          <a href="#account">
+				          <div class="tab-bottom">
+					          <p><span class="fa fa-user mr-5"></span> <span class="tab-text">Account</span></p>
+			 	          </div>
+			          </a>
+              </li> 
+	          </ul>
+          </div><!-- / .col-lg-3 -->
+
+
+          <!-- Tabs Content -->
+          <div class="col-sm-8 col-md-8 col-lg-8 no-gap tab-content mb-100">
+
+            <!-- Tab Content 1 -->
+            <div class="tab-pane fade active in">
+              <div class="col-md-12 tab-content-text page-content pt-0">
+                <div class="tab-list-content">
+                  <!-- FAQ Accordion -->
+                  <div class="panel-group accordions-1" id="faq-accordion-1" role="tablist" aria-multiselectable="true">
+
+                    <div class="mt-20" id="problems">
+                      <h1 class="mb-20"> Problems </h1>
+                      <div class="panel panel-default primary-card mb-40 faq-panel" id="topics-faq">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-problem-1" aria-expanded="false" aria-controls="collapse-problem-1" id="heading-problem-1">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            What are tags/topics and how do I use them?
+                          </h2>
+                        </div>
+                        <div id="collapse-problem-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-1">
+                          <div class="panel-body">
+                            <p> Topics are a way of connecting users with problems they will be able to answer by sorting problems into specific, well-defined categories.</p>
+                            <p> Topics are also used to help you identify problems that are relavent or interesting to you. Users can follow topics in order to recieve problems within the topic in their <a href="#problem-feed-faq">feed</a>. You can <a href="<%= topics_path%>">browse and search new topics</a> in the topics index page to improve your feed.</p>
+                            <p> Each problem has to have at least one topic. Clicking on the topic tags corresponding to a problem brings you to a page that shows you a description of what the topic is. You can also see all problems and proofs within that topic, the past edits made to that topic (<a href="#editing-faq">See how editing works</a>), and the users who are following it.</p>
+                            <p>Not everyone can <a href="#create-new-topic-faq">create a new topic</a>. A certain amount of reputation is needed before you can start creating new topics. Even if you have sufficient reputation, you should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
+                            <p>Users with sufficient reputation can edit the topic tags of a problem if they feel a certain tag was used innapropriately or if the problem is missing a topic.</p>
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-problem-2" aria-expanded="false" aria-controls="collapse-problem-2" id="heading-problem-2">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            Writing good problems
+                          </h2>
+                        </div>
+                        <div id="collapse-problem-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-2">
+                          <div class="panel-body">
+                            <p>Improve your chances of getting a proof by writing good problems.</p>
+                            <p>Make sure your problem is not a duplicate and is different from the rest. <a href="#">Search</a>, research and keep track of what you find. You can link problems that have not helped you so that others can better understand your question and make sure it is not repeated.</p>
+                            <h3>Write a title that summarizes the problem</h3>
+                            <p>The title is the first thing that users will see, and if it is not good people will lose interest and won't read the rest. Here are some tips for making a good title:</p>
+                            <ul>
+                              <li>Sum up your entire problem in one sentence. Include details that will help people identify and solve your problem. Iclude any constraints or variants to your problem that make it different from similar problems already on the site.</li>
+                              <li>Spelling, grammar and punctuation are important! Make sure you proof-read it or have someone proof-read it for you if your english is not good.</li>
+                              <li>Write the title last if you are having trouble summarizing the problem. Sometimes writing the problem first can make it easier for you to describe the problem.</li>
+                            </ul>
+                            <h3>Include relevant tags</h3>
+                            <p>Make sure that the tags you submit are relevant to the problem by reading their descriptions. The system will suggest topics that match what you have typed. See also: <a href="#topics-faq">What are tags/topics and how do I use them?</a></p>
+                            <h3>Proof-read before posting</h3>
+                            <p>Read the problem from start to finish and make sure everything is clear and makes since. Add any details you missed and read through it again. Before posting, if you wrote the title first, read it again and make sure it still describes the problem.</p>
+                            <h3>Make sure the problem is to prove a mathematical statement</h3>
+                            <p>The purpose of this site is not to solve computational problems and make calculations: it is about the conscious understanding of abstract mathematical truth, and why it is true. Forget about calculating, and ask questions like why a particular statement is true or false, and why a certain pattern exists.</p>
+                            <h3>Respond to feedback after posting problem</h3>
+                            <p>After posting your problem, frequently check on it to see if anyone comments on it. If you missed a piece of information or made an error in your problem, be ready to edit your problem and fix it. If someone posts a proof, be ready to provide feedback.</p>
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+ 
+                      <div class="panel panel-default primary-card mb-40 faq-panel" id="problem-feed-faq">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-problem-4" aria-expanded="false" aria-controls="collapse-problem-4" id="heading-problem-4">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            How do I find problems I am interested in?
+                          </h2>
+                        </div>
+                        <div id="collapse-problem-4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-4">
+                          <div class="panel-body">
+                            <p>The primary way that you will find problems you are interested in is through your problem feed. Problems that you follow and problems within topics that you follow will show up in your feed. It is important that you follow topics that you are interested in, so that your feed can be tailored to you.</p>
+                            <h3> Search for specific problems </h3>
+                            <p> If you want to browse and search from all problems that contain some phrase or word, you can do so <a href="#">here</a>. You can refine your search by filtering problems with proofs or ones that don't have any yet. You can also sort based on date created or modified, and most upvoted or problems with most proofs.</p>
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                    </div>
+
+                    <div class="mt-20" id="general">
+                      <h1 class="mb-20"> General </h1>
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-general-1" aria-expanded="false" aria-controls="collapse-general-1" id="heading-general-1">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            Expected Behavior
+                          </h2>
+                        </div>
+                        <div id="collapse-general-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-1">
+                          <div class="panel-body">
+                            <p> We are happy to have ypu here. Here are a few guidelines you should follow.</p>
+                            <h3>Be polite.</h3>
+                            <p>We are all here to learn together. Whether you are posting a problem, or sharing what you know, remember to always be nice and welcoming.</p>
+                            <h3>Be honest.</h3>
+                            <p>Don't be afraid to speak up. If you see a bad problem or misinformation, vote it down and comment what is specifically wrong. If you have the reputation, we encourage you to <a href="#editing-faq">edit and improve</a> when it is necessary. Doing these things will help keep the integrity and knowledge of the site.</p>
+                            <h3>Avoid self-promotion.</h3>
+                            <p>This site is not about promoting your products or websites. We encorage users to vote-down overt self-promotion and will take down any posts we see fit.</p>
+                            <h3>Don't use greetings or signatures.</h3>
+                            <p>Posts are already marked with your user card that links to your profile page. Introducing yourself or writing taglines introduces unnecessary noise to your posts.</p>
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+ 
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-general-3" aria-expanded="false" aria-controls="collapse-general-3" id="heading-general-3">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            How do I write math on my posts?
+                          </h2>
+                        </div>
+                        <div id="collapse-general-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-3">
+                          <div class="panel-body">
+                            <%= render "static_pages/mathjax_cheatsheet_content" %>
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel" id="editing-faq">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-general-4" aria-expanded="false" aria-controls="collapse-general-4" id="heading-general-4">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            Why can people edit my posts? How does editing work?
+                          </h2>
+                        </div>
+                        <div id="collapse-general-4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-4">
+                          <div class="panel-body">
+                            <p>This site is a collaborative effort. If you see a problem or topic that needs improvement, click edit!<p>
+                            <p>We believe that the collective wisdom of users ensures the quality of posts. Editing is important for keeping problems and topics clear, grammatically correct and relevant.<p>
+                            <h3>When to edit posts</h3>
+                            <p> Whenever you see a post that can be improved, it is ecouraged to edit it. Edits are expected to leave the post better than how you found it. Here are some reasons for edits: </p>
+                            <ul>
+                              <li>To improve spelling, grammar or punctuation</li>
+                              <li>To clarify the meaning of the post. It is important not to change the intended meaning of the poster.</li>
+                              <li>To include important information that is found in the comments. Sometimes additional information or a clarification arises in the comments. It is better to keep all of the relevant information in one place.</li>
+                              <li>To correct a mistake or error made</li>
+                              <li>To add citations, links or resources</li>
+                            </ul>
+                            <h3>Who can edit posts?</h3>
+                            <p>Only trusted memebers of the community can edit problems or posts. You need at least 2000 reputation points to edit posts. The creator of the post can always edit their own post, regardless of their reputation.</p>
+                            <h3>What happens after I edit a post?</h3>
+                            <p>The post will update to show the latest editor as well as the original creator. All edits are saved and tracked in the posts version history. Each version will be viewable along with the editor in the post's log. Editing a post will bump it to the top of the feed.</p>
+                            <h3>What if the edit was bad?</h3>
+                            <p>Common users can report edits. If the latest edit gets 5 or more reports then the latest version will be reverted to its previous version and the edit will disappear from the log. Trusted users with at least 2000 reputation, and original authors can rollback edits automatically.</p>
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-general-5" aria-expanded="false" aria-controls="collapse-general-5" id="heading-general-5">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            What if I need more help?
+                          </h2>
+                        </div>
+                        <div id="collapse-general-5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-5">
+                          <div class="panel-body">
+                            <p>If you have a question, need more information, are experiencing an error, or want to report a security vulnerabilty, please <%= link_to "contact us directly", contact_path %>.</p>
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+ 
+                      <div class="panel panel-default primary-card mb-40 faq-panel" id="create-new-topic-faq">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-general-6" aria-expanded="false" aria-controls="collapse-general-6" id="heading-general-6">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            Creating Topics
+                          </h2>
+                        </div>
+                        <div id="collapse-general-6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-6">
+                          <div class="panel-body">
+                            <p>Trusted users with at least 2000 reputation can create new topics. You should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
+                            <h3>How do I create a new topic?</h3>
+                            <p>If you are a trusted member then a link to create a new topic will appear on your homepage sidebar. When creating the topic, bear in mind that topic names must not be longer than 35 characters, and can only use the following chacter set: <code>a-z</code>, <code>0-9</code>, <code>+</code>, <code>#</code>, <code>-</code>, <code>.</code>. You must provide a description of the topic as well.</p>
+                            <h3>What happens after a new topic is created?</h3>
+                            <p>The new topic will now be able for all other users to use and follow. If they are not used by any questions in a 4 month period, the topic will be removed.</p>
+                            <p>Please create topics responsibly!</p>
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+
+ 
+                    </div>
+                    <div class="mt-20" id="reputation">
+                      <h1 class="mb-20"> Reputation </h1>
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-reputation-1" aria-expanded="false" aria-controls="collapse-reputation-1" id="heading-reputation-1">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            What is reputation and how do I earn it?
+                          </h2>
+                        </div>
+                        <div id="collapse-reputation-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-reputation-1">
+                          <div class="panel-body">
+                          <p>Reputation is a rough measure of how much the community trusts you, and it is earned by convincing users that you know what you are talking about. The more reputation you earn the more <a href="#privilege-faq">privileges</a> you gain and the more you can do on the site. It is set up this way because we believe in the wisdom of our users so we want them to run the site as a collective community.</p>
+                          <h3>How to earn reputation</h3>
+                          <p>As mentioned before, the primary way to earn reputation is by convincing people that you know what you are talking about. This is primarily donw by writing good problems and proofs. votes on these posts can make you either gain or lose reputation.</p>
+                          <h4>Ways to gain reputation:</h4>
+                            <ul>
+                              <li>Problem is voted up: +5</li>
+                              <li>Proof is voted up: +10</li>
+                              <li>Comment is voted up: +2</li>
+                            </ul>
+                          <h4>Ways to lose reputation:</h4>
+                            <ul>
+                              <li>Problem is voted down: -2</li>
+                              <li>Proof is voted down: -2</li>
+                              <li>Comment is voted down: -2</li>
+                            </ul>
+                            <p> All users start with 0 reputation and it can nver drop below 0. Deleting a post will not affect the scores of the authors and people involved. When a user reverses a vote, the corresponding reputation loss or gain will be reverted as well.</p>
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-reputation-2" aria-expanded="false" aria-controls="collapse-reputation-2" id="heading-reputation-2">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            What are badges?
+                          </h2>
+                        </div>
+                        <div id="collapse-reputation-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-reputation-2">
+                          <div class="panel-body">
+                            <p>Each user has a colored badge that serves as a sort of rank, and determines the level of trust he or she has earned based on his or her reputation score. This color badge appears on the user's standard card and provides a quick visual representation of the user's trustworthiness and site prestige.</p>
+                            <p>The following are the badges along with the corresponding reputation level needed to earn you that badge:</p>
+                            <div class="row">
+                              <div class="col-xs-6 col-sm-4">
+                                <p class="badge-label" style="background-color: #373940;"><span class="fa fa-trophy mr-5"></span> 0</p>
+                              </div>
+                              <div class="col-xs-6 col-sm-4">
+                                <p class="badge-label" style="background-color: #ff7361;"><span class="fa fa-trophy mr-5"></span> 10</p>
+                              </div>
+                              <div class="col-xs-6 col-sm-4">
+                                <p class="badge-label" style="background-color: #2E8B57;"><span class="fa fa-trophy mr-5"></span> 200</p>
+                              </div>
+                              <div class="col-xs-6 col-sm-4">
+                                <p class="badge-label" style="background-color: #1e73be;"><span class="fa fa-trophy mr-5"></span> 1000</p>
+                              </div>
+                              <div class="col-xs-6 col-sm-4">
+                                <p class="badge-label" style="background-color: #544f87;"><span class="fa fa-trophy mr-5"></span> 5000</p>
+                              </div>
+                              <div class="col-xs-6 col-sm-4">
+                                <p class="badge-label" style="background-color: #dd9934;"><span class="fa fa-trophy mr-5"></span> 25000</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel" id="privilege-faq">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-reputation-3" aria-expanded="false" aria-controls="collapse-reputation-3" id="heading-reputation-3">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            View privileges you can earn with reputation
+                          </h2>
+                        </div>
+                        <div id="collapse-reputation-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-reputation-3">
+                          <div class="panel-body">
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                    </div>
+
+                    <div class="mt-20" id="proofs">
+                      <h1 class="mb-20"> Proofs </h1>
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-proof-1" aria-expanded="false" aria-controls="collapse-proof-1" id="heading-proof-1">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            How do I write a good proof?
+                          </h2>
+                        </div>
+                        <div id="collapse-proof-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-proof-1">
+                          <div class="panel-body">
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-proof-2" aria-expanded="false" aria-controls="collapse-proof-2" id="heading-proof-2">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            Can I prove my own problem?
+                          </h2>
+                        </div>
+                        <div id="collapse-proof-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-proof-2">
+                          <div class="panel-body">
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-proof-3" aria-expanded="false" aria-controls="collapse-proof-3" id="heading-proof-3">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            Why and how has my proof been deleted?
+                          </h2>
+                        </div>
+                        <div id="collapse-proof-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-proof-3">
+                          <div class="panel-body">
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+                    </div>
+
+                    <div class="mt-20" id="account">
+                      <h1 class="mb-20"> Account </h1>
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-account-1" aria-expanded="false" aria-controls="collapse-account-1" id="heading-account-1">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            I lost my password: how do I reset it?
+                          </h2>
+                        </div>
+                        <div id="collapse-account-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-account-1">
+                          <div class="panel-body">
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-account-2" aria-expanded="false" aria-controls="collapse-account-2" id="heading-account-2">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            How do I delete my account?
+                          </h2>
+                        </div>
+                        <div id="collapse-account-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-account-2">
+                          <div class="panel-body">
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-account-3" aria-expanded="false" aria-controls="collapse-account-3" id="heading-account-3">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            How do I create an account?
+                          </h2>
+                        </div>
+                        <div id="collapse-account-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-account-3">
+                          <div class="panel-body">
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-account-4" aria-expanded="false" aria-controls="collapse-account-4" id="heading-account-4">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            Why should I create an account?
+                          </h2>
+                        </div>
+                        <div id="collapse-account-4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-account-4">
+                          <div class="panel-body">
+                          </div>
+                        </div>
+                      </div><!-- / .panel -->
+
+
+
+                    </div>
+
+                  </div><!-- / .panel-group .accordion-1 --> 
+                </div>
+              </div>
+            </div><!-- / #tab1 -->
+          </div><!-- / .col-lg-10 -->
+        </div><!-- / .row -->
+      </div>
+    </div><!-- / .col-md-9 -->
+  </div>
+</div>

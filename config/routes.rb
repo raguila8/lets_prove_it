@@ -21,9 +21,11 @@ Rails.application.routes.draw do
   get 'users/show'
 
   get 'static_pages/landing'
-  get 'static_pages/about'
-  get 'static_pages/mathjax_cheatsheet'
-  get 'static_pages/contact'
+  get '/about', to: 'static_pages#about', as: :about
+  get '/mathjax_cheatsheet', to: 'static_pages#mathjax_cheatsheet', as: :mathjax_cheatsheet
+  get '/contact_us', to: 'static_pages#contact', as: :contact
+  get '/tour', to: 'static_pages#tour', as: :tour
+  get '/help', to: 'static_pages#help', as: :help
 
   devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
   devise_scope :user do

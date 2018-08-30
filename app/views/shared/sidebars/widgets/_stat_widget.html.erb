@@ -4,7 +4,7 @@
       <div class="stat-card-body">
         <div class="d-flex">
           <div class="d-flex-body text-left">
-            <h6 class="text-muted font-weight-600"><%=stat%></h6>
+            <%= stat_widget_text stat %>
             <h3 id="<%=stat.downcase%>-stat-val"><%= value %></h3>
           </div>
           <div class="align-self-center">

@@ -375,4 +375,19 @@ module ApplicationHelper
     end
     return html.html_safe
   end
+
+  def stat_widget_text(stat)
+    html = "<h6 class='text-muted font-weight-600'>#{stat}</h6>"
+    if controller_name == "problems" and action_name == "show"
+      if stat == "Edits"
+        html = "<a href='/problems/#{@problem.id}/logs' class='text-muted font-weight-600' style='font-size: 0.85em;'>#{stat} <span class='fa fa-arrow-circle-right ml-5'></span></a>"
+        return html.html_safe
+      elsif stat == "Followers"
+        html = "<a href='/problems/#{@problem.id}/logs' class='text-muted font-weight-600' style='font-size: 0.85em;'>#{stat} <span class='fa fa-arrow-circle-right ml-5'></span></a>"
+        return html.html_safe
+      end
+    end
+
+    return html.html_safe
+  end
 end

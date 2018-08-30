@@ -361,9 +361,46 @@ $(document).on('turbolinks:load', function() {
       $('.ft-tabs .tabs-list li').on('click', function() {
         $('.ft-tabs .tabs-list li').removeClass('active');
         $(this).addClass('active');
-        $('.tab-list-content').html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
+        if ($("#help_center").length == 0) {
+          $('.tab-list-content').html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
+        }
+      });
+    }
+
+    if ($('#help_center').length > 0) {
+      $(window).scroll(function() {
+        if ($(window).width() < 768 && $(this).scrollTop() >= $(".navbar").height()) {
+          $('.tab-navbar .tabs-list').stop().animate({top: "15px"}, 500);
+        }
+
+        if ($(window).width() < 768 && $(this).scrollTop() < $(".navbar").height()) {
+          console.log("caca");
+          $('.tab-navbar .tabs-list').stop().animate({top: "95px"}, 500);
+        }
+
+        if ($(this).scrollTop() >= $('#problems').offset().top - 60) {
+          $('.tabs-list li').removeClass('active');
+          $('.tabs-list li:eq(0)').addClass('active');
+        }
+        if ($(this).scrollTop() >= $('#general').offset().top - 60) {
+          $('.tabs-list li').removeClass('active');
+          $('.tabs-list li:eq(1)').addClass('active');
+        }
+        if ($(this).scrollTop() >= $('#reputation').offset().top - 60) {
+          $('.tabs-list li').removeClass('active');
+          $('.tabs-list li:eq(2)').addClass('active');
+        }
+        if ($(this).scrollTop() >= $('#proofs').offset().top - 60) {
+          $('.tabs-list li').removeClass('active');
+          $('.tabs-list li:eq(3)').addClass('active');
+        }
+        if ($(this).scrollTop() >= $('#account').offset().top - 60) {
+          $('.tabs-list li').removeClass('active');
+          $('.tabs-list li:eq(4)').addClass('active');
+        }
 
       });
+
     }
   }
 
@@ -667,15 +704,28 @@ $(document).on('turbolinks:load', function() {
  ----------------------------------------------------------*/
 
   function initAccordion() {
-    $("body").on('click', ".panel-title", function() {
-      if ($(this).find(".glyphicon").hasClass("glyphicon-plus")) {
-        $(this).find(".glyphicon").removeClass("glyphicon-plus");
-        $(this).find(".glyphicon").addClass("glyphicon-minus");
+    $("body").on('click', ".version-panel .version-toggle-content", function() {
+      if ($(this).hasClass("glyphicon-chevron-down")) {
+        $(this).removeClass("glyphicon-chevron-down");
+        $(this).addClass("glyphicon-chevron-up");
       } else {
-        $(this).find(".glyphicon").removeClass("glyphicon-minus");
-        $(this).find(".glyphicon").addClass("glyphicon-plus");
+        $(this).removeClass("glyphicon-chevron-up");
+        $(this).addClass("glyphicon-chevron-down");
       }
     });
+
+    $("body").on('click', ".faq-panel .panel-title", function() {
+      var $toggle = $(this).find('.glyphicon');
+      if ($toggle.hasClass("glyphicon-chevron-down")) {
+        $toggle.removeClass("glyphicon-chevron-down");
+        $toggle.addClass("glyphicon-chevron-up");
+      } else {
+        $toggle.removeClass("glyphicon-chevron-up");
+        $toggle.addClass("glyphicon-chevron-down");
+      }
+
+    });
+
   }
 
 /* --------------------------------------------------------
