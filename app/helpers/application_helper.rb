@@ -15,7 +15,7 @@ module ApplicationHelper
       if %w(mathjax_cheatsheet contact).include? action_name
         render partial: "layouts/header2"
       end
-    elsif %w(users topics).include? controller_name and action_name == "index"
+    elsif %w(users topics problems).include? controller_name and action_name == "index"
       render partial: "layouts/header2"
     else
       render partial: "layouts/header1"
@@ -29,6 +29,8 @@ module ApplicationHelper
       "Register"
     elsif controller_name == "problems"
       if action_name == "index"
+        "Problems"
+      elsif action_name == "feed"
         "Home"
       elsif action_name == "new" || action_name == "create"
         "Add Problem"
@@ -80,7 +82,7 @@ module ApplicationHelper
     elsif controller_name == "registrations" and (action_name == "new" || action_name == "create")
       "Create and Account or Login"
     elsif controller_name == "problems"
-      if action_name == "index"
+      if action_name == "feed"
         "Filter problems by topic"
       elsif action_name == "new" || action_name == "create"
         "Make a statement to prove"
@@ -94,6 +96,12 @@ module ApplicationHelper
         "Problem Edits"
       elsif action_name == "edit" || action_name == "update"
         "Edit Problem"
+      elsif action_name == "index"
+        content = "<div class='col-sm-offset-3 col-sm-6' id='search-header'><div class='form-group'>" + 
+                    "<input type='search' placeholder='Filter by title' class='form-control'>" +
+                    "<button class='inside-input-btn'><i class='fa fa-search'></i></button>" +
+                  "</div></div>"
+        return content.html_safe
       end
     elsif controller_name == "topics"
       if action_name == "new" || action_name == "create"

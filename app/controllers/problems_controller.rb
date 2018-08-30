@@ -2,7 +2,7 @@ class ProblemsController < ApplicationController
   impressionist actions: [:show]
   before_action :set_problem, only: [:show, :edit, :update, :destroy, :logs,
                                      :follow, :unfollow]
-  before_action :logged_in_user, :correct_reputation, only: [:edit, :update]
+  before_action :logged_in_user, :correct_reputation, only: [:edit, :update, :feed]
 
   def follow
     current_user.follow @problem
@@ -21,13 +21,27 @@ class ProblemsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @problems = Problem.feed({user: current_user})
+        @problems = Problem.feed
       }
 
       format.js {
-        @problems = Problem.feed({user: current_user, 
+        @problems = Problem.feed({ filter: params[:filter], 
+                                  sorter: params[:sorter],
+                                  search_filter: params[:search_filter] })
+      }
+    end
+  end
+
+  def feed
+    respond_to do |format|
+      format.html {
+        @problems = Problem.feed({ user: current_user })
+      }
+
+      format.js {
+        @problems = Problem.feed({ user: current_user, 
                                   filter: params[:filter], 
-                                  sorter: params[:sorter]})
+                                  sorter: params[:sorter] })
       }
     end
   end

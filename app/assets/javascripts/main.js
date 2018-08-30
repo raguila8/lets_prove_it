@@ -289,6 +289,7 @@ $(document).on('turbolinks:load', function() {
           url = "/problems"
           $feed = $('#problem-feed');
           data.filter = $("#item-filters").attr('data-filter');
+          data.search_filter = $("#item-filters").attr('data-search-filter')
         } else if ($('#topic-feed').length > 0) {
           url = "/topics";
           $feed = $('#topic-feed');
@@ -334,6 +335,10 @@ $(document).on('turbolinks:load', function() {
         } else if ($('#users-feed').length > 0) {
           url = "/users";
           $feed = $('#users-feed');
+          data.filter = $("#item-filters").attr('data-filter');
+        } else if ($('#problem-feed').length > 0) {
+          url = "/problems"
+          $feed = $('#problem-feed');
           data.filter = $("#item-filters").attr('data-filter');
         }
 

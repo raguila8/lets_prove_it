@@ -2,7 +2,7 @@
   <div class="row">
     <!-- ========== Blog Posts ========== -->
 
-    <div class="col-md-12">
+    <div class="col-lg-9">
 
       <div class="mh-auto ft-tabs">
         <div class="row">
@@ -10,7 +10,7 @@
           <%= render 'shared/main_site_tabs' %>
 
           <!-- Tabs Content -->
-          <div class="col-lg-8 no-gap tab-content">
+          <div class="col-lg-10 no-gap tab-content">
 
             <!-- Tab Content 1 -->
             <div class="tab-pane fade active in">
@@ -19,7 +19,7 @@
                   <div class="row">
                     <button class="btn-text font-weight-600" id='filter-btn'><span class="glyphicon glyphicon-filter"></span> Filter</button>
                   </div>
-                  <div class="row" id="item-filters" style="display: none;" data-filter="all" data-sorter="created_at" data-search-filter="">
+                  <div class="row" id="item-filters" style="display: none;" data-filter="all" data-sorter="created_at">
                     <div class="col-md-12">
                       <div class="col-md-6">
                         <p>Filter:</p>
@@ -50,9 +50,10 @@
                 </div>
               </div>
             </div><!-- / #tab1 -->
-          </div><!-- / .col-lg-8 -->
+          </div><!-- / .col-lg-10 -->
         </div><!-- / .row -->
       </div>
     </div><!-- / .col-md-9 -->
+    <%= render 'shared/sidebars/home_sidebar' %>
   </div>
 </div>

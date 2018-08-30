@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
   devise_scope :user do
     authenticated :user do
-			root 'problems#index'
+			root 'problems#feed'
 		end
 		
 		unauthenticated do
@@ -56,6 +56,8 @@ Rails.application.routes.draw do
   resources :reports, only: [:new, :create]
 
   resources :problems
+  get "/feed", to: "problems#feed", as: :feed
+
   get '/problems/:id/logs', to: 'problems#logs', as: :problem_logs
   resources :images, only: [:create, :destroy]
   put '/vote', to: 'users#vote', as: :vote

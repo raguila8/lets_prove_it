@@ -151,10 +151,14 @@ class Problem < ApplicationRecord
     Problem.order("random()").first.id
   end
 
-  def self.feed(options = {user: ""})
+  def self.feed(options = {user: nil})
     options[:filter] = "all" if options[:filter].nil?
     options[:sorter] = "created_at" if options[:sorter].nil?
-    self.filter(options[:filter], options[:user]).order("#{options[:sorter]} DESC")
+    if !options[:search_filter].blank?
+      self.filter(options[:filter], options[:user]).where("title LIKE :term", term: "%#{options[:search_filter]}%").order("#{options[:sorter]} DESC")
+    else
+      self.filter(options[:filter], options[:user]).order("#{options[:sorter]} DESC")
+    end
   end
 
   def related_problems
