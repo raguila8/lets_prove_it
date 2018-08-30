@@ -1,7 +1,7 @@
 // Cancel all other new comment forms if any
-$('#new-comment-form').remove();
-$('.comment-replay-btn').css('display', 'inine-block');
+$('#comment-form').remove();
+$('.comment-replay-btn').show();
+$("#<%=@comment.commented_on_type.downcase%>-<%=@comment.commented_on_id%> .comment-replay-btn").hide();
 
-$('#proof-<%=@proof.id%>').find('.comment-replay-btn').css('display', 'none');
+$('#<%=@comment.commented_on_type.downcase%>-<%=@comment.commented_on_id%>').after("<%= escape_javascript render(:partial => '/comments/comment_form', :locals => { :@comment => @comment }) %>");
 
-$('#proof-<%=@proof.id%>').after("<%= escape_javascript render(:partial => '/comments/comment_form', :locals => { :@comment => @comment, :@action_name => 'cancel_new' }) %>");

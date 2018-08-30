@@ -1,7 +1,7 @@
 <% if !@comment.nil? and !@comment.errors.any? %>
-  $('#proof-<%=@comment.proof.id%> .comment-replay-btn').css('display', 'inline-block');
-  $('#proof-<%= @comment.proof.id %>').next().remove();
-  $('#proof-<%= @comment.proof.id %>').after("<%= escape_javascript render(:partial => '/comments/comment', :locals => { :@comment => @comment }) %>");
+  $('#<%=@comment.commented_on_type.downcase%>-<%=@comment.commented_on_id%> .comment-replay-btn').show();
+  $('#<%=@comment.commented_on_type.downcase%>-<%=@comment.commented_on_id%>').next().remove();
+  $('#<%=@comment.commented_on_type.downcase%>-<%=@comment.commented_on_id%>').after("<%= escape_javascript render(:partial => '/comments/comment', :locals => { :@comment => @comment }) %>");
 
 
   // toastr flash messages
@@ -31,6 +31,6 @@
   } ,500);
 
 <% else %>
-  $('#new-comment-form').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@comment => @comment }) %>");
+  $('#comment-form').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@comment => @comment }) %>");
 
 <% end %>

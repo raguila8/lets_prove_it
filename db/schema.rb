@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180824041447) do
+ActiveRecord::Schema.define(version: 20180830043248) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 20180824041447) do
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.integer "user_id"
-    t.integer "proof_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "cached_votes_total", default: 0
@@ -56,7 +55,9 @@ ActiveRecord::Schema.define(version: 20180824041447) do
     t.integer "cached_weighted_score", default: 0
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
-    t.index ["proof_id"], name: "index_comments_on_proof_id"
+    t.integer "commented_on_id"
+    t.string "commented_on_type"
+    t.index ["commented_on_id"], name: "index_comments_on_commented_on_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 

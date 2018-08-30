@@ -3,8 +3,8 @@ class CommentsController < ApplicationController
 
   def new
     @comment = Comment.new
-    @proof = Proof.find(params[:proof_id])
-    @comment.proof_id = @proof.id
+    @commented_on = params[:commented_on_type].capitalize.constantize.find(params[:commented_on_id])
+    @comment.update_attributes(commented_on: @commented_on)
     @comment.user_id = current_user.id
 
     respond_to do |format|
@@ -15,15 +15,21 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
+
     respond_to do |format|
       if @comment.save
-        # Notify people who have commented on the proof
-        ((@comment.proof.comments.map{ |comment| comment.user }).uniq - [current_user, @comment.proof.user]).each do |commenter|
-          Notification.notify_user(commenter, current_user, "commented on a proof you have commented on for", @comment.proof.problem)
+        notifiable = (@comment.commented_on_type == "Proof" ? @comment.commented_on.problem : @comment.commented_on)
+
+        # Notify people who have commented on the post
+        ((@comment.commented_on.comments.map{ |comment| comment.user }).uniq - [current_user, @comment.commented_on.user]).each do |commenter|
+          action = (@comment.commented_on_type == "Proof" ? "commented on a proof you have commented on for" : "commented on")
+          Notification.notify_user(commenter, current_user, action, notifiable)
         end
 
-        # Notify the person who wrote the proof
-        Notification.notify_user(@comment.proof.user, current_user, "commented on your proof for", @comment.proof.problem) if @comment.proof.user != current_user
+        # Notify the person who wrote the post
+        action = (@comment.commented_on_type == "Proof" ? "commented on your proof for" : "commented on")
+
+        Notification.notify_user(@comment.proof.user, current_user, action, notifiable) if @comment.commented_on.user != current_user
  
         format.js {}
       else
@@ -40,6 +46,14 @@ class CommentsController < ApplicationController
       format.js {}
     end
   end
+
+  def cancel_new
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
+  def 
 
   def update
     @comment.update_attributes(comment_params)
@@ -68,7 +82,7 @@ class CommentsController < ApplicationController
   private
 
     def comment_params
-      params.require(:comment).permit(:content, :proof_id)
+      params.require(:comment).permit(:content, :commented_on_type, :commented_on_id)
     end
 
     def set_comment

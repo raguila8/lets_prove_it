@@ -9,7 +9,12 @@ class ApplicationRecord < ActiveRecord::Base
     end
   
     if self.class.name == "Proof" || self.class.name == "Comment"
-      linkable = (self.class.name == "Comment" ? self.proof.problem : self.problem)
+      if self.class.name == "Proof"
+        linkable = self.problem
+      else
+        linkable = (self.commented_on_type == "Proof" ? self.commented_on.problem : self.commented_on)
+      end
+
       Activity.create(user: self.user, action: "deleted", acted_on: self, deleted_on: Time.now, linkable: linkable)
     end 
   end

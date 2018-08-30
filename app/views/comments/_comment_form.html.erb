@@ -1,22 +1,28 @@
 <%= form_with(model: @comment, remote: true, id: "comment-form", class: "mb-20") do |form| %>
-  <%= form.hidden_field :proof_id, value: @comment.proof.id %>
-  <h2>New Comment</h2>
+  <%= form.hidden_field :commented_on_type, value: @comment.commented_on_type %>
+  <%= form.hidden_field :commented_on_id, value: @comment.commented_on_id %>
+
+  <% if @comment.new_record? %>
+    <h2>New Comment</h2>
+  <% else %>
+    <h2>Edit Comment</h2>
+  <% end %>
+
   <div class="form-group">
-    <%= form.text_area :content, class: "mb-20 form-control", id: "comment-input-#{@comment.id}", autofocus: true %>
+    <%= form.text_area :content, class: "mb-20 form-control", autofocus: true %>
     <span class="pull-right"><a target="_blank" href="/static_pages/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
     <div class="clearfix"></div>
-
   </div>
   
-  <input type="submit" value="Post Comment" class="btn mb-5 btn-mult pull-right">
+  <%= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-right" %>
   <span class="btn-ghost mr-5 mb-5 btn-mult preview-btn pull-right" data-toggle="modal" data-target="#preview-modal">Preview</span>
 
 
-  <% if @action_name == "cancel_new" %>
-    <%= link_to cancel_new_comment_path(@comment.proof.id), remote: true, class: "btn-ghost mb-5 btn-mult pull-right mr-10" do %>
+  <% if @comment.new_record? %>
+    <span href="#" id="cancel-new-comment" class= "btn-ghost mb-5 btn-mult pull-right mr-10" style="cursor: pointer;">
       <span>cancel</span>
-    <% end %>
-  <% elsif @action_name == "cancel_edit" %>
+    </span>
+  <% else %>
     <%= link_to cancel_edit_comment_path(@comment.id), remote: true, class: "btn-ghost pull-right mb-5 btn-mult mr-10" do %>
       <span>cancel</span>
     <% end %>

@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   resources :comments, only: [:new, :edit, :create, :update, :destroy]
 
   get '/comments/:id/cancel_edit_comment', to: 'comments#cancel_edit', as: :cancel_edit_comment
-  get '/proofs/:id/cancel_new_comment', to: 'proofs#cancel_new', as: :cancel_new_comment
+  get '/comments/cancel_new_comment', to: 'comments#cancel_new', as: :cancel_new_comment
+  #get '/proofs/:id/cancel_new_comment', to: 'proofs#cancel_new', as: :cancel_new_comment
 
 
   resources :topics do

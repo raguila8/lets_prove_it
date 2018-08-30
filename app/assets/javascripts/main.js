@@ -56,6 +56,14 @@ $(document).on('turbolinks:load', function() {
     initPreview();
   }
 
+  // cancel new-comment
+  if ($("#problem-page").length > 0) {
+    $("body").on('click', "#cancel-new-comment", function(e) {
+      $('#comment-form').remove();
+      $('.comment-replay-btn').show();
+    });
+  }
+
 
   // Preloader
   $('.preloader img').fadeOut(); // will first fade out the loading animation

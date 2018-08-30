@@ -7,7 +7,8 @@
 <div id="problem-page" class="pt-100 section container blog-classic">
   <div class="row">
     <div class="col-md-8 mb-sm-160 primary-card">
-      
+      <div class="problem-section">
+      <div class="problem-container pb-20 mb-30" id="problem-<%=@problem.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if @problem.comments.count > 0 %>">
         <!-- Blog Post -->
         <div class="col-md-12 blog-post-single mb-40 wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
           
@@ -52,16 +53,73 @@
           <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.versions.last.created_at, action: "Edited", user: @problem.versions.first.user} if @problem.versions.count > 1 and @problem.versions.first.user != @problem.user %>
         </div>
 
+        <%= link_to "Add comment", new_comment_path(commented_on_type: "Problem", commented_on_id: @problem.id), remote: true, class: "comment-replay-btn pull-left btn btn-xs" %>
         <% if signed_in? %>
-                <%= report_button(@problem) %>
+          <%= report_button(@problem) %>
 
-                <% if current_user.reputation > 2000 or @problem.user == current_user%>
-                  <%= link_to edit_problem_path(@problem.id),  class: "btn-text btn-xs small-padding float-right" do %>
-                    <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
-                  <% end %>
-                <% end %>
-              <% end %>
+          <% if current_user.reputation > 2000 or @problem.user == current_user%>
+            <%= link_to edit_problem_path(@problem.id),  class: "btn-text btn-xs small-padding float-right" do %>
+              <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+            <% end %>
+          <% end %>
+        <% end %>
           <div class="clearfix"></div>
+        </div><!-- / .problem-container -->
+        </div>
+        <% @problem.comments.order(created_at: :desc).each_with_index do |comment, index| %>
+          
+          <!-- Replay Comment -->
+          <div class="bp-comment-reply" id="comment-<%=comment.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if index < @problem.comments.count - 1 %>">
+            <div class="post-meta pl-15 mt-0">
+              <div class="post-date float-left">
+                <i class="fa fa-calendar-o"></i>
+                <span><%=comment.created_at.strftime('%B %d, %Y')%></span>
+              </div>
+
+              <div class="vote-container vote-container-post float-right mt-0">
+                <%= link_to vote_path(:vote_type => "like", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+                  <%= upvote_span comment %>
+                <% end %>
+                                        
+                <%= vote_count_span comment %>
+
+                <%= link_to vote_path(:vote_type => "dislike", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+                  <%= downvote_span comment %>                      
+                <% end %>
+				      </div>
+
+              <div class="clearfix"></div> 
+            </div><!-- / .meta -->
+            <div class="author-container">
+              <div class="author-img">
+                <a href="<%= user_path(comment.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+              </div>
+              <h6><a href="<%= user_path(comment.user) %>"><%= comment.user.username %></a></h6>
+						  <span class="label" style="font-weight: 600; background: <%= reputation_color comment.user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%= comment.user.reputation%></span>
+            </div>
+
+            <br>
+                  
+            <div class="comment-content" id="comment-content-<%=comment.id%>">
+              <%= sanitize comment.content %>
+            </div>
+            <br>
+
+            <% if signed_in? and comment.user == current_user %>
+              <%= link_to comment_path(comment.id), method: :delete, class: "btn-text btn-small btn-text-danger float-right", data: { confirm: "Are you sure you want to delete your comment?" } do %>
+                <span class="comment-remove"><i class="mr-5 glyphicon glyphicon-remove"></i>Delete</span>
+              <% end %>
+
+              <%= link_to edit_comment_path(comment.id),  remote: true, class: "btn-text btn-small float-right" do %>
+                <span class="comment-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+              <% end %>
+            <% end %>
+            <%= report_button comment %>
+
+            <div class="clearfix"></div>
+          </div><!-- / .bp-comment-reply -->
+        <% end %>
+
 
         <!-- ========== Comments ========== -->
         <div class="row">
@@ -108,6 +166,8 @@
                 </div>
                 <br>
 
+                <%= link_to "Add comment", new_comment_path(commented_on_type: "Proof", commented_on_id: proof.id), remote: true, class: "comment-replay-btn pull-left btn btn-xs" %>
+
                 <% if signed_in? and proof.user == current_user %>
                   <%= link_to proof_path(proof.id), method: :delete, class: "btn-text btn-small btn-text-danger float-right", data: { confirm: "Are you sure you want to delete your proof?" } do %>
                     <span class="proof-remove"><i class="mr-5 glyphicon glyphicon-remove"></i>Delete</span>
@@ -125,7 +185,7 @@
               <% proof.comments.order(created_at: :desc).each_with_index do |comment, index| %>
           
                 <!-- Replay Comment -->
-                <div class="bp-comment-reply" id="comment-<%=comment.id%>" style="<%= 'boder: 1px solid #fafafa;' if index < proof.comments.count - 1 %>">
+                <div class="bp-comment-reply" id="comment-<%=comment.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if index < proof.comments.count - 1 %>">
                   <div class="post-meta pl-15 mt-0">
                     <div class="post-date float-left">
                       <i class="fa fa-calendar-o"></i>

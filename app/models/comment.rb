@@ -4,7 +4,7 @@ class Comment < ApplicationRecord
 
   acts_as_votable
   belongs_to :user
-  belongs_to :proof
+  belongs_to :commented_on, polymorphic: true
 
   has_many :reports, as: :reportable, :dependent => :destroy
 
@@ -13,6 +13,7 @@ class Comment < ApplicationRecord
   private
 
     def create_activity
-      Activity.create(user: self.user, action: "created", acted_on: self, linkable: self.proof.problem)
+      linkable = (self.commented_on_type == "Proof" ? self.commented_on.problem : self.commented_on)
+        Activity.create(user: self.user, action: "created", acted_on: self, linkable: linkable)
     end
 end

@@ -459,7 +459,8 @@
 
 
 /* ---- 18.6 Comments ---- */
-.blog-post-comments {
+
+.blog-post-comments, #problem-page {
 
 	.blog-section-title {
 		padding-bottom: 18px;
@@ -538,7 +539,7 @@
 			margin-top: 0px;
 			
 			padding-bottom: 30px;
-			border-bottom: 1px solid $light;
+			//border-bottom: 1px solid $light;
 		}
 	} // .bp-comment
 
