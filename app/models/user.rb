@@ -166,9 +166,9 @@ class User < ApplicationRecord
 
   def self.update_reputation(options = {})
     if %w(liked unliked undisliked downvoted).include? options[:action]
-      User.update_reputation_after_vote action: options[:action], 
-                                        actor: options[:actor], 
-                                        voted_on: options[:voted_on]
+      User.update_reputation_after_vote options[:action], 
+                                        options[:actor], 
+                                        options[:voted_on]
     else
 
     end

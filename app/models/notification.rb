@@ -42,8 +42,10 @@ class Notification < ApplicationRecord
         Notification.notify_user(editor, actor, "liked", voted_on) if editor != actor
       end
     elsif voted_on.class.name == "Comment"
-      # Notify owner of comment 
-      Notification.notify_user(voted_on.user, actor, "liked your comment on a proof for", voted_on.proof.problem) if voted_on.user != actor
+      # Notify owner of comment
+      action = (voted_on.commented_on_type == "Proof" ? "liked your comment on a proof for" : "liked your commnent on")
+      
+      Notification.notify_user(voted_on.user, actor, action, voted_on.get_problem) if voted_on.user != actor
     elsif voted_on.class.name == "Proof"
       # Notify owner of proof
       Notification.notify_user(voted_on.user, actor, "liked your proof for", voted_on.problem) if voted_on.user != actor

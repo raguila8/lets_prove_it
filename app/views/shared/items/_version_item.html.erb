@@ -18,27 +18,15 @@
           <% end %>
         </span>
       </div>
-      <% if model.class.name == "Version" %>
-        <span class="glyphicon glyphicon-chevron-down collapsed float-right version-toggle-content" role="button" data-toggle="collapse" href="#collapse-<%=model.id%>" aria-expanded="false" aria-controls="collapse-<%=model.id%>"></span>
-
-      <% else %>
-        <span class="label label-dark float-right">Version <%= version.version_number %></span>
-      <% end %>
+      <span class="label label-dark float-right">Version <%= version.version_number %></span>
       <div class="clearfix"></div>
     </div><!-- / .meta -->
 
-    <% if model.class.name == "Version" %>
-      <h2 class="panel-title label label-dark">
-        <%= report_button model %>
-        <span style="color: #fff;"> Version <%= model.version_number %> </span>
-      </h2>
-    <% else %>
       <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-<%=version.id%>" aria-expanded="false" aria-controls="collapse-<%= version.id%>">
         <span class="glyphicon glyphicon-chevron-down float-right"></span>
         <%= version.title %>
       </h2>
-    <% end %>
-    <div class="version-description <%= 'mt-10' if model.class.name == "Version" %>">
+    <div class="version-description">
       <p>
         <%= version.description %>
       </p>

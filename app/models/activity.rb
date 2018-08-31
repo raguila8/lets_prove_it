@@ -14,8 +14,13 @@ class Activity < ApplicationRecord
   end
 
   def message
-    model_in_question = (acted_on_type == "Version" ? linkable_type : acted_on_type)
-    "<a href='/users/#{self.user.id}'>#{self.user.username}</a> #{action} #{model_in_question.downcase}".html_safe
+    if acted_on_type == "Comment" and action == "created"
+        model_in_question = (self.acted_on.nil? ? "post" : self.acted_on.commented_on_type.downcase)
+        "<a href='/users/#{self.user.id}'>#{self.user.username}</a> commented on a #{model_in_question}".html_safe
+    else
+      model_in_question = (acted_on_type == "Version" ? linkable_type : acted_on_type)
+      "<a href='/users/#{self.user.id}'>#{self.user.username}</a> #{action} #{model_in_question.downcase}".html_safe
+    end
   end
 
   def deleted_message

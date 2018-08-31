@@ -10,6 +10,10 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true, length: { maximum: 500, minimum: 3 }
 
+  def get_problem
+    commented_on_type == "Proof" ? commented_on.problem : commented_on
+  end
+
   private
 
     def create_activity
