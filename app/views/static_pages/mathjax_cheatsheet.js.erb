@@ -1,0 +1,10 @@
+$("#collapse-general-3 .panel-body").append("<%= escape_javascript render(:partial => '/static_pages/mathjax_cheatsheet_content') %>");
+
+$content = $("#collapse-general-3 .panel-body");
+  setTimeout(function() {
+	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $content[0]]);
+} ,500);
+
+$content.find(".spinner").slideUp(1000);
+$content.data("has-content", "true");
+

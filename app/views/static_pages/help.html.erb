@@ -79,7 +79,7 @@
                         <div id="collapse-problem-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-1">
                           <div class="panel-body">
                             <p> Topics are a way of connecting users with problems they will be able to answer by sorting problems into specific, well-defined categories.</p>
-                            <p> Topics are also used to help you identify problems that are relavent or interesting to you. Users can follow topics in order to recieve problems within the topic in their <a href="#problem-feed-faq">feed</a>. You can <a href="<%= topics_path%>">browse and search new topics</a> in the topics index page to improve your feed.</p>
+                            <p> Topics are also used to help you identify problems that are relavent or interesting to you. Users can follow topics in order to recieve problems within the topic in their <%= signed_in? ? "<a href='#{feed_path}'>feed</a>".html_safe : "feed" %>. You can <a href="<%= topics_path%>">browse and search new topics</a> in the topics index page to improve your feed.</p>
                             <p> Each problem has to have at least one topic. Clicking on the topic tags corresponding to a problem brings you to a page that shows you a description of what the topic is. You can also see all problems and proofs within that topic, the past edits made to that topic (<a href="#editing-faq">See how editing works</a>), and the users who are following it.</p>
                             <p>Not everyone can <a href="#create-new-topic-faq">create a new topic</a>. A certain amount of reputation is needed before you can start creating new topics. Even if you have sufficient reputation, you should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
                             <p>Users with sufficient reputation can edit the topic tags of a problem if they feel a certain tag was used innapropriately or if the problem is missing a topic.</p>
@@ -97,7 +97,7 @@
                         <div id="collapse-problem-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-2">
                           <div class="panel-body">
                             <p>Improve your chances of getting a proof by writing good problems.</p>
-                            <p>Make sure your problem is not a duplicate and is different from the rest. <a href="#">Search</a>, research and keep track of what you find. You can link problems that have not helped you so that others can better understand your question and make sure it is not repeated.</p>
+                            <p>Make sure your problem is not a duplicate and is different from the rest. <%= link_to "Search", problems_path %>, research and keep track of what you find. You can link problems that have not helped you so that others can better understand your question and make sure it is not repeated.</p>
                             <h3>Write a title that summarizes the problem</h3>
                             <p>The title is the first thing that users will see, and if it is not good people will lose interest and won't read the rest. Here are some tips for making a good title:</p>
                             <ul>
@@ -167,8 +167,7 @@
                           </h2>
                         </div>
                         <div id="collapse-general-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-3">
-                          <div class="panel-body">
-                            <%= render "static_pages/mathjax_cheatsheet_content" %>
+                          <div class="panel-body" data-has-content="false">
                           </div>
                         </div>
                       </div><!-- / .panel -->

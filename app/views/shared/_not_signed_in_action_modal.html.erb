@@ -1,0 +1,18 @@
+<div id="signinActionModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 8px 15px 8px 15px;">
+        <button type="button" class="close" data-dismiss="modal" style="font-size: 30px;">&times;</button>
+      </div>
+      <div class="modal-body text-center" style="padding: 0px 50px 40px 50px;">
+        <img class="text-center" style="max-width: 33%; height: auto; display: block; margin: auto;" src="/assets/math_world.jpg">
+        <h3> Thanks for your feedback!</h3>
+        <p>Setting up an account is free and easy. Set up an account today and start earning privileges like voting, posting and commenting.</p>
+        <%= link_to "Sign up", new_user_registration_path, class: "btn text-center mb-10" %>
+        <p> Have an account? <%= link_to "Log in", new_user_session_path %>
+      </div>
+    </div>
+  </div>
+</div>

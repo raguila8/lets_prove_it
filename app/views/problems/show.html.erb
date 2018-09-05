@@ -1,3 +1,4 @@
+<%= render "shared/not_signed_in_action_modal" %>
 <%= render 'problems/edit_topics' if signed_in? %>
 <%= render 'reports/report_modal' if signed_in? %>
 <%= render 'shared/preview' %>
@@ -238,35 +239,35 @@
               </div>
             <% end %>     
 
-            <% if Proof.find_by(user_id: current_user.id, problem_id: @problem.id).nil? %>
+            <% if signed_in? and Proof.find_by(user_id: current_user.id, problem_id: @problem.id).nil? %>
  
-            <!-- Leave a comment -->
-            <div class="comment-form mt-0">
-              <% if @problem.proofs.count == 0 %>
-                <h4 class="blog-section-title font-weight-600">Be the first to proove</h4>
-              <% else %>
-                <h4 class="blog-section-title font-weight-600">Leave a proof</h4>
-              <% end %>
+              <!-- Leave a comment -->
+              <div class="comment-form mt-0">
+                <% if @problem.proofs.count == 0 %>
+                  <h4 class="blog-section-title font-weight-600">Be the first to prove</h4>
+                <% else %>
+                  <h4 class="blog-section-title font-weight-600">Leave a proof</h4>
+                <% end %>
 
-              <%= form_with(model: Proof.new, local: true, id: "proof-form", class: "new-model-form") do |form| %>
-                <%= form.hidden_field :problem_id, value: "#{@problem.id}", id: "problem-id" %>
-                <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
+                <%= form_with(model: Proof.new, local: true, id: "proof-form", class: "new-model-form") do |form| %>
+                  <%= form.hidden_field :problem_id, value: "#{@problem.id}", id: "problem-id" %>
+                  <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
 
-                <%= render 'shared/error_messages' %>
+                  <%= render 'shared/error_messages' %>
 
-                <div class="form-group">
-                  <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
-                  <trix-editor input="proof_content" class="form-control"></trix-editor>
-                  <span class="pull-right"><a target="_blank" href="/static_pages/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
-                  <div class="clearfix"></div>
-                </div>
+                  <div class="form-group">
+                    <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
+                    <trix-editor input="proof_content" class="form-control"></trix-editor>
+                    <span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
+                    <div class="clearfix"></div>
+                  </div>
 
-                <!-- Action Buttons --> 
-                <input type="submit" value="Submit Proof" class="btn mb-5 btn-mult pull-right">
-                <span class="btn-ghost pull-right mb-5 btn-mult mr-5 preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
+                  <!-- Action Buttons --> 
+                  <input type="submit" value="Submit Proof" class="btn mb-5 btn-mult pull-right">
+                  <span class="btn-ghost pull-right mb-5 btn-mult mr-5 preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
 
-              <% end %>
-            </div><!-- / .comment-form -->
+                <% end %>
+              </div><!-- / .comment-form -->
             <% end %>
 
           </div><!-- / .blog-post-comments -->

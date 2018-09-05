@@ -717,15 +717,38 @@ $(document).on('turbolinks:load', function() {
  ----------------------------------------------------------*/
 
   function initAccordion() {
-    $("body").on('click', ".version-panel .version-toggle-content", function() {
-      if ($(this).hasClass("glyphicon-chevron-down")) {
-        $(this).removeClass("glyphicon-chevron-down");
-        $(this).addClass("glyphicon-chevron-up");
+    $("body").on('click', ".panel .version-toggle", function() {
+      var $toggle = $(this).find('.glyphicon');
+      if ($toggle.hasClass("glyphicon-chevron-down")) {
+        $toggle.removeClass("glyphicon-chevron-down");
+        $toggle.addClass("glyphicon-chevron-up");
       } else {
-        $(this).removeClass("glyphicon-chevron-up");
-        $(this).addClass("glyphicon-chevron-down");
+        $toggle.removeClass("glyphicon-chevron-up");
+        $toggle.addClass("glyphicon-chevron-down");
+      }      
+    });
+
+    var $versionContent = $(".version-content")
+    $versionContent.on("shown.bs.collapse", function(e) {
+      var versionId = $(this).data("version");
+      var $content = $(this).find(".panel-body");
+      if ($content.data("has-content") == false) {
+        $.ajax({
+          type: "GET",
+			    url: "/versions/" + versionId,
+			    headers: {
+			     Accept: "text/javascript; charset=utf-8",
+			      "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			    },
+          beforeSend: function() {
+            $content.html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
+          },
+          succcess: function() {
+          }
+        });
       }
     });
+
 
     $("body").on('click', ".faq-panel .panel-title", function() {
       var $toggle = $(this).find('.glyphicon');
@@ -737,6 +760,26 @@ $(document).on('turbolinks:load', function() {
         $toggle.addClass("glyphicon-chevron-down");
       }
 
+    });
+
+    $("#collapse-general-3").on("shown.bs.collapse", function(e) {
+      var $content = $(this).find(".panel-body");
+      if ($content.data("has-content") == false) {
+        $.ajax({
+          type: "GET",
+			    url: "/mathjax_cheatsheet",
+			    headers: {
+			     Accept: "text/javascript; charset=utf-8",
+			      "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			    },
+          beforeSend: function() {
+            $content.html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
+          },
+          succcess: function() {
+          }
+        });
+
+      }
     });
 
   }

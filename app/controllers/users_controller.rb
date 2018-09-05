@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   impressionist actions: [:show]
-  before_action :authenticate_user!, only:  [:follow, :unfollow, :vote]
+  before_action :authenticate_user!, only:  [:follow, :unfollow]
   before_action :correct_user, only: [:edit, :update, :update_image]
   before_action :set_user, only: [:follow, :unfollow, :proofs,
                                      :problem_edits, :problems_following,
@@ -82,8 +82,10 @@ class UsersController < ApplicationController
 
   def vote
     @model = params[:votable_type].capitalize.constantize.find(params[:id])
-    @action_taken = current_user.vote(params[:vote_type], @model)
-        
+    if signed_in?
+      @action_taken = current_user.vote(params[:vote_type], @model)
+    end
+  
     respond_to do |format|
       format.js
       format.json

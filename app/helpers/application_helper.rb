@@ -282,20 +282,24 @@ module ApplicationHelper
 
   def upvote_span(model)
     model_str = model.class.name.downcase
-    "<span id='#{model_str}-upvote-#{model.id}' class='glyphicon glyphicon-triangle-top #{"upvoted" if current_user.liked? model}'></span>".html_safe
+    "<span id='#{model_str}-upvote-#{model.id}' class='glyphicon glyphicon-triangle-top #{"upvoted" if signed_in? and current_user.liked? model}'></span>".html_safe
   end
 
   def vote_count_span(model)
     model_str = model.class.name.downcase
     vote = ""
-    vote = "upvoted" if current_user.liked? model
-    vote = "downvoted" if current_user.voted_down_on? model
+    vote = "upvoted" if signed_in? and current_user.liked? model
+    vote = "downvoted" if signed_in? and current_user.voted_down_on? model
     "<span class='#{vote}' id='#{model_str}-vote-count-#{model.id}' style='text-align: center; margin-left: -2px;'>#{model.cached_votes_score} </span>".html_safe
   end
 
   def downvote_span(model)
     model_str = model.class.name.downcase
-    "<span id='#{model_str}-downvote-#{model.id}' class='glyphicon glyphicon-triangle-bottom #{"downvoted" if current_user.voted_down_on? model}'></span>".html_safe
+    "<span id='#{model_str}-downvote-#{model.id}' class='glyphicon glyphicon-triangle-bottom #{"downvoted" if signed_in? and current_user.voted_down_on? model}'></span>".html_safe
+  end
+
+  def vote_actions(model)
+    render partial: "/shared/vote_actions", locals: { model: model }
   end
 
   def follow_link(model)

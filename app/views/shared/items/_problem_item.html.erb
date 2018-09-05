@@ -60,9 +60,11 @@
 
       <div class="clearfix mb-20"></div>
 
-      <div id="problem-follow-<%=problem.id%>">
-        <%= follow_link problem %>
-      </div>
+      <% if signed_in? %>
+        <div id="problem-follow-<%=problem.id%>">
+          <%= follow_link problem %>
+        </div>
+      <% end %>
 
     </div><!-- / .bp-content -->
   </div><!-- / .blog-post -->

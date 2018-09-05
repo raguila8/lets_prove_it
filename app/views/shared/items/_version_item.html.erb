@@ -22,7 +22,7 @@
       <div class="clearfix"></div>
     </div><!-- / .meta -->
 
-      <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-<%=version.id%>" aria-expanded="false" aria-controls="collapse-<%= version.id%>">
+      <h2 class="panel-title collapsed version-toggle" role="button" data-toggle="collapse" href="#collapse-<%=version.id%>" aria-expanded="false" aria-controls="collapse-<%= version.id%>">
         <span class="glyphicon glyphicon-chevron-down float-right"></span>
         <%= version.title %>
       </h2>
@@ -32,27 +32,8 @@
       </p>
     </div>
   </div>
-  <div id="collapse-<%=version.id%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%=version.id%>">
-    <div class="panel-body">
-      <!-- Version Post -->
-      <div class="blog-post-single  mb-0 wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
-        <% if !version.problem_id.nil? %>
-          <!-- Meta data -->
-          <div class="post-meta" id="problem-tags-list">
-            <ul class="tag-list mt-20">
-              <% version.get_version_topics.each do |topic| %>
-                <li><a href="<%= topic_path(topic.id)%>"><%= topic.name %></a></li>
-              <% end %>
-            </ul> <!-- / .tag-list -->
-          </div><!-- / .meta -->
-        <% end %>
-
-        <!-- Title -->
-        <h2 class="post-title font-weight-600 pt-20  mb-30 ls-2"><%= version.title %></h2>
-        <div class="mb-20 mt-20 blog-post-content">
-          <%= sanitize version.content %>
-        </div>
-      </div><!-- / .blog-post-single -->
+  <div id="collapse-<%=version.id%>" class="panel-collapse collapse version-content" role="tabpanel" aria-labelledby="heading-<%=version.id%>" data-version="<%=version.id%>">
+    <div class="panel-body" data-has-content="false">
     </div>
   </div>
 </div><!-- / .panel -->

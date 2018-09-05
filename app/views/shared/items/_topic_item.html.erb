@@ -28,6 +28,7 @@
       <%= link_to topic_path(topic.id), class: "post-title" do %>
         <h3><%=topic.name%></h3>
       <% end %>
+      
       <span class="problem-comment"><i class="glyphicon glyphicon-user mr-5"></i> <span id="topic-<%=topic.id%>-followers"> <%= pluralize(topic.followers.count, "Follower") %></span></span>
 
       <span class="problem-comment"><i class="glyphicon glyphicon-question-sign mr-5"></i> <%= pluralize(topic.problems.count, "Problem") %></span>
@@ -36,9 +37,11 @@
       <span class="problem-view"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(topic.versions.count, "Edit")%></span>
       <div class="clearfix mb-20"></div>
 
-      <div id="topic-follow-<%=topic.id%>">
-        <%= follow_link topic %>
-      </div>
+      <% if signed_in? %>
+        <div id="topic-follow-<%=topic.id%>">
+          <%= follow_link topic %>
+        </div>
+      <% end %>
 
     </div><!-- / .bp-content -->
   </div><!-- / .blog-post -->

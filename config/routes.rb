@@ -56,6 +56,7 @@ Rails.application.routes.draw do
 
   resources :reports, only: [:new, :create]
 
+  resources :versions, only: [:show]
   resources :problems
   get "/feed", to: "problems#feed", as: :feed
 
