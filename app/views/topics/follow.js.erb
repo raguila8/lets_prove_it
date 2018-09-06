@@ -1,6 +1,10 @@
-$('#topic-follow-<%=@topic.id%>').html("<a href='<%=topic_unfollow_path(@topic.id)%>' data-remote='true' data-method='delete'><button class='btn btn-light'>Following</button></a>");
+$('#topic-follow-<%=@topic.id%>').html("<a href='<%=topic_unfollow_path(@topic.id)%>' data-remote='true' data-method='delete'><button class='" + $('#topic-follow-<%=@topic.id%>').data("class") + "'>Following</button></a>");
 
 $('#topic-<%=@topic.id%>-followers').text('<%= pluralize(@topic.followers.count, "Follower") %>');
+
+if ($("#followers-stat-val").length > 0) {
+  $("#followers-stat-val").text('<%= @topic.followers.count %>');
+}
 
 if ($(".tag-list-container .tag:contains(<%=@topic.name%>)").length > 0) {
   $(".tag-list-container .tag:contains(<%=@topic.name%>)").attr('data-id', "<%=@topic.id%>");

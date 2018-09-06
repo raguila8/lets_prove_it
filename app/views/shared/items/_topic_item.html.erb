@@ -7,7 +7,7 @@
 
 <div class="<%=default_width ? 'col-sm-6':'col-md-offset-2 col-md-8' %>">
   <div class="mb-40 blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
-    <div class="bp-content">                  
+    <div class="bp-content" style="padding-bottom: 20px;">                  
       <!-- Meta data -->
       <div class="post-meta">
         <div class="post-date float-left font-weight-500">
@@ -35,11 +35,11 @@
 
       <span class="problem-comment"><i class="glyphicon glyphicon-comment mr-5"></i> <%= pluralize(topic.proofs.count, "Proof") %></span>
       <span class="problem-view"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(topic.versions.count, "Edit")%></span>
-      <div class="clearfix mb-20"></div>
+      <div class="clearfix mb-10"></div>
 
       <% if signed_in? %>
-        <div id="topic-follow-<%=topic.id%>">
-          <%= follow_link topic %>
+        <div id="topic-follow-<%=topic.id%>" data-class="btn btn-small">
+          <%= follow_link topic, class: "btn btn-small" %>
         </div>
       <% end %>
 

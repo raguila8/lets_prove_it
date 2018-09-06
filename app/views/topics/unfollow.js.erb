@@ -1,3 +1,7 @@
-$('#topic-follow-<%=@topic.id%>').html("<a href='<%=topic_follow_path(@topic.id)%>' data-remote='true' data-method='post'><button class='btn btn-light'>Follow</button></a>");
+$('#topic-follow-<%=@topic.id%>').html("<a href='<%=topic_follow_path(@topic.id)%>' data-remote='true' data-method='post'><button class='" + $('#topic-follow-<%=@topic.id%>').data("class") + "'>Follow</button></a>");
 
 $('#topic-<%=@topic.id%>-followers').text('<%= pluralize(@topic.followers.count, "Follower") %>');
+
+if ($("#followers-stat-val").length > 0) {
+  $("#followers-stat-val").text('<%= @topic.followers.count %>');
+}

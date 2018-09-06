@@ -1,7 +1,7 @@
 class ProblemsController < ApplicationController
   impressionist actions: [:show]
   before_action :set_problem, only: [:show, :edit, :update, :destroy, :logs,
-                                     :follow, :unfollow]
+                                     :follow, :unfollow, :followers]
   before_action :logged_in_user, :correct_reputation, only: [:edit, :update, :feed]
 
   def follow
@@ -10,6 +10,9 @@ class ProblemsController < ApplicationController
 
   def unfollow
     current_user.unfollow @problem
+  end
+
+  def followers
   end
 
   def logs

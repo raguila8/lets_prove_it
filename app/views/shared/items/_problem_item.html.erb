@@ -7,7 +7,7 @@
 
 <div class="<%=default_width ? 'col-md-6':'col-md-offset-2 col-md-8' %>">
   <div class="mb-40 blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
-    <div class="bp-content">                  
+    <div class="bp-content" style="padding-bottom: 20px;">                  
       <!-- Meta data -->
       <div class="post-meta">
         <div class="post-date float-left font-weight-500">
@@ -33,7 +33,7 @@
           <% end %>
         </div>
 
-        <div class="clearfix"></div>        
+        <div class="clearfix"></div>      
       </div><!-- / .meta -->
 
       <!-- Problem Topics -->
@@ -58,11 +58,9 @@
 
       <span class="problem-view problem-info"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(problem.versions.count, "Edit")%></span>
 
-      <div class="clearfix mb-20"></div>
-
       <% if signed_in? %>
-        <div id="problem-follow-<%=problem.id%>">
-          <%= follow_link problem %>
+        <div id="problem-follow-<%=problem.id%>" data-class="btn btn-small">
+          <%= follow_link problem, class: "btn btn-small" %>
         </div>
       <% end %>
 

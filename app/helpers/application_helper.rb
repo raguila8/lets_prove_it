@@ -161,7 +161,7 @@ module ApplicationHelper
       elsif action_name == "show"
         content = ""
         if signed_in?
-          content += "<div id='problem-follow-#{@problem.id}'>"
+          content += "<div id='problem-follow-#{@problem.id}' data-class='btn btn-light mr-20'>"
           if !current_user.following?(@problem)
             content += "<a href='#{problem_follow_path(@problem.id)}' data-remote='true' data-method='post'>"
             content += "<button class='btn btn-light mr-20'>Follow</button></a>"
@@ -182,7 +182,7 @@ module ApplicationHelper
       elsif action_name == "show"
         content = ""
         if signed_in?
-          content += "<div id='topic-follow-#{@topic.id}'>"
+          content += "<div id='topic-follow-#{@topic.id}' data-class='btn btn-light mr-20'>"
           if !current_user.following?(@topic)
             content += "<a href='#{topic_follow_path(@topic.id)}' data-remote='true' data-method='post'>"
             content += "<button class='btn btn-light mr-20'>Follow</button></a>"
@@ -211,7 +211,7 @@ module ApplicationHelper
     elsif controller_name == "users"
       if action_name == "show"
         if signed_in? and @user != current_user
-          content = "<div id='user-follow-#{@user.id}'>"
+          content = "<div id='user-follow-#{@user.id}' data-class='btn btn-light mr-20'>"
           if !current_user.following?(@user)
             content += "<a href='#{follow_user_path(@user.id)}' data-remote='true' data-method='post'>"
             content += "<button class='btn btn-light mr-20'>Follow</button></a>"
@@ -302,15 +302,15 @@ module ApplicationHelper
     render partial: "/shared/vote_actions", locals: { model: model }
   end
 
-  def follow_link(model)
+  def follow_link(model, options={})
     model_str = model.class.name.downcase.pluralize
     content = ""
     if !current_user.following?(model)
       content = "<a class='#{'mt-0' if model_str == "users"}' href='/#{model_str}/#{model.id}/follow' data-remote='true' data-method='post'>"
-      content += "<button class='btn btn-light #{'btn-small' if model_str == "users"}'>Follow</button></a>"
+      content += "<button class='#{options[:class]}'>Follow</button></a>"
     else
       content += "<a class='#{'mt-0' if model_str == "users"}' href='/#{model_str}/#{model.id}/unfollow' data-remote='true' data-method='delete'>"
-      content += "<button class='btn btn-light #{'btn-small' if model_str == "users"}'>Following</button></a>"
+      content += "<button class='#{options[:class]}'>Following</button></a>"
     end
     content.html_safe
   end
@@ -395,7 +395,7 @@ module ApplicationHelper
         html = "<a href='/problems/#{@problem.id}/logs' class='text-muted font-weight-600' style='font-size: 0.85em;'>#{stat} <span class='fa fa-arrow-circle-right ml-5'></span></a>"
         return html.html_safe
       elsif stat == "Followers"
-        html = "<a href='/problems/#{@problem.id}/logs' class='text-muted font-weight-600' style='font-size: 0.85em;'>#{stat} <span class='fa fa-arrow-circle-right ml-5'></span></a>"
+        html = "<a href='/problems/#{@problem.id}/followers' data-remote='true' class='text-muted font-weight-600' style='font-size: 0.85em;'>#{stat} <span class='fa fa-arrow-circle-right ml-5'></span></a>"
         return html.html_safe
       end
     end

@@ -1,0 +1,26 @@
+<li class="profile-li">
+  <div class="profile-item-container">
+	  <div class="profile-info-container">
+      <%= link_to user_path(user.id), class: "profile-thumb-container" do %>
+			  <img class="profile-thumb" src="<%=user_avatar_src(user)%>">
+			<% end %>
+
+		  <div class="profile-information-container">
+			  <div class="profile-information-username">
+          <%= link_to user.username, user_path(user.id), class: "username-link" %>
+				</div>
+				<span class="label" style="font-weight: 600; background-color: <%= reputation_color user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%=user.reputation%></span>
+			</div>
+		</div>
+		<% if signed_in? and user != current_user %>				
+		  <div class="card-actions user-follow-btn" data-class="btn btn-xs small-padding card-btn" id="user-follow-<%=user.id%>" style="float: right;">
+        <%= follow_link user, class: "btn btn-xs small-padding card-btn" %>
+			</div>
+		<% else %>
+      <%= link_to user_path(user.id), class: "card-actions", style: "float: right;" do %>
+        <button class="btn btn-xs small-padding card-btn">View Profile</button>
+      <% end %>
+    <% end %>	
+	</div>
+</li>
+

@@ -1,0 +1,10 @@
+<% if @problem.followers.count > 0 %>
+  $('#userListModal .modal-body').html("<ul style='padding: 0;'></ul>");
+  <% @problem.followers.each_with_index do |user, index| %>
+    $('#userListModal .modal-body ul').append("<%= escape_javascript render(:partial => '/shared/items/modal_user_item', locals: { user: user }) %>");
+  <% end %>
+<% else %>
+  $('#userListModal .modal-body').html("<div class='no-messages-container'><img src='/assets/no_users_icon.png' alt='followers icon'><p class='font-weight-600 font-size-15'>Problem has no followers.</p></div>");
+<% end %>
+
+$('#userListModal').modal("show");

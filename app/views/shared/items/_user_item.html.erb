@@ -37,18 +37,18 @@
         <a href="<%= user_path(user.id)%>" class="ft-heading"><%= user.username %></a>
         <p style='font-size: 0.80em'>
           <% if default_width %>
-            <%= truncate user.bio, length: 100, separator: /\w+/ %>
+            <%= truncate user.bio, length: 90, separator: /\w+/ %>
           <% else %>
             <%= user.bio %>
           <% end %>
         </p>
         <% if signed_in? and user != current_user %>
-          <div class="user-follow-btn" id="user-follow-<%=user.id%>">
-            <%= follow_link user %>
+          <div class="user-follow-btn" data-class="btn btn-xs btn-light small-padding" id="user-follow-<%=user.id%>">
+            <%= follow_link user, class: "btn btn-xs btn-light small-padding" %>
           </div>
         <% else %>
           <a class='mt-0' href="<%= user_path(user.id) %>">
-            <button class="btn-small btn-ghost-light">View Profile</button>
+            <button class="btn-xs small-padding btn-ghost-light">View Profile</button>
           </a>
         <% end %>
       </div>
