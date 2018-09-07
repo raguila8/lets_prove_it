@@ -27,7 +27,7 @@
 
             <div class="form-group">
               <%= form.label :content, "body *" %>
-              <%= form.hidden_field :content, class: "mb-20 form-control", id: "problem_content" %>
+              <%= form.hidden_field :content, value: @problem.content, class: "mb-20 form-control", id: "problem_content" %>
               <trix-editor input="problem_content"></trix-editor>
             </div>
 

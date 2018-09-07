@@ -154,7 +154,7 @@ class Problem < ApplicationRecord
 
   def self.feed(options = {user: nil})
     options[:filter] = "all" if options[:filter].nil?
-    options[:sorter] = "created_at" if options[:sorter].nil?
+    options[:sorter] = "updated_at" if options[:sorter].nil?
     if !options[:search_filter].blank?
       self.filter(options[:filter], options[:user]).where("title LIKE :term", term: "%#{options[:search_filter]}%").order("#{options[:sorter]} DESC")
     else

@@ -1,9 +1,22 @@
-<script type="text/x-mathjax-config">
-	MathJax.Hub.Config({
-		tex2jax: {
-    	inlineMath: [['$','$'], ['\\(','\\)']],
-    	processEscapes: true
-  	}
-	});
-</script>
+<% if (controller_name == "problems" and action_name == "edit") or (controller_name == "topics" and action_name == "edit") %>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+	      inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      },
+      skipStartupTypeset: true
+	  });
+  </script>
+<% else %>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+	      inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+	  });
+  </script>
+<% end %>
+
 <%= mathjax_tag %>

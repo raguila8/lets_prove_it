@@ -37,7 +37,8 @@ $(document).on('turbolinks:load', function() {
   }
 
   // Mathjax
-  if (window.MathJax && !$("body[data-mathjax]").length) {
+  if (window.MathJax && !$("body[data-mathjax]").length && !$("#edit-problem-page").length && !$("#edit-topic-page").length) {
+    console.log("i am god");
     MathJax.Hub.Queue(
       ["Typeset",MathJax.Hub]
   	);
@@ -816,6 +817,7 @@ $(document).on('turbolinks:load', function() {
 		  var content = '';
       if ($($form).attr('id') == "problem-form") {
         content = $($form).find('input[name="problem[content]"]:first').val();
+        console.log(content);
       } else if ($($form).attr('id') == "topic-form") {
         content = $($form).find('input[name="topic[description]"]:first').val();
       } else if ($($form).attr('id') == "proof-form") {

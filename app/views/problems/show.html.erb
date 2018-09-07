@@ -52,7 +52,7 @@
         
         <div class="row mb-20">
           <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.created_at, action: "Asked", user: @problem.user } %>
-          <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.versions.last.created_at, action: "Edited", user: @problem.versions.first.user} if @problem.versions.count > 1 and @problem.versions.first.user != @problem.user %>
+          <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.versions.first.created_at, action: "Edited", user: @problem.versions.first.user} if @problem.versions.count > 1 and @problem.versions.first.user != @problem.user %>
         </div>
 
         <%= link_to "Add comment", new_comment_path(commented_on_type: "Problem", commented_on_id: @problem.id), remote: true, class: "comment-replay-btn pull-left btn btn-xs" %>
