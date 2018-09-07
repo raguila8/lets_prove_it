@@ -11,8 +11,9 @@
 // without getting a written permission first.
 //
 
+$(document).on('turbolinks:load', function() {
 (function(){
-
+console.log("lekfekhflehflkknlekhflkrjhfljrhfljhrf");
 
     if (navigator.appVersion.indexOf("Win")!=-1) {
 
@@ -677,3 +678,4 @@
 
 
 })();
+});

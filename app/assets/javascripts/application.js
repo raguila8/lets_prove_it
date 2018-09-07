@@ -23,12 +23,10 @@
 //= require bloodhound.js
 //= require animated-heading.js
 //= require jquery.easing.js
-//= require jquery.localScroll.min.js
 //= require jquery.parallax.js
 //= require jquery.stellar.min.js
-//= require jquery.scrollTo.min.js
 //= require jquery.mb.YTPlayer.min.js
-//= require smoothscroll.js
+//= require smooth-scroll.js
 //= require modernizr-2.8.3.min.js
 //= require wow.min.js
 //= require trix

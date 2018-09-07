@@ -1,11 +1,13 @@
 $(document).on('turbolinks:load', function() {
+  $(window).unbind('scroll');
+
   initNavbar();
   initScroller();
   initAnimation();
   initSelector();
   initAccordion();
   initVideoPlayer();
-
+  
   if ($('#frame').length) {
     initMessages();
   }
@@ -214,14 +216,24 @@ $(document).on('turbolinks:load', function() {
 -------------------------------------------------- */
 
 	function initScroller () {
+    new SmoothScroll('a[href*="#page-top"]');
+    if ($('#help_center').length > 0) {
+      new SmoothScroll('a[href*="#problems"]');
+      new SmoothScroll('a[href*="#general"]');
+      new SmoothScroll('a[href*="#reputation"]');
+      new SmoothScroll('a[href*="#proofs"]');
+      new SmoothScroll('a[href*="#account"]');
+      new SmoothScroll('a[href*="#editing-faq"]');
+      new SmoothScroll('a[href*="#create-new-topic-faq"]');
+      new SmoothScroll('a[href*="#topics-faq"]');
+      new SmoothScroll('a[href*="#privilege-faq"]');
+    }
 
-		$('#navbar').localScroll({
-			easing: 'easeInOutExpo'
-		});
+    if ($(".landing-hero").length > 0) {
+      new SmoothScroll('a[href*="#about"]');
+    }
 
-		$('#page-top').localScroll({
-			easing: 'easeInOutExpo'
-		});	
+
 	} // initScroller
 
 

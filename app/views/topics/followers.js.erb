@@ -1,8 +1,10 @@
 <% if @followers.count > 0 %>
-  $('.tab-content .tab-list-content').html("<%= escape_javascript render(:partial => '/shared/items/user_item', collection: @followers, as: :model ) %>");
+  $('.tab-content .tab-list-content').append("<section class='ft-boxed-hover' id='user-items'><div class='row'><ul></ul></div></section>");
+  $('.tab-content .tab-list-content ul').html("<%= escape_javascript render(:partial => '/shared/items/user_item', collection: @followers, as: :user ) %>");
 <% else %>
   $(".tab-content .tab-list-content").html("<%= no_results_content('users') %>");
 <% end %>
 
 $('.tab-content .tab-list-content').prepend("<div class='boxedtitle add-problem-title mb-40'><h2>Followers (<%=@followers.count%>)</h2></div>");
 
+$('.spinner').slideUp(1000);
