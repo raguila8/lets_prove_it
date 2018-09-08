@@ -41,7 +41,8 @@ class User < ApplicationRecord
   validates :occupation, length: { maximum: 70 }
   validates :education, length: { maximum: 70 }
   validates :location, length: { maximum: 70 }
-  validates :reputation, presence: true, numericality: { only_integer: true }
+  validates :reputation, presence: true, numericality: { only_integer: true,
+                                           greater_than_or_equal_to: 0 }
 
 
   validates :username, presence: true, length: { minimum: 5, maximum: 18 },
@@ -189,12 +190,13 @@ class User < ApplicationRecord
         end
       elsif action == "unliked"
         if voted_on.class.name == "Problem"
-          recipient.update(reputation: recipient.reputation -= 5)
+          recipient.assign_attributes(reputation: recipient.reputation -= 5)
         elsif voted_on.class.name == "Proof"
-          recipient.update(reputation: recipient.reputation -= 10)
+          recipient.assign_attributes(reputation: recipient.reputation -= 10)
         elsif voted_on.class.name == "Comment"
-          recipient.update(reputation: recipient.reputation -= 2)
+          recipient.assign_attributes(reputation: recipient.reputation -= 2)
         end
+        recipient.reputation < 0 ? recipient.update(reputation: 0) : recipient.save
       elsif action == "undisliked"
         if voted_on.class.name == "Problem"
           recipient.update(reputation: recipient.reputation += 2)
@@ -206,13 +208,15 @@ class User < ApplicationRecord
         actor.update(reputation: actor.reputation += 1)
       elsif action == "downvoted"
         if voted_on.class.name == "Problem"
-          recipient.update(reputation: recipient.reputation -= 2)
+          recipient.assign_attributes(reputation: recipient.reputation -= 2)
         elsif voted_on.class.name == "Proof"
-          recipient.update(reputation: recipient.reputation -= 2)
+          recipient.assign_attributes(reputation: recipient.reputation -= 2)
         elsif voted_on.class.name == "Comment"
-          recipient.update(reputation: recipient.reputation -= 1)
+          recipient.assign_attributes(reputation: recipient.reputation -= 1)
         end
-        actor.update(reputation: actor.reputation -= 1)
+        actor.assign_attributes(reputation: actor.reputation -= 1)
+        actor.reputation < 0 ? actor.update(reputation: 0) : actor.save
+        recipient.reputation < 0 ? recipient.update(reputation: 0) : recipient.save
       end
     end
 

@@ -11,11 +11,13 @@ class Topic < ApplicationRecord
   has_many :images, through: :topic_images, :dependent => :destroy
 
   before_save { self.name = name.downcase }
-  validates :name, presence: true, length: { minimum: 3 }
+  validates :name, presence: true, length: { minimum: 3, maximum: 35 }
   validates :description, presence: true, length: { minimum: 3 }
   validates :cached_problems_count, presence: true, 
                                     numericality: {only_integer: true,
                                       greater_than_or_equal_to: 0 }
+  validates_format_of :name, :with => /^[a-z\d\.\+\-\#]*$/,
+    :message => "can only contain a-z, 0-9, +, #, -, ."
 
   def save_new(images, user)
     begin
