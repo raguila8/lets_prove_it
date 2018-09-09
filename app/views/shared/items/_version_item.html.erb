@@ -14,7 +14,7 @@
           <% if model.class.name == "Activity" %>
             <%= model.message %>  on <%=model.created_at.strftime('%B %d, %Y')%>
           <% else %>
-            <a href='/users/<%= version.user.id %>'><%=version.user.username%></a> edited <%=controller_name == "topics" ? 'topic':'problem'%> on <%=version.created_at.strftime('%B %d, %Y')%>
+            <a href='/users/<%= version.user.id %>'><%=version.user.username%></a> <%= version.version_number == 1 ? "created" : "edited" %>  <%= version.versioned_type.downcase %> on <%=version.created_at.strftime('%B %d, %Y')%>
           <% end %>
         </span>
       </div>

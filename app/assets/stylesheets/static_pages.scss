@@ -13,8 +13,30 @@
   padding-top: 20px;
   padding-bottom: 20px;
 
+  #privilege-faq {
+
+    .priv-tabs-list {
+      margin-top: 20px;
+    }
+
+    .active {
+      a {
+        background-color: #fff;
+      }
+    }
+
+    .tab-content {
+      background-color: #fff;
+      min-height: 100%;
+      .tab-content-text {
+        padding-left: 20px;
+        padding-top: 30px;
+      }
+    }
+  }
+
   .panel {
-    p, li {
+    .reg-p, .reg-item {
       font-size: 13px;
       font-weight: normal;
       color: #2F323C;
@@ -44,13 +66,13 @@
     }
   }
 
-  .tab-list-content h1 {
+  .tab-list-content .reg-h1 {
     font-size: 2.2em;
     text-transform: uppercase;
     text-align: center;
   }
 
-  .tabs-list {
+  .fixed-tabs-list {
     position: fixed;
     width: 25%;
     z-index: 9998;
@@ -65,7 +87,7 @@
       text-align: center;
     }
 
-    .tabs-list {
+    .fixed-tabs-list {
       width: 100%;
       margin: auto;
       text-align: center; 
@@ -102,7 +124,7 @@
 
     }
 
-    .tab-content {
+    .main-tab-content {
       margin-top: 200px;
     }
   }

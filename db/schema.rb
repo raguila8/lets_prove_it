@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180830043248) do
+ActiveRecord::Schema.define(version: 20180909215808) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -326,8 +326,6 @@ ActiveRecord::Schema.define(version: 20180830043248) do
   end
 
   create_table "versions", force: :cascade do |t|
-    t.integer "problem_id"
-    t.integer "topic_id"
     t.integer "version_number"
     t.integer "user_id"
     t.string "title"
@@ -335,9 +333,11 @@ ActiveRecord::Schema.define(version: 20180830043248) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
-    t.index ["problem_id"], name: "index_versions_on_problem_id"
-    t.index ["topic_id"], name: "index_versions_on_topic_id"
+    t.integer "versioned_id"
+    t.string "versioned_type"
     t.index ["user_id"], name: "index_versions_on_user_id"
+    t.index ["versioned_id", "versioned_type"], name: "index_versions_on_versioned_id_and_versioned_type"
+    t.index ["versioned_id"], name: "index_versions_on_versioned_id"
   end
 
   create_table "votes", force: :cascade do |t|

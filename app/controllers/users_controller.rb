@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   end
 
   def problem_edits
-    @versions = @user.versions.where(topic_id: nil).order(created_at: :desc)
+    @versions = @user.versions.where(versioned_type: "Problem").order(created_at: :desc)
   end
 
   def problems_following
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   end
 
   def topic_edits
-    @versions = @user.versions.where(problem_id: nil).order(created_at: :desc)
+    @versions = @user.versions.where(versioned_type: "Topic").order(created_at: :desc)
   end
 
   def show

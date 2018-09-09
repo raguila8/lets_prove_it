@@ -9,7 +9,7 @@
             
           <!-- Tabs -->
           <div class="col-md-3 col-sm-3 col-lg-3 no-gap tab-navbar">
-	          <ul class="tabs-list" role="tablist">
+	          <ul class="tabs-list fixed-tabs-list" role="tablist">
 
 		          <!-- Tab 1 -->
 		          <li role="presentation" class="active">
@@ -58,7 +58,7 @@
 
 
           <!-- Tabs Content -->
-          <div class="col-sm-8 col-md-8 col-lg-8 no-gap tab-content mb-100">
+          <div class="col-sm-8 col-md-8 col-lg-8 no-gap tab-content main-tab-content mb-100">
 
             <!-- Tab Content 1 -->
             <div class="tab-pane fade active in">
@@ -68,7 +68,7 @@
                   <div class="panel-group accordions-1" id="faq-accordion-1" role="tablist" aria-multiselectable="true">
 
                     <div class="mt-20" id="problems">
-                      <h1 class="mb-20"> Problems </h1>
+                      <h1 class="mb-20 reg-h1"> Problems </h1>
                       <div class="panel panel-default primary-card mb-40 faq-panel" id="topics-faq">   
                         <div class="panel-heading" style="padding: 5px 15px;" role="tab">
                           <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-problem-1" aria-expanded="false" aria-controls="collapse-problem-1" id="heading-problem-1">
@@ -78,16 +78,16 @@
                         </div>
                         <div id="collapse-problem-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-1">
                           <div class="panel-body">
-                            <p> Topics are a way of connecting users with problems they will be able to answer by sorting problems into specific, well-defined categories.</p>
-                            <p> Topics are also used to help you identify problems that are relavent or interesting to you. Users can follow topics in order to recieve problems within specific topics in their <%= signed_in? ? "<a href='#{feed_path}'>feed</a>".html_safe : "feed" %>. You can <a href="<%= topics_path%>">browse and search new topics</a> in the topics index page to improve your feed.</p>
-                            <p> Each problem has to have at least one topic. Clicking on the topic tag corresponding to a problem brings you to a page that shows you a description of what the topic is. You can also see all problems and proofs within that topic, the past edits made to that topic (<a data-easing="linear" href="#editing-faq">See how editing works</a>), and the users who are following it.</p>
-                            <p>Not everyone can <a data-easing="linear" href="#create-new-topic-faq">create a new topic</a>. A certain amount of reputation is needed before you can start creating new topics. Even if you have sufficient reputation, you should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
-                            <p>Users with sufficient reputation can edit the topic tags of a problem if they feel a certain tag was used innapropriately or if the problem is missing a topic.</p>
+                            <p class='reg-p'> Topics are a way of connecting users with problems they will be able to answer by sorting problems into specific, well-defined categories.</p>
+                            <p class='reg-p'> Topics are also used to help you identify problems that are relavent or interesting to you. Users can follow topics in order to recieve problems within specific topics in their <%= signed_in? ? "<a href='#{feed_path}'>feed</a>".html_safe : "feed" %>. You can <a href="<%= topics_path%>">browse and search new topics</a> in the topics index page to improve your feed.</p>
+                            <p class='reg-p'> Each problem has to have at least one topic. Clicking on the topic tag corresponding to a problem brings you to a page that shows you a description of what the topic is. You can also see all problems and proofs within that topic, the past edits made to that topic (<a data-easing="linear" href="#editing-faq">See how editing works</a>), and the users who are following it.</p>
+                            <p class='reg-p'>Not everyone can <a data-easing="linear" href="#create-new-topic-faq">create a new topic</a>. A certain amount of reputation is needed before you can start creating new topics. Even if you have sufficient reputation, you should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
+                            <p class='reg-p'>Users with sufficient reputation can edit the topic tags of a problem if they feel a certain tag was used innapropriately or if the problem is missing a topic.</p>
                           </div>
                         </div>
                       </div><!-- / .panel -->
 
-                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                      <div class="panel panel-default primary-card mb-40 faq-panel" id="good-problems-faq">   
                         <div class="panel-heading" style="padding: 5px 15px;" role="tab">
                           <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-problem-2" aria-expanded="false" aria-controls="collapse-problem-2" id="heading-problem-2">
                             <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
@@ -96,23 +96,23 @@
                         </div>
                         <div id="collapse-problem-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-2">
                           <div class="panel-body">
-                            <p>Improve your chances of getting a proof by writing good problems.</p>
-                            <p>Make sure your problem is not a duplicate and is different from the rest. <%= link_to "Search", problems_path %>, research and keep track of what you find. You can link problems that have not helped you so that others can better understand your question and make sure it is not repeated.</p>
+                            <p class='reg-p'>Improve your chances of getting a proof by writing good problems.</p>
+                            <p class='reg-p'>Make sure your problem is not a duplicate and is different from the rest. <%= link_to "Search", problems_path %>, research and keep track of what you find. You can link problems that have not helped you so that others can better understand your question and make sure it is not repeated.</p>
                             <h3>Write a title that summarizes the problem</h3>
-                            <p>The title is the first thing that users will see, and if it is not good, people will lose interest and won't read the rest. Here are some tips for making a good title:</p>
+                            <p class='reg-p'>The title is the first thing that users will see, and if it is not good, people will lose interest and won't read the rest. Here are some tips for making a good title:</p>
                             <ul>
-                              <li>Sum up your entire problem in one sentence. Include details that will help people identify and solve your problem. Iclude any constraints or variants to your problem that make it different from similar problems already on the site.</li>
-                              <li>Spelling, grammar and punctuation are important! Make sure you proof-read it or have someone proof-read it for you if your english is not good.</li>
-                              <li>Write the title last if you are having trouble summarizing the problem. Sometimes writing the problem first can make it easier for you to describe the problem.</li>
+                              <li class='reg-item'>Sum up your entire problem in one sentence. Include details that will help people identify and solve your problem. Iclude any constraints or variants to your problem that make it different from similar problems already on the site.</li>
+                              <li class='reg-item'>Spelling, grammar and punctuation are important! Make sure you proof-read it or have someone proof-read it for you if your english is not good.</li>
+                              <li class='reg-item'>Write the title last if you are having trouble summarizing the problem. Sometimes writing the problem first can make it easier for you to describe the problem.</li>
                             </ul>
                             <h3>Include relevant tags</h3>
-                            <p>Make sure that the tags you submit are relevant to the problem by reading their descriptions. The system will suggest topics that match what you have typed. See also: <a data-easing="linear" href="#topics-faq">What are tags/topics and how do I use them?</a></p>
+                            <p class='reg-p'>Make sure that the tags you submit are relevant to the problem by reading their descriptions. The system will suggest topics that match what you have typed. See also: <a data-easing="linear" href="#topics-faq">What are tags/topics and how do I use them?</a></p>
                             <h3>Proof-read before posting</h3>
-                            <p>Read the problem from start to finish and make sure everything is clear and makes since. Add any details you missed and read through it again. Before posting, if you wrote the title first, read it again and make sure it still describes the problem.</p>
+                            <p class='reg-p'>Read the problem from start to finish and make sure everything is clear and makes since. Add any details you missed and read through it again. Before posting, if you wrote the title first, read it again and make sure it still describes the problem.</p>
                             <h3>Make sure the problem is to prove a mathematical statement</h3>
-                            <p>The purpose of this site is not to solve computational problems and make calculations: it is about the conscious understanding of abstract mathematical truth, and why it is true. Forget about calculating, and ask questions like why a particular statement is true or false, and why a certain pattern exists.</p>
+                            <p class='reg-p'>The purpose of this site is not to solve computational problems and make calculations: it is about the conscious understanding of abstract mathematical truth, and why it is true. Forget about calculating, and ask questions like why a particular statement is true or false, and why a certain pattern exists.</p>
                             <h3>Respond to feedback after posting problem</h3>
-                            <p>After posting your problem, frequently check on it to see if anyone comments on it. If you missed a piece of information or made an error in your problem, be ready to edit your problem and fix it. If someone posts a proof, be ready to provide feedback.</p>
+                            <p class='reg-p'>After posting your problem, frequently check on it to see if anyone comments on it. If you missed a piece of information or made an error in your problem, be ready to edit your problem and fix it. If someone posts a proof, be ready to provide feedback.</p>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -126,9 +126,9 @@
                         </div>
                         <div id="collapse-problem-4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-4">
                           <div class="panel-body">
-                            <p>The primary way that you will find problems you are interested in is through your problem feed. Problems that you follow and problems within topics that you follow will show up in your feed. It is important that you follow topics that you are interested in, so that your feed can be tailored to you.</p>
+                            <p class='reg-p'>The primary way that you will find problems you are interested in is through your problem feed. Problems that you follow and problems within topics that you follow will show up in your feed. It is important that you follow topics that you are interested in, so that your feed can be tailored to you.</p>
                             <h3> Search for specific problems </h3>
-                            <p> If you want to browse and search from all problems that contain some phrase or word, you can do so <%= link_to "here", problems_path %>. You can refine your search by filtering problems with proofs or ones that don't have any yet. You can also sort based on date created or modified, problems with most upvotes or problems with most proofs.</p>
+                            <p class='reg-p'> If you want to browse and search from all problems that contain some phrase or word, you can do so <%= link_to "here", problems_path %>. You can refine your search by filtering problems with proofs or ones that don't have any yet. You can also sort based on date created or modified, problems with most upvotes or problems with most proofs.</p>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -136,7 +136,7 @@
                     </div>
 
                     <div class="mt-20" id="general">
-                      <h1 class="mb-20"> General </h1>
+                      <h1 class="mb-20 reg-h1"> General </h1>
                       <div class="panel panel-default primary-card mb-40 faq-panel">   
                         <div class="panel-heading" style="padding: 5px 15px;" role="tab">
                           <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-general-1" aria-expanded="false" aria-controls="collapse-general-1" id="heading-general-1">
@@ -146,15 +146,15 @@
                         </div>
                         <div id="collapse-general-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-1">
                           <div class="panel-body">
-                            <p> We are happy to have you here. Here are a few guidelines you should follow.</p>
+                            <p class='reg-p'> We are happy to have you here. Here are a few guidelines you should follow.</p>
                             <h3>Be polite.</h3>
-                            <p>We are all here to learn together. Whether you are posting a problem, or sharing what you know, remember to always be nice and welcoming.</p>
+                            <p class='reg-p'>We are all here to learn together. Whether you are posting a problem, or sharing what you know, remember to always be nice and welcoming.</p>
                             <h3>Be honest.</h3>
-                            <p>Don't be afraid to speak up. If you see a bad problem or misinformation, vote it down and comment what is specifically wrong. If you have the reputation, we encourage you to <a data-easing="linear" href="#editing-faq">edit and improve</a> when it is necessary. Doing these things will help keep the integrity and knowledge of the site.</p>
+                            <p class='reg-p'>Don't be afraid to speak up. If you see a bad problem or misinformation, vote it down and comment what is specifically wrong. If you have the reputation, we encourage you to <a data-easing="linear" href="#editing-faq">edit and improve</a> when it is necessary. Doing these things will help keep the integrity and knowledge of the site.</p>
                             <h3>Avoid self-promotion.</h3>
-                            <p>This site is not about promoting your products or websites. We encorage users to vote-down overt self-promotion and will take down any posts we see fit.</p>
+                            <p class='reg-p'>This site is not about promoting your products or websites. We encorage users to vote-down overt self-promotion and will take down any posts we see fit.</p>
                             <h3>Don't use greetings or signatures.</h3>
-                            <p>Posts are already marked with your user card that links to your profile page. Introducing yourself or writing taglines only brings unnecessary noise to your posts.</p>
+                            <p class='reg-p'>Posts are already marked with your user card that links to your profile page. Introducing yourself or writing taglines only brings unnecessary noise to your posts.</p>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -181,23 +181,23 @@
                         </div>
                         <div id="collapse-general-4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-4">
                           <div class="panel-body">
-                            <p>This site is a collaborative effort. If you see a problem or topic that needs improvement, click edit!<p>
-                            <p>We believe that the collective wisdom of users ensures the quality of posts. Editing is important for keeping problems and topics clear, grammatically correct and relevant.<p>
+                            <p class='reg-p'>This site is a collaborative effort. If you see a problem or topic that needs improvement, click edit!<p>
+                            <p class='reg-p'>We believe that the collective wisdom of users ensures the quality of posts. Editing is important for keeping problems and topics clear, grammatically correct and relevant.<p>
                             <h3>When to edit posts</h3>
-                            <p> Whenever you see a post that can be improved, it is ecouraged to edit it. Edits are expected to leave the post better than how you found it. Here are some reasons for edits: </p>
+                            <p class='reg-p'> Whenever you see a post that can be improved, it is ecouraged to edit it. Edits are expected to leave the post better than how you found it. Here are some reasons for edits: </p>
                             <ul>
-                              <li>To improve spelling, grammar or punctuation</li>
-                              <li>To clarify the meaning of the post. It is important not to change the intended meaning of the poster.</li>
-                              <li>To include important information that is found in the comments. Sometimes additional information or a clarification arises in the comments. It is better to keep all of the relevant information in one place.</li>
-                              <li>To correct a mistake or error made</li>
-                              <li>To add citations, links or resources</li>
+                              <li class='reg-item'>To improve spelling, grammar or punctuation</li>
+                              <li class='reg-item'>To clarify the meaning of the post. It is important not to change the intended meaning of the poster.</li>
+                              <li class='reg-item'>To include important information that is found in the comments. Sometimes additional information or a clarification arises in the comments. It is better to keep all of the relevant information in one place.</li>
+                              <li class='reg-item'>To correct a mistake or error made</li>
+                              <li class='reg-item'>To add citations, links or resources</li>
                             </ul>
                             <h3>Who can edit posts?</h3>
-                            <p>Only trusted members of the community can edit posts. You need at least 2000 reputation points to edit posts. The creator of the post can always edit their own post, regardless of their reputation.</p>
+                            <p class='reg-p'>Only trusted members of the community can edit posts. You need at least 2000 reputation points to edit posts. The creator of the post can always edit their own post, regardless of their reputation.</p>
                             <h3>What happens after I edit a post?</h3>
-                            <p>The post will update to show the latest editor as well as the original creator. All edits are saved and tracked in the posts version history. Each version will be viewable along with the editor in the post's log. Editing a post will bump it to the top of the feed.</p>
+                            <p class='reg-p'>The post will update to show the latest editor as well as the original creator. All edits are saved and tracked in the posts version history. Each version will be viewable along with the editor in the post's log. Editing a post will bump it to the top of the feed.</p>
                             <h3>What if the edit was bad?</h3>
-                            <p>Common users can report edits. If the latest edit gets 5 or more reports then the latest version will be reverted to its previous version and the edit will disappear from the log. Trusted users with at least 2000 reputation, and original authors can rollback edits automatically.</p>
+                            <p class='reg-p'>Common users can report edits. If the latest edit gets 5 or more reports then the latest version will be reverted to its previous version and the edit will disappear from the log. Trusted users with at least 2000 reputation, and original authors can rollback edits automatically.</p>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -211,7 +211,7 @@
                         </div>
                         <div id="collapse-general-5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-5">
                           <div class="panel-body">
-                            <p>If you have a question, need more information, are experiencing an error, or want to report a security vulnerabilty, please <%= link_to "contact us directly", contact_path %>.</p>
+                            <p class='reg-p'>If you have a question, need more information, are experiencing an error, or want to report a security vulnerabilty, please <%= link_to "contact us directly", contact_path %>.</p>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -225,12 +225,12 @@
                         </div>
                         <div id="collapse-general-6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-6">
                           <div class="panel-body">
-                            <p>Trusted users with at least 2000 reputation can create new topics. You should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
+                            <p class='reg-p'>Trusted users with at least 2000 reputation can create new topics. You should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
                             <h3>How do I create a new topic?</h3>
-                            <p>If you are a trusted member then a link to create a new topic will appear on your homepage sidebar. When creating the topic, bear in mind that topic names must not be longer than 35 characters, and can only use the following chacter set: <code>a-z</code>, <code>0-9</code>, <code>+</code>, <code>#</code>, <code>-</code>, <code>.</code>. You must provide a description of the topic as well.</p>
+                            <p class='reg-p'>If you are a trusted member then a link to create a new topic will appear on your homepage sidebar. When creating the topic, bear in mind that topic names must not be longer than 35 characters, and can only use the following chacter set: <code>a-z</code>, <code>0-9</code>, <code>+</code>, <code>#</code>, <code>-</code>, <code>.</code>. You must provide a description of the topic as well.</p>
                             <h3>What happens after a new topic is created?</h3>
-                            <p>The new topic will now be available for all other users to use and follow. If they are not used by any questions in a 4 month period, the topic will be removed.</p>
-                            <p>Please create topics responsibly!</p>
+                            <p class='reg-p'>The new topic will now be available for all other users to use and follow. If they are not used by any questions in a 4 month period, the topic will be removed.</p>
+                            <p class='reg-p'>Please create topics responsibly!</p>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -239,7 +239,7 @@
  
                     </div>
                     <div class="mt-20" id="reputation">
-                      <h1 class="mb-20"> Reputation </h1>
+                      <h1 class="mb-20 reg-h1"> Reputation </h1>
 
                       <div class="panel panel-default primary-card mb-40 faq-panel">   
                         <div class="panel-heading" style="padding: 5px 15px;" role="tab">
@@ -250,23 +250,23 @@
                         </div>
                         <div id="collapse-reputation-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-reputation-1">
                           <div class="panel-body">
-                          <p>Reputation is a rough measure of how much the community trusts you, and it is earned by convincing users that you know what you are talking about. The more reputation you earn the more <a data-easing="linear" href="#privilege-faq">privileges</a> you gain and the more you can do on the site. It is set up this way because we believe in the wisdom of our users so we want them to run the site as a collective community.</p>
+                          <p class='reg-p'>Reputation is a rough measure of how much the community trusts you, and it is earned by convincing users that you know what you are talking about. The more reputation you earn the more <a data-easing="linear" href="#privilege-faq">privileges</a> you gain and the more you can do on the site. It is set up this way because we believe in the wisdom of our users so we want them to run the site as a collective community.</p>
                           <h3>How to earn reputation</h3>
-                          <p>As mentioned before, the primary way to earn reputation is by convincing people that you know what you are talking about. This is primarily done by writing good problems and proofs. Votes on these posts can make you either gain or lose reputation.</p>
+                          <p class='reg-p'>As mentioned before, the primary way to earn reputation is by convincing people that you know what you are talking about. This is primarily done by writing good problems and proofs. Votes on these posts can make you either gain or lose reputation.</p>
                           <h4>Ways to gain reputation:</h4>
                             <ul>
-                              <li>Problem is voted up: +5</li>
-                              <li>Proof is voted up: +10</li>
-                              <li>Comment is voted up: +2</li>
+                              <li class='reg-item'>Problem is voted up: +5</li>
+                              <li class='reg-item'>Proof is voted up: +10</li>
+                              <li class='reg-item'>Comment is voted up: +2</li>
                             </ul>
                           <h4>Ways to lose reputation:</h4>
                             <ul>
-                              <li>Problem is voted down: -2</li>
-                              <li>Proof is voted down: -2</li>
-                              <li>Comment is voted down: -1</li>
-                              <li>You vote down a post: -1</li>
+                              <li class='reg-item'>Problem is voted down: -2</li>
+                              <li class='reg-item'>Proof is voted down: -2</li>
+                              <li class='reg-item'>Comment is voted down: -1</li>
+                              <li class='reg-item'>You vote down a post: -1</li>
                             </ul>
-                            <p> All users start with 0 reputation and it can never drop below 0. Deleting a post will not affect the scores of the authors and people involved. When a user reverses a vote, the corresponding reputation loss or gain will be reverted as well.</p>
+                            <p class='reg-p'> All users start with 0 reputation and it can never drop below 0. Deleting a post will not affect the scores of the authors and people involved. When a user reverses a vote, the corresponding reputation loss or gain will be reverted as well.</p>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -280,8 +280,8 @@
                         </div>
                         <div id="collapse-reputation-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-reputation-2">
                           <div class="panel-body">
-                            <p>Each user has a colored badge that serves as a sort of rank, and determines the level of trust he or she has earned based on his or her reputation score. This color badge appears on the user's standard card and provides a quick visual representation of the user's trustworthiness and site prestige.</p>
-                            <p>The following are the badges along with the corresponding reputation level needed to earn you that badge:</p>
+                            <p class='reg-p'>Each user has a colored badge that serves as a sort of rank, and determines the level of trust he or she has earned based on his or her reputation score. This color badge appears on the user's standard card and provides a quick visual representation of the user's trustworthiness and site prestige.</p>
+                            <p class='reg-p'>The following are the badges along with the corresponding reputation level needed to earn you that badge:</p>
                             <div class="row">
                               <div class="col-xs-6 col-sm-4">
                                 <p class="badge-label" style="background-color: #373940;"><span class="fa fa-trophy mr-5"></span> 0</p>
@@ -307,15 +307,204 @@
                       </div><!-- / .panel -->
 
 
-                      <div class="panel panel-default primary-card mb-40 faq-panel" id="privilege-faq">   
-                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                      <div class="panel panel-default primary-card mb-40 faq-panel" id="privilege-faq" style="padding: 16px 0 0 0;">   
+                        <div class="panel-heading" style="padding: 5px 39px 21px 39px;" role="tab">
                           <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-reputation-3" aria-expanded="false" aria-controls="collapse-reputation-3" id="heading-reputation-3">
                             <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
                             View privileges you can earn with reputation
                           </h2>
                         </div>
                         <div id="collapse-reputation-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-reputation-3">
-                          <div class="panel-body">
+                          <div class="panel-body" style="border-top: none; padding: 30px 0 0 0;">
+                            <!-- Tabs -->
+                            <div class="col-lg-3 no-gap">
+                              <ul class="tabs-list priv-tabs-list" role="tablist">
+
+                                <!-- Tab 1 -->
+                                <li role="presentation" class="active">
+                                  <a href="#priv1" aria-controls="priv1" role="tab" data-toggle="tab">
+                                    <div class="tab-top">
+                                      <h1>0</h1>
+                                      <i class="fa fa-comment"></i>
+                                    </div>
+                                    <div class="tab-bottom">
+                                      <p>Create Posts</p>
+                                    </div>
+                                  </a>
+                                </li>
+
+                                <!-- Tab 2 -->
+                                <li role="presentation">
+                                  <a href="#priv2" aria-controls="priv2" role="tab" data-toggle="tab">
+                                    <div class="tab-top">
+                                      <h1>10</h1>
+                                      <i class="fa fa-thumbs-up"></i>
+                                    </div>
+                                    <div class="tab-bottom">
+                                      <p>Upvote</p>
+                                    </div>
+                                  </a>
+                                </li>
+
+                                <!-- Tab 3 -->
+                                <li role="presentation">
+                                  <a href="#priv3" aria-controls="priv3" role="tab" data-toggle="tab">
+                                    <div class="tab-top">
+                                      <h1>30</h1>
+                                      <i class="fa fa-comment"></i>
+                                    </div>
+                                    <div class="tab-bottom">
+                                      <p>Comment</p>
+                                    </div>
+                                  </a>
+                                </li>
+
+                                <!-- Tab 4 -->
+                                <li role="presentation">
+                                  <a href="#priv4" aria-controls="priv4" role="tab" data-toggle="tab">
+                                    <div class="tab-top">
+                                      <h1>100</h1>
+                                      <i class="fa fa-thumbs-down"></i>
+                                    </div>
+                                    <div class="tab-bottom">
+                                      <p>Downvote</p>
+                                    </div>
+                                  </a>
+                                </li>
+
+                                <!-- Tab 5 -->
+                                <li role="presentation">
+                                  <a href="#priv5" aria-controls="priv5" role="tab" data-toggle="tab">
+                                    <div class="tab-top">
+                                      <h1>300</h1>
+                                      <i class="fa fa-flag"></i>
+                                    </div>
+                                    <div class="tab-bottom">
+                                      <p>Report</p>
+                                    </div>
+                                  </a>
+                                </li>
+
+                                <!-- Tab 6 -->
+                                <li role="presentation">
+                                  <a href="#priv6" aria-controls="priv6" role="tab" data-toggle="tab">
+                                    <div class="tab-top">
+                                      <h1>1500</h1>
+                                      <i class="fa fa-tag"></i>
+                                    </div>
+                                    <div class="tab-bottom">
+                                      <p>Create Topics</p>
+                                    </div>
+                                  </a>
+                                </li>
+
+                                <!-- Tab 7 -->
+                                <li role="presentation">
+                                  <a href="#priv7" aria-controls="priv7" role="tab" data-toggle="tab">
+                                    <div class="tab-top">
+                                      <h1>2500</h1>
+                                      <i class="fa fa-pencil"></i>
+                                    </div>
+                                    <div class="tab-bottom">
+                                      <p>Edit</p>
+                                    </div>
+                                  </a>
+                                </li>
+
+                              </ul>
+                            </div><!-- / .col-lg-4 -->
+
+                            <!-- Tabs Content -->
+                            <div class="col-lg-9 no-gap tab-content priv-content">
+
+                              <!-- Tab Content 1 -->
+                              <div id="priv1" role="tabpanel" class="tab-pane fade active in">
+                                <div class="tab-content-text page-content">
+                                  <div class="boxedtitle add-problem-title mb-40"><h2>Create Posts</h2></div>
+                                  <div class="tab-list-content">
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 0</h3>
+                                    <p class='reg-p'>Creating problems and writing proofs are available to everyone regardless of reputation. </p>
+                                    <h3>Creating Problems</h3>
+                                    <p class='reg-p'>Make sure your problem is not a duplicate and is different from the rest. <%= link_to "Search", problems_path %>, research and keep track of what you find. You can link problems that have not helped you so that others can better understand your question and make sure it is not repeated.</p>
+                                    <%= link_to "Learn More", "#good-problems-faq", class: "btn btn-ghost btn-small mb-15", easing: "linear" %>
+                                    <h3>Writing proofs</h3>
+                                  </div>
+                                </div>
+                              </div><!-- / #priv1 -->
+
+                              <!-- Tab Content 2 -->
+                              <div id="priv2" role="tabpanel" class="tab-pane fade">
+                                <div class="tab-content-text page-content">
+                                  <div class="boxedtitle add-problem-title mb-40"><h2>Upvote</h2></div>
+                                  <div class="tab-list-content">
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 10</h3>
+                                    <p class='reg-p'>Voting up is an essential part of the the site's operating system. It lets users know which posts are most useful, relevant and appropriate.</p>
+                                    <h3>When should I upvote?</h3>
+                                    <p class='reg-p'>You should upvote a post whenever you find a problem, proof or comment that you feel is well written and especially useful.</p>
+                                    <h3>How do I upvote?</h3>
+                                    <p class='reg-p'>Each problem, proof and comment contains an upvote (up arrow) and downvote (down arrow) button. Simply click on the up arrow to upvote a post. You can undo an upvote by clicking on the down arrow.</p>
+                                    <h3>What happens after I upvote?</h3>
+                                    <li class='reg-item'>Problems move up in the feed when they are sorted by 'top'.</li>
+                                    <li class='reg-item'>Upvotes on a problem gives the author +5 reputation points.</li>
+                                    <li class='reg-item'>Upvotes on a proof gives the author +10 reputation points.</li>
+                                    <li class='reg-item'>Upvotes on a comment gives the author +2 reputation points.</li> 
+                                    <p class='reg-p'>In general, upvoted posts are seen by more people.
+                                  </div>
+                                </div>
+                              </div><!-- / #priv2 -->
+
+                              <!-- Tab Content 3 -->
+                              <div id="priv3" role="tabpanel" class="tab-pane fade">
+                                <div class="tab-content-text page-content">
+                                  <div class="boxedtitle add-problem-title mb-40"><h2>Comment</h2></div>
+                                  <div class="tab-list-content">
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 30</h3>
+                                  </div>
+                                </div>
+                              </div><!-- / #priv3 -->
+
+                              <!-- Tab Content 4 -->
+                              <div id="priv4" role="tabpanel" class="tab-pane fade">
+                                <div class="tab-content-text page-content">
+                                  <div class="boxedtitle add-problem-title mb-40"><h2>Downvote</h2></div>
+                                  <div class="tab-list-content">
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 100</h3>
+                                  </div>
+                                </div>
+                              </div><!-- / #priv4 -->
+
+                              <!-- Tab Content 5 -->
+                              <div id="priv5" role="tabpanel" class="tab-pane fade">
+                                <div class="tab-content-text page-content">
+                                  <div class="boxedtitle add-problem-title mb-40"><h2>Report Posts</h2></div>
+                                  <div class="tab-list-content">
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 300</h3>
+                                  </div>
+                                </div>
+                              </div><!-- / #priv5 -->
+
+                              <!-- Tab Content 6 -->
+                              <div id="priv6" role="tabpanel" class="tab-pane fade">
+                                <div class="tab-content-text page-content">
+                                  <div class="boxedtitle add-problem-title mb-40"><h2>Create Topics</h2></div>
+                                  <div class="tab-list-content">
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 1500</h3>
+                                  </div>
+                                </div>
+                              </div><!-- / #priv6 --> 
+
+                              <!-- Tab Content 7 -->
+                              <div id="priv7" role="tabpanel" class="tab-pane fade">
+                                <div class="tab-content-text page-content">
+                                  <div class="boxedtitle add-problem-title mb-40"><h2>Edit</h2></div>
+                                  <div class="tab-list-content">
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 2500</h3>
+                                  </div>
+                                </div>
+                              </div><!-- / #priv7 --> 
+
+                            </div><!-- / .col-lg-8 -->
+
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -323,7 +512,7 @@
                     </div>
 
                     <div class="mt-20" id="proofs">
-                      <h1 class="mb-20"> Proofs </h1>
+                      <h1 class="mb-20 reg-h1"> Proofs </h1>
 
                       <div class="panel panel-default primary-card mb-40 faq-panel">   
                         <div class="panel-heading" style="padding: 5px 15px;" role="tab">
@@ -366,7 +555,7 @@
                     </div>
 
                     <div class="mt-20" id="account">
-                      <h1 class="mb-20"> Account </h1>
+                      <h1 class="mb-20 reg-h1"> Account </h1>
 
                       <div class="panel panel-default primary-card mb-40 faq-panel">   
                         <div class="panel-heading" style="padding: 5px 15px;" role="tab">

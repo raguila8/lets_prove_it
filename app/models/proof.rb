@@ -7,6 +7,8 @@ class Proof < ApplicationRecord
   belongs_to :user
   belongs_to :problem
   has_many :comments, as: :commented_on, :dependent => :destroy
+  has_many :versions, -> { order(created_at: :desc) }, 
+             as: :versioned, dependent: :destroy
   has_many :proof_images
   has_many :images, through: :proof_images, :dependent => :destroy
   has_many :reports, as: :reportable, :dependent => :destroy

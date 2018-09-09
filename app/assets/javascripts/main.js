@@ -228,6 +228,7 @@ $(document).on('turbolinks:load', function() {
       new SmoothScroll('a[href*="#create-new-topic-faq"]');
       new SmoothScroll('a[href*="#topics-faq"]');
       new SmoothScroll('a[href*="#privilege-faq"]');
+      new SmoothScroll('a[href*="#good-problems-faq"]');
     }
 
     if ($(".landing-hero").length > 0) {
@@ -385,10 +386,19 @@ $(document).on('turbolinks:load', function() {
 
     if ($('.ft-tabs').length > 0) {
       $('.ft-tabs .tabs-list li').on('click', function() {
-        $('.ft-tabs .tabs-list li').removeClass('active');
-        $(this).addClass('active');
-        if ($("#help_center").length == 0) {
-          $('.tab-list-content').html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
+        if ($(this).closest('.fixed-tabs-list').length > 0) {
+          return;
+        } else {
+          $(this).closest(".tabs-list").find("li").removeClass("active");
+          //$('.ft-tabs .tabs-list li').removeClass('active');
+          $(this).addClass('active');
+          if ($("#help_center").length == 0) {
+            $('.tab-list-content').html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
+          }
+          if ($(this).closest('.priv-tabs-list').length > 0) {
+            $(".priv-content .tab-pane").removeClass("in active");
+            $(".priv-content " + $(this).find("a").attr("href")).addClass("in active");
+          }
         }
       });
     }
@@ -396,33 +406,32 @@ $(document).on('turbolinks:load', function() {
     if ($('#help_center').length > 0) {
       $(window).scroll(function() {
         if ($(window).width() < 768 && $(this).scrollTop() >= $(".navbar").height()) {
-          $('.tab-navbar .tabs-list').stop().animate({top: "15px"}, 500);
+          $('.tab-navbar .fixed-tabs-list').stop().animate({top: "15px"}, 500);
         }
 
         if ($(window).width() < 768 && $(this).scrollTop() < $(".navbar").height()) {
-          console.log("caca");
-          $('.tab-navbar .tabs-list').stop().animate({top: "95px"}, 500);
+          $('.tab-navbar .fixed-tabs-list').stop().animate({top: "95px"}, 500);
         }
 
         if ($(this).scrollTop() >= $('#problems').offset().top - 60) {
-          $('.tabs-list li').removeClass('active');
-          $('.tabs-list li:eq(0)').addClass('active');
+          $('.fixed-tabs-list li').removeClass('active');
+          $('.fixed-tabs-list li:eq(0)').addClass('active');
         }
         if ($(this).scrollTop() >= $('#general').offset().top - 60) {
-          $('.tabs-list li').removeClass('active');
-          $('.tabs-list li:eq(1)').addClass('active');
+          $('.fixed-tabs-list li').removeClass('active');
+          $('.fixed-tabs-list li:eq(1)').addClass('active');
         }
         if ($(this).scrollTop() >= $('#reputation').offset().top - 60) {
-          $('.tabs-list li').removeClass('active');
-          $('.tabs-list li:eq(2)').addClass('active');
+          $('.fixed-tabs-list li').removeClass('active');
+          $('.fixed-tabs-list li:eq(2)').addClass('active');
         }
         if ($(this).scrollTop() >= $('#proofs').offset().top - 60) {
-          $('.tabs-list li').removeClass('active');
-          $('.tabs-list li:eq(3)').addClass('active');
+          $('.fixed-tabs-list li').removeClass('active');
+          $('.fixed-tabs-list li:eq(3)').addClass('active');
         }
         if ($(this).scrollTop() >= $('#account').offset().top - 60) {
-          $('.tabs-list li').removeClass('active');
-          $('.tabs-list li:eq(4)').addClass('active');
+          $('.fixed-tabs-list li').removeClass('active');
+          $('.fixed-tabs-list li:eq(4)').addClass('active');
         }
 
       });
@@ -742,7 +751,7 @@ $(document).on('turbolinks:load', function() {
     });
 
     var $versionContent = $(".version-content")
-    $versionContent.on("shown.bs.collapse", function(e) {
+    $('body').on("shown.bs.collapse", '.version-content', function(e) {
       var versionId = $(this).data("version");
       var $content = $(this).find(".panel-body");
       if ($content.data("has-content") == false) {

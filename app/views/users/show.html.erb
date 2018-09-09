@@ -89,7 +89,7 @@
               <li role="presentation">
                 <a href="<%= problem_edits_user_path(@user) %>" aria-controls="tab2" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
                   <div class="tab-top">
-                    <h1><%= @user.versions.where(topic_id: nil).count %></h1>
+                    <h1><%= @user.versions.where(versioned_type: "Problem").count %></h1>
                     <i class="fa fa-pencil-square"></i>
                   </div>
                   <div class="tab-bottom">
@@ -128,7 +128,7 @@
               <li role="presentation">
                 <a href="<%= topic_edits_user_path(@user) %>" aria-controls="tab5" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
                   <div class="tab-top">
-                    <h1><%= @user.versions.where(problem_id: nil).count%></h1>
+                    <h1><%= @user.versions.where(versioned_type: "Topic").count%></h1>
                     <i class="fa fa-pencil-square"></i>
                   </div>
                   <div class="tab-bottom">

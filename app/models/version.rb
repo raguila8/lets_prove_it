@@ -3,8 +3,7 @@ class Version < ApplicationRecord
   before_destroy :update_activities
 
   belongs_to :user
-  belongs_to :problem, optional: true
-  belongs_to :topic, optional: true
+  belongs_to :versioned, polymorphic: true
   has_many :version_changes, foreign_key: "version_id", class_name: "Change"
   has_many :change_types, through: :version_changes, :dependent => :destroy
   has_many :version_topics
@@ -16,7 +15,7 @@ class Version < ApplicationRecord
 
   validates :content, presence: true, length: { maximum: 5000, minimum: 3 }
   validates :description, presence: true, length: { maximum: 500, minimum: 3 }
-  validate :any_problem_topic?
+  #validate :any_problem_topic?
 
   def get_version_topics
     it = 1
@@ -31,12 +30,46 @@ class Version < ApplicationRecord
     Version.find_by(problem_id: self.problem_id, version_number: self.version_number - it)
   end
 
+  def self.create_problem!(problem, user, tags=nil)
+    version = Version.create!(versioned_type: "Problem", 
+                    versioned_id: problem.id, 
+                    version_number: 1, user_id: user.id,
+                    title: problem.title, content: problem.content,
+                    description: "Problem created")
+    if !tags.nil?
+      version.addTopics! tags
+    else
+      return version
+    end
+  end
+
+  def addTopics!(tags)
+    tags.each do |tag|
+      topic = Topic.find_by(name: tag)
+      if topic
+        VersionTopic.create!(version_id: self.id, topic_id: topic.id)
+      end
+    end
+  end
+
+  def addTopic!(topic)
+    VersionTopic.create!(version_id: self.id, topic_id: topic.id)
+  end
+
+  def self.next_version_number(versioned)
+    if versioned.versions.empty?
+      return 1
+    else
+      return versioned.versions.order(:created_at).first.version_number + 1
+    end
+  end
+
   private
 
     def create_activity
       action = (self.version_number == 1 ? "created" : "edited")
       Activity.create(user: self.user, action: action, acted_on: self, 
-                 linkable: (!self.problem.nil? ? self.problem : self.topic))
+                 linkable: self.versioned)
     end
 
     def any_problem_topic?

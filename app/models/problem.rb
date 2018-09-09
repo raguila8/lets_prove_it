@@ -8,7 +8,8 @@ class Problem < ApplicationRecord
   belongs_to :user
   has_many :user_relationships, class_name: "ProblemFollowing", :dependent => :destroy
   has_many :followers, through: :user_relationships, source: :user
-  has_many :versions, -> { order(created_at: :desc) }, :dependent => :destroy
+  has_many :versions, -> { order(created_at: :desc) }, 
+             as: :versioned, dependent: :destroy
   has_many :proofs, :dependent => :destroy
   has_many :problem_images
   has_many :images, through: :problem_images, :dependent => :destroy
@@ -33,7 +34,8 @@ class Problem < ApplicationRecord
     begin
       ActiveRecord::Base.transaction do
         self.save!
-        version = Version.create!(problem_id: self.id, version_number: 1, 
+        
+        version = Version.create!(versioned: self, version_number: 1, 
                         user_id: user.id, title: self.title, 
                         content: self.content, description: "Problem created")
 
@@ -42,7 +44,7 @@ class Problem < ApplicationRecord
           topic = Topic.find_by(name: tag)
           if topic and !ProblemTopic.find_by(problem_id: self.id, topic_id: topic.id)
             ProblemTopic.create!(problem_id: self.id, topic_id: topic.id)
-            VersionTopic.create!(version_id: version.id, topic_id: topic.id)
+            version.addTopic! topic
           end
         end
         if self.topics.count == 0
@@ -68,14 +70,15 @@ class Problem < ApplicationRecord
     begin
       ActiveRecord::Base.transaction do
         self.save!
-        version = Version.create!(problem_id: self.id, 
-                      version_number: self.next_version_number, 
+        version = Version.create!(versioned: self, 
+                      version_number: Version.next_version_number(self),
                       user_id: user.id, title: self.title,
                       content: self.content, description: version_description)
 
         #event = Event.create!(args)
         if changed_topics?(tagsArray)
-          create_version_topics!(version, tagsArray)
+          version.addTopics!(tagsArray)
+          #create_version_topics!(version, tagsArray)
         end
 
         clear_topics!(tagsArray)

@@ -1,6 +1,6 @@
 <!-- Version Post -->
 <div class="blog-post-single  mb-0 wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
-  <% if !version.problem_id.nil? %>
+  <% if version.versioned_type == "Problem" %>
     <!-- Meta data -->
     <div class="post-meta" id="problem-tags-list">
       <ul class="tag-list mt-20">
