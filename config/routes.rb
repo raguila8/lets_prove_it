@@ -17,7 +17,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :proofs
+  resources :proofs do
+    member do
+      get :log
+    end
+  end
+
   get '/proofs/:id/cancel_edit', to: 'proofs#cancel_edit', as: :cancel_edit
   get 'users/show'
 

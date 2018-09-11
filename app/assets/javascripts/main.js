@@ -229,6 +229,8 @@ $(document).on('turbolinks:load', function() {
       new SmoothScroll('a[href*="#topics-faq"]');
       new SmoothScroll('a[href*="#privilege-faq"]');
       new SmoothScroll('a[href*="#good-problems-faq"]');
+      new SmoothScroll('a[href*="#mathjax-faq"]');
+      new SmoothScroll('a[href*="#post-deletion-faq"]');
     }
 
     if ($(".landing-hero").length > 0) {

@@ -159,7 +159,7 @@
                         </div>
                       </div><!-- / .panel -->
  
-                      <div class="panel panel-default primary-card mb-40 faq-panel">   
+                      <div class="panel panel-default primary-card mb-40 faq-panel" id="mathjax-faq">   
                         <div class="panel-heading" style="padding: 5px 15px;" role="tab">
                           <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-general-3" aria-expanded="false" aria-controls="collapse-general-3" id="heading-general-3">
                             <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
@@ -193,11 +193,11 @@
                               <li class='reg-item'>To add citations, links or resources</li>
                             </ul>
                             <h3>Who can edit posts?</h3>
-                            <p class='reg-p'>Only trusted members of the community can edit posts. You need at least 2000 reputation points to edit posts. The creator of the post can always edit their own post, regardless of their reputation.</p>
+                            <p class='reg-p'>Only trusted members of the community can edit posts. You need at least 2500 reputation points to edit problems and proofs, and at least 3000 reputation to edit topics. The creator of the post can always edit their own post, regardless of their reputation.</p>
                             <h3>What happens after I edit a post?</h3>
                             <p class='reg-p'>The post will update to show the latest editor as well as the original creator. All edits are saved and tracked in the posts version history. Each version will be viewable along with the editor in the post's log. Editing a post will bump it to the top of the feed.</p>
                             <h3>What if the edit was bad?</h3>
-                            <p class='reg-p'>Common users can report edits. If the latest edit gets 5 or more reports then the latest version will be reverted to its previous version and the edit will disappear from the log. Trusted users with at least 2000 reputation, and original authors can rollback edits automatically.</p>
+                            <p class='reg-p'>Common users can report edits. If the latest edit gets 5 or more reports then the latest version will be reverted to its previous version and the edit will disappear from the log. Trusted users with at least 5000 reputation, and original authors can rollback edits automatically.</p>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -225,7 +225,7 @@
                         </div>
                         <div id="collapse-general-6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-6">
                           <div class="panel-body">
-                            <p class='reg-p'>Trusted users with at least 2000 reputation can create new topics. You should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
+                            <p class='reg-p'>Trusted users with at least 3000 reputation can create new topics. You should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
                             <h3>How do I create a new topic?</h3>
                             <p class='reg-p'>If you are a trusted member then a link to create a new topic will appear on your homepage sidebar. When creating the topic, bear in mind that topic names must not be longer than 35 characters, and can only use the following chacter set: <code>a-z</code>, <code>0-9</code>, <code>+</code>, <code>#</code>, <code>-</code>, <code>.</code>. You must provide a description of the topic as well.</p>
                             <h3>What happens after a new topic is created?</h3>
@@ -235,8 +235,51 @@
                         </div>
                       </div><!-- / .panel -->
 
+                      <div class="panel panel-default primary-card mb-40 faq-panel" id="post-deletion-faq">
+                        <div class="panel-heading" style="padding: 5px 15px;" role="tab">
+                          <h2 class="panel-title collapsed" role="button" data-toggle="collapse" href="#collapse-general-7" aria-expanded="false" aria-controls="collapse-general-7" id="heading-general-7">
+                            <span class="glyphicon glyphicon-chevron-down float-right faq-toggle-content"></span>
+                            How Can a Post be Deleted?
+                          </h2>
+                        </div>
+                        <div id="collapse-general-7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-7">
+                          <div class="panel-body">
 
- 
+                            <h3>By a User:</h3>
+
+                            <ul>
+                              <li class='reg-item'><b>The author</b> can typically delete their own posts, except when: 
+                                <ul>
+                                  <li>the problem in question has any proofs with upvotes.</li>
+                                  <li>the proof in question has upvotes (it doesn't matter if  the overall score is negative).</li>
+                                </ul>
+                              </li>
+                              <li class='reg-item'><b>Moderators</b> can delete any posts instantly.</li>
+                              <li class='reg-item'><b>Users with 15000 reputation or more</b> can vote to delete a post that is in the "review queue". 3 votes are needed for the post to be deleted.</li>
+                            </ul>
+
+                            <h3>By the System:</h3>
+
+                            <ul>
+                              <li class='reg-item'><b>Dead problem:</b> Problems that are over 60 days old, with a negative score and no proofs will automatically be deleted.</li>
+                              <li class='reg-item'><b>Reported problems:</b> Problems that are over 30 days old, with 3 or more reports and no proofs will automatically be deleted.</li>
+                              <li class='reg-item'><b>Spam or abusive posts</b> If a problem or proof receives 8 spam or offensive reports, they will be automatically deleted. The owner of the post will also receive -100 reputation points.
+                              <li class='reg-item'><b>Bad comments:</b> Comments that have a voting score of -5 or less, or 3 or more reports with a score of 0 or less will automatically be deleted.</li>
+                            </ul>
+
+                            <h3>What is the Review Queue?</h3>
+                            <p class='reg-p'>Posts in the review queue are automatically locked, and are reviewed thoroughly by moderators and users with <%= link_to "deletion priviliges", "#deletion-priv-faq", easing: "linear" %>. An effort is made to edit the post and to mark it as OK if it can be improved, otherwise they are deleted.</p>
+                            <h3>How does a post get put in the Review Queue?</h3>
+                            <ul>
+                              <li class='reg-item'>A problem with a voting score of -6 is put in the queue.</li>
+                              <li class='reg-item'>A proof with a voting score of -4 is put in the queue.</li>
+                              <li class='reg-item'>Any post with 3 or more reports (that are not spam or offensive flag reports) is put in the queue.</li>
+                            </ul>
+                            <h3>What Happens After my Post has Been Taken out of the Review Queue?</h3>
+                            <p class='reg-p'>If the post manages to get out of the review queue, the reports expire and its voting score stays the same. A secondary score will be kept from the moment it is taken out of the review queue, and if this score falls below a -3, it will automatically be deleted. If the post receives 3 or more reports after being released from the review queue, it will also be deleted.</p>
+                          </div>
+                        </div>
+                      </div><!-- / .panel --> 
                     </div>
                     <div class="mt-20" id="reputation">
                       <h1 class="mb-20 reg-h1"> Reputation </h1>
@@ -266,7 +309,7 @@
                               <li class='reg-item'>Comment is voted down: -1</li>
                               <li class='reg-item'>You vote down a post: -1</li>
                             </ul>
-                            <p class='reg-p'> All users start with 0 reputation and it can never drop below 0. Deleting a post will not affect the scores of the authors and people involved. When a user reverses a vote, the corresponding reputation loss or gain will be reverted as well.</p>
+                            <p class='reg-p'> All users start with 0 reputation and it can never drop below 0. Deleting a post will not affect the scores of the authors and people involved. When a user reverses a vote, the corresponding reputation loss or gain will be reverted as well. Note that a user cannot vote on his or her own post.</p>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -350,7 +393,7 @@
                                 <li role="presentation">
                                   <a href="#priv3" aria-controls="priv3" role="tab" data-toggle="tab">
                                     <div class="tab-top">
-                                      <h1>30</h1>
+                                      <h1>50</h1>
                                       <i class="fa fa-comment"></i>
                                     </div>
                                     <div class="tab-bottom">
@@ -363,7 +406,7 @@
                                 <li role="presentation">
                                   <a href="#priv4" aria-controls="priv4" role="tab" data-toggle="tab">
                                     <div class="tab-top">
-                                      <h1>100</h1>
+                                      <h1>200</h1>
                                       <i class="fa fa-thumbs-down"></i>
                                     </div>
                                     <div class="tab-bottom">
@@ -376,7 +419,7 @@
                                 <li role="presentation">
                                   <a href="#priv5" aria-controls="priv5" role="tab" data-toggle="tab">
                                     <div class="tab-top">
-                                      <h1>300</h1>
+                                      <h1>750</h1>
                                       <i class="fa fa-flag"></i>
                                     </div>
                                     <div class="tab-bottom">
@@ -389,11 +432,11 @@
                                 <li role="presentation">
                                   <a href="#priv6" aria-controls="priv6" role="tab" data-toggle="tab">
                                     <div class="tab-top">
-                                      <h1>1500</h1>
-                                      <i class="fa fa-tag"></i>
+                                      <h1>2500</h1>
+                                      <i class="fa fa-pencil"></i>
                                     </div>
                                     <div class="tab-bottom">
-                                      <p>Create Topics</p>
+                                      <p>Edit Problems & Proofs</p>
                                     </div>
                                   </a>
                                 </li>
@@ -402,14 +445,28 @@
                                 <li role="presentation">
                                   <a href="#priv7" aria-controls="priv7" role="tab" data-toggle="tab">
                                     <div class="tab-top">
-                                      <h1>2500</h1>
+                                      <h1>3000</h1>
                                       <i class="fa fa-pencil"></i>
                                     </div>
                                     <div class="tab-bottom">
-                                      <p>Edit</p>
+                                      <p>Create & Edit Topics</p>
                                     </div>
                                   </a>
                                 </li>
+
+                                <!-- Tab 8 -->
+                                <li role="presentation">
+                                  <a href="#priv8" aria-controls="priv8" role="tab" data-toggle="tab">
+                                    <div class="tab-top">
+                                      <h1>5000</h1>
+                                      <i class="fa fa-undo"></i>
+                                    </div>
+                                    <div class="tab-bottom">
+                                      <p>Rollback Edits</p>
+                                    </div>
+                                  </a>
+                                </li>
+
 
                               </ul>
                             </div><!-- / .col-lg-4 -->
@@ -438,7 +495,7 @@
                                   <div class="boxedtitle add-problem-title mb-40"><h2>Upvote</h2></div>
                                   <div class="tab-list-content">
                                     <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 10</h3>
-                                    <p class='reg-p'>Voting up is an essential part of the the site's operating system. It lets users know which posts are most useful, relevant and appropriate.</p>
+                                    <p class='reg-p'>Voting up is an essential part of the the site's operating system. It lets users know which posts are most useful, relevant and appropriate. </p>
                                     <h3>When should I upvote?</h3>
                                     <p class='reg-p'>You should upvote a post whenever you find a problem, proof or comment that you feel is well written and especially useful.</p>
                                     <h3>How do I upvote?</h3>
@@ -458,7 +515,32 @@
                                 <div class="tab-content-text page-content">
                                   <div class="boxedtitle add-problem-title mb-40"><h2>Comment</h2></div>
                                   <div class="tab-list-content">
-                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 30</h3>
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 50</h3>
+                                    <p class='reg-p'>Comments can be left on problems or proofs. They can be voted on and flagged. Users whose comment is voted on recieve +2 reputation and -1 reputation for upvotes and downvotes respectively. If a comment receives a voting score of -5 or if it receives at least 3 reports, it will be taken down. There is no revision history for comments, and when they are deleted they are gone permanently.</p>
+                                    <p class='reg-p'>Note that you can always comment in your own problems and proofs. However, commenting on another user's post requires at least 50 reputation.</p>
+                                    <h3>How do I comment?</h3>
+                                    <p class='reg-p'>Simply click on the "add comment" button under a problem or proof to leave a comment. Note that comments do not use our text editor and so you cannot format comments as with other types of posts. Math can still be rendered as usual with <%= link_to "Mathjax", "#mathjax-faq", easing: "linear" %></p>
+                                    <h3>What happens after I comment?</h3>
+                                    <p class='reg-p'>The following users will be notified after commenting on a post:</p>
+                                    <ul>
+                                      <li class='reg-item'>The author of the post you are commenting on.</li>
+                                      <li class='reg-item'>Users who have edited the post you are commenting on.</li>
+                                      <li class='reg-item'>All other users who have also commented on the post.</li>
+                                    </ul>
+                                    <h3>When should I comment on a post?</h3>
+                                    <p class='reg-p'>The following are good reasons to comment on a post:</p>
+                                    <ul>
+                                      <li class='reg-item'>To add relevant and minor details or information to a post (e.g. a link to background information or further reading, or a link to a related problem).</li>
+                                      <li class='reg-item'>To clarify or request clarification on a post.</li>
+                                      <li class='reg-item'>To provide constructive criticism to guide the author on improving the post.</li>
+                                    </ul>
+                                    <h3>When should I not comment on a post?</h3>
+                                    <p class='reg-p'>The following are bad reasons to comment on a post:</p>
+                                    <ul>
+                                      <li class='reg-item'>Proving a problem or offering an alternative solution; instead post a proof or expand and edit an existing one.</li>
+                                      <li class='reg-item'>Compliments that do not improve or add new information to the post. Instead, show your appreciation of the post by upvoting it.</li>
+                                      <li class='reg-item'>Secondary discussion or debate that is not relevant to the post.</li>
+                                    </ul>
                                   </div>
                                 </div>
                               </div><!-- / #priv3 -->
@@ -468,7 +550,29 @@
                                 <div class="tab-content-text page-content">
                                   <div class="boxedtitle add-problem-title mb-40"><h2>Downvote</h2></div>
                                   <div class="tab-list-content">
-                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 100</h3>
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 200</h3>
+                                    <p class='reg-p'>Downvotes is how users indicate which posts are least useful.</p>
+                                    <h3>When should I downvote?</h3>
+                                    <p class='reg-p'>Downvote posts that are exceptionally poor and sloppy, or proofs that are clearly incorrect and promote misinformation.</p>
+                                    <p class='reg-p'>Downvoting costs you a reputation point per downvote; use theme sparingly and wisely.</p>
+                                    <h3>How do I downvote?</h3>
+                                    <p class='reg-p'>Each problem, proof and comment contains an upvote (up arrow) and downvote (down arrow) button. Simply click on the down arrow to downvote a post. You can undo a downvote by clicking on the up arrow.</p>
+                                    <h3>What happens after I Downvote?</h3>
+                                    <p class='reg-p'>Downvoting posts move it down the feed so that fewer people see it. Voting a post down should not be taken lightly.</p>
+                                    <ul>
+                                      <li class='reg-item'>Downvoting a proof or problem costs the voter 1 reputation point.</li> 
+                                      <li class='reg-item'>Downvoting a proof costs the owner of the post 2 reputation points. A proof with a score of -4 or less will be put in the review queue (look at <%= link_to "post deletion", "#post-deletion-faq", easing: "linear" %>).</li>
+                                      <li class='reg-item'>Downvoting a problem costs the owner of the post 2 reputation points. A problem with a negative voting score and with no proofs after 60+ days will automatically be deleted by the system. A problem with a voting score of -6 will be put in the review queue (look at <%= link_to "post deletion", "#post-deletion-faq", easing: "linear" %>).</li>
+                                      <li class='reg-item'>Downvoting a comment is free. A comment with a voting score of -5 will automatically be deleted.</li>
+                                    </ul>
+                                    <h3>Alternatives to downvoting</h3>
+                                    <p class='reg-p'>Downvoting should only be reserved for extreme cases. It should not be a substitute for an edit or comment. Here are some alternatives to downvotes:</p>
+                                    <ul>
+                                      <li class='reg-item'>If the post is spam, offensive, a duplicate or just egregiously incorrect, report it.</li> 
+                                      <li class='reg-item'>Write a comment to provide constructive criticism or to add relevant information.</li>
+                                      <li class='reg-item'>Correct the post by editing it.</li>
+                                    </ul>
+
                                   </div>
                                 </div>
                               </div><!-- / #priv4 -->
@@ -478,7 +582,31 @@
                                 <div class="tab-content-text page-content">
                                   <div class="boxedtitle add-problem-title mb-40"><h2>Report Posts</h2></div>
                                   <div class="tab-list-content">
-                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 300</h3>
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 700</h3>
+                                    <p class=reg-p'>Reporting is a way to bring innapropriate content to the attention of moderators and trusted users, so that they can determine the fate of the post.</p>
+                                    <p class='reg-p'> The following are the currently implemented flag types that you can report: </p>
+                                    <ul>
+                                      <li class='reg-item'><b>Spam</b>.</li> 
+                                      <li class='reg-item'><b>offensive</b>.</li>
+                                      <li class='reg-item'><b>Not a proof</b> (proofs only).</li>
+                                      <li class='reg-item'><b>Duplicate</b> (problems only).</li>
+                                      <li class='reg-item'><b>vague or unclear</b> (problems only).</li>
+                                      <li class='reg-item'><b>Not a proof problem</b> (problems only).</li>
+                                      <li class='reg-item'><b>Low quality</b> (i.e. post is very hard to understand, little thought was put into it, editing can not salvage the post).</li>
+                                      <li class='reg-item'><b>Other</b></li>
+                                    </ul>
+                                    <h3>How do I report a Post?</h3>
+                                    <p class='reg-item'>Click on the report link under a post and you will see a pop-up modal with a list of report options similar to the ones above.</p>
+                                    <h3>What happens after I report something as spam or offensive?</h3>
+                                    <p class='reg-p'>The system is designed to automatically delete inappropriate posts that are reported as spam or offensive by the community.</p>
+                                    <ul>
+                                      <li class='reg-item'>If a problem or proof receives 8 or more spam or offensive reports, the post will automatically be deleted and the owner will lose 100 reputation.</p>
+                                    </ul>
+                                    <h3>What happens after I report a comment?</h3>
+                                    <p class='reg-p'>Reporting a comment will bring the comment to the attention of the moderators. In addition, comments that have 3 or more reports with a score of 0 or less will automatically be deleted.</p>
+                                    <h3>What happens to reports?</h3>
+                                    <p class='reg-p'>Most reports are handled by trusted members of the community who have earned <%= link_to "review", "#review-priv-faq", easing: "linear" %> priviliges. Moderators and trusted users will review every report and make an effort to improve the post, provide criticism and suggestions to the owner of the post so that they can resolve the issue, or they can put the post in the review queue where posts can be salvaged or deleted.</p>
+                                    <p class='reg-p'>Posts in the review queue are handled by moderators and users with <%= link_to "deletion priviliges", "#deletion-priv-faq", easing: "linear" %>. Here, posts are reviewed thoroughly and an effort is made to edit the post and to mark it as OK if it can be improved, otherwise they are deleted. If the post manages to get out of the review queue, the reports expire and its voting score stays the same (a secondary score will be kept from the moment it is taken out of the review queue, and if this score falls below a -3, it will automatically be deleted). If the post receives 3 or more reports after being released from review queue, it will automatically be deleted.</p>
                                   </div>
                                 </div>
                               </div><!-- / #priv5 -->
@@ -486,9 +614,9 @@
                               <!-- Tab Content 6 -->
                               <div id="priv6" role="tabpanel" class="tab-pane fade">
                                 <div class="tab-content-text page-content">
-                                  <div class="boxedtitle add-problem-title mb-40"><h2>Create Topics</h2></div>
+                                  <div class="boxedtitle add-problem-title mb-40"><h2>Edit Problems & Proofs</h2></div>
                                   <div class="tab-list-content">
-                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 1500</h3>
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 2500</h3>
                                   </div>
                                 </div>
                               </div><!-- / #priv6 --> 
@@ -496,12 +624,23 @@
                               <!-- Tab Content 7 -->
                               <div id="priv7" role="tabpanel" class="tab-pane fade">
                                 <div class="tab-content-text page-content">
-                                  <div class="boxedtitle add-problem-title mb-40"><h2>Edit</h2></div>
+                                  <div class="boxedtitle add-problem-title mb-40"><h2>Create and Edit Topics</h2></div>
                                   <div class="tab-list-content">
-                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 2500</h3>
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 3000</h3>
                                   </div>
                                 </div>
-                              </div><!-- / #priv7 --> 
+                              </div><!-- / #priv7 -->
+
+                              <!-- Tab Content 8 -->
+                              <div id="priv8" role="tabpanel" class="tab-pane fade">
+                                <div class="tab-content-text page-content">
+                                  <div class="boxedtitle add-problem-title mb-40"><h2>Rollback Edits</h2></div>
+                                  <div class="tab-list-content">
+                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 5000</h3>
+                                  </div>
+                                </div>
+                              </div><!-- / #priv8 --> 
+
 
                             </div><!-- / .col-lg-8 -->
 

@@ -1,5 +1,6 @@
 class ProofsController < ApplicationController
-  before_action :set_proof, only: [:show, :edit, :cancel_edit, :cancel_new, :update, :destroy]
+  before_action :set_proof, only: [:show, :edit, :cancel_edit, :cancel_new, 
+                                   :update, :destroy, :log]
 
   # GET /proofs
   # GET /proofs.json
@@ -12,6 +13,9 @@ class ProofsController < ApplicationController
   def show
   end
 
+  def log
+  end
+
   # GET /proofs/new
   def new
     @proof = Proof.new
@@ -22,6 +26,7 @@ class ProofsController < ApplicationController
     @new_images = ""
     respond_to do |format|
       format.js {}
+      format.html {}
     end
   end
 
@@ -49,7 +54,7 @@ class ProofsController < ApplicationController
 
 
     respond_to do |format|
-      exception = @proof.save_with_images(images_array, current_user)[:exception]
+      exception = @proof.save_new(images_array, current_user)[:exception]
       if !exception
         #Any user who proofs a problem automatically follows it
         if !current_user.following? @problem
@@ -80,17 +85,21 @@ class ProofsController < ApplicationController
     @proof.update_attributes(proof_params)
     @new_images = proof_images_params["images"]
     images_array = @new_images.split(",")
+    version_description = params["version"]["description"]
 
     #@problem = Problem.find(@proof.problem_id)
 
     respond_to do |format|
-      @exception = @proof.save_with_images(images_array, current_user)[:exception]
+      @exception = @proof.save_edit(images_array, current_user, version_description)[:exception]
       if !@exception
         # Notify users that follow the problem
         (@proof.problem.followers - [current_user]).each do |follower|
           Notification.notify_user(follower, current_user, "edited a proof for", @proof.problem)
         end
+        format.html { redirect_to @proof.problem, notice: 'Proof was successfully updated.' }
 
+      else
+        format.html { render :edit }
       end
       format.js {}
     end

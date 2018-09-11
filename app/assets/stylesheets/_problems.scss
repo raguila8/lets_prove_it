@@ -494,6 +494,17 @@
 }
 
 
+.proof-actions {
+  float: right;
+}
+
+@media (max-width: 487px) {
+  .proof-actions {
+    float: none;
+    clear: both;
+  }
+}
+
 .proof-remove {
   color: #a94442;
 }
