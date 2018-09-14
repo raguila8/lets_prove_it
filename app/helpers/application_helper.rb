@@ -68,10 +68,32 @@ module ApplicationHelper
         "Users"
       end
     elsif controller_name == "static_pages"
-      if action_name == "mathjax_cheatsheet"
-        "Mathjax / LaTeX Support"
-      elsif action_name == "contact"
+      if action_name == "contact"
         "Contact"
+      end
+    elsif controller_name == "help_center"
+      if action_name == "priviliges"
+        "Priviliges"
+      elsif action_name == "mathjax_cheatsheet"
+        "Mathjax / LaTeX Support"
+      elsif action_name == "deleting_posts"
+        "How Can a Post be Deleted?"
+      elsif action_name == "badges"
+        "What Are Badges?"
+      elsif action_name == "creating_topics"
+        "How to Create New Topics"
+      elsif action_name == "editing_posts"
+        "How to Edit Posts"
+      elsif action_name == "expected_behavior"
+        "Expected Behavior"
+      elsif action_name == "good_problems"
+        "How do I Write a Good Problem?"
+      elsif action_name == "on_problem_feed"
+        "How do I Find Problems that I am Interested in?"
+      elsif action_name == "on_topics"
+        "What Are Topics and How do I Use Them?"
+      elsif action_name == "reputation"
+        "Reputation"
       end
     end
   end
@@ -139,10 +161,16 @@ module ApplicationHelper
         return content.html_safe
       end
     elsif controller_name == "static_pages"
-      if action_name == "mathjax_cheatsheet"
-        "Render Math with Ease!"
-      elsif action_name == "contact"
+      if action_name == "contact"
         "Love to Hear From You"
+      end
+    elsif controller_name == "help_center"
+      if action_name == "priviliges"
+        "Earn priviliges with reputation"
+      elsif action_name == "mathjax_cheatsheet"
+        "Render Math with Ease!"
+      elsif action_name == "deleting_posts"
+   
       end
     end
   end
@@ -221,6 +249,11 @@ module ApplicationHelper
           end
           return content.html_safe
         end
+      end
+    elsif controller_name == "help_center"
+      if action_name != "help"
+        content = "<a href='#{help_path}'><button class='btn-ghost-light btn-small'>Help Center</button></a>"
+        return content.html_safe
       end
     end
   end

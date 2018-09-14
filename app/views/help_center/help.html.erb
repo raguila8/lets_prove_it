@@ -78,11 +78,7 @@
                         </div>
                         <div id="collapse-problem-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-1">
                           <div class="panel-body">
-                            <p class='reg-p'> Topics are a way of connecting users with problems they will be able to answer by sorting problems into specific, well-defined categories.</p>
-                            <p class='reg-p'> Topics are also used to help you identify problems that are relavent or interesting to you. Users can follow topics in order to recieve problems within specific topics in their <%= signed_in? ? "<a href='#{feed_path}'>feed</a>".html_safe : "feed" %>. You can <a href="<%= topics_path%>">browse and search new topics</a> in the topics index page to improve your feed.</p>
-                            <p class='reg-p'> Each problem has to have at least one topic. Clicking on the topic tag corresponding to a problem brings you to a page that shows you a description of what the topic is. You can also see all problems and proofs within that topic, the past edits made to that topic (<a data-easing="linear" href="#editing-faq">See how editing works</a>), and the users who are following it.</p>
-                            <p class='reg-p'>Not everyone can <a data-easing="linear" href="#create-new-topic-faq">create a new topic</a>. A certain amount of reputation is needed before you can start creating new topics. Even if you have sufficient reputation, you should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
-                            <p class='reg-p'>Users with sufficient reputation can edit the topic tags of a problem if they feel a certain tag was used innapropriately or if the problem is missing a topic.</p>
+                            <%= render '/help_center/partials/on_topics' %>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -96,23 +92,7 @@
                         </div>
                         <div id="collapse-problem-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-2">
                           <div class="panel-body">
-                            <p class='reg-p'>Improve your chances of getting a proof by writing good problems.</p>
-                            <p class='reg-p'>Make sure your problem is not a duplicate and is different from the rest. <%= link_to "Search", problems_path %>, research and keep track of what you find. You can link problems that have not helped you so that others can better understand your question and make sure it is not repeated.</p>
-                            <h3>Write a title that summarizes the problem</h3>
-                            <p class='reg-p'>The title is the first thing that users will see, and if it is not good, people will lose interest and won't read the rest. Here are some tips for making a good title:</p>
-                            <ul>
-                              <li class='reg-item'>Sum up your entire problem in one sentence. Include details that will help people identify and solve your problem. Iclude any constraints or variants to your problem that make it different from similar problems already on the site.</li>
-                              <li class='reg-item'>Spelling, grammar and punctuation are important! Make sure you proof-read it or have someone proof-read it for you if your english is not good.</li>
-                              <li class='reg-item'>Write the title last if you are having trouble summarizing the problem. Sometimes writing the problem first can make it easier for you to describe the problem.</li>
-                            </ul>
-                            <h3>Include relevant tags</h3>
-                            <p class='reg-p'>Make sure that the tags you submit are relevant to the problem by reading their descriptions. The system will suggest topics that match what you have typed. See also: <a data-easing="linear" href="#topics-faq">What are tags/topics and how do I use them?</a></p>
-                            <h3>Proof-read before posting</h3>
-                            <p class='reg-p'>Read the problem from start to finish and make sure everything is clear and makes since. Add any details you missed and read through it again. Before posting, if you wrote the title first, read it again and make sure it still describes the problem.</p>
-                            <h3>Make sure the problem is to prove a mathematical statement</h3>
-                            <p class='reg-p'>The purpose of this site is not to solve computational problems and make calculations: it is about the conscious understanding of abstract mathematical truth, and why it is true. Forget about calculating, and ask questions like why a particular statement is true or false, and why a certain pattern exists.</p>
-                            <h3>Respond to feedback after posting problem</h3>
-                            <p class='reg-p'>After posting your problem, frequently check on it to see if anyone comments on it. If you missed a piece of information or made an error in your problem, be ready to edit your problem and fix it. If someone posts a proof, be ready to provide feedback.</p>
+                            <%= render '/help_center/partials/good_problems' %>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -126,9 +106,7 @@
                         </div>
                         <div id="collapse-problem-4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-problem-4">
                           <div class="panel-body">
-                            <p class='reg-p'>The primary way that you will find problems you are interested in is through your problem feed. Problems that you follow and problems within topics that you follow will show up in your feed. It is important that you follow topics that you are interested in, so that your feed can be tailored to you.</p>
-                            <h3> Search for specific problems </h3>
-                            <p class='reg-p'> If you want to browse and search from all problems that contain some phrase or word, you can do so <%= link_to "here", problems_path %>. You can refine your search by filtering problems with proofs or ones that don't have any yet. You can also sort based on date created or modified, problems with most upvotes or problems with most proofs.</p>
+                            <%= render '/help_center/partials/on_problem_feed' %>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -146,15 +124,7 @@
                         </div>
                         <div id="collapse-general-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-1">
                           <div class="panel-body">
-                            <p class='reg-p'> We are happy to have you here. Here are a few guidelines you should follow.</p>
-                            <h3>Be polite.</h3>
-                            <p class='reg-p'>We are all here to learn together. Whether you are posting a problem, or sharing what you know, remember to always be nice and welcoming.</p>
-                            <h3>Be honest.</h3>
-                            <p class='reg-p'>Don't be afraid to speak up. If you see a bad problem or misinformation, vote it down and comment what is specifically wrong. If you have the reputation, we encourage you to <a data-easing="linear" href="#editing-faq">edit and improve</a> when it is necessary. Doing these things will help keep the integrity and knowledge of the site.</p>
-                            <h3>Avoid self-promotion.</h3>
-                            <p class='reg-p'>This site is not about promoting your products or websites. We encorage users to vote-down overt self-promotion and will take down any posts we see fit.</p>
-                            <h3>Don't use greetings or signatures.</h3>
-                            <p class='reg-p'>Posts are already marked with your user card that links to your profile page. Introducing yourself or writing taglines only brings unnecessary noise to your posts.</p>
+                            <%= render '/help_center/partials/expected_behavior' %>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -181,23 +151,7 @@
                         </div>
                         <div id="collapse-general-4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-4">
                           <div class="panel-body">
-                            <p class='reg-p'>This site is a collaborative effort. If you see a problem or topic that needs improvement, click edit!<p>
-                            <p class='reg-p'>We believe that the collective wisdom of users ensures the quality of posts. Editing is important for keeping problems and topics clear, grammatically correct and relevant.<p>
-                            <h3>When to edit posts</h3>
-                            <p class='reg-p'> Whenever you see a post that can be improved, it is ecouraged to edit it. Edits are expected to leave the post better than how you found it. Here are some reasons for edits: </p>
-                            <ul>
-                              <li class='reg-item'>To improve spelling, grammar or punctuation</li>
-                              <li class='reg-item'>To clarify the meaning of the post. It is important not to change the intended meaning of the poster.</li>
-                              <li class='reg-item'>To include important information that is found in the comments. Sometimes additional information or a clarification arises in the comments. It is better to keep all of the relevant information in one place.</li>
-                              <li class='reg-item'>To correct a mistake or error made</li>
-                              <li class='reg-item'>To add citations, links or resources</li>
-                            </ul>
-                            <h3>Who can edit posts?</h3>
-                            <p class='reg-p'>Only trusted members of the community can edit posts. You need at least 2500 reputation points to edit problems and proofs, and at least 3000 reputation to edit topics. The creator of the post can always edit their own post, regardless of their reputation.</p>
-                            <h3>What happens after I edit a post?</h3>
-                            <p class='reg-p'>The post will update to show the latest editor as well as the original creator. All edits are saved and tracked in the posts version history. Each version will be viewable along with the editor in the post's log. Editing a post will bump it to the top of the feed.</p>
-                            <h3>What if the edit was bad?</h3>
-                            <p class='reg-p'>Common users can report edits. If the latest edit gets 5 or more reports then the latest version will be reverted to its previous version and the edit will disappear from the log. Trusted users with at least 5000 reputation, and original authors can rollback edits automatically.</p>
+                            <%= render '/help_center/partials/editing_posts' %>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -211,7 +165,7 @@
                         </div>
                         <div id="collapse-general-5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-5">
                           <div class="panel-body">
-                            <p class='reg-p'>If you have a question, need more information, are experiencing an error, or want to report a security vulnerabilty, please <%= link_to "contact us directly", contact_path %>.</p>
+                            <%= render '/help_center/partials/more_help' %>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -225,12 +179,7 @@
                         </div>
                         <div id="collapse-general-6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-6">
                           <div class="panel-body">
-                            <p class='reg-p'>Trusted users with at least 3000 reputation can create new topics. You should only create a new topic when you are sure that your problem covers a new topic and no one else has asked about before. As a general rule, you should avoid creating new topics if possible.</p>
-                            <h3>How do I create a new topic?</h3>
-                            <p class='reg-p'>If you are a trusted member then a link to create a new topic will appear on your homepage sidebar. When creating the topic, bear in mind that topic names must not be longer than 35 characters, and can only use the following chacter set: <code>a-z</code>, <code>0-9</code>, <code>+</code>, <code>#</code>, <code>-</code>, <code>.</code>. You must provide a description of the topic as well.</p>
-                            <h3>What happens after a new topic is created?</h3>
-                            <p class='reg-p'>The new topic will now be available for all other users to use and follow. If they are not used by any questions in a 4 month period, the topic will be removed.</p>
-                            <p class='reg-p'>Please create topics responsibly!</p>
+                            <%= render '/help_center/partials/creating_topics' %>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -244,39 +193,7 @@
                         </div>
                         <div id="collapse-general-7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-general-7">
                           <div class="panel-body">
-
-                            <h3>By a User:</h3>
-
-                            <ul>
-                              <li class='reg-item'><b>The author</b> can typically delete their own posts, except when: 
-                                <ul>
-                                  <li>the problem in question has any proofs with upvotes.</li>
-                                  <li>the proof in question has upvotes (it doesn't matter if  the overall score is negative).</li>
-                                </ul>
-                              </li>
-                              <li class='reg-item'><b>Moderators</b> can delete any posts instantly.</li>
-                              <li class='reg-item'><b>Users with 15000 reputation or more</b> can vote to delete a post that is in the "review queue". 3 votes are needed for the post to be deleted.</li>
-                            </ul>
-
-                            <h3>By the System:</h3>
-
-                            <ul>
-                              <li class='reg-item'><b>Dead problem:</b> Problems that are over 60 days old, with a negative score and no proofs will automatically be deleted.</li>
-                              <li class='reg-item'><b>Reported problems:</b> Problems that are over 30 days old, with 3 or more reports and no proofs will automatically be deleted.</li>
-                              <li class='reg-item'><b>Spam or abusive posts</b> If a problem or proof receives 8 spam or offensive reports, they will be automatically deleted. The owner of the post will also receive -100 reputation points.
-                              <li class='reg-item'><b>Bad comments:</b> Comments that have a voting score of -5 or less, or 3 or more reports with a score of 0 or less will automatically be deleted.</li>
-                            </ul>
-
-                            <h3>What is the Review Queue?</h3>
-                            <p class='reg-p'>Posts in the review queue are automatically locked, and are reviewed thoroughly by moderators and users with <%= link_to "deletion priviliges", "#deletion-priv-faq", easing: "linear" %>. An effort is made to edit the post and to mark it as OK if it can be improved, otherwise they are deleted.</p>
-                            <h3>How does a post get put in the Review Queue?</h3>
-                            <ul>
-                              <li class='reg-item'>A problem with a voting score of -6 is put in the queue.</li>
-                              <li class='reg-item'>A proof with a voting score of -4 is put in the queue.</li>
-                              <li class='reg-item'>Any post with 3 or more reports (that are not spam or offensive flag reports) is put in the queue.</li>
-                            </ul>
-                            <h3>What Happens After my Post has Been Taken out of the Review Queue?</h3>
-                            <p class='reg-p'>If the post manages to get out of the review queue, the reports expire and its voting score stays the same. A secondary score will be kept from the moment it is taken out of the review queue, and if this score falls below a -3, it will automatically be deleted. If the post receives 3 or more reports after being released from the review queue, it will also be deleted.</p>
+                            <%= render '/help_center/partials/deleting_posts' %>
                           </div>
                         </div>
                       </div><!-- / .panel --> 
@@ -293,23 +210,7 @@
                         </div>
                         <div id="collapse-reputation-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-reputation-1">
                           <div class="panel-body">
-                          <p class='reg-p'>Reputation is a rough measure of how much the community trusts you, and it is earned by convincing users that you know what you are talking about. The more reputation you earn the more <a data-easing="linear" href="#privilege-faq">privileges</a> you gain and the more you can do on the site. It is set up this way because we believe in the wisdom of our users so we want them to run the site as a collective community.</p>
-                          <h3>How to earn reputation</h3>
-                          <p class='reg-p'>As mentioned before, the primary way to earn reputation is by convincing people that you know what you are talking about. This is primarily done by writing good problems and proofs. Votes on these posts can make you either gain or lose reputation.</p>
-                          <h4>Ways to gain reputation:</h4>
-                            <ul>
-                              <li class='reg-item'>Problem is voted up: +5</li>
-                              <li class='reg-item'>Proof is voted up: +10</li>
-                              <li class='reg-item'>Comment is voted up: +2</li>
-                            </ul>
-                          <h4>Ways to lose reputation:</h4>
-                            <ul>
-                              <li class='reg-item'>Problem is voted down: -2</li>
-                              <li class='reg-item'>Proof is voted down: -2</li>
-                              <li class='reg-item'>Comment is voted down: -1</li>
-                              <li class='reg-item'>You vote down a post: -1</li>
-                            </ul>
-                            <p class='reg-p'> All users start with 0 reputation and it can never drop below 0. Deleting a post will not affect the scores of the authors and people involved. When a user reverses a vote, the corresponding reputation loss or gain will be reverted as well. Note that a user cannot vote on his or her own post.</p>
+                            <%= render '/help_center/partials/reputation' %>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -323,28 +224,7 @@
                         </div>
                         <div id="collapse-reputation-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-reputation-2">
                           <div class="panel-body">
-                            <p class='reg-p'>Each user has a colored badge that serves as a sort of rank, and determines the level of trust he or she has earned based on his or her reputation score. This color badge appears on the user's standard card and provides a quick visual representation of the user's trustworthiness and site prestige.</p>
-                            <p class='reg-p'>The following are the badges along with the corresponding reputation level needed to earn you that badge:</p>
-                            <div class="row">
-                              <div class="col-xs-6 col-sm-4">
-                                <p class="badge-label" style="background-color: #373940;"><span class="fa fa-trophy mr-5"></span> 0</p>
-                              </div>
-                              <div class="col-xs-6 col-sm-4">
-                                <p class="badge-label" style="background-color: #ff7361;"><span class="fa fa-trophy mr-5"></span> 10</p>
-                              </div>
-                              <div class="col-xs-6 col-sm-4">
-                                <p class="badge-label" style="background-color: #2E8B57;"><span class="fa fa-trophy mr-5"></span> 200</p>
-                              </div>
-                              <div class="col-xs-6 col-sm-4">
-                                <p class="badge-label" style="background-color: #1e73be;"><span class="fa fa-trophy mr-5"></span> 1000</p>
-                              </div>
-                              <div class="col-xs-6 col-sm-4">
-                                <p class="badge-label" style="background-color: #544f87;"><span class="fa fa-trophy mr-5"></span> 5000</p>
-                              </div>
-                              <div class="col-xs-6 col-sm-4">
-                                <p class="badge-label" style="background-color: #dd9934;"><span class="fa fa-trophy mr-5"></span> 25000</p>
-                              </div>
-                            </div>
+                            <%= render '/help_center/partials/badges' %>
                           </div>
                         </div>
                       </div><!-- / .panel -->
@@ -479,12 +359,7 @@
                                 <div class="tab-content-text page-content">
                                   <div class="boxedtitle add-problem-title mb-40"><h2>Create Posts</h2></div>
                                   <div class="tab-list-content">
-                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 0</h3>
-                                    <p class='reg-p'>Creating problems and writing proofs are available to everyone regardless of reputation. </p>
-                                    <h3>Creating Problems</h3>
-                                    <p class='reg-p'>Make sure your problem is not a duplicate and is different from the rest. <%= link_to "Search", problems_path %>, research and keep track of what you find. You can link problems that have not helped you so that others can better understand your question and make sure it is not repeated.</p>
-                                    <%= link_to "Learn More", "#good-problems-faq", class: "btn btn-ghost btn-small mb-15", easing: "linear" %>
-                                    <h3>Writing proofs</h3>
+                                    <%= render "/help_center/priviliges/create_posts" %>
                                   </div>
                                 </div>
                               </div><!-- / #priv1 -->
@@ -494,18 +369,7 @@
                                 <div class="tab-content-text page-content">
                                   <div class="boxedtitle add-problem-title mb-40"><h2>Upvote</h2></div>
                                   <div class="tab-list-content">
-                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 10</h3>
-                                    <p class='reg-p'>Voting up is an essential part of the the site's operating system. It lets users know which posts are most useful, relevant and appropriate. </p>
-                                    <h3>When should I upvote?</h3>
-                                    <p class='reg-p'>You should upvote a post whenever you find a problem, proof or comment that you feel is well written and especially useful.</p>
-                                    <h3>How do I upvote?</h3>
-                                    <p class='reg-p'>Each problem, proof and comment contains an upvote (up arrow) and downvote (down arrow) button. Simply click on the up arrow to upvote a post. You can undo an upvote by clicking on the down arrow.</p>
-                                    <h3>What happens after I upvote?</h3>
-                                    <li class='reg-item'>Problems move up in the feed when they are sorted by 'top'.</li>
-                                    <li class='reg-item'>Upvotes on a problem gives the author +5 reputation points.</li>
-                                    <li class='reg-item'>Upvotes on a proof gives the author +10 reputation points.</li>
-                                    <li class='reg-item'>Upvotes on a comment gives the author +2 reputation points.</li> 
-                                    <p class='reg-p'>In general, upvoted posts are seen by more people.
+                                    <%= render "/help_center/priviliges/upvote" %>
                                   </div>
                                 </div>
                               </div><!-- / #priv2 -->
@@ -515,32 +379,7 @@
                                 <div class="tab-content-text page-content">
                                   <div class="boxedtitle add-problem-title mb-40"><h2>Comment</h2></div>
                                   <div class="tab-list-content">
-                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 50</h3>
-                                    <p class='reg-p'>Comments can be left on problems or proofs. They can be voted on and flagged. Users whose comment is voted on recieve +2 reputation and -1 reputation for upvotes and downvotes respectively. If a comment receives a voting score of -5 or if it receives at least 3 reports, it will be taken down. There is no revision history for comments, and when they are deleted they are gone permanently.</p>
-                                    <p class='reg-p'>Note that you can always comment in your own problems and proofs. However, commenting on another user's post requires at least 50 reputation.</p>
-                                    <h3>How do I comment?</h3>
-                                    <p class='reg-p'>Simply click on the "add comment" button under a problem or proof to leave a comment. Note that comments do not use our text editor and so you cannot format comments as with other types of posts. Math can still be rendered as usual with <%= link_to "Mathjax", "#mathjax-faq", easing: "linear" %></p>
-                                    <h3>What happens after I comment?</h3>
-                                    <p class='reg-p'>The following users will be notified after commenting on a post:</p>
-                                    <ul>
-                                      <li class='reg-item'>The author of the post you are commenting on.</li>
-                                      <li class='reg-item'>Users who have edited the post you are commenting on.</li>
-                                      <li class='reg-item'>All other users who have also commented on the post.</li>
-                                    </ul>
-                                    <h3>When should I comment on a post?</h3>
-                                    <p class='reg-p'>The following are good reasons to comment on a post:</p>
-                                    <ul>
-                                      <li class='reg-item'>To add relevant and minor details or information to a post (e.g. a link to background information or further reading, or a link to a related problem).</li>
-                                      <li class='reg-item'>To clarify or request clarification on a post.</li>
-                                      <li class='reg-item'>To provide constructive criticism to guide the author on improving the post.</li>
-                                    </ul>
-                                    <h3>When should I not comment on a post?</h3>
-                                    <p class='reg-p'>The following are bad reasons to comment on a post:</p>
-                                    <ul>
-                                      <li class='reg-item'>Proving a problem or offering an alternative solution; instead post a proof or expand and edit an existing one.</li>
-                                      <li class='reg-item'>Compliments that do not improve or add new information to the post. Instead, show your appreciation of the post by upvoting it.</li>
-                                      <li class='reg-item'>Secondary discussion or debate that is not relevant to the post.</li>
-                                    </ul>
+                                    <%= render "/help_center/priviliges/comment" %>
                                   </div>
                                 </div>
                               </div><!-- / #priv3 -->
@@ -550,29 +389,7 @@
                                 <div class="tab-content-text page-content">
                                   <div class="boxedtitle add-problem-title mb-40"><h2>Downvote</h2></div>
                                   <div class="tab-list-content">
-                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 200</h3>
-                                    <p class='reg-p'>Downvotes is how users indicate which posts are least useful.</p>
-                                    <h3>When should I downvote?</h3>
-                                    <p class='reg-p'>Downvote posts that are exceptionally poor and sloppy, or proofs that are clearly incorrect and promote misinformation.</p>
-                                    <p class='reg-p'>Downvoting costs you a reputation point per downvote; use theme sparingly and wisely.</p>
-                                    <h3>How do I downvote?</h3>
-                                    <p class='reg-p'>Each problem, proof and comment contains an upvote (up arrow) and downvote (down arrow) button. Simply click on the down arrow to downvote a post. You can undo a downvote by clicking on the up arrow.</p>
-                                    <h3>What happens after I Downvote?</h3>
-                                    <p class='reg-p'>Downvoting posts move it down the feed so that fewer people see it. Voting a post down should not be taken lightly.</p>
-                                    <ul>
-                                      <li class='reg-item'>Downvoting a proof or problem costs the voter 1 reputation point.</li> 
-                                      <li class='reg-item'>Downvoting a proof costs the owner of the post 2 reputation points. A proof with a score of -4 or less will be put in the review queue (look at <%= link_to "post deletion", "#post-deletion-faq", easing: "linear" %>).</li>
-                                      <li class='reg-item'>Downvoting a problem costs the owner of the post 2 reputation points. A problem with a negative voting score and with no proofs after 60+ days will automatically be deleted by the system. A problem with a voting score of -6 will be put in the review queue (look at <%= link_to "post deletion", "#post-deletion-faq", easing: "linear" %>).</li>
-                                      <li class='reg-item'>Downvoting a comment is free. A comment with a voting score of -5 will automatically be deleted.</li>
-                                    </ul>
-                                    <h3>Alternatives to downvoting</h3>
-                                    <p class='reg-p'>Downvoting should only be reserved for extreme cases. It should not be a substitute for an edit or comment. Here are some alternatives to downvotes:</p>
-                                    <ul>
-                                      <li class='reg-item'>If the post is spam, offensive, a duplicate or just egregiously incorrect, report it.</li> 
-                                      <li class='reg-item'>Write a comment to provide constructive criticism or to add relevant information.</li>
-                                      <li class='reg-item'>Correct the post by editing it.</li>
-                                    </ul>
-
+                                    <%= render "/help_center/priviliges/downvote" %>
                                   </div>
                                 </div>
                               </div><!-- / #priv4 -->
@@ -582,31 +399,7 @@
                                 <div class="tab-content-text page-content">
                                   <div class="boxedtitle add-problem-title mb-40"><h2>Report Posts</h2></div>
                                   <div class="tab-list-content">
-                                    <h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 700</h3>
-                                    <p class=reg-p'>Reporting is a way to bring innapropriate content to the attention of moderators and trusted users, so that they can determine the fate of the post.</p>
-                                    <p class='reg-p'> The following are the currently implemented flag types that you can report: </p>
-                                    <ul>
-                                      <li class='reg-item'><b>Spam</b>.</li> 
-                                      <li class='reg-item'><b>offensive</b>.</li>
-                                      <li class='reg-item'><b>Not a proof</b> (proofs only).</li>
-                                      <li class='reg-item'><b>Duplicate</b> (problems only).</li>
-                                      <li class='reg-item'><b>vague or unclear</b> (problems only).</li>
-                                      <li class='reg-item'><b>Not a proof problem</b> (problems only).</li>
-                                      <li class='reg-item'><b>Low quality</b> (i.e. post is very hard to understand, little thought was put into it, editing can not salvage the post).</li>
-                                      <li class='reg-item'><b>Other</b></li>
-                                    </ul>
-                                    <h3>How do I report a Post?</h3>
-                                    <p class='reg-item'>Click on the report link under a post and you will see a pop-up modal with a list of report options similar to the ones above.</p>
-                                    <h3>What happens after I report something as spam or offensive?</h3>
-                                    <p class='reg-p'>The system is designed to automatically delete inappropriate posts that are reported as spam or offensive by the community.</p>
-                                    <ul>
-                                      <li class='reg-item'>If a problem or proof receives 8 or more spam or offensive reports, the post will automatically be deleted and the owner will lose 100 reputation.</p>
-                                    </ul>
-                                    <h3>What happens after I report a comment?</h3>
-                                    <p class='reg-p'>Reporting a comment will bring the comment to the attention of the moderators. In addition, comments that have 3 or more reports with a score of 0 or less will automatically be deleted.</p>
-                                    <h3>What happens to reports?</h3>
-                                    <p class='reg-p'>Most reports are handled by trusted members of the community who have earned <%= link_to "review", "#review-priv-faq", easing: "linear" %> priviliges. Moderators and trusted users will review every report and make an effort to improve the post, provide criticism and suggestions to the owner of the post so that they can resolve the issue, or they can put the post in the review queue where posts can be salvaged or deleted.</p>
-                                    <p class='reg-p'>Posts in the review queue are handled by moderators and users with <%= link_to "deletion priviliges", "#deletion-priv-faq", easing: "linear" %>. Here, posts are reviewed thoroughly and an effort is made to edit the post and to mark it as OK if it can be improved, otherwise they are deleted. If the post manages to get out of the review queue, the reports expire and its voting score stays the same (a secondary score will be kept from the moment it is taken out of the review queue, and if this score falls below a -3, it will automatically be deleted). If the post receives 3 or more reports after being released from review queue, it will automatically be deleted.</p>
+                                    <%= render "/help_center/priviliges/report" %>
                                   </div>
                                 </div>
                               </div><!-- / #priv5 -->

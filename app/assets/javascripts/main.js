@@ -394,12 +394,16 @@ $(document).on('turbolinks:load', function() {
           $(this).closest(".tabs-list").find("li").removeClass("active");
           //$('.ft-tabs .tabs-list li').removeClass('active');
           $(this).addClass('active');
-          if ($("#help_center").length == 0) {
+          if ($("#help_center").length == 0 && $("#priviliges-page").length == 0 ) {
             $('.tab-list-content').html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
           }
           if ($(this).closest('.priv-tabs-list').length > 0) {
             $(".priv-content .tab-pane").removeClass("in active");
             $(".priv-content " + $(this).find("a").attr("href")).addClass("in active");
+          }
+          if ($(this).closest('#priviliges-page').length > 0) {
+            $('.tab-pane').removeClass("in active");
+            $(".tab-content " + $(this).find("a").attr("href")).addClass("in active");
           }
         }
       });
@@ -791,7 +795,7 @@ $(document).on('turbolinks:load', function() {
       if ($content.data("has-content") == false) {
         $.ajax({
           type: "GET",
-			    url: "/mathjax_cheatsheet",
+			    url: "/help/mathjax_cheatsheet",
 			    headers: {
 			     Accept: "text/javascript; charset=utf-8",
 			      "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()

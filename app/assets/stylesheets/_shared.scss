@@ -919,3 +919,20 @@ body {
   color: #777;
 }
 
+/* -----------------------------------------------------------------
+ Priviliges Modal
+  ----------------------------------------------------------------*/
+
+#noPriviligeModal {
+  .modal-content .close {
+    position: absolute;
+    opacity: 0.7;
+    right: 10px;
+    top: 5px;
+    font-size: 35px;
+ 
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

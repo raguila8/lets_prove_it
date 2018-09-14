@@ -1,0 +1,176 @@
+<div class="pt-100 section container-fluid blog-classic" id="priviliges-page">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mh-auto ft-tabs">
+        <div class="row">
+            
+          <!-- Tabs -->
+          <div class="col-lg-2 no-gap">
+            <ul class="tabs-list" role="tablist">
+
+              <!-- Tab 1 -->
+              <li role="presentation" class="<%= 'active' if @privilige == 1 %>">
+                <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-bottom">
+                    <p>Create Posts</p>
+                  </div>
+                </a>
+              </li>
+
+              <!-- Tab 2 -->
+              <li role="presentation" class="<%= 'active' if @privilige == 2 %>">
+                <a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-bottom">
+                    <p>Upvote</p>
+                  </div>
+                </a>
+              </li>
+
+              <!-- Tab 3 -->
+              <li role="presentation" class="<%= 'active' if @privilige == 3 %>">
+                <a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-bottom">
+                    <p>Comment</p>
+                  </div>
+                </a>
+              </li>
+
+              <!-- Tab 4 -->
+              <li role="presentation" class="<%= 'active' if @privilige == 4 %>">
+                <a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-bottom">
+                    <p>Downvote</p>
+                  </div>
+                </a>
+              </li>
+
+              <!-- Tab 5 -->
+              <li role="presentation" class="<%= 'active' if @privilige == 5 %>">
+                <a href="#tab5" aria-controls="tab5" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-bottom">
+                    <p>Report</p>
+                  </div>
+                </a>
+              </li>
+
+              <!-- Tab 6 -->
+              <li role="presentation" class="<%= 'active' if @privilige == 6 %>">
+                <a href="#tab6" aria-controls="tab6" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-bottom">
+                    <p>Edit Problems & proofs</p>
+                  </div>
+                </a>
+              </li>
+
+              <!-- Tab 7 -->
+              <li role="presentation" class="<%= 'active' if @privilige == 7 %>">
+                <a href="#tab7" aria-controls="tab7" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-bottom">
+                    <p>Create and Edit Topics</p>
+                  </div>
+                </a>
+              </li>
+
+              <!-- Tab 8 -->
+              <li role="presentation" class="<%= 'active' if @privilige == 8 %>">
+                <a href="#tab8" aria-controls="tab8" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-bottom">
+                    <p>Rollback Edits</p>
+                  </div>
+                </a>
+              </li>
+
+
+            </ul>
+          </div><!-- / .col-lg-4 -->
+
+
+          <!-- Tabs Content -->
+          <div class="col-lg-6 no-gap tab-content">
+            <!-- Tab Content 1 -->
+						<div id="tab1" role="tabpanel" class="tab-pane fade <%= 'active in' if @privilige == 1 %>">
+							<div class="tab-content-text page-content mt-20">
+								<div class="boxedtitle add-problem-title mb-40"><h2>Create Posts</h2></div>
+								<div class="tab-list-content">
+							    <%= render "/help_center/priviliges/create_posts" %>
+                </div>
+							</div>
+						</div><!-- / #tab1 -->
+
+						<!-- Tab Content 2 -->
+						<div id="tab2" role="tabpanel" class="tab-pane fade <%= 'active in' if @privilige == 2 %>">
+							<div class="tab-content-text page-content mt-20">
+								<div class="boxedtitle add-problem-title mb-40"><h2>Upvote</h2></div>
+								<div class="tab-list-content">
+								  <%= render "/help_center/priviliges/upvote" %>
+                </div>
+							</div>
+						</div><!-- / #tab2 -->
+
+						<!-- Tab Content 3 -->
+						<div id="tab3" role="tabpanel" class="tab-pane fade <%= 'active in' if @privilige == 3 %>">
+							<div class="tab-content-text page-content mt-20">
+								<div class="boxedtitle add-problem-title mb-40"><h2>Comment</h2></div>
+								<div class="tab-list-content">
+							    <%= render "/help_center/priviliges/comment" %>
+                </div>
+							</div>
+						</div><!-- / #tab3 -->
+
+						<!-- Tab Content 4 -->
+						<div id="tab4" role="tabpanel" class="tab-pane fade <%= 'active in' if @privilige == 4 %>">
+							<div class="tab-content-text page-content mt-20">
+								<div class="boxedtitle add-problem-title mb-40"><h2>Downvote</h2></div>
+								<div class="tab-list-content">
+                  <%= render "/help_center/priviliges/downvote" %>
+								</div>
+							</div>
+						</div><!-- / #tab4 -->
+
+						<!-- Tab Content 5 -->
+						<div id="tab5" role="tabpanel" class="tab-pane fade <%= 'active in' if @privilige == 5 %>">
+							<div class="tab-content-text page-content mt-20">
+								<div class="boxedtitle add-problem-title mb-40"><h2>Report Posts</h2></div>
+								<div class="tab-list-content">
+                  <%= render "/help_center/priviliges/report" %>
+                </div>
+							</div>
+						</div><!-- / #tab5 -->
+
+						<!-- Tab Content 6 -->
+						<div id="tab6" role="tabpanel" class="tab-pane fade <%= 'active in' if @privilige == 6 %>">
+							<div class="tab-content-text page-content mt-20">
+								<div class="boxedtitle add-problem-title mb-40"><h2>Edit Problems & Proofs</h2></div>
+								<div class="tab-list-content">
+									<h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 2500</h3>
+								</div>
+							</div>
+						</div><!-- / #tab6 --> 
+
+						<!-- Tab Content 7 -->
+						<div id="tab7" role="tabpanel" class="tab-pane fade <%= 'active in' if @privilige == 7 %>">
+							<div class="tab-content-text page-content mt-20">
+								<div class="boxedtitle add-problem-title mb-40"><h2>Create and Edit Topics</h2></div>
+								<div class="tab-list-content">
+									<h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 3000</h3>
+								</div>
+							</div>
+						</div><!-- / #tab7 -->
+
+						<!-- Tab Content 8 -->
+						<div id="tab8" role="tabpanel" class="tab-pane fade <%= 'active in' if @privilige == 8 %>">
+							<div class="tab-content-text page-content mt-20">
+								<div class="boxedtitle add-problem-title mb-40"><h2>Rollback Edits</h2></div>
+								<div class="tab-list-content">
+									<h3 style="font-size: 0.9em;">Reputation Needed: <span class="fa fa-trophy mr-5"></span> 5000</h3>
+								</div>
+							</div>
+						</div><!-- / #tab8 --> 
+
+          </div><!-- / .col-lg-8 -->
+        </div><!-- / .row -->
+      </div>
+
+    </div>
+  </div>
+</div>

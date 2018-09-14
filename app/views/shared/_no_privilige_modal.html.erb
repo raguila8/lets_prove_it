@@ -1,0 +1,17 @@
+<div id="noPriviligeModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" style="position: absolute; font-size: 30px;">&times;</button>
+      <div class="modal-header" style="border-bottom: none; background: url(/assets/bad_math.jpg); background-size: contain; background-repeat: no-repeat; width: 100%; height: 0; padding-top: 33.56%;">
+      </div>
+      <div class="modal-body text-center" style="padding: 0px 50px 40px 50px;">
+        <h3> Thanks for your feedback!</h3>
+        <p>Setting up an account is free and easy. Set up an account today and start earning privileges like voting, posting and commenting.</p>
+        <%= link_to "Sign up", new_user_registration_path, class: "btn text-center mb-10" %>
+        <p> Have an account? <%= link_to "Log in", new_user_session_path %>
+      </div>
+    </div>
+  </div>
+</div>

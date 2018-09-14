@@ -28,10 +28,22 @@ Rails.application.routes.draw do
 
   get 'static_pages/landing'
   get '/about', to: 'static_pages#about', as: :about
-  get '/mathjax_cheatsheet', to: 'static_pages#mathjax_cheatsheet', as: :mathjax_cheatsheet
   get '/contact_us', to: 'static_pages#contact', as: :contact
   get '/tour', to: 'static_pages#tour', as: :tour
-  get '/help', to: 'static_pages#help', as: :help
+
+  get '/help', to: 'help_center#help', as: :help
+  get '/help/priviliges/:id', to: 'help_center#priviliges', as: :priviliges
+  get '/help/mathjax_cheatsheet', to: 'help_center#mathjax_cheatsheet', as: :mathjax_cheatsheet
+  get '/help/topics', to: 'help_center#on_topics', as: :on_topics
+  get '/help/good-problems', to: 'help_center#good_problems', as: :good_problems
+  get '/help/problem-feed', to: 'help_center#on_problem_feed', as: :on_problem_feed
+  get '/help/expected-behavior', to: 'help_center#expected_behavior', as: :expected_behavior
+  get '/help/editing-posts', to: 'help_center#editing_posts', as: :editing_posts
+  get '/help/creating-topics', to: 'help_center#creating_topics', as: :creating_topics
+  get '/help/deleting-posts', to: 'help_center#deleting_posts', as: :deleting_posts
+  get '/help/reputation', to: 'help_center#reputation', as: :reputation
+  get '/help/badges', to: 'help_center#badges', as: :badges
+
 
   devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
   devise_scope :user do

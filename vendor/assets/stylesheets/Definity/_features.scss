@@ -681,7 +681,7 @@
 			}
 
 			p {
-				margin: 0;
+				//margin: 0;
 			}
 
 			button {
@@ -1164,7 +1164,7 @@
 	color: $dark;
 }
 
-#account-edit {
+#account-edit, #priviliges-page {
   .tab-content-text {
     padding-top: 0 !important;
   }
