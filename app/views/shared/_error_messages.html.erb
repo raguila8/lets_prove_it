@@ -4,6 +4,12 @@
     <li><%= @exception.message %></li>
     </ul>
   </div>
+<% elsif @error %>
+  <div id="error_explanation">
+   <ul>
+    <li><%= @error %></li>
+    </ul>
+  </div>
 <% elsif @user %>
 	<% model = @user %>
 <% elsif @topic %>
@@ -15,7 +21,8 @@
 <% elsif @problem %>
   <% model = @problem %>
 <% end %>
-<% if  !@exception and model.errors.any? %>
+
+<% if  !@exception and !@error and model.errors.any? %>
   <div id="error_explanation">
    <ul>
     <li><%= model.errors.full_messages.first %></li>

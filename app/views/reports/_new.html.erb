@@ -1,8 +1,18 @@
 <%= form_with(model: Report.new, remote: true, id: "report-form") do |form| %>
   <%= form.hidden_field :reportable_type, value: "#{reportable.class.name}" %>
   <%= form.hidden_field :reportable_id, value: "#{reportable.id}" %>
-    
-  <div class="form-group">
+
+  <% flags_list(reportable).each_with_index do |flag, index| %>
+    <div class="checkbox <%= 'spam' if flag.name == "spam" %>" id="<%= 'other-checkbox' if flag.name == "other" %>">
+      <label>
+        <%= form.check_box :flags, { multiple: true }, flag.id, false %>
+        <%= flag.name %>
+      </label>
+      <p><%= sanitize flag.description %></p>
+    </div>
+  <% end %>
+
+  <div class="form-group" id='reason-input' style="display: none;">
     <%= form.label :reason, "Why are you reporting this #{reportable.class.name.downcase}?" %>
     <%= form.text_area :reason, class: "mb-20 form-control" %>
   </div>
@@ -10,4 +20,3 @@
   <!-- Submit -->
   <%= form.submit "Submit", class: "btn" %>
 <% end %>
-

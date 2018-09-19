@@ -1,4 +1,5 @@
 <%= render "shared/not_signed_in_action_modal" %>
+<%= render 'shared/no_privilige_modal' if signed_in? %>
 <%= render 'problems/edit_topics' if signed_in? %>
 <%= render 'reports/report_modal' if signed_in? %>
 <%= render 'shared/preview' %>
@@ -55,7 +56,8 @@
           <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.versions.first.created_at, action: "Edited", user: @problem.versions.first.user} if @problem.versions.count > 1 and @problem.versions.first.user != @problem.user %>
         </div>
 
-        <%= link_to "Add comment", new_comment_path(commented_on_type: "Problem", commented_on_id: @problem.id), remote: true, class: "comment-replay-btn pull-left btn btn-xs" %>
+        <%= add_comment_button @problem %>
+        <%#= link_to "Add comment", new_comment_path(commented_on_type: "Problem", commented_on_id: @problem.id), remote: true, class: "comment-replay-btn pull-left btn btn-xs" %>
         <% if signed_in? %>
           <%= report_button(@problem) %>
 
@@ -170,7 +172,8 @@
                 </div>
 
                 <div>
-                  <%= link_to "Add comment", new_comment_path(commented_on_type: "Proof", commented_on_id: proof.id), remote: true, class: "comment-replay-btn mb-10 pull-left btn btn-xs" %>
+                  <%= add_comment_button proof %>
+                  <%#= link_to "Add comment", new_comment_path(commented_on_type: "Proof", commented_on_id: proof.id), remote: true, class: "comment-replay-btn mb-10 pull-left btn btn-xs" %>
                 </div>
 
                 <div class="proof-actions">

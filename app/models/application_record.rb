@@ -15,7 +15,9 @@ class ApplicationRecord < ActiveRecord::Base
         linkable = (self.commented_on_type == "Proof" ? self.commented_on.problem : self.commented_on)
       end
 
-      Activity.create(user: self.user, action: "deleted", acted_on: self, deleted_on: Time.now, linkable: linkable)
+      if self.deleted_by == "user"
+        Activity.create(user: self.user, action: "deleted", acted_on: self, deleted_on: Time.now, linkable: linkable)
+      end
     end 
   end
 

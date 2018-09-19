@@ -1,14 +1,13 @@
-
   <%= link_to notification.link, class: "notifications-link" do %>
     <li id="general-notification-<%=notification.id%>" class="notification <%= "active" if !notification.is_read? %>">
       <div class="media">
         <div class="media-left">
           <div class="media-object">
-            <img class="img-circle" alt="50x50" style="width: 50px; height: 50px;" src="<%= user_avatar_src(notification.actor) %>" data-holder-rendered="true">
+            <img class="img-circle" alt="50x50" style="width: 50px; height: 50px;" src="<%= avatar_src(notification.actor_id) %>" data-holder-rendered="true">
           </div>
         </div>
         <div class="media-body">
-          <strong class="notification-title"><%= notification.actor.username %> </strong>
+          <strong class="notification-title"><%= actor_name(notification.actor_id) %> </strong>
           <span><%= notification.message %></span>
 
           <div class="notification-meta">

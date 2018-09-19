@@ -382,13 +382,7 @@ module ApplicationHelper
       render partial: "devise/registrations/edit"
     end
   end
-
-  def report_button(model, options={})
-    if signed_in? and !Report.exists?(user_id: current_user.id, reportable_id: model.id)
-      "<a class='btn-text btn-xs float-right small-padding reportModalToggle' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}'><span class='proof-edit'><i class='mr-5 glyphicon glyphicon-edit'></i>Report</span></a>".html_safe
-    end
-  end
-
+ 
   def problems_widget_items
     html = ""
     problems = Problem.where('created_at >= ?', 1.week.ago).limit(5)
@@ -441,5 +435,13 @@ module ApplicationHelper
     end
 
     return html.html_safe
+  end
+
+  def avatar_src(actor_id)
+    if actor_id < 0
+      return "/assets/math_world.jpg"
+    else
+      return user_avatar_src(User.find(actor_id))
+    end
   end
 end

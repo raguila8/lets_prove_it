@@ -67,6 +67,13 @@ $(document).on('turbolinks:load', function() {
     });
   }
 
+  // No comment privilige modal
+  if ($('.no-comment-priv').length > 0) {
+    $('body').on('click', '.no-comment-priv', function() {
+      $('#noPriviligeModal .modal-body .custom-content').html("<p>You need at least 50 <a href='/help/reputation'>reputation</a> to comment. Gain more privileges by increasing your reputation by posting helpful problems and proofs.</p><a href='/help/priviliges/3' class='btn btn-ghost text-center btn-small mb-10'>Learn More</a>");
+    });
+  }
+
 
   // Preloader
   $('.preloader img').fadeOut(); // will first fade out the loading animation
@@ -74,6 +81,13 @@ $(document).on('turbolinks:load', function() {
 
 
 	});
+
+  // Report other checkbox
+  if ($('#reportModal').length > 0) {
+    $('#reportModal').on('click', '#other-checkbox input', function() {
+      $('#reportModal #reason-input').toggle($(this).checked);
+    });
+  }
 
   if ($("#topics-input").length > 0) {
     if ($('#topics-input').attr('data-behavior')) {

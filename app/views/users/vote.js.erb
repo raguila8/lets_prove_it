@@ -1,21 +1,31 @@
 <% if signed_in? %>
-  <% if @action_taken == "liked" %>
-    $("#<%=@model.class.name.downcase%>-upvote-<%=@model.id%>").addClass('upvoted');
-    $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").addClass('upvoted');
-  <% elsif @action_taken == "downvoted" %>
-    $("#<%=@model.class.name.downcase%>-downvote-<%=@model.id%>").addClass('downvoted');
-    $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").addClass('downvoted');
-  <% elsif @action_taken == "undisliked" %>
-    $("#<%=@model.class.name.downcase%>-downvote-<%=@model.id%>").removeClass('downvoted');
-    $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").removeClass('downvoted');
-  <% elsif @action_taken == "unliked" %>
-    $("#<%=@model.class.name.downcase%>-upvote-<%=@model.id%>").removeClass('upvoted');
-    $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").removeClass('upvoted');
-  <% end %>
+  <% if @action_taken.nil? %>
+    <% if @vote_type == "like" and current_user.reputation < 10 %>
+      $('#noPriviligeModal .modal-body .custom-content').html("<p>You need at least 10 <a href='/help/reputation'>reputation</a> to upvote. Gain more privileges by increasing your reputation by posting helpful problems and proofs.</p><a href='/help/priviliges/2' class='btn btn-ghost text-center btn-small mb-10'>Learn More</a>");
+      $('#noPriviligeModal').modal('show');
+    <% elsif @vote_type == "dislike" and current_user.reputation < 200 %>
+      $('#noPriviligeModal .modal-body .custom-content').html("<p>You need at least 200 <a href='/help/reputation'>reputation</a> to downvote. Gain more privileges by increasing your reputation by posting helpful problems and proofs.</p><a href='/help/priviliges/4' class='btn btn-ghost btn-small text-center mb-10'>Learn More</a>");
+      $('#noPriviligeModal').modal('show');
+    <% end %>
+  <% else %>
+    <% if @action_taken == "liked" %>
+      $("#<%=@model.class.name.downcase%>-upvote-<%=@model.id%>").addClass('upvoted');
+      $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").addClass('upvoted');
+    <% elsif @action_taken == "downvoted" %>
+      $("#<%=@model.class.name.downcase%>-downvote-<%=@model.id%>").addClass('downvoted');
+      $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").addClass('downvoted');
+    <% elsif @action_taken == "undisliked" %>
+      $("#<%=@model.class.name.downcase%>-downvote-<%=@model.id%>").removeClass('downvoted');
+      $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").removeClass('downvoted');
+    <% elsif @action_taken == "unliked" %>
+      $("#<%=@model.class.name.downcase%>-upvote-<%=@model.id%>").removeClass('upvoted');
+      $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").removeClass('upvoted');
+    <% end %>
 
-  $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").text("<%=@model.cached_votes_score%>");
-  $(".user-reputation-<%=current_user.id%>").text("<%=current_user.reputation%>");
-  $(".user-reputation-<%=@model.user.id%>").text("<%=@model.user.reputation%>");
+    $("#<%=@model.class.name.downcase%>-vote-count-<%=@model.id%>").text("<%=@model.cached_votes_score%>");
+    $(".user-reputation-<%=current_user.id%>").text("<%=current_user.reputation%>");
+    $(".user-reputation-<%=@model.user.id%>").text("<%=@model.user.reputation%>");
+  <% end %>
 <% else %>
   $('#signinActionModal').modal('show');
 <% end %>

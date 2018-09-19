@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180909215808) do
+ActiveRecord::Schema.define(version: 20180919054727) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -57,8 +57,23 @@ ActiveRecord::Schema.define(version: 20180909215808) do
     t.float "cached_weighted_average", default: 0.0
     t.integer "commented_on_id"
     t.string "commented_on_type"
+    t.string "deleted_by", default: "user"
     t.index ["commented_on_id"], name: "index_comments_on_commented_on_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "flag_reports", force: :cascade do |t|
+    t.integer "flag_id"
+    t.integer "report_id"
+    t.index ["flag_id", "report_id"], name: "index_flag_reports_on_flag_id_and_report_id", unique: true
+    t.index ["flag_id"], name: "index_flag_reports_on_flag_id"
+    t.index ["report_id"], name: "index_flag_reports_on_report_id"
+  end
+
+  create_table "flags", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "reportable_type", null: false
+    t.text "description"
   end
 
   create_table "images", force: :cascade do |t|
@@ -249,6 +264,9 @@ ActiveRecord::Schema.define(version: 20180909215808) do
     t.datetime "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "", null: false
+    t.text "details", default: ""
+    t.datetime "expired_on"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 

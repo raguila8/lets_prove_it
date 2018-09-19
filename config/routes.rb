@@ -71,7 +71,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reports, only: [:new, :create]
+  resources :reports, only: [:new, :create, :update]
 
   resources :versions, only: [:show]
   resources :problems do

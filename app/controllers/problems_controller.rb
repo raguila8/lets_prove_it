@@ -2,7 +2,8 @@ class ProblemsController < ApplicationController
   impressionist actions: [:show]
   before_action :set_problem, only: [:show, :edit, :update, :destroy, :logs,
                                      :follow, :unfollow, :followers]
-  before_action :logged_in_user, :correct_reputation, only: [:edit, :update, :feed]
+  before_action :logged_in_user, only: [:edit, :update, :feed]
+  before_action :correct_reputation, only: [:edit, :update]
 
   def follow
     current_user.follow @problem

@@ -1,1 +1,9 @@
-$('#reportModal .modal-body').html("<%= escape_javascript render(:partial => '/reports/new', locals:  {reportable: @reportable }) %>");
+<% if !Report.exists?(user_id: current_user.id, reportable_id: @reportable.id, reportable_type: @reportable.class.name) %>
+  $('#reportModal .modal-title').html("I am reporting this <%= @reportable.class.name.downcase %> as...");
+  $('#reportModal .modal-body').html("<%= escape_javascript render(:partial => '/reports/new', locals:  {reportable: @reportable }) %>");
+<% else %>
+  <% report = Report.find_by(user_id: current_user.id, reportable_id: @reportable.id, reportable_type: @reportable.class.name) %>
+  $('#reportModal .modal-title').html("You already have a pending report on this <%= @reportable.class.name.downcase %> for the following...");
+
+  $('#reportModal .modal-body').html("<%= escape_javascript render(:partial => '/reports/edit', locals:  {:@flags => report.flags, :@report => report }) %>");
+<% end %>
