@@ -7,6 +7,7 @@ class UsersController < ApplicationController
                                      :topics_following, :topic_edits, :show, 
                                      :activity, :followers, :following, :edit,
                                      :update_image ]
+  before_action :active_record, only: [:vote]
   after_action :create_activity, only: [:vote]
 
   def follow
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def activity
-    @activities = @user.activities.order(created_at: :desc)
+    @activities = @user.activities.active.order(created_at: :desc)
   end
 
   def followers
@@ -34,23 +35,23 @@ class UsersController < ApplicationController
   end
 
   def proofs
-    @proofs = @user.proofs.order(created_at: :desc)
+    @proofs = @user.proofs.active.order(created_at: :desc)
   end
 
   def problem_edits
-    @versions = @user.versions.where(versioned_type: "Problem").order(created_at: :desc)
+    @versions = @user.versions.where(versioned_type: "Problem").active.order(created_at: :desc)
   end
 
   def problems_following
-    @problems = @user.problems_following.order(created_at: :desc)
+    @problems = @user.problems_following.active.order(created_at: :desc)
   end
 
   def topics_following
-    @topics = @user.topics_following.order(created_at: :desc)
+    @topics = @user.topics_following.active.order(created_at: :desc)
   end
 
   def topic_edits
-    @versions = @user.versions.where(versioned_type: "Topic").order(created_at: :desc)
+    @versions = @user.versions.where(versioned_type: "Topic").active.order(created_at: :desc)
   end
 
   def show
@@ -154,6 +155,13 @@ class UsersController < ApplicationController
             activity.destroy
           end
         end
+      end
+    end
+
+    def active_record
+      if params[:votable_type].capitalize.constantize.find(params[:id]).soft_deleted?
+        flash[:alert] = "Action not authorized"
+        redirect_to root_url
       end
     end
 end

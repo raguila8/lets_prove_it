@@ -7,22 +7,42 @@ class Comment < ApplicationRecord
   belongs_to :commented_on, polymorphic: true
 
   has_many :reports, as: :reportable, :dependent => :destroy
+  has_many :notifications, as: :notifiable, :dependent => :destroy
+  has_many :activities, as: :acted_on, :dependent => :destroy
 
   validates :content, presence: true, length: { maximum: 500, minimum: 3 }
   validate :user_has_privilige
+
+  scope :active, -> { where(deleted_on: nil) }
+
 
   def get_problem
     commented_on_type == "Proof" ? commented_on.problem : commented_on
   end
 
-  def take_down
-    action = "took down your comment on"
-    action += (self.commented_on.class.name == "Proof" ? " a proof for" : "")
-    n = Notification.new(actor_id: -1, recipient: self.user, notifiable: self.get_problem, action: action)
-    n.save(validate: false)
-    self.update(deleted_by: "community")
-    self.destroy
+  def take_down(deleted_by, deleted_for)
+    #action = "took down your comment on"
+    #action += (self.commented_on.class.name == "Proof" ? " a proof for" : "")
+    #n = Notification.new(actor_id: -1, recipient: self.user, notifiable: self, 
+    #                     action_type: "delete", action: action)
+    #n.save(validate: false)
+    #self.update(deleted_by: "community", deleted_at: Time.now, deleted_for: reason)
+    self.soft_delete deleted_by, deleted_for
   end
+
+  def soft_deleted?
+    self.deleted_on.nil? ? false : true
+  end
+
+  def soft_delete(deleted_by, deleted_for="")
+    self.update(deleted_on: Time.now, deleted_by: deleted_by, 
+                deleted_for: deleted_for)
+
+    Activity.where(acted_on: self).each do |activity|
+      activity.update(deleted_on: Time.now)
+    end
+  end
+
 
   private
 

@@ -17,6 +17,9 @@ class Problem < ApplicationRecord
   has_many :topics, through: :problem_topics, dependent: :destroy
   has_many :reports, as: :reportable, :dependent => :destroy
   has_many :comments, as: :commented_on, :dependent => :destroy
+  has_many :notifications, as: :notifiable, :dependent => :destroy
+  has_many :activities, as: :acted_on, :dependent => :destroy
+
   validates :topics, length: { minimum: 1 },
                        unless: :new_record?
 
@@ -28,6 +31,8 @@ class Problem < ApplicationRecord
   validates :content, presence: true, length: { maximum: 5000, minimum: 3 }
   validates :title, presence: true, uniqueness: { case_sensitive: false }, 
                     length: { maximum: 255, minimum: 3 }
+
+  scope :active, -> { where(deleted_on: nil) }
 
 
   def save_new(tagsArray, images, user)
@@ -169,6 +174,44 @@ class Problem < ApplicationRecord
     Problem.joins(:problem_topics).where(problem_topics: { topic_id: topics.pluck(:id)}).order("cached_votes_score DESC").limit(5)
   end
 
+  def take_down(deleted_by, deleted_for)
+    self.soft_delete deleted_by, deleted_for
+  end
+
+  def soft_deleted?
+    self.deleted_on.nil? ? false : true
+  end
+
+  def soft_delete(deleted_by, deleted_for="")
+    self.update(deleted_on: Time.now, deleted_by: deleted_by, 
+                deleted_for: deleted_for) 
+
+    Activity.where(acted_on: self).each do |activity|
+      activity.update(deleted_on: Time.now)
+    end
+
+    self.versions.each do |version|
+      if version.deleted_on.nil?
+        version.soft_delete("problem", 
+                 "version was deleted as a result of the problem's deletion.")
+      end
+    end
+
+    self.proofs.each do |proof|
+      if proof.deleted_on.nil?
+        proof.soft_delete("problem", 
+                "proof was deleted as a result of the problem's deletion.")
+      end
+    end
+
+    self.comments.each do |comment|
+      if comment.deleted_on.nil?
+        comment.soft_delete("problem", 
+                "comment was deleted as a result of the problem's deletion.")
+      end
+    end
+  end
+
   private
 
     def self.filter(filter, user)
@@ -180,10 +223,10 @@ class Problem < ApplicationRecord
           union(Problem.joins(:user_relationships).
             where(problem_followings: { user_id: user.id } )).
           where("cached_proofs_count #{equality_symbol} 0").
-          distinct
+          active.distinct
       else
         problems = Problem.all.where("cached_proofs_count #{equality_symbol} 0").
-          distinct
+          active.distinct
       end
  
       return problems

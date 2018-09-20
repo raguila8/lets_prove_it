@@ -11,6 +11,10 @@ class Topic < ApplicationRecord
   has_many :topic_images
   has_many :images, through: :topic_images, :dependent => :destroy
 
+  has_many :notifications, as: :notifiable, :dependent => :destroy
+  has_many :activities, as: :acted_on, :dependent => :destroy
+
+
   before_save { self.name = name.downcase }
   validates :name, presence: true, length: { minimum: 3, maximum: 35 }
   validates :description, presence: true, length: { minimum: 3 }
@@ -19,6 +23,8 @@ class Topic < ApplicationRecord
                                       greater_than_or_equal_to: 0 }
   validates_format_of :name, :with => /\A[a-z\d\.\+\-\#]*\z/,
     :message => "can only contain a-z, 0-9, +, #, -, ."
+
+  scope :active, -> { where(deleted_on: nil) }
 
   def save_new(images, user)
     begin
@@ -73,10 +79,10 @@ class Topic < ApplicationRecord
     order = "DESC"
     order = "ASC" if options[:sorter] == "name"
     if !options[:search_filter].blank?
-      Topic.where("name LIKE ?", "%#{options[:search_filter]}%").
+      Topic.where("name LIKE ?", "%#{options[:search_filter]}%").active.
         order("#{options[:sorter]} #{order}")
     else
-      Topic.all.order("#{options[:sorter]} #{order}")
+      Topic.all.active.order("#{options[:sorter]} #{order}")
     end
   end
 
@@ -86,4 +92,7 @@ class Topic < ApplicationRecord
     Proof.where("problem_id IN (#{problem_ids})")
   end
 
+  def soft_deleted?
+    self.deleted_on.nil? ? false : true
+  end
 end

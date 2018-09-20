@@ -137,9 +137,14 @@
               <strong><%= actor_name(notification.actor_id) %> </strong>
               <span><%= notification.message %></span>
             </h3>
+            <% if notification.action_type == "delete" %>
+              <h4><span><%= notification.notifiable.class.name %> was <%= notification.notifiable.deleted_for %></h4>
+            <% end %>
  
             <!-- Link -->
-            <%= link_to "View", notification.link, class: "btn btn-small" %>
+            <% if notification.linkable? %>
+              <%= link_to link_text(notification), notification.link, class: "btn btn-small" %>
+            <% end %>
 
           </div><!-- / .bp-content -->
 

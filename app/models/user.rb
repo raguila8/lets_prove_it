@@ -14,6 +14,10 @@ class User < ApplicationRecord
   has_many :notifications, foreign_key: :recipient_id, :dependent => :destroy
   has_many :activities, :dependent => :destroy
 
+  has_many :user_notifiables, as: :notifiable, :dependent => :destroy
+  has_many :users_acted_on, as: :acted_on, :dependent => :destroy
+
+
   has_many :problems_relationships, class_name: "ProblemFollowing", :dependent => :destroy
   has_many :problems_following, through: :problems_relationships, source: :problem
   has_many :topics_relationships, class_name: "TopicFollowing", :dependent => :destroy
@@ -48,6 +52,8 @@ class User < ApplicationRecord
   validates :username, presence: true, length: { minimum: 5, maximum: 18 },
 											uniqueness: true
   validate :avatar_size
+
+  scope :active, -> { where(deleted_on: nil) }
 
   def following?(model)
     if model.class.name == "Problem"
@@ -110,7 +116,7 @@ class User < ApplicationRecord
 
     topics = Topic.select("name AS label", "id AS id", "'Topics' AS category").where("name LIKE ?", pattern).limit(5)
 
-    problems = Problem.select("title AS label", "id AS id", "'Problems' AS category", "'/assets/no_problems_icon.png' AS image_url").where("title LIKE ?", pattern).limit(5)
+    problems = Problem.select("title AS label", "id AS id", "'Problems' AS category", "'/assets/no_problems_icon.png' AS image_url").where("title LIKE ?", pattern).active.limit(5)
       
     users + topics + problems
   end
@@ -177,6 +183,11 @@ class User < ApplicationRecord
 
     end
   end
+
+  def soft_deleted?
+    self.deleted_on.nil? ? false : true
+  end
+
   
   private
 

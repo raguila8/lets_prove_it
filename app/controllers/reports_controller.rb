@@ -17,6 +17,7 @@ class ReportsController < ApplicationController
       @report.status = "pending"
       @report.save
       @report.add_flags params[:report][:flags]
+      Report.handle(@report.reportable)
     end
   end
 

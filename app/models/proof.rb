@@ -13,10 +13,14 @@ class Proof < ApplicationRecord
   has_many :images, through: :proof_images, :dependent => :destroy
   has_many :reports, as: :reportable, :dependent => :destroy
 
+  has_many :notifications, as: :notifiable, :dependent => :destroy
+  has_many :activities, as: :acted_on, :dependent => :destroy
+
+
   validates :content, presence: true, length: { maximum: 5000, minimum: 15 }
   validates_uniqueness_of :user_id, :scope => [:problem_id]
 
-
+  scope :active, -> { where(deleted_on: nil) }
 
   def save_new(images, user)
     begin
@@ -59,6 +63,38 @@ class Proof < ApplicationRecord
 
     return { }
   end
+
+  def take_down(deleted_by, deleted_for)
+    self.soft_delete deleted_by, deleted_for
+  end
+
+
+  def soft_deleted?
+    self.deleted_on.nil? ? false : true
+  end
+
+  def soft_delete(deleted_by, deleted_for="")
+    self.update(deleted_on: Time.now, deleted_by: deleted_by, 
+                deleted_for: deleted_for )
+
+    Activity.where(acted_on: self).each do |activity|
+      activity.update(deleted_on: Time.now)
+    end
+
+    self.versions.each do |version|
+      if version.deleted_on.nil?
+        version.soft_delete("proof", 
+                  "version was deleted as a result of the proof's deletion.")
+      end
+    end
+
+    self.comments.each do |comment|
+      if comment.deleted_on.nil?
+        comment.soft_delete("proof", "comment was deleted as a result of the proof's deletion.")
+      end
+    end
+  end
+
    
   private
  

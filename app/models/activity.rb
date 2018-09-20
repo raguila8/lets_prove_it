@@ -2,6 +2,8 @@ class Activity < ApplicationRecord
   belongs_to :user
   belongs_to :acted_on, polymorphic: true
   belongs_to :linkable, polymorphic: true
+  scope :active, -> { where(deleted_on: nil) }
+
 
   def linkable?
     not linkable.nil?
@@ -28,4 +30,7 @@ class Activity < ApplicationRecord
     "#{model_in_question} was deleted on #{deleted_on.strftime('%B %d, %Y')}"
   end
 
+  def soft_deleted?
+    self.deleted_on.nil? ? false : true
+  end
 end

@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: [:show, :edit, :update, :destroy, :problems, 
+  before_action :set_topic, :active_topic, only: [:show, :edit, :update, :destroy, :problems, 
                                    :followers, :follow, :unfollow, 
                                    :log, :proofs, :description]
 
@@ -20,7 +20,7 @@ class TopicsController < ApplicationController
       }
 
       format.json { 
-        data = Topic.where("name LIKE :name", { name: "#{params[:term]}%" }).map {|t| t.name}
+        data = Topic.where("name LIKE :name", { name: "#{params[:term]}%" }).active.map {|t| t.name}
         render json: { suggestions: data, success: true }
       }
 
@@ -141,4 +141,11 @@ class TopicsController < ApplicationController
       params.require(:topic).permit(:images)
     end
 
+    # Confirms topic was not soft deleted
+    def active_topic
+      if Topic.find(params[:id]).soft_deleted?
+        flash[:alert] = "Action not authorized"
+        redirect_to root_url
+      end
+    end
 end

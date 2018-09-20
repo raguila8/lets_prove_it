@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180919054727) do
+ActiveRecord::Schema.define(version: 20180920100247) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 20180919054727) do
     t.integer "commented_on_id"
     t.string "commented_on_type"
     t.string "deleted_by", default: "user"
+    t.datetime "deleted_on"
+    t.text "deleted_for"
     t.index ["commented_on_id"], name: "index_comments_on_commented_on_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -173,6 +175,8 @@ ActiveRecord::Schema.define(version: 20180919054727) do
     t.string "notifiable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "action_type"
+    t.text "details", default: ""
   end
 
   create_table "problem_followings", force: :cascade do |t|
@@ -217,6 +221,9 @@ ActiveRecord::Schema.define(version: 20180919054727) do
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
     t.integer "cached_proofs_count", default: 0
+    t.datetime "deleted_on"
+    t.string "deleted_by"
+    t.text "deleted_for"
     t.index ["user_id"], name: "index_problems_on_user_id"
   end
 
@@ -242,6 +249,9 @@ ActiveRecord::Schema.define(version: 20180919054727) do
     t.integer "cached_weighted_score", default: 0
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
+    t.datetime "deleted_on"
+    t.string "deleted_by"
+    t.text "deleted_for"
     t.index ["problem_id"], name: "index_proofs_on_problem_id"
     t.index ["user_id"], name: "index_proofs_on_user_id"
   end
@@ -295,6 +305,9 @@ ActiveRecord::Schema.define(version: 20180919054727) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.integer "cached_problems_count", default: 0
+    t.datetime "deleted_on"
+    t.string "deleted_by"
+    t.text "deleted_for"
     t.index ["name"], name: "index_topics_on_name"
   end
 
@@ -329,6 +342,9 @@ ActiveRecord::Schema.define(version: 20180919054727) do
     t.string "location"
     t.integer "reputation", default: 0
     t.datetime "last_seen_at", default: "2018-08-24 04:24:12"
+    t.datetime "deleted_on"
+    t.string "deleted_by"
+    t.text "deleted_for"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -353,6 +369,9 @@ ActiveRecord::Schema.define(version: 20180919054727) do
     t.text "description"
     t.integer "versioned_id"
     t.string "versioned_type"
+    t.datetime "deleted_on"
+    t.string "deleted_by"
+    t.text "deleted_for"
     t.index ["user_id"], name: "index_versions_on_user_id"
     t.index ["versioned_id", "versioned_type"], name: "index_versions_on_versioned_id_and_versioned_type"
     t.index ["versioned_id"], name: "index_versions_on_versioned_id"

@@ -3,20 +3,35 @@ class Notification < ApplicationRecord
   belongs_to :actor, class_name: "User"
   belongs_to :notifiable, polymorphic: true
 
+  validates :action_type, presence: true
+  validates :details, length: { maximum: 5000 }
+
   scope :unread, ->{ where(read_at: nil) }  
 
   def is_read?
     !self.read_at.nil?
   end
 
-  def link
+  def linkable?
+    not self.linked_to.nil? and not self.linked_to.soft_deleted?
+  end
+
+  def linked_to
     if self.notifiable_type == "Problem"
-      "/problems/#{self.notifiable.id}"
+      return self.notifiable
     elsif self.notifiable_type == "User"
-      "/users/#{self.notifiable.id}"
+      return self.notifiable
     elsif self.notifiable_type == "Topic"
-      "/topics/#{self.notifiable.id}"
+      return self.notifiable
+    elsif self.notifiable_type == "Comment"
+      return self.notifiable.get_problem
+    elsif self.notifiable_type == "Proof"
+      return self.notifiable.problem
     end
+  end
+
+  def link
+    "/#{self.linked_to.class.name.downcase.pluralize}/#{self.linked_to.id}"
   end
 
   def message
@@ -27,6 +42,10 @@ class Notification < ApplicationRecord
       message += " you"
     elsif self.notifiable_type == "Topic"
       message += " topic <i style='text-transform: none;'>#{self.notifiable.name.titleize}</i>".html_safe
+    elsif self.notifiable_type == "Comment"
+      message += " problem <i style='text-transform: none;'>#{self.notifiable.get_problem.title.titleize}</i>"
+    elsif self.notifiable_type == "Proof"
+      message += " problem <i style='text-transform: none;'>#{self.notifiable.problem.title.titleize}</i>"
     end
     message.html_safe
   end

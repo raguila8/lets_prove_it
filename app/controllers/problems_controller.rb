@@ -1,8 +1,8 @@
 class ProblemsController < ApplicationController
   impressionist actions: [:show]
-  before_action :set_problem, only: [:show, :edit, :update, :destroy, :logs,
+  before_action :active_problem, :set_problem, only: [:show, :edit, :update, :destroy, :logs,
                                      :follow, :unfollow, :followers]
-  before_action :logged_in_user, only: [:edit, :update, :feed]
+  before_action :logged_in_user, only: [:edit, :update, :feed, :destroy, :follow, :unfollow]
   before_action :correct_reputation, only: [:edit, :update]
 
   def follow
@@ -173,5 +173,13 @@ class ProblemsController < ApplicationController
 
     def problem_images_params
       params.require(:problem).permit(:images)
+    end
+
+    # Confirms problem was not soft deleted
+    def active_problem
+      if Problem.find(params[:id]).soft_deleted?
+        flash[:alert] = "Action not authorized"
+        redirect_to root_url
+      end
     end
 end

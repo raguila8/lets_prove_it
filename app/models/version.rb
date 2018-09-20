@@ -11,11 +11,16 @@ class Version < ApplicationRecord
   has_many :reports, as: :reportable, :dependent => :destroy
   has_many :reported
 
+  has_many :notifications, as: :notifiable, :dependent => :destroy
+  has_many :activities, as: :acted_on, :dependent => :destroy
+
+
   validates :title, presence: true, length: { maximum: 255, minimum: 3 }
 
   validates :content, presence: true, length: { maximum: 5000, minimum: 3 }
   validates :description, presence: true, length: { maximum: 500, minimum: 3 }
   #validate :any_problem_topic?
+  scope :active, -> { where(deleted_on: nil) }
 
   def get_version_topics
     it = 1
@@ -63,6 +68,18 @@ class Version < ApplicationRecord
       return versioned.versions.order(:created_at).first.version_number + 1
     end
   end
+
+  def soft_deleted?
+    self.deleted_on.nil? ? false : true
+  end
+
+  def soft_delete(deleted_by, deleted_for="")
+    self.update(deleted_on: Time.now, deleted_by: deleted_by, deleted_for: deleted_for) 
+    Activity.where(acted_on: self).each do |activity|
+      activity.update(deleted_on: Time.now)
+    end
+  end
+
 
   private
 

@@ -37,7 +37,7 @@
 
           <div class="post-meta" id="problem-tags-list">
             <ul class="tag-list mt-20">
-              <% @problem.topics.each do |topic| %>
+              <% @problem.topics.active.each do |topic| %>
                 <li>
                   <%= link_to topic.name, topic_path(topic.id) %>
                 </li>
@@ -70,7 +70,7 @@
           <div class="clearfix"></div>
         </div><!-- / .problem-container -->
         </div>
-        <% @problem.comments.order(created_at: :desc).each_with_index do |comment, index| %>
+        <% @problem.comments.active.order(created_at: :desc).each_with_index do |comment, index| %>
           
           <!-- Replay Comment -->
           <div class="bp-comment-reply" id="comment-<%=comment.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if index < @problem.comments.count - 1 %>">
@@ -131,7 +131,7 @@
             <% if @problem.proofs.count > 0 %>
               <h3 class="blog-section-title font-weight-600">Proofs <span>(<%= @problem.proofs.count %>)</span></h3>
             <% end %>
-            <% @problem.proofs.each_with_index do |proof, index| %>
+            <% @problem.proofs.active.each_with_index do |proof, index| %>
               <div class="mb-20" style="<%= 'border-bottom: 1px solid #ddd;' if @problem.proofs.count - 1 != index %>">
               <!-- Comment 1 -->
               <div class="bp-comment" id="proof-<%=proof.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if proof.comments.count > 0 %>">
@@ -192,7 +192,7 @@
                 <div class="clearfix"></div>
               </div><!-- / .bp-comment -->
               
-              <% proof.comments.order(created_at: :desc).each_with_index do |comment, index| %>
+              <% proof.comments.active.order(created_at: :desc).each_with_index do |comment, index| %>
           
                 <!-- Replay Comment -->
                 <div class="bp-comment-reply" id="comment-<%=comment.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if index < proof.comments.count - 1 %>">

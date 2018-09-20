@@ -1,4 +1,4 @@
-<% if !Report.exists?(user_id: current_user.id, reportable_id: @reportable.id, reportable_type: @reportable.class.name) %>
+<% if !Report.exists?(user_id: current_user.id, reportable_id: @reportable.id, reportable_type: @reportable.class.name, expired_on: nil) %>
   $('#reportModal .modal-title').html("I am reporting this <%= @reportable.class.name.downcase %> as...");
   $('#reportModal .modal-body').html("<%= escape_javascript render(:partial => '/reports/new', locals:  {reportable: @reportable }) %>");
 <% else %>
