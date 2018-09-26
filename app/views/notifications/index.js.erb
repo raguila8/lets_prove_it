@@ -1,2 +1,15 @@
-$("[data-behavior='general-notifications'] .dropdown-menu-notifications").html("<%= escape_javascript render(:partial => '/notifications/notification_item', collection:  @notifications, as: :notification ) %>");
+<% if @feed %>
+  <% if @feed.count > 0 %>
+    <% @feed.each_with_index do |notification, index| %>
+      $('#notifications-feed').append("<%= escape_javascript render(:partial => '/notifications/feed_item', locals: { notification: notification, index: index + 1 }) %>");
+    <% end %>
+  <% else %>
+    html = "<div class='no-results-container'><img src='/assets/no_notifications_icon.png' alt='conversations icon'><h3 class='font-weight-600'>You have no notifications.</h3></div>";
+    $('#notifications-feed').append(html);
+  <% end %>
 
+  $('#notifications-stat-val').text("<%=@feed.count%>");
+
+<% else %>
+  $("[data-behavior='general-notifications'] .dropdown-menu-notifications").html("<%= escape_javascript render(:partial => '/notifications/notification_item', collection:  @notifications, as: :notification ) %>");
+<% end %>

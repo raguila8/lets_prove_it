@@ -7,7 +7,7 @@ module CommentsHelper
     link = ""
     if signed_in?
       if current_user.reputation >= 50 or model.user == current_user
-        href="/comments/new?comment_on_type='#{model.class.name}'&comment_on_id='#{model.id}'"
+        href="/comments/new?commented_on_type=#{model.class.name}&commented_on_id=#{model.id}"
         link = "<a href='#{href}' data-remote='true' class='comment-replay-btn mb-10 pull-left btn btn-xs'>Add Comment</a>"
       else
         link = "<button data-toggle='modal' data-target='#noPriviligeModal' class='no-comment-priv comment-replay-btn mb-10 pull-left btn btn-xs'>Add Comment</button>"

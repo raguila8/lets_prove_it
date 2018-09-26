@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def follow
     current_user.follow @user
     # Notify user
-    Notification.notify_user(@user, current_user, "started following", @user)
+    #Notification.notify_user(@user, current_user, "started following", @user)
   end
 
   def unfollow

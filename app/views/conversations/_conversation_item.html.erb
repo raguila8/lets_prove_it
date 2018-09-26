@@ -11,7 +11,7 @@
         <p class="notification-desc truncate-75"><%= conversation.last_message.body %></p>
 
         <div class="notification-meta">
-          <small class="timestamp"><%= conversation.last_message.created_at %></small>
+          <small class="timestamp"><%= time_ago_in_words(conversation.last_message.created_at) %> ago</small>
           <%= mark_as_read_icon(conversation) %>
         </div>
       </div>

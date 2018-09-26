@@ -7,7 +7,7 @@ class ApplicationRecord < ActiveRecord::Base
     Activity.where(acted_on: self).each do |activity|
       activity.update(deleted_on: Time.now)
     end
-  
+=begin 
     if self.class.name == "Proof" || self.class.name == "Comment"
       if self.class.name == "Proof"
         linkable = self.problem
@@ -19,6 +19,7 @@ class ApplicationRecord < ActiveRecord::Base
         Activity.create(user: self.user, action: "deleted", acted_on: self, deleted_on: Time.now, linkable: linkable)
       end
     end 
+=end
   end
 
 end

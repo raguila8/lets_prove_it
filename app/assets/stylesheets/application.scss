@@ -4,6 +4,7 @@
  @import "bootstrap";
  @import "jquery-ui.css";
  @import "font-awesome";
+ @import "linea-font.css";
  @import "jquery.mCustomScrollbar.css";
  @import "toastr";
  @import "bootstrap-tagsinput.css";
@@ -12,3 +13,18 @@
  @import "Definity/responsive";
  @import "custom";
  @import "static_pages";
+
+@font-face {
+  font-family: "linea-icon-font";
+  src: url(asset_path("linea-icon-font.eot"));
+  src: url(asset_path("linea-icon-font.eot?#iefix")) format("embedded-opentype"),
+    url(asset_path("linea-icon-font.woff")) format("woff"),
+    url(asset_path("linea-icon-font.ttf")) format("truetype"),
+    url(asset_path("linea-icon-font.svg#linea-icon-font")) format("svg");
+
+
+  font-weight: normal;
+  font-style: normal;
+
+}
+

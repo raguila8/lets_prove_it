@@ -41,6 +41,12 @@ class Comment < ApplicationRecord
     Activity.where(acted_on: self).each do |activity|
       activity.update(deleted_on: Time.now)
     end
+
+    if %w(community proof).include? deleted_by
+      action = (self.commented_on_type == "Proof" ? "removed your comment on a proof for " : "removed your comment on")
+      n = Notification.new(actor_id: -1, recipient: self.user, action: action, notifiable: self, action_type: "deletion", details: deleted_for)
+      n.save(validate: false)
+    end
   end
 
 

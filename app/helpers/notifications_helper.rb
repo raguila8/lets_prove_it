@@ -24,4 +24,24 @@ module NotificationsHelper
       return notifications_path
     end
   end
+
+  def notification_user_image(notification)
+    if notification.actor_id < 0
+      html = "<img width='60' height='60' src='#{avatar_src(notification.actor_id) }' alt='User Profile Image'>"
+    else
+      html = "<a href='#{ user_path(notification.actor.id) }'><img width='60' height='60' src='#{avatar_src(notification.actor_id) }' alt='User Profile Image'></a>"
+    end
+
+    return html.html_safe
+  end
+
+  def notification_actor_link(notification)
+    if notification.actor_id < 0
+      html = "<span class='grey-link' style='cursor: default'>#{ actor_name(notification.actor_id) } </span>"
+    else
+      html = "<a class='grey-link' href='#{ user_path(notification.actor.id) }'>#{ actor_name(notification.actor_id) } </a>"
+    end
+
+    return html.html_safe
+  end
 end

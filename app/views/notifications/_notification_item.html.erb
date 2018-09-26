@@ -1,4 +1,4 @@
-  <%= link_to notification_link_path notification, class: "notifications-link" do %>
+  <%= link_to notification_link_path(notification), class: "notifications-link" do %>
     <li id="general-notification-<%=notification.id%>" class="notification <%= "active" if !notification.is_read? %>">
       <div class="media">
         <div class="media-left">
@@ -11,7 +11,7 @@
           <span><%= notification.message %></span>
 
           <div class="notification-meta">
-            <small class="timestamp"><%= notification.created_at %></small>
+            <small class="timestamp"><%= time_ago_in_words(notification.created_at) %> ago</small>
           </div>
         </div>
       </div>

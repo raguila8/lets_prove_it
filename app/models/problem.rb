@@ -210,6 +210,13 @@ class Problem < ApplicationRecord
                 "comment was deleted as a result of the problem's deletion.")
       end
     end
+
+    if %w(community).include? deleted_by
+      action = "removed"
+      n = Notification.new(actor_id: -1, recipient: self.user, action: action, notifiable: self, action_type: "deletion", details: deleted_for)
+      n.save(validate: false)
+    end
+
   end
 
   private

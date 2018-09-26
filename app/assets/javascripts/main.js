@@ -337,6 +337,10 @@ $(document).on('turbolinks:load', function() {
           $feed = $('#users-feed');
           data.filter = $("#item-filters").attr('data-filter');
           data.search_filter = $("#item-filters").attr('data-search-filter')
+        } else if ($('#notifications-feed').length > 0) {
+          url = "/notifications";
+          $feed = $('#notifications-feed');
+          data.filter = $("#item-filters").attr('data-filter');
         }
 
         $.ajax({

@@ -62,10 +62,8 @@ class ProofsController < ApplicationController
         end
 
         # Create notifications for users following the problem
-        (@problem.followers - [current_user]).each do |follower|
-          Notification.notify_user(follower, current_user, "wrote a proof for", @proof.problem)
-        end
-
+        Notification.new_proof_notifications @proof
+        
         format.html { redirect_to @problem, notice: 'Proof was successfully created.' }
         format.json { render :show, status: :created, location: @proof }
       else
@@ -92,10 +90,15 @@ class ProofsController < ApplicationController
     respond_to do |format|
       @exception = @proof.save_edit(images_array, current_user, version_description)[:exception]
       if !@exception
-        # Notify users that follow the problem
-        (@proof.problem.followers - [current_user]).each do |follower|
-          Notification.notify_user(follower, current_user, "edited a proof for", @proof.problem)
+
+        #Any user who edits a proof for a problem automatically follows it
+        if !current_user.following? @proof.problem
+          current_user.follow @proof.problem
         end
+
+        # Notify users who have commented on or edited proof
+        Notification.updated_proof_notifications @proof, current_user
+
         format.html { redirect_to @proof.problem, notice: 'Proof was successfully updated.' }
 
       else

@@ -1,0 +1,9 @@
+<!-- ========== Sidebar ========== -->
+<aside class="col-lg-offset-1 col-lg-3 sidebar mb-sm-160 ph-30"> 
+  <%= render partial: 'shared/sidebars/widgets/stat_widget', locals: { stat: "Notifications", value: @notifications.count, icon: "fa-bell" } %>
+  <%= render 'shared/sidebars/widgets/popular_problems_widget' %>	
+  <%= render 'shared/sidebars/widgets/hot_topics_widget' %> 
+  <%= render 'shared/sidebars/widgets/top_users' %>
+  <%= render 'shared/sidebars/widgets/new_topic_widget' %>
+  <%= render 'shared/sidebars/widgets/browse_users_widget' %>
+</aside><!-- / .sidebar -->

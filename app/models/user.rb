@@ -169,7 +169,7 @@ class User < ApplicationRecord
   
     User.update_reputation({action: action_taken, actor: self, voted_on: model})
     if model.class.name == "Comment" and model.cached_votes_score == -5
-      model.take_down
+      model.take_down("community", "#{model.class.name.downcase} recieved a voting score of -5 or lower")
     end
     return action_taken
   end

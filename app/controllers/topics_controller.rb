@@ -75,9 +75,9 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if !@exception
-        (User.all - [current_user]).each do |user|
-          Notification.notify_user(user, current_user, "created", @topic)
-        end
+        #Notify all users when a topic is created
+        Notification.new_topic_notifications(@topic)
+
         format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
         format.json { render :show, status: :created, location: @topic }
       else
@@ -99,9 +99,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if !@exception
-        (@topic.followers - [current_user]).each do |follower|
-          Notification.notify_user(follower, current_user, "edited", @topic)
-        end
+        Notification.updated_topic_notifications @topic, current_user
 
         format.html { redirect_to @topic, notice: 'Topic was successfully updated.' }
         format.json { render :show, status: :ok, location: @topic }

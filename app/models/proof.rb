@@ -86,13 +86,21 @@ class Proof < ApplicationRecord
         version.soft_delete("proof", 
                   "version was deleted as a result of the proof's deletion.")
       end
-    end
+    end 
 
     self.comments.each do |comment|
       if comment.deleted_on.nil?
         comment.soft_delete("proof", "comment was deleted as a result of the proof's deletion.")
       end
     end
+
+    # Notify original poster that proof has been deleted
+    if %w(community problem).include? deleted_by
+      action = "removed your proof for "
+      n = Notification.new(actor_id: -1, recipient: self.user, action: action, notifiable: self, action_type: "deletion", details: deleted_for)
+      n.save(validate: false)
+    end
+
   end
 
    

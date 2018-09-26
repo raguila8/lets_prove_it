@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   def new
     @comment = Comment.new
     @commented_on = params[:commented_on_type].capitalize.constantize.find(params[:commented_on_id])
-    @comment.update_attributes(commented_on: @commented_on)
+    @comment.assign_attributes(commented_on: @commented_on)
     @comment.user_id = current_user.id
 
     respond_to do |format|
@@ -18,18 +18,27 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        notifiable = (@comment.commented_on_type == "Proof" ? @comment.commented_on.problem : @comment.commented_on)
 
-        # Notify people who have commented on the post
-        ((@comment.commented_on.comments.map{ |comment| comment.user }).uniq - [current_user, @comment.commented_on.user]).each do |commenter|
-          action = (@comment.commented_on_type == "Proof" ? "commented on a proof you have commented on for" : "commented on")
-          Notification.notify_user(commenter, current_user, action, notifiable)
+        if @comment.commented_on_type == "Problem"
+          #Any user who comments on a problem automatically follows it
+          if !current_user.following? @comment.get_problem
+            current_user.follow @comment.get_problem
+          end
         end
 
-        # Notify the person who wrote the post
-        action = (@comment.commented_on_type == "Proof" ? "commented on your proof for" : "commented on")
+        Notification.new_comment_notifications(@comment)
+        #notifiable = (@comment.commented_on_type == "Proof" ? @comment.commented_on.problem : @comment.commented_on)
 
-        Notification.notify_user(@comment.proof.user, current_user, action, notifiable) if @comment.commented_on.user != current_user
+        # Notify people who have commented on the post
+        #((@comment.commented_on.comments.map{ |comment| comment.user }).uniq - [current_user, @comment.commented_on.user]).each do |commenter|
+         # action = (@comment.commented_on_type == "Proof" ? "commented on a proof you have commented on for" : "commented on")
+         # Notification.notify_user(commenter, current_user, action, notifiable)
+        #end
+
+        # Notify the person who wrote the post
+        #action = (@comment.commented_on_type == "Proof" ? "commented on your proof for" : "commented on")
+
+        #Notification.notify_user(@comment.commented_on.user, current_user, action, notifiable) if @comment.commented_on.user != current_user
  
         format.js {}
       else

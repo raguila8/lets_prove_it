@@ -14,10 +14,17 @@ class Relationship < ApplicationRecord
 
     def create_activity
       Activity.create(user: self.follower, action: "followed", acted_on: self.followed, linkable: self.followed)
+      Notification.create(recipient: followed, actor: follower, notifiable: follower, action: "started following", action_type: "follow")
     end
 
     def destroy_activity
       a = Activity.find_by(user: self.follower, action: "followed", acted_on: self.followed, linkable: self.followed)
       a.destroy if !a.nil?
+      n = Notification.find_by(recipient: followed, actor: follower, 
+                               notifiable: follower, 
+                               action: "started following", 
+                               action_type: "follow")
+      n.destroy if !n.nil?
+
     end
 end

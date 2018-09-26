@@ -19,7 +19,7 @@
 			box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
 		}
 
-		span {
+		.ft-span {
 			font-size: 64px;
 			color: $dark;
 		}
@@ -34,7 +34,7 @@
 			margin: 0;
 		}
 
-		a {
+		.ft-link {
 			@extend h6;
 			padding-top: $ws-s;
 			display: block;

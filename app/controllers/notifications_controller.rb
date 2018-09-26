@@ -4,11 +4,17 @@ class NotificationsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @notifications = current_user.notifications.order(:created_at)
+        @notifications = current_user.notifications.order(created_at: :desc)
       }
 
       format.js  {
-        @notifications = current_user.unread_notifications
+        if params[:filter]
+          @feed = Notification.feed({ filter: params[:filter], 
+                                  sorter: params[:sorter], user: current_user })
+
+        else
+          @notifications = current_user.unread_notifications
+        end
       }
     end
   end

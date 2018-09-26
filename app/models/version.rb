@@ -78,6 +78,15 @@ class Version < ApplicationRecord
     Activity.where(acted_on: self).each do |activity|
       activity.update(deleted_on: Time.now)
     end
+
+    if %w(community proof problem).include? deleted_by
+      if self.version_number != 1
+        action = (self.versioned.class.name == "Proof" ? "removed your edit (version #{self.version_number}) on a proof for " : "removed your edit on")
+        n = Notification.new(actor_id: -1, recipient: self.user, action: action, notifiable: self, action_type: "deletion", details: deleted_for)
+        n.save(validate: false)
+      end
+    end
+
   end
 
 
