@@ -1,5 +1,6 @@
 class SessionsController < Devise::SessionsController
   before_action :failed_login_message, only: [:new]
+  after_action :welcome_message, only: [:create]
 
   private
 
@@ -14,5 +15,9 @@ class SessionsController < Devise::SessionsController
     def failed_login?
       puts request.env["warden.options"]
       (options = request.env["warden.options"]) && options[:action] == "unauthenticated"
-    end 
+    end
+
+    def welcome_message
+      flash[:notice] = "Welcome Back #{current_user.name ? current_user.name : current_user.username}!"
+    end
 end

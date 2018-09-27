@@ -1,4 +1,18 @@
 <% if flash.present? %>
+  <div id="flash-message-wrapper" class="<%= flash_class %>">
+    <p><%= flash_message %></p>
+  </div>
+<% end %>
+
+<script>
+  setTimeout(function() {
+    $('#flash-message-wrapper').fadeOut("slow", function() {
+      $(this).remove();
+    });
+  }, 5000);
+</script>
+<!--
+<%# if flash.present? %>
   <script>
     // toastr flash messages
   toastr.options = {
@@ -23,23 +37,24 @@
  
   <div id='flash'>
    <script> 
-     <% if flash[:success] %>
-       var $toastContent = $('<span><%= flash[:success] %></span>');
+     <%# if flash[:success] %>
+       var $toastContent = $('<span><%#= flash[:success] %></span>');
        toastr.success($toastContent)
-     <% end %>
-     <% if flash[:notice] %>
-       var $toastContent = $('<span><%= flash[:notice] %></span>');
+     <%# end %>
+     <%# if flash[:notice] %>
+       var $toastContent = $('<span><%#= flash[:notice] %></span>');
        toastr.info($toastContent)
-     <% end %>
-     <% if flash[:error] %>
-       var $toastContent = $('<span><%= flash[:error] %></span>');
+     <%# end %>
+     <%# if flash[:error] %>
+       var $toastContent = $('<span><%#= flash[:error] %></span>');
        toastr.error($toastContent)
-     <% end %>
-     <% if flash[:alert] %>
-       var $toastContent = $('<span><%= flash[:alert] %></span>');
+     <%# end %>
+     <%# if flash[:alert] %>
+       var $toastContent = $('<span><%#= flash[:alert] %></span>');
        toastr.warning($toastContent)
-     <% end %> 
+     <%# end %> 
 
    </script>
   </div>
-<% end %>
+<%# end %>
+-->

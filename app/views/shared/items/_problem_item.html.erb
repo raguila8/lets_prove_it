@@ -59,6 +59,7 @@
       <span class="problem-view problem-info"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(problem.versions.count, "Edit")%></span>
 
       <% if signed_in? %>
+        <div class="clearfix"></div>
         <div id="problem-follow-<%=problem.id%>" data-class="btn btn-small">
           <%= follow_link problem, class: "btn btn-small" %>
         </div>

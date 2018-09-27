@@ -162,6 +162,9 @@ class User < ApplicationRecord
         Notification.remove_vote_notification(self, model)
         action_taken = "unliked"
       elsif !self.voted_down_on? model
+        if model.cached_votes_score == -4
+          return "warn"
+        end
         model.downvote_from self
         action_taken = "downvoted"
       end

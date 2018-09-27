@@ -1,3 +1,4 @@
+require 'rubystats'
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -26,12 +27,15 @@ User.create(username:  "raguila8",
     email = Faker::Internet.email
   end
 
+  reputation_dis = Rubystats::NormalDistribution.new(80, 100)
+  reputation = reputation_dis.rng.round
+  reputation = rand(1000..10000) if reputation < 0
 
   User.create(username: username, name: Faker::Name.name,
               email: email, password: "foobar", 
               password_confirmation: "foobar", occupation: Faker::Job.title,
               education: Faker::University.name, location: Faker::Address.city,
-              reputation: Faker::Number.between(1, 25000), 
+              reputation: reputation, 
               bio: Faker::Lorem.paragraph, avatar: Faker::Avatar.image)
 end
 

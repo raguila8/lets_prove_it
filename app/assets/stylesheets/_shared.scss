@@ -11,6 +11,10 @@ body {
   background: white;
 }
 
+.hidden {
+  display: none;
+}
+
 .main-link {
   color: #666;
   &:hover {
@@ -31,6 +35,33 @@ body {
     opacity: 0.8;
   }
 }
+
+// flash messages
+#flash-message-wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 9999;
+
+  p {
+    padding: 2.5rem 0;
+    text-align: center;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+}
+
+.notice, .success {
+  background: rgba(135, 216, 211, 0.85);
+}
+
+.error {
+  background: rgba(237, 41, 57, 0.85);
+}
+
 
 .border-bottom {
   border-bottom: 1px solid #dedede;

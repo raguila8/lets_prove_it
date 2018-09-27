@@ -5,27 +5,14 @@
   <% else %>
      $('#reportModal').modal('toggle');
 
-    // toastr flash messages
-    toastr.options = {
-      "closeButton": false,
-      "debug": false,
-      "newestOnTop": false,
-      "progressBar": true,
-      "positionClass": "toast-top-left",
-      "preventDuplicates": false,
-      "onclick": null,
-      "showDuration": "300",
-      "hideDuration": "1000",
-      "timeOut": "8000",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    }
+    $('#flash-message-wrapper').remove();
+    $('body').append("<div id='flash-message-wrapper' class='notice '><p><%= @report.reportable_type %> has been reported.</p></div>");
 
-    var $toastContent = $('<span><%=@report.reportable_type%> has been reported.</span>');
-    toastr.info($toastContent);
+    setTimeout(function() {
+      $('#flash-message-wrapper').fadeOut("slow", function() {
+        $(this).remove();
+      });
+    }, 5000);
 
   <% end %>
 <% else %>

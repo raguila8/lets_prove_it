@@ -85,7 +85,7 @@ class UsersController < ApplicationController
     @model = params[:votable_type].capitalize.constantize.find(params[:id])
     @vote_type = params[:vote_type]
     if signed_in?
-      if (@vote_type == "like" and current_user.reputation >= 10) or (@vote_type == "dislike" and current_user.reputation >= 200)
+      if (@vote_type == "like" and current_user.reputation >= 10) or (@vote_type == "dislike" and current_user.liked?(@model)) or (@vote_type == "dislike"  and current_user.reputation >= 200)
         @action_taken = current_user.vote(@vote_type, @model)
       end
     end

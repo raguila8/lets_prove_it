@@ -4,28 +4,13 @@
 
   $('#proof-content-<%=@proof.id%>').html("<%= escape_javascript render(:partial => '/proofs/proof_content', :locals => { :@proof => @proof }) %>");
 
+  $('#flash-message-wrapper').remove();
+  $('body').append("<div id='flash-message-wrapper' class='notice hidden'><p>Proof was successfully updated.</p></div>");
 
-  // toastr flash messages
-  toastr.options = {
-    "closeButton": false,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": true,
-    "positionClass": "toast-top-left",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "8000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-  }
-
-  var $toastContent = $('<span>Proof was successfully updated.</span>');
-  toastr.info($toastContent)
+  $('#flash-message-wrapper').slideUp(500);
+  setTimeout(function(){
+    $('#flash-message-wrapper').slideDown(500);
+  }, 5000);
 
   $proof = $('#proof-content-<%= @proof.id %>');
   setTimeout(function() {

@@ -4,27 +4,15 @@
   $('#<%=@comment.commented_on_type.downcase%>-<%=@comment.commented_on_id%>').after("<%= escape_javascript render(:partial => '/comments/comment', :locals => { :@comment => @comment }) %>");
 
 
-  // toastr flash messages
-  toastr.options = {
-    "closeButton": false,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": true,
-    "positionClass": "toast-top-left",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "8000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-  }
+  $('#flash-message-wrapper').remove();
+  $('body').append("<div id='flash-message-wrapper' class='notice '><p>Comment was successfully created.</p></div>");
 
-  var $toastContent = $('<span>Comment was successfully created.</span>');
-  toastr.info($toastContent);
+  setTimeout(function() {
+    $('#flash-message-wrapper').fadeOut("slow", function() {
+      $(this).remove();
+    });
+  }, 5000);
+
   $comment = $('#comment-content-<%= @comment.id %>');
   setTimeout(function() {
 	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $comment[0]]);

@@ -1,5 +1,19 @@
 module ApplicationHelper
 
+  def flash_class
+    return 'notice' if flash[:notice]
+    return 'alert' if flash[:alert]
+    return 'error' if flash[:error]
+    return 'success' if flash[:success]
+  end
+
+  def flash_message
+    return flash[:notice] if flash[:notice]
+    return flash[:alert] if flash[:alert]
+    return flash[:error] if flash[:error]
+    return flash[:success] if flash[:success]
+  end
+
   def navbar_position
     if controller_name == "static_pages"
       if action_name == "landing"

@@ -7,6 +7,9 @@
       $('#noPriviligeModal .modal-body .custom-content').html("<p>You need at least 200 <a href='/help/reputation'>reputation</a> to downvote. Gain more privileges by increasing your reputation by posting helpful problems and proofs.</p><a href='/help/priviliges/4' class='btn btn-ghost btn-small text-center mb-10'>Learn More</a>");
       $('#noPriviligeModal').modal('show');
     <% end %>
+  <% elsif @action_taken == "warn" %>
+    $('body').append("<%= escape_javascript render(:partial => '/shared/modals/warning', locals: { user: current_user, post: @model }) %>");
+    $('#warningModal').modal('show');
   <% else %>
     <% if @action_taken == "liked" %>
       $("#<%=@model.class.name.downcase%>-upvote-<%=@model.id%>").addClass('upvoted');
