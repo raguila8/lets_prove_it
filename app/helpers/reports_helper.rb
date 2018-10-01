@@ -1,10 +1,10 @@
 module ReportsHelper
   def flags_list(reportable)
-    names = ["spam", "rude or abusive", "very low quality"]
+    names = ["spam", "offensive", "very low quality"]
     if reportable.class.name == "Problem"
       names << "duplicate" 
       names << "not a proof problem"
-    elsif reportable.class.name
+    elsif reportable.class.name == "Proof"
       names << "not a proof"
     end
     names << "other"

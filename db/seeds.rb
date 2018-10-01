@@ -107,3 +107,14 @@ User.all.each do |user|
     end
   end
 end
+
+# Create flag types
+Flag.create(name: "spam", reportable_type: "all", description: "Content that causes a negative user experience by making it difficult to find more relevant and substantive material.")
+Flag.create(name: "offensive", reportable_type: "all", description: "Content that is disrespectful, rude or abusive.")
+Flag.create(name: "very low quality", reportable_type: "all", description: "Content that has severe formatting or content problems, and might not be salvageable through editing.")
+Flag.create(name: "duplicate", reportable_type: "Problem", description: "A problem that has been asked and proven before.")
+Flag.create(name: "not a proof problem", reportable_type: "Problem", description: "There is nothing to prove.")
+Flag.create(name: "not a proof", reportable_type: "Proof", description: "Content that does not attempt to prove the problem, or is not logically sound.")
+Flag.create(name: "other", reportable_type: "all", description: "A problem not listed above that requires moderator intervention.")
+
+

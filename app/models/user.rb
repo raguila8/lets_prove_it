@@ -162,18 +162,22 @@ class User < ApplicationRecord
         Notification.remove_vote_notification(self, model)
         action_taken = "unliked"
       elsif !self.voted_down_on? model
-        if model.cached_votes_score == -4
-          return "warn"
-        end
         model.downvote_from self
         action_taken = "downvoted"
       end
     end
   
     User.update_reputation({action: action_taken, actor: self, voted_on: model})
-    if model.class.name == "Comment" and model.cached_votes_score == -5
-      model.take_down("community", "#{model.class.name.downcase} recieved a voting score of -5 or lower")
+    if model.class.name == "Comment"
+      if model.cached_votes_score <= -5
+        model.take_down("community", "#{model.class.name.downcase} recieved a voting score of -5 or lower")
+        action_taken = "deletion"
+      elsif model.reports.count >= 3 and model.cached_votes_score <= 0
+        model.take_down("community", "#{model.class.name.downcase} recieved 3 or more reports and had a voting score of 0 or less")
+        action_taken = "deletion"
+      end
     end
+
     return action_taken
   end
 

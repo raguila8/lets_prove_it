@@ -24,7 +24,7 @@ class Report < ApplicationRecord
   def self.handle(post)
     if Report.automatic_deletion? post
       allowed_flags = (post.class.name == "Comment" ? 3 : 6)
-      post.take_down("community", "#{post.class.name.downcase} was flagged as spam and/or offensive #{allowed_flags} or more times")
+      post.take_down("community", "#{post.class.name.downcase} was flagged as spam and/or offensive #{allowed_flags} or more times, and had a voting score of 0 or less")
     end
   end
  
@@ -32,11 +32,11 @@ class Report < ApplicationRecord
 
     def self.automatic_deletion?(post)
       if post.class.name == "Comment"
-        if post.reports.active.count >= 3 and post.cached_votes_score <= 0
+        if post.reports.count >= 3 and post.cached_votes_score <= 0
           return true
         end
       elsif %w(Problem Proof).include? post.class.name
-        if post.reports.active.joins(:flag_reports).where(flag_reports: {flag_id: [1, 2]}).count >= 6
+        if post.reports.joins(:flag_reports).where(flag_reports: {flag_id: [1, 2]}).count >= 6 and post.cached_votes_score <= 0
           return true
         end
       end

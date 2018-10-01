@@ -7,6 +7,9 @@
 
     $('#flash-message-wrapper').remove();
     $('body').append("<div id='flash-message-wrapper' class='notice '><p><%= @report.reportable_type %> has been reported.</p></div>");
+    <% if !@report.reportable.deleted_on.nil? %>
+      $('#<%=@report.reportable.class.name.downcase%>-<%=@report.reportable.id%>').remove();
+    <% end %>
 
     setTimeout(function() {
       $('#flash-message-wrapper').fadeOut("slow", function() {
