@@ -16,8 +16,9 @@ class Topic < ApplicationRecord
 
 
   before_save { self.name = name.downcase }
-  validates :name, presence: true, length: { minimum: 3, maximum: 35 }
-  validates :description, presence: true, length: { minimum: 3 }
+  validates :name, presence: true, length: { minimum: 3, maximum: 35 },
+                   uniqueness: true
+  validates :description, presence: true, length: { minimum: 35 }
   validates :cached_problems_count, presence: true, 
                                     numericality: {only_integer: true,
                                       greater_than_or_equal_to: 0 }
