@@ -72,10 +72,17 @@ RSpec.describe Topic do
       expect(topic.valid?).not_to be_truthy
     end
 
-    it "should be longer than 35 characters" do
+    it "should be at least 35 characters" do
       topic.description = "a" * 34
       expect(topic.valid?).not_to be_truthy
       topic.description = "a" * 35
+      expect(topic.valid?).to be_truthy
+    end
+
+    it "should have a length of 10000 at most" do
+      topic.description = "a" * 10001
+      expect(topic.valid?).not_to be_truthy
+      topic.description = "a" * 10000
       expect(topic.valid?).to be_truthy
     end
   end
