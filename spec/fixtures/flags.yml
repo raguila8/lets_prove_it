@@ -1,0 +1,31 @@
+spam:
+  id: 1
+  name: "spam"
+  reportable_type: "all"
+  description: "Content that causes a negative user experience by making it difficult to find more relevant and substantive material"
+offensive:
+  id: 2
+  name: "offensive"
+  reportable_type:  "all"
+  description: "Content that is disrespectful, rude or abusive"
+low_quality:
+  name: "very low quality"
+  reportable_type: "all"
+  description: "Content that has severe formatting or content problems, and might not be salvageable through editing"
+duplicate:
+  name: "duplicate"
+  reportable_type: "problem"
+  description: "A problem that has been asked and proven before"
+not_proof_problem:
+  name: "not a proof problem"
+  reportable_type: "problem"
+  description: "There is nothing to prove"
+not_a_proof:
+  name: "not a proof"
+  reportable_type: "proof"
+  description: "Content that does not attempt to prove the problem, or is not logically sound"
+other:
+  name: "other"
+  reportable_type: "all"
+  description: "A problem not listed above that requires moderator intervention"
+
