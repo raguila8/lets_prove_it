@@ -17,8 +17,11 @@ class Version < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 255, minimum: 3 }
 
-  validates :content, presence: true, length: { maximum: 5000, minimum: 3 }
-  validates :description, presence: true, length: { maximum: 500, minimum: 3 }
+  validates :content, presence: true, length: { maximum: 5000, minimum: 15 }
+  validates :description, presence: true, length: { maximum: 750, minimum: 10 }
+  validates :version_number, presence: true, numericality: { only_integer: true,
+                                               greater_than_or_equal_to: 1 }
+  validates_uniqueness_of :version_number, :scope => [:versioned_id, :versioned_type] 
   #validate :any_problem_topic?
   scope :active, -> { where(deleted_on: nil) }
 

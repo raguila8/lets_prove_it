@@ -2,6 +2,7 @@ class Activity < ApplicationRecord
   belongs_to :user
   belongs_to :acted_on, polymorphic: true
   belongs_to :linkable, polymorphic: true
+  validates :action, presence: true, length: { minimum: 3, maximum: 70 }
   scope :active, -> { where(deleted_on: nil) }
 
 

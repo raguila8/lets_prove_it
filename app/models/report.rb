@@ -7,8 +7,8 @@ class Report < ApplicationRecord
 
   #validates_uniqueness_of :user_id, scope: [:reportable_type, :reportable_id]
   validate :only_one_active
-  validates :status, presence: true
-  validates :details, length: { maximum: 5000 }
+  validates :status, presence: true, length: { minimum: 3, maximum: 70 }
+  validates :details, length: { maximum: 2500 }
 
   validates :reason, length: { maximum: 500 }
 

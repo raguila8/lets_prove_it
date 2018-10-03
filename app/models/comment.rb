@@ -13,6 +13,8 @@ class Comment < ApplicationRecord
   validates :content, presence: true, length: { maximum: 500, minimum: 3 }
   validate :user_has_privilige
 
+  validates :commented_on_type, presence: true, inclusion: { in: ["Proof", "Problem"] }
+
   scope :active, -> { where(deleted_on: nil) }
 
 

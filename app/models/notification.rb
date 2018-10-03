@@ -3,8 +3,9 @@ class Notification < ApplicationRecord
   belongs_to :actor, class_name: "User"
   belongs_to :notifiable, polymorphic: true
 
-  validates :action_type, presence: true
-  validates :details, length: { maximum: 5000 }
+  validates :action_type, presence: true, length: { minimum: 3, maximum: 70 }
+  validates :details, length: { maximum: 500 }
+  validates :action, presence: true, length: { minimum: 3, maximum: 70 }
 
   scope :unread, ->{ where(read_at: nil) }
   scope :active, ->{ where(notifiable: { deleted_on: nil }) }

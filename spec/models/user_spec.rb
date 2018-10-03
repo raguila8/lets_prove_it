@@ -150,4 +150,41 @@ RSpec.describe User do
       end
     end
   end
+
+  describe "reputation" do
+    it "should not be nil" do
+      user.reputation = nil
+      expect(user.valid?).not_to be_truthy
+      user.reputation = 0
+      expect(user.valid?).to be_truthy
+    end
+
+    it "should not be empty" do
+      user.reputation = ""
+      expect(user.valid?).not_to be_truthy
+    end
+
+    it "should not be a string" do
+      user.reputation = "four"
+      expect(user.valid?).not_to be_truthy
+    end
+
+    it "should not have invalid values" do
+      invalid_values = [12.4, 90.00001, -1, 0.01, 20.02]
+      invalid_values.each do |invalid_value|
+        user.reputation = invalid_value
+        expect(user.valid?).not_to be_truthy, 
+             "#{invalid_value.inspect} should not be valid"
+      end
+    end
+
+    it "should accept the set of natural numbers (including 0)" do
+      valid_values = [0, 1, 2, 100, 1000, 999999, 2830917348, '32', 1.0]
+      valid_values.each do |valid_value|
+        user.reputation = valid_value
+        expect(user.valid?).to be_truthy, 
+             "#{valid_value.inspect} should be valid"
+      end
+    end
+  end
 end

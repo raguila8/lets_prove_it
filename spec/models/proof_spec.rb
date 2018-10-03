@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Problem do
+RSpec.describe Proof do
 
   describe "content" do
     let(:proof) { build_stubbed(:proof, problem: problem, user: user) }
