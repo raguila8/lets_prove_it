@@ -1,5 +1,5 @@
 <% if signed_in? %>
-  <% if @vote.response == :error %>
+  <% if @vote.response == :error and current_user != @post.user %>
     <% if @vote.vote_type == "like" and current_user.reputation < 10 %>
       $('#noPriviligeModal .modal-body .custom-content').html("<p>You need at least 10 <a href='/help/reputation'>reputation</a> to upvote. Gain more privileges by increasing your reputation by posting helpful problems and proofs.</p><a href='/help/priviliges/2' class='btn btn-ghost text-center btn-small mb-10'>Learn More</a>");
       $('#noPriviligeModal').modal('show');

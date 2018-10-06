@@ -34,7 +34,7 @@ class Vote
   private
 
     def action_taken
-      return :none if @user.reputation < 10
+      return :none if @user.reputation < 10 or @user == @post.user
       if @vote_type == "like"
         return :undislike if @user.voted_down_on? @post
         return :like if !@user.liked? @post

@@ -28,10 +28,10 @@ RSpec.describe Proof do
       expect(proof.valid?).to be_truthy
     end
 
-    it "should be at most 5000 characters long" do
-      proof.content = "a" * 5001
+    it "should be at most 10000 characters long" do
+      proof.content = "a" * 10001
       expect(proof.valid?).not_to be_truthy
-      proof.content = "a" * 5000
+      proof.content = "a" * 10000
       expect(proof.valid?).to be_truthy
     end
 
