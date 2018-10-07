@@ -9,7 +9,7 @@ module Reputation
     end
 
     def call
-      send("after_" + @action)
+      send("after_" + @action.to_s)
     end
 
     private

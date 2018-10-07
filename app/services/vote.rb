@@ -15,7 +15,8 @@ class Vote
     end
 
     send(@action_taken)
-    Reputation::UpdateReputation.new(action: action_taken, actor: @user, acted_on: @post)
+    
+    Reputation::UpdateReputation.new(action: @action_taken, actor: @user, acted_on: @post).call
     # I will move this into separate service object
     if @post_type == "Comment"
       if @post.cached_votes_score <= -5

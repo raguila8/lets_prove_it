@@ -1,0 +1,146 @@
+require 'rails_helper'
+
+RSpec.describe Reputation do
+  let(:problem) { create(:problem, user: other_user, topics: [topic]) }
+  let(:other_user) { create(:other_user, reputation: 500) }
+  let(:topic) { create(:topic) }
+  let(:proof) { create(:proof, problem: problem, user: other_user) }
+  let(:comment) { create(:comment, commented_on: proof, user: other_user) }
+
+
+  describe "voting" do
+    let(:voter) { create(:user, reputation: 500) }
+    describe "likes" do
+      it "should earn user +5 for each upvote on their problems" do
+        expect(problem.user.reputation).to eq(500)
+        Vote.new(user: voter, post: problem, vote_type: "like").call
+        expect(problem.user.reputation).to eq(505)
+      end
+
+      it "should earn user +10 for each upvote on their proofs" do
+        expect(proof.user.reputation).to eq(500)
+        Vote.new(user: voter, post: proof, vote_type: "like").call
+        expect(proof.user.reputation).to eq(510)
+      end
+
+      it "should earn user +2 for each upvote on their comments" do
+        expect(comment.user.reputation).to eq(500)
+        Vote.new(user: voter, post: comment, vote_type: "like").call
+        expect(comment.user.reputation).to eq(502)
+      end
+
+      it "should not affect voter's reputation when upvoting posts" do
+        posts = [problem, comment, proof]
+        posts.each do |post|
+          expect(voter.reputation).to eq(500)
+          Vote.new(user: voter, post: post, vote_type: "like").call
+          expect(voter.reputation).to eq(500), 
+           "Upvoting a #{post.class.name} should not affect voter's reputation"
+        end
+      end
+    end
+
+    describe "dislikes" do
+      it "should decrease user's reputation by -2 when their problem is voted down" do
+        expect(problem.user.reputation).to eq(500)
+        Vote.new(user: voter, post: problem, vote_type: "dislike").call
+        expect(problem.user.reputation).to eq(498)
+      end
+
+      it "should decrease user's reputation by -2 when their proof is voted down" do
+        expect(proof.user.reputation).to eq(500)
+        Vote.new(user: voter, post: proof, vote_type: "dislike").call
+        expect(proof.user.reputation).to eq(498)
+      end
+
+      it "should decrease user's reputation by -1 when their proof is voted down" do
+        expect(comment.user.reputation).to eq(500)
+        Vote.new(user: voter, post: comment, vote_type: "dislike").call
+        expect(comment.user.reputation).to eq(499)
+      end
+
+      it "should decrease voter's reputation by -1 when they vote down a post" do
+        posts = [problem, comment, proof]
+        expect(voter.reputation).to eq(500)
+        posts.each do |post|
+          voter_reputation = voter.reputation
+          Vote.new(user: voter, post: post, vote_type: "dislike").call
+          expect(voter.reputation).to eq(voter_reputation - 1), 
+           "Downvoting a #{post.class.name} should give -1 reputation to the voter"
+        end
+      end
+    end
+
+    describe "unlikes" do
+      it "should give -5 reputation to user when their problem is unliked" do
+        Vote.new(user: voter, post: problem, vote_type: "like").call
+        expect(problem.user.reputation).to eq(505)
+        Vote.new(user: voter, post: problem, vote_type: "dislike").call
+        expect(problem.user.reputation).to eq(500)
+      end
+
+      it "should give -10 reputation to user when their proof is unliked" do
+        Vote.new(user: voter, post: proof, vote_type: "like").call
+        expect(proof.user.reputation).to eq(510)
+        Vote.new(user: voter, post: proof, vote_type: "dislike").call
+        expect(proof.user.reputation).to eq(500)
+      end
+
+      it "should give -2 reputation to user when their comment is unliked" do
+        Vote.new(user: voter, post: comment, vote_type: "like").call
+        expect(comment.user.reputation).to eq(502)
+        Vote.new(user: voter, post: comment, vote_type: "dislike").call
+        expect(comment.user.reputation).to eq(500)
+      end
+
+      it "should not affect voter's reputation when unliking a post" do
+        posts = [problem, proof, comment]
+        posts.each do |post|
+          Vote.new(user: voter, post: post, vote_type: "like").call
+          expect(voter.reputation).to eq(500)
+          Vote.new(user: voter, post: post, vote_type: "dislike").call
+          expect(voter.reputation).to eq(500), 
+           "Unliking a #{post.class.name} should not affect voter's reputation"
+        end
+      end
+    end
+
+    describe "undislikes" do
+      it "should give +2 reputation to user when their problem is undisliked" do
+        Vote.new(user: voter, post: problem, vote_type: "dislike").call
+        expect(problem.user.reputation).to eq(498)
+        Vote.new(user: voter, post: problem, vote_type: "like").call
+        expect(problem.user.reputation).to eq(500)
+      end
+
+      it "should give +2 reputation to user when their proof is undisliked" do
+        Vote.new(user: voter, post: proof, vote_type: "dislike").call
+        expect(proof.user.reputation).to eq(498)
+        Vote.new(user: voter, post: proof, vote_type: "like").call
+        expect(proof.user.reputation).to eq(500)
+
+      end
+
+      it "should give +1 reputation to user when their comment is undisliked" do
+        Vote.new(user: voter, post: comment, vote_type: "dislike").call
+        expect(comment.user.reputation).to eq(499)
+        Vote.new(user: voter, post: comment, vote_type: "like").call
+        expect(comment.user.reputation).to eq(500)
+      end
+
+      it "should give +1 reputation to voter when post is undisliked" do
+        posts = [problem, proof, comment]
+        posts.each do |post|
+          voter_reputation = voter.reputation
+          Vote.new(user: voter, post: post, vote_type: "dislike").call
+          expect(voter.reputation).to eq(voter_reputation - 1)
+          new_voter_reputation = voter.reputation
+          Vote.new(user: voter, post: problem, vote_type: "like").call
+          expect(voter.reputation).to eq(voter_reputation),
+            "Undisliking a #{post.class.name} should give +1 back to voter"
+        end
+      end
+    end
+  end
+end
+

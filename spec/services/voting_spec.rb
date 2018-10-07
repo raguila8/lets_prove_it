@@ -7,6 +7,7 @@ RSpec.describe Vote do
   let(:topic) { create(:topic) }
   let(:proof) { create(:proof, problem: problem, user: other_user) }
   let(:comment) { create(:comment, commented_on: proof, user: other_user) }
+  let(:posts) { [problem, proof, comment] }
 
   it "should not be able to upvote their own problems" do
     problem.update(user: voter)
@@ -66,6 +67,30 @@ RSpec.describe Vote do
     expect(vote.response).to eq(:error)
     expect(vote.action_taken).to eq(:none)
     expect(comment.cached_votes_score).to eq(0)
+  end
+
+  it "should only be able to upvote a post one time" do
+    voter.update(reputation: rand(0...25000))
+    posts.each do |post|
+      vote = Vote.new(user: voter, post: post, vote_type: "like").call
+      expect(post.cached_votes_score).to eq(1)
+      vote = Vote.new(user: voter, post: post, vote_type: "like").call
+      expect(vote.response).to eq(:error)
+      expect(vote.action_taken).to eq(:none)
+      expect(post.cached_votes_score).to eq(1), 
+        "should only be able to upvote once on a #{post.class.name}"
+    end
+  end
+
+  it "should only be able to downvote a post one time" do
+    post = posts.sample
+    voter.update(reputation: rand(0...25000))
+    vote = Vote.new(user: voter, post: post, vote_type: "dislike").call
+    expect(post.cached_votes_score).to eq(-1)
+    vote = Vote.new(user: voter, post: post, vote_type: "dislike").call
+    expect(vote.response).to eq(:error)
+    expect(vote.action_taken).to eq(:none)
+    expect(post.cached_votes_score).to eq(-1)
   end
 
   context "user with reputation < 10" do
