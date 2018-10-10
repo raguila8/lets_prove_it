@@ -52,8 +52,8 @@ class Vote
 
     def like
       @post.liked_by @user
-      Notifications::SendNotifications.new(notification_type: :vote_notification, 
-                             actor: @user, acting_on: @post).call
+      Notifications::Sender::SendNotifications.new(notification_type: :upvote, 
+                             actor: @user, resource: @post).call
     end
 
     def dislike
@@ -62,7 +62,8 @@ class Vote
 
     def unlike
       @post.unliked_by @user
-      Notifications::RemoveNotifications.new(notification_type: :vote_notification, actor: @user, acting_on: @post).call
+      #Notifications::RemoveNotifications.new(notification_type: :upvote, 
+      #                                      actor: @user, resource: @post).call
     end
 
     def undislike

@@ -10,4 +10,16 @@ FactoryBot.define do
     email "other_user@example.com"
     password "foobar"
   end
+
+  factory :third_user, class: User do
+    username "third_user"
+    email "third@foobar.com"
+    password "foobar"
+  end
+
+  factory :fourth_user, class: User do
+    username "fourth_user"
+    email "fourth@foobar.com"
+    password "foobar"
+  end
 end
