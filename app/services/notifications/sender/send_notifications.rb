@@ -11,6 +11,8 @@ module Notifications
           @notifications_sender = SendCommentNotifications.new(params)
         elsif [:new_proof, :updated_proof].include? notification_type
           @notifications_sender = SendProofNotifications.new(params)
+        elsif [:new_problem, :updated_problem].include? notification_type
+          @notifications_sender = SendProblemNotifications.new(params)
         end
       end
 
