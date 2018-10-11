@@ -9,6 +9,8 @@ module Notifications
           @notifications_sender = SendUpvoteNotifications.new(params)
         elsif [:new_comment, :updated_comment].include? notification_type
           @notifications_sender = SendCommentNotifications.new(params)
+        elsif [:new_proof, :updated_proof].include? notification_type
+          @notifications_sender = SendProofNotifications.new(params)
         end
       end
 
