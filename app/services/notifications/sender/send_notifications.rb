@@ -13,12 +13,13 @@ module Notifications
           @notifications_sender = SendProofNotifications.new(params)
         elsif [:new_problem, :updated_problem].include? notification_type
           @notifications_sender = SendProblemNotifications.new(params)
+        elsif [:new_topic, :updated_topic].include? notification_type
+          @notifications_sender = SendTopicNotifications.new(params)
         end
       end
 
       def call
         @notifications_sender.call
-        #send(@notification_type)
       end
     end
   end
