@@ -144,53 +144,7 @@ class User < ApplicationRecord
         order("#{options[:sorter]} #{order}")
     end
   end
-
-  def vote(vote_type, model)
-    action_taken = ""
-    if vote_type == "like"
-      if self.voted_down_on? model
-        model.undisliked_by self
-        action_taken = "undisliked"
-      elsif !self.liked? model
-        model.liked_by self
-        Notification.notify_user_of_vote(self, model)
-        action_taken = "liked"
-      end
-    else
-      if self.liked? model
-        model.unliked_by self
-        Notification.remove_vote_notification(self, model)
-        action_taken = "unliked"
-      elsif !self.voted_down_on? model
-        model.downvote_from self
-        action_taken = "downvoted"
-      end
-    end
-  
-    User.update_reputation({action: action_taken, actor: self, voted_on: model})
-    if model.class.name == "Comment"
-      if model.cached_votes_score <= -5
-        model.take_down("community", "#{model.class.name.downcase} recieved a voting score of -5 or lower")
-        action_taken = "deletion"
-      elsif model.reports.count >= 3 and model.cached_votes_score <= 0
-        model.take_down("community", "#{model.class.name.downcase} recieved 3 or more reports and had a voting score of 0 or less")
-        action_taken = "deletion"
-      end
-    end
-
-    return action_taken
-  end
-
-  def self.update_reputation(options = {})
-    if %w(liked unliked undisliked downvoted).include? options[:action]
-      User.update_reputation_after_vote options[:action], 
-                                        options[:actor], 
-                                        options[:voted_on]
-    else
-
-    end
-  end
-
+ 
   def soft_deleted?
     self.deleted_on.nil? ? false : true
   end
@@ -198,49 +152,7 @@ class User < ApplicationRecord
   
   private
 
-    def self.update_reputation_after_vote(action, actor, voted_on)
-      recipient = voted_on.user
-
-	    if action == "liked"
-        if voted_on.class.name == "Problem"
-          recipient.update(reputation: recipient.reputation += 5)
-        elsif voted_on.class.name == "Proof"
-          recipient.update(reputation: recipient.reputation += 10)
-        elsif voted_on.class.name == "Comment"
-          recipient.update(reputation: recipient.reputation += 2)
-        end
-      elsif action == "unliked"
-        if voted_on.class.name == "Problem"
-          recipient.assign_attributes(reputation: recipient.reputation -= 5)
-        elsif voted_on.class.name == "Proof"
-          recipient.assign_attributes(reputation: recipient.reputation -= 10)
-        elsif voted_on.class.name == "Comment"
-          recipient.assign_attributes(reputation: recipient.reputation -= 2)
-        end
-        recipient.reputation < 0 ? recipient.update(reputation: 0) : recipient.save
-      elsif action == "undisliked"
-        if voted_on.class.name == "Problem"
-          recipient.update(reputation: recipient.reputation += 2)
-        elsif voted_on.class.name == "Proof"
-          recipient.update(reputation: recipient.reputation += 2)
-        elsif voted_on.class.name == "Comment"
-          recipient.update(reputation: recipient.reputation += 1)
-        end
-        actor.update(reputation: actor.reputation += 1)
-      elsif action == "downvoted"
-        if voted_on.class.name == "Problem"
-          recipient.assign_attributes(reputation: recipient.reputation -= 2)
-        elsif voted_on.class.name == "Proof"
-          recipient.assign_attributes(reputation: recipient.reputation -= 2)
-        elsif voted_on.class.name == "Comment"
-          recipient.assign_attributes(reputation: recipient.reputation -= 1)
-        end
-        actor.assign_attributes(reputation: actor.reputation -= 1)
-        actor.reputation < 0 ? actor.update(reputation: 0) : actor.save
-        recipient.reputation < 0 ? recipient.update(reputation: 0) : recipient.save
-      end
-    end
-
+    
 		# Validates the size of an uploaded image
 		def avatar_size
 			if self.avatar.size > 5.megabytes

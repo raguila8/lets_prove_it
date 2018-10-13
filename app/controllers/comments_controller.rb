@@ -26,20 +26,9 @@ class CommentsController < ApplicationController
           end
         end
 
-        Notification.new_comment_notifications(@comment)
-        #notifiable = (@comment.commented_on_type == "Proof" ? @comment.commented_on.problem : @comment.commented_on)
-
-        # Notify people who have commented on the post
-        #((@comment.commented_on.comments.map{ |comment| comment.user }).uniq - [current_user, @comment.commented_on.user]).each do |commenter|
-         # action = (@comment.commented_on_type == "Proof" ? "commented on a proof you have commented on for" : "commented on")
-         # Notification.notify_user(commenter, current_user, action, notifiable)
-        #end
-
-        # Notify the person who wrote the post
-        #action = (@comment.commented_on_type == "Proof" ? "commented on your proof for" : "commented on")
-
-        #Notification.notify_user(@comment.commented_on.user, current_user, action, notifiable) if @comment.commented_on.user != current_user
- 
+        Notifications::Sender::SendNotifications.new(notification_type: :new_comment,
+                                                     actor: current_user,
+                                                     resource: @comment).call 
         format.js {}
       else
         format.js {}

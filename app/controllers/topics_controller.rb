@@ -75,8 +75,10 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if !@exception
-        #Notify all users when a topic is created
-        Notification.new_topic_notifications(@topic)
+        #Notify followers when you create a topic
+        Notifications::Sender::SendNotifications.new(notification_type: :new_topic,
+                                                     actor: current_user,
+                                                     resource: @topic).call
 
         format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
         format.json { render :show, status: :created, location: @topic }
@@ -99,7 +101,10 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if !@exception
-        Notification.updated_topic_notifications @topic, current_user
+
+        Notifications::Sender::SendNotifications.new(notification_type: :updated_topic,
+                                                     actor: current_user,
+                                                     resource: @topic).call
 
         format.html { redirect_to @topic, notice: 'Topic was successfully updated.' }
         format.json { render :show, status: :ok, location: @topic }

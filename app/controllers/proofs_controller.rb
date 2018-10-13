@@ -62,7 +62,9 @@ class ProofsController < ApplicationController
         end
 
         # Create notifications for users following the problem
-        Notification.new_proof_notifications @proof
+        Notifications::Sender::SendNotifications.new(notification_type: :new_proof,
+                                                     actor: current_user,
+                                                     resource: @proof).call
         
         format.html { redirect_to @problem, notice: 'Proof was successfully created.' }
         format.json { render :show, status: :created, location: @proof }
@@ -97,7 +99,9 @@ class ProofsController < ApplicationController
         end
 
         # Notify users who have commented on or edited proof
-        Notification.updated_proof_notifications @proof, current_user
+        Notifications::Sender::SendNotifications.new(notification_type: :updated_proof,
+                                                     actor: current_user,
+                                                     resource: @proof).call
 
         format.html { redirect_to @proof.problem, notice: 'Proof was successfully updated.' }
 

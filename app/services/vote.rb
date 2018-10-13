@@ -62,8 +62,8 @@ class Vote
 
     def unlike
       @post.unliked_by @user
-      #Notifications::RemoveNotifications.new(notification_type: :upvote, 
-      #                                      actor: @user, resource: @post).call
+      Notifications::Remover::RemoveNotifications.new(notification_type: :upvote, 
+                                            actor: @user, resource: @post).call
     end
 
     def undislike

@@ -91,7 +91,9 @@ class ProblemsController < ApplicationController
           current_user.follow @problem
         end
 
-        Notification.new_problem_notifications @problem
+        Notifications::Sender::SendNotifications.new(notification_type: :new_problem,
+                                                     actor: current_user,
+                                                     resource: @problem).call
          
         format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
         format.json { render :show, status: :created, location: @problem }
@@ -125,7 +127,9 @@ class ProblemsController < ApplicationController
         end
 
         # Notify problem followers
-        Notification.updated_problem_notifications @problem, current_user
+        Notifications::Sender::SendNotifications.new(notification_type: :updated_problem,
+                                                     actor: current_user,
+                                                     resource: @problem).call
 
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
         format.json { render :show, status: :ok, location: @problem }
