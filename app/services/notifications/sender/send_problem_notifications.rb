@@ -6,15 +6,29 @@ module Notifications
         @problem = params[:resource]
         @actor = params[:actor]
         @sent = 0
+        if params[:options]
+          @options = params[:options]
+        end
       end
 
       def call
         send_new_problem_notifications if @notification_type == :new_problem
         send_updated_problem_notifications if @notification_type == :updated_problem
+        send_deleted_problem_notifications if @notification_type == :deleted_problem
         return { response: :success, sent: @sent }
       end
 
       private
+
+        def send_deleted_problem_notifications
+          action = "removed"
+          n = Notification.new(actor_id: -1, recipient: @problem.user, 
+                               action: action, notifiable: @problem, 
+                               action_type: "deletion", 
+                               details: @options[:deleted_for])
+          n.save(validate: false)
+          @sent += 1 
+        end
 
         def send_updated_problem_notifications
           notify_problem_followers_of_edit

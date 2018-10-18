@@ -59,8 +59,8 @@ RSpec.describe Reputation do
         expect(comment.user.reputation).to eq(499)
       end
 
-      it "should decrease voter's reputation by -1 when they vote down a post" do
-        posts = [problem, comment, proof]
+      it "should decrease voter's reputation by -1 when they vote down a problem or a proof" do
+        posts = [problem, proof]
         expect(voter.reputation).to eq(500)
         posts.each do |post|
           voter_reputation = voter.reputation
@@ -68,6 +68,12 @@ RSpec.describe Reputation do
           expect(voter.reputation).to eq(voter_reputation - 1), 
            "Downvoting a #{post.class.name} should give -1 reputation to the voter"
         end
+      end
+
+      it "should not affect the voter's reputation when they votedown a comment" do
+        previous_reputation = voter.reputation
+        Vote.new(user: voter, post: comment, vote_type: "dislike").call
+        expect(voter.reputation).to eq(previous_reputation)
       end
     end
 
@@ -128,8 +134,8 @@ RSpec.describe Reputation do
         expect(comment.user.reputation).to eq(500)
       end
 
-      it "should give +1 reputation to voter when post is undisliked" do
-        posts = [problem, proof, comment]
+      it "should give +1 reputation to voter when problem or proof is undisliked" do
+        posts = [problem, proof]
         posts.each do |post|
           voter_reputation = voter.reputation
           Vote.new(user: voter, post: post, vote_type: "dislike").call
@@ -139,6 +145,12 @@ RSpec.describe Reputation do
           expect(voter.reputation).to eq(new_voter_reputation + 1),
             "Undisliking a #{post.class.name} should give +1 back to voter; expected 500, got #{voter.reputation}"
         end
+      end
+
+      it "should not affect the voter's reputation when they undislike a comment" do
+        previous_reputation = voter.reputation
+        Vote.new(user: voter, post: comment, vote_type: "undislike").call
+        expect(voter.reputation).to eq(previous_reputation)
       end
     end
   end

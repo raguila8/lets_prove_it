@@ -5,17 +5,32 @@ module Notifications
         @notification_type = params[:notification_type]
         @proof = params[:resource]
         @actor = params[:actor]
+        if params[:options]
+          @options = params[:options]
+        end
+
         @sent = 0
       end
 
       def call
         send_new_proof_notifications if @notification_type == :new_proof
         send_updated_proof_notifications if @notification_type == :updated_proof
+        send_deleted_proof_notifications if @notification_type == :deleted_proof
         return { response: :success, sent: @sent }
       end
 
       private
 
+
+        def send_deleted_proof_notifications
+          action = "removed your proof for "
+          n = Notification.new(actor_id: -1, recipient: @proof.user, 
+                               action: action, notifiable: @proof, 
+                               action_type: "deletion", 
+                               details: @options[:deleted_for])
+          n.save(validate: false)
+          @sent += 1
+        end
         # Send notifications to users who follow a problem when a new proof is
         # created
         def send_new_proof_notifications

@@ -21,7 +21,7 @@ RSpec.describe Notifications::Sender::SendNotifications do
     SendNotifications.new(notification_type: :new_comment, resource: comment).call
     expect(Notification.all.count).to eq(1)
     expect(Notification.find_by(recipient: problem.user, actor: comment.user, 
-                               notifiable: problem, action_type: "comment")).not_to be_nil
+                               notifiable: problem, action_type: "new comment")).not_to be_nil
   end
 
   it "should send a notification to the creator of a proof when it is commented on" do
@@ -30,7 +30,7 @@ RSpec.describe Notifications::Sender::SendNotifications do
     SendNotifications.new(notification_type: :new_comment, resource: comment).call
     expect(Notification.all.count).to eq(1)
     expect(Notification.find_by(recipient: proof.user, actor: comment.user, 
-                               notifiable: proof, action_type: "comment")).not_to be_nil
+                               notifiable: proof, action_type: "new comment")).not_to be_nil
   end
 
   it "should send notifications to commenters of a problem when a new comment is created" do
@@ -44,9 +44,9 @@ RSpec.describe Notifications::Sender::SendNotifications do
     SendNotifications.new(notification_type: :new_comment, resource: my_comment).call
     expect(Notification.all.count).to eq(3)
     expect(Notification.find_by(recipient: comment1.user, actor: my_comment.user,
-                               notifiable: problem, action_type: "comment")).not_to be_nil
+                               notifiable: problem, action_type: "new comment")).not_to be_nil
     expect(Notification.find_by(recipient: comment2.user, actor: my_comment.user,
-                               notifiable: problem, action_type: "comment")).not_to be_nil 
+                               notifiable: problem, action_type: "new comment")).not_to be_nil 
   end
 
   it "should send notifications to commenters of a proof when a new comment is added" do
@@ -60,9 +60,43 @@ RSpec.describe Notifications::Sender::SendNotifications do
     SendNotifications.new(notification_type: :new_comment, resource: my_comment).call
     expect(Notification.all.count).to eq(3)
     expect(Notification.find_by(recipient: comment1.user, actor: my_comment.user,
-                               notifiable: proof, action_type: "comment")).not_to be_nil
+                               notifiable: proof, action_type: "new comment")).not_to be_nil
     expect(Notification.find_by(recipient: comment2.user, actor: my_comment.user,
-                               notifiable: proof, action_type: "comment")).not_to be_nil 
+                               notifiable: proof, action_type: "new comment")).not_to be_nil 
+  end
+
+  it "should send notifications to editors of a problem when a new comment is added" do
+    editor = create(:third_user, reputation: 500)
+    create(:version, versioned: problem, user: editor, version_number: 2)
+    comment = create(:comment, commented_on: problem, user: actor)
+
+
+    expect(Notification.count).to eq(0)
+    SendNotifications.new(notification_type: :new_comment, actor: actor,
+                            resource: comment).call
+
+    # 1 for creator and the other for the editor
+    expect(Notification.count).to eq(2)
+    expect(Notification.find_by(recipient: editor, actor: actor,
+                                notifiable: problem, 
+                                action_type: "new comment")).not_to be_nil
+  end
+
+  it "should send notifications to editors of a proof when a new comment is added" do
+    editor = create(:third_user, reputation: 500)
+    create(:version, versioned: proof, user: editor, version_number: 2)
+    comment = create(:comment, commented_on: proof, user: actor)
+
+
+    expect(Notification.count).to eq(0)
+    SendNotifications.new(notification_type: :new_comment, actor: actor,
+                            resource: comment).call
+
+    # 1 for creator and the other for the editor
+    expect(Notification.count).to eq(2)
+    expect(Notification.find_by(recipient: editor, actor: actor,
+                                notifiable: proof, 
+                                action_type: "new comment")).not_to be_nil
   end
 
   it "should notify a user only once when their problem is commented on and they have also commented on it" do
@@ -73,7 +107,7 @@ RSpec.describe Notifications::Sender::SendNotifications do
     SendNotifications.new(notification_type: :new_comment, resource: my_comment).call
     expect(Notification.all.count).to eq(1)
     expect(Notification.find_by(recipient: problem.user, actor: my_comment.user,
-                               notifiable: problem, action_type: "comment")).not_to be_nil
+                               notifiable: problem, action_type: "new comment")).not_to be_nil
   end
 
   it "should notify a user only once when their proof is commented on and they have also commented on it" do
@@ -84,7 +118,7 @@ RSpec.describe Notifications::Sender::SendNotifications do
     SendNotifications.new(notification_type: :new_comment, resource: my_comment).call
     expect(Notification.all.count).to eq(1)
     expect(Notification.find_by(recipient: proof.user, actor: my_comment.user,
-                               notifiable: proof, action_type: "comment")).not_to be_nil
+                               notifiable: proof, action_type: "new comment")).not_to be_nil
   end
 
   it "should not notify you if you are the owner of the post" do
@@ -107,7 +141,7 @@ RSpec.describe Notifications::Sender::SendNotifications do
     SendNotifications.new(notification_type: :new_comment, resource: second_comment).call
     expect(Notification.all.count).to eq(1)
     expect(Notification.find_by(recipient: actor, actor: actor,
-                               notifiable: problem, action_type: "comment")).to be_nil
+                               notifiable: problem, action_type: "new comment")).to be_nil
   end
 
   it "should not notify you when you comment a proof, even if you have previously commented on the proof" do
@@ -118,7 +152,7 @@ RSpec.describe Notifications::Sender::SendNotifications do
     SendNotifications.new(notification_type: :new_comment, resource: second_comment).call
     expect(Notification.all.count).to eq(1)
     expect(Notification.find_by(recipient: actor, actor: actor,
-                               notifiable: proof, action_type: "comment")).to be_nil
+                               notifiable: proof, action_type: "new comment")).to be_nil
   end
 
 
@@ -134,7 +168,7 @@ RSpec.describe Notifications::Sender::SendNotifications do
     SendNotifications.new(notification_type: :new_comment, resource: my_comment).call
     expect(Notification.all.count).to eq(2)
     expect(Notification.where(recipient: third_user, actor: actor,
-                               notifiable: problem, action_type: "comment").count).to eq(1)
+                               notifiable: problem, action_type: "new comment").count).to eq(1)
 
     # Test for proof
     first_comment = create(:comment, user: third_user, commented_on: proof)
@@ -145,8 +179,6 @@ RSpec.describe Notifications::Sender::SendNotifications do
     SendNotifications.new(notification_type: :new_comment, resource: my_comment).call
     expect(Notification.all.count).to eq(4)
     expect(Notification.where(recipient: third_user, actor: actor,
-                               notifiable: proof, action_type: "comment").count).to eq(1)
-
-
+                               notifiable: proof, action_type: "new comment").count).to eq(1)
   end
 end

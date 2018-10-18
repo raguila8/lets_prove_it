@@ -103,6 +103,18 @@ class Proof < ApplicationRecord
 
   end
 
+  def spam_or_offensive_reports
+    reports.joins(:flag_reports).where(flag_reports: {flag_id: [1, 2]})
+  end
+
+  def has_six_or_more_spam_or_offensive_flags?
+    spam_or_offensive_reports.count >= 6
+  end
+
+  def spam_or_offensive?
+    has_six_or_more_spam_or_offensive_flags?
+  end
+
    
   private
  

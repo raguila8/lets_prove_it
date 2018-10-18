@@ -33,8 +33,7 @@ class Problem < ApplicationRecord
                     length: { maximum: 255, minimum: 3 }
 
   scope :active, -> { where(deleted_on: nil) }
-
-
+ 
   def save_new(tagsArray, images, user)
     begin
       ActiveRecord::Base.transaction do
@@ -218,6 +217,56 @@ class Problem < ApplicationRecord
     end
 
   end
+
+  def dead?
+    is_older_than_60_days? and has_zero_proofs? and score_is_zero_or_less?
+  end
+
+  def belongs_in_review_queue?
+    score_is_negative_six_or_less?
+  end
+
+  # problem info helpers
+  def is_older_than_60_days?
+    created_at < 60.days.ago
+  end
+
+  def is_older_than_30_days?
+    created_at < 30.days.ago
+  end
+
+  def has_zero_proofs?
+    cached_proofs_count == 0
+  end
+
+  def score_is_zero_or_less?
+    cached_votes_score <= 0
+  end
+
+  def score_is_negative_six_or_less?
+    cached_votes_score <= -6
+  end
+
+  def has_three_or_more_reports?
+    reports.count >= 3
+  end
+
+  def old_and_poor?
+    is_older_than_30_days and has_zero_proofs? and has_three_or_more_reports?
+  end
+
+  def spam_or_offensive_reports
+    reports.joins(:flag_reports).where(flag_reports: {flag_id: [1, 2]})
+  end
+
+  def has_six_or_more_spam_or_offensive_flags?
+    spam_or_offensive_reports.count >= 6
+  end
+
+  def spam_or_offensive?
+    has_six_or_more_spam_or_offensive_flags?
+  end
+
 
   private
 

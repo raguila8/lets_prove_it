@@ -33,8 +33,10 @@ module Reputation
           @recipient.assign_attributes(reputation: @recipient.reputation -= 1)
         end
 
-        @actor.assign_attributes(reputation: @actor.reputation -= 1)
-        @actor.reputation < 0 ? @actor.update(reputation: 0) : @actor.save
+        if @acted_on_type != "Comment"
+          @actor.assign_attributes(reputation: @actor.reputation -= 1)
+          @actor.reputation < 0 ? @actor.update(reputation: 0) : @actor.save
+        end
         @recipient.reputation < 0 ? @recipient.update(reputation: 0) : @recipient.save
 
       end
@@ -61,7 +63,9 @@ module Reputation
           @recipient.update(reputation: @recipient.reputation += 1)
         end
 
-        @actor.update(reputation: @actor.reputation += 1)
+        if @acted_on_type != "Comment"
+          @actor.update(reputation: @actor.reputation += 1)
+        end
 
       end
   end

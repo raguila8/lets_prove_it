@@ -3,8 +3,8 @@
 <ul>
   <li class='reg-item'><b>The author</b> can typically delete their own posts, except when: 
     <ul>
-      <li>the problem in question has any proofs with upvotes.</li>
-      <li>the proof in question has upvotes (it doesn't matter if  the overall score is negative).</li>
+      <li>the problem in question has at least one proof with at least one upvote.</li>
+      <li>the proof in question has at least one upvote (it doesn't matter if the overall score is negative).</li>
     </ul>
   </li>
   <li class='reg-item'><b>Moderators</b> can delete any posts instantly.</li>
@@ -21,13 +21,16 @@
 </ul>
 
 <h3>What is the Review Queue?</h3>
-<p class='reg-p'>Posts in the review queue are automatically locked, and are reviewed thoroughly by moderators and users with <%= link_to "deletion priviliges", "#deletion-priv-faq", easing: "linear" %>. An effort is made to edit the post and to mark it as OK if it can be improved, otherwise they are deleted.</p>
+<p class='reg-p'>Posts in the review queue are posts that are deeply flawed and in need of an improvement or in the case that it can't be improved, a deletion. Here, posts are reviewed thoroughly by moderators and users with <%= link_to "deletion priviliges", "#deletion-priv-faq", easing: "linear" %>. An effort is made to edit the post and to mark it as OK if it can be improved, otherwise they are deleted.</p>
 <h3>How does a post get put in the Review Queue?</h3>
 <ul>
   <li class='reg-item'>A problem with a voting score of -6 is put in the queue.</li>
   <li class='reg-item'>A proof with a voting score of -4 is put in the queue.</li>
+  <li class='reg-item'>If a post is reported, the reviewer can send the post to the queue.</li>
+<!--
   <li class='reg-item'>Any post with 3 or more reports (that are not spam or offensive flag reports) is put in the queue.</li>
+-->
 </ul>
 <h3>What Happens After my Post has Been Taken out of the Review Queue?</h3>
-                            <p class='reg-p'>If the post manages to get out of the review queue, the reports expire and its voting score stays the same. A secondary score will be kept from the moment it is taken out of the review queue, and if this score falls below a -3, it will automatically be deleted. If the post receives 3 or more reports after being released from the review queue, it will also be deleted.</p>
+<p class='reg-p'>If the post manages to get out of the review queue, the reports expire and its voting score stays the same. A secondary score will be kept from the moment it is taken out of the review queue, and if this score falls below a -3, it will automatically be deleted. If the post receives 1 or more reports after being released from the review queue, it will also be deleted.</p>
  
