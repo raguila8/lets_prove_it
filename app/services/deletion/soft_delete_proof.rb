@@ -43,15 +43,11 @@ module Deletion
 
     # Notify original poster that proof has been deleted
     def notify_proof_creator
-    if %w(community problem).include? @deleted_by
+    if %w(community problem).include? @deleted_by.to_s
       Notifications::Sender::SendNotifications.new(notification_type: :deleted_proof,
                            resource: @proof, options: { deleted_for: @deleted_for }).call
 
-      action = "removed your proof for "
-      n = Notification.new(actor_id: -1, recipient: self.user, action: action, notifiable: self, action_type: "deletion", details: deleted_for)
-      n.save(validate: false)
-    end
-
+      end
     end
 
     

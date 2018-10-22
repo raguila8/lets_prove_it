@@ -252,11 +252,11 @@ class Problem < ApplicationRecord
   end
 
   def old_and_poor?
-    is_older_than_30_days and has_zero_proofs? and has_three_or_more_reports?
+    is_older_than_30_days? and has_zero_proofs? and has_three_or_more_reports?
   end
 
   def spam_or_offensive_reports
-    reports.joins(:flag_reports).where(flag_reports: {flag_id: [1, 2]})
+    reports.joins(:flag_reports).where(flag_reports: {flag_id: [1, 2]}).uniq
   end
 
   def has_six_or_more_spam_or_offensive_flags?

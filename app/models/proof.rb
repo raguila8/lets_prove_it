@@ -104,7 +104,7 @@ class Proof < ApplicationRecord
   end
 
   def spam_or_offensive_reports
-    reports.joins(:flag_reports).where(flag_reports: {flag_id: [1, 2]})
+    reports.joins(:flag_reports).where(flag_reports: {flag_id: [1, 2]}).uniq
   end
 
   def has_six_or_more_spam_or_offensive_flags?
@@ -119,7 +119,7 @@ class Proof < ApplicationRecord
   private
  
     def create_activity
-      Activity.create(user: self.user, action: "created", acted_on: self, linkable: self)
+      #Activity.create(user: self.user, action: "created", acted_on: self, linkable: self)
     end
 
     def add_cached_proofs_count

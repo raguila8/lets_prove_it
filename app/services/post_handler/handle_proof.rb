@@ -6,9 +6,14 @@ module PostHandler
     end
 
     def call
-      check_score_and_handle and check_reports_and_handle if @handle == :all
-      check_score_and_handle if @handle == :score
-      check_reports_and_handle if @handle == :reports
+      if @handle == :all
+        check_score_and_handle
+        check_reports_and_handle
+      elsif @handle == :score
+        check_score_and_handle
+      elsif @handle == :reports
+        check_reports_and_handle
+      end
     end
 
     private

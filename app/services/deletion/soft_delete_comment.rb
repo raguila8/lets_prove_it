@@ -24,7 +24,7 @@ module Deletion
     end
     
     def notify_comment_creator
-      if %w(community proof).include? @deleted_by
+      if %w(community proof).include? @deleted_by.to_s
         Notifications::Sender::SendNotifications.new(notification_type: :deleted_comment,
                              resource: @comment, options: { deleted_for: @deleted_for }).call
       end

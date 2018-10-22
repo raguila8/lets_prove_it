@@ -9,22 +9,27 @@ offensive:
   reportable_type:  "all"
   description: "Content that is disrespectful, rude or abusive"
 low_quality:
+  id: 3
   name: "very low quality"
   reportable_type: "all"
   description: "Content that has severe formatting or content problems, and might not be salvageable through editing"
 duplicate:
+  id: 4
   name: "duplicate"
   reportable_type: "problem"
   description: "A problem that has been asked and proven before"
 not_proof_problem:
+  id: 5
   name: "not a proof problem"
   reportable_type: "problem"
   description: "There is nothing to prove"
 not_a_proof:
+  id: 6
   name: "not a proof"
   reportable_type: "proof"
   description: "Content that does not attempt to prove the problem, or is not logically sound"
 other:
+  id: 7
   name: "other"
   reportable_type: "all"
   description: "A problem not listed above that requires moderator intervention"

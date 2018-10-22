@@ -22,4 +22,11 @@ FactoryBot.define do
     email "fourth@foobar.com"
     password "foobar"
   end
+
+  factory :new_user, class: User do
+    username { Faker::Internet.user_name(5..8) }
+    email { Faker::Internet.email }
+    password "foobar"
+    password_confirmation "foobar"
+  end
 end

@@ -15,9 +15,6 @@ module Deletion
     def soft_delete_version
       @version.update(deleted_on: Time.now, deleted_by: @deleted_by, 
                       deleted_for: @deleted_for)
-      
-      soft_delete_activities
-      notify_version_owner
     end
  
     def soft_delete_activities
@@ -27,7 +24,9 @@ module Deletion
     end
 
     def notify_version_owner
-      if %w(community proof problem).include? @deleted_by
+      if %w(community proof problem).include? @deleted_by.to_s
+        # if version_number is 1, versioned is deleted, so versioned.user will
+        # already be notified 
         if @version.version_number != 1
           Notifications::Sender::SendNotifications.new(notification_type: :deleted_version,
                            resource: @version, options: { deleted_for: @deleted_for }).call
