@@ -26,7 +26,7 @@ module PostHandler
 
     def check_reports_and_handle
       if @proof.spam_or_offensive?
-        deleted_for = "comment was flagged as spam or offensive 6 or more times"
+        deleted_for = "proof was flagged as spam or offensive 6 or more times"
         Deletion::SoftDelete.new(resource: @proof, deleted_by: :community, 
                                  deleted_for: deleted_for).call
         #action_taken = "deletion"

@@ -17,7 +17,8 @@ class Vote
     send(@action_taken)
     
     Reputation::UpdateReputation.new(action: @action_taken, actor: @user, acted_on: @post).call
-    # I will move this into separate service object
+    PostHandler::HandlePost.new(post: @post, handle: :all).call
+=begin
     if @post_type == "Comment"
       if @post.cached_votes_score <= -5
         @post.take_down("community", "#{@post_type.downcase} recieved a voting score of -5 or lower")
@@ -27,6 +28,7 @@ class Vote
         #action_taken = "deletion"
       end
     end
+=end
 
     return OpenStruct.new(:response => :success, :vote_type => @vote_type, 
                            :action_taken => @action_taken)

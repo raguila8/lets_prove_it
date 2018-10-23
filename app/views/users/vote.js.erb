@@ -7,8 +7,17 @@
       $('#noPriviligeModal .modal-body .custom-content').html("<p>You need at least 200 <a href='/help/reputation'>reputation</a> to downvote. Gain more privileges by increasing your reputation by posting helpful problems and proofs.</p><a href='/help/priviliges/4' class='btn btn-ghost btn-small text-center mb-10'>Learn More</a>");
       $('#noPriviligeModal').modal('show');
     <% end %>
-  <% elsif @vote.response == :success and @vote.action_taken == :dislike and @post.soft_deleted? %>
+  <% elsif @vote.response == :success and (@vote.action_taken == :dislike or @vote.action_taken == :unlike)  and @post.soft_deleted? %>
     $('#<%=@post.class.name.downcase%>-<%=@post.id%>').remove();
+    $('#flash-message-wrapper').remove();
+    $('body').append("<div id='flash-message-wrapper' class='notice'><p><%=@post.user.username%>'s <%= @post.class.name.downcase %> was deleted due to negative feedback from the community.</p></div>");
+
+    setTimeout(function() {
+      $('#flash-message-wrapper').fadeOut("slow", function() {
+        $(this).remove();
+      });
+    }, 5000);
+
   <% elsif @vote.response == :success %>
     <% if @vote.action_taken == :like %>
       $("#<%=@post.class.name.downcase%>-upvote-<%=@post.id%>").addClass('upvoted');

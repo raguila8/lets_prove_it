@@ -91,6 +91,10 @@ class User < ApplicationRecord
     end
   end
 
+  def reported?(resource)
+    Report.exists?(reportable: resource, user: self)
+  end
+
   def problem_feed
     Problem.joins(topics: :user_relationships).
       where(topic_followings: { user_id: id} ).

@@ -17,7 +17,12 @@ class ReportsController < ApplicationController
       @report.status = "pending"
       @report.save
       @report.add_flags params[:report][:flags]
-      Report.handle(@report.reportable)
+      PostHandler::HandlePost.new(post: @report.reportable, handle: :all).call
+      if @report.reportable_type == "Problem" and @report.reportable.soft_deleted?
+        flash[:notice] = "#{@report.reportable.user.username}'s #{@report.reportable_type.downcase} has been reported and deleted due to a substantial amount of negative feedback from the community."
+        redirect_to root_url
+      end
+      #Report.handle(@report.reportable)
     end
   end
 

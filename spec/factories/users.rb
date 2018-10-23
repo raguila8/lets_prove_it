@@ -24,8 +24,8 @@ FactoryBot.define do
   end
 
   factory :new_user, class: User do
-    username { Faker::Internet.user_name(5..8) }
-    email { Faker::Internet.email }
+    sequence(:username) { |n| "new_user#{n}" }
+    sequence(:email) { |n| "new_user#{n}@example.com" }
     password "foobar"
     password_confirmation "foobar"
   end

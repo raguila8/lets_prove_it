@@ -6,9 +6,12 @@
      $('#reportModal').modal('toggle');
 
     $('#flash-message-wrapper').remove();
-    $('body').append("<div id='flash-message-wrapper' class='notice '><p><%= @report.reportable_type %> has been reported.</p></div>");
-    <% if !@report.reportable.deleted_on.nil? %>
+
+    <% if @report.reportable.soft_deleted? %>
       $('#<%=@report.reportable.class.name.downcase%>-<%=@report.reportable.id%>').remove();
+      $('body').append("<div id='flash-message-wrapper' class='notice'><p><%= @report.reportable.user.username %>'s <%= @report.reportable_type %> has been reported and deleted due to a substantial amount of negative feedback from the community.</p></div>");
+    <% else %>
+      $('body').append("<div id='flash-message-wrapper' class='notice '><p><%= @report.reportable_type %> has been reported.</p></div>");
     <% end %>
 
     setTimeout(function() {

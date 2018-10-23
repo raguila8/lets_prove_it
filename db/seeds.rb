@@ -15,6 +15,7 @@ User.create(username:  "raguila8",
              education: "Johns Hopkins University", location: "Los Angeles",
              reputation: 25000, bio: Faker::Lorem.paragraph)
 
+
 # create 15 random users
 15.times do |n|
   username = Faker::Internet.user_name(5..8)
@@ -48,6 +49,18 @@ list_of_topics.each do |topic|
                   description: "<p>#{Faker::Lorem.paragraph(rand(1...8))}</p>")
 end
 
+# Create flag types
+Flag.create(name: "spam", reportable_type: "all", description: "Content that causes a negative user experience by making it difficult to find more relevant and substantive material.")
+Flag.create(name: "offensive", reportable_type: "all", description: "Content that is disrespectful, rude or abusive.")
+Flag.create(name: "very low quality", reportable_type: "all", description: "Content that has severe formatting or content problems, and might not be salvageable through editing.")
+Flag.create(name: "duplicate", reportable_type: "problem", description: "A problem that has been asked and proven before.")
+Flag.create(name: "not a proof problem", reportable_type: "problem", description: "There is nothing to prove.")
+Flag.create(name: "not a proof", reportable_type: "proof", description: "Content that does not attempt to prove the problem, or is not logically sound.")
+Flag.create(name: "other", reportable_type: "all", description: "A problem not listed above that requires moderator intervention.")
+
+spam_and_offensive_flags = [Flag.first, Flag.second]
+votes = ['like', 'bad']
+
 # create 20 random problems with proofs and comments along with corresponding
 # versions
 
@@ -62,14 +75,59 @@ end
   tags = list_of_topics.sample(1 + rand(10))
   puts problem.save_new(tags, [], problem.user)[:exception]
 
+  # votes
+  5.times do |time|
+    user = User.order("random()").first
+    if !user.voted_for? problem
+      problem.vote_by voter: user, vote: votes.sample
+    end
+  end
+
+  rand(3..5).times do |sr|
+    user = User.order("random()").first
+    if !user.reported? problem
+      report = Report.create(reportable: problem, 
+                             user_id: user.id,
+                             reason: Faker::Lorem.paragraph,
+                             status: "pending")
+
+      spam_and_offensive_flags.sample(rand(1..2)).each do |flag|
+        FlagReport.create(report: report, flag: flag)
+      end
+    end
+  end
+
   #problem.reload
 
   # add problem comments
   2.times do |i|
     if Faker::Boolean.boolean
-      Comment.create(content: Faker::Lorem.paragraph, 
+      comment = Comment.create(content: Faker::Lorem.paragraph, 
                             commented_on: problem, 
                             user_id: User.order("random()").first.id)
+
+      # votes
+      5.times do |time|
+        user = User.order("random()").first
+        if !user.voted_for? comment
+          comment.vote_by voter: user, vote: votes.sample
+        end
+      end
+
+      rand(0..2).times do |rc|
+        user = User.order("random()").first
+        if !user.reported? comment
+          report = Report.create(reportable: comment, 
+                                 user_id: user.id,
+                                 reason: Faker::Lorem.paragraph,
+                                 status: "pending")
+
+          Flag.all.sample(rand(Flag.count)).each do |flag|
+            FlagReport.create(report: report, flag: flag)
+          end
+        end
+      end
+
     end
   end
 
@@ -81,14 +139,59 @@ end
                           problem_id: problem.id, 
                           user_id: User.order("random()").first.id)
         puts proof.save_new([], proof.user)[:exception]
+        
+        # votes
+        5.times do |time|
+          user = User.order("random()").first
+          if !user.voted_for? proof
+            proof.vote_by voter: user, vote: votes.sample
+          end
+        end
+
+
+        rand(3..5).times do |sr|
+          user = User.order("random()").first
+          if !user.reported? proof
+            report = Report.create(reportable: proof, 
+                                   user_id: user.id,
+                                   reason: Faker::Lorem.paragraph,
+                                   status: "pending")
+            spam_and_offensive_flags.sample(rand(1..2)).each do |flag|
+              FlagReport.create(report: report, flag: flag)
+            end
+          end
+        end
+
         #proof.reload
         
       # add proof comments
       2.times.each do |k|
         if  Faker::Boolean.boolean
-          Comment.create(content: Faker::Lorem.paragraph, 
+          comment = Comment.create(content: Faker::Lorem.paragraph, 
                             commented_on: proof, 
                             user_id: User.order("random()").first.id)
+
+          # votes
+          5.times do |time|
+            user = User.order("random()").first
+            if !user.voted_for? comment
+              comment.vote_by voter: user, vote: votes.sample
+            end
+          end
+
+          rand(0..2).times do |rc|
+            user = User.order("random()").first
+            if !user.reported? comment
+              report = Report.create(reportable: comment, 
+                                     user_id: user.id,
+                                     reason: Faker::Lorem.paragraph,
+                                     status: "pending")
+       
+              Flag.all.sample(rand(Flag.count)).each do |flag|
+                FlagReport.create(report: report, flag: flag)
+              end
+            end
+          end
         end
       end
     end
@@ -107,14 +210,3 @@ User.all.each do |user|
     end
   end
 end
-
-# Create flag types
-Flag.create(name: "spam", reportable_type: "all", description: "Content that causes a negative user experience by making it difficult to find more relevant and substantive material.")
-Flag.create(name: "offensive", reportable_type: "all", description: "Content that is disrespectful, rude or abusive.")
-Flag.create(name: "very low quality", reportable_type: "all", description: "Content that has severe formatting or content problems, and might not be salvageable through editing.")
-Flag.create(name: "duplicate", reportable_type: "problem", description: "A problem that has been asked and proven before.")
-Flag.create(name: "not a proof problem", reportable_type: "problem", description: "There is nothing to prove.")
-Flag.create(name: "not a proof", reportable_type: "proof", description: "Content that does not attempt to prove the problem, or is not logically sound.")
-Flag.create(name: "other", reportable_type: "all", description: "A problem not listed above that requires moderator intervention.")
-
-
