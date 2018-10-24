@@ -1,13 +1,5 @@
 module Reputation
-  class UpdateReputation
-    def initialize(params)
-      @action = params[:action]
-      @actor = params[:actor]
-      @acted_on = params[:acted_on]
-      @acted_on_type = @acted_on.class.name
-      @recipient = @acted_on.user
-    end
-
+  class UpdateReputation < UpdateReputationBase
     def call
       send("after_" + @action.to_s)
     end
@@ -67,6 +59,13 @@ module Reputation
           @actor.update(reputation: @actor.reputation += 1)
         end
 
+      end
+
+      def after_spam_or_offensive_takedown
+        if %w(Proof Problem).include? @acted_on_type
+          @recipient.assign_attributes(reputation: @recipient.reputation -= 100)
+          @recipient.reputation < 0 ? @recipient.update(reputation: 0) : @recipient.save
+        end
       end
   end
 end

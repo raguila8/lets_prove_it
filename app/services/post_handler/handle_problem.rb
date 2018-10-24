@@ -38,6 +38,8 @@ module PostHandler
         deleted_for = "problem was flagged as spam or offensive 6 or more times"
         Deletion::SoftDelete.new(resource: @problem, deleted_by: :community, 
                                  deleted_for: deleted_for).call
+        Reputation::UpdateReputation.new(action: :spam_or_offensive_takedown,
+                                         acted_on: @problem).call
       end
     end 
   end

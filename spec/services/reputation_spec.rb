@@ -153,6 +153,22 @@ RSpec.describe Reputation do
         expect(voter.reputation).to eq(previous_reputation)
       end
     end
+
+    describe "spam or offensive post takedowns" do
+      it "should remove 100 reputation from users whose problem is deleted as a result of accumulation of spam/offensive flags" do
+        reputation_before_flags = problem.user.reputation 
+        Reputation::UpdateReputation.new(action: :spam_or_offensive_takedown,
+                                          acted_on: problem).call
+        expect(problem.user.reputation).to eq(reputation_before_flags - 100)
+      end
+
+      it "should remove 100 reputation from users whose proof is deleted as a result of accumulation of spam/offensive flags" do
+        reputation_before_flags = proof.user.reputation
+        Reputation::UpdateReputation.new(action: :spam_or_offensive_takedown,
+                                          acted_on: proof).call
+        expect(proof.user.reputation).to eq(reputation_before_flags - 100)
+      end
+    end
   end
 end
 

@@ -34,6 +34,18 @@ RSpec.describe PostHandler::HandlePost do
       end
     end
 
+    it "should remove 100 reputation from owner of proof" do
+      reputation_before_flags = proof.user.reputation
+      6.times do |i|
+        report = create(:random_report, reportable: proof, user: create(:new_user))
+        @spam_and_offensive_flags.sample(rand(1..2)).each do |flag|
+          FlagReport.create(report: report, flag: flag)
+        end
+      end
+      PostHandler::HandlePost.new(post: proof, handle: :all).call
+      expect(proof.user.reputation).to eq(reputation_before_flags - 100)
+    end
+
   end
 
   context "proof with score of -4 or less" do
