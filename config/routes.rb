@@ -71,7 +71,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reports, only: [:new, :create, :update]
+  resources :reports, only: [:new, :create, :update, :index] do
+    collection do
+      get 'bookmarks'
+      get 'history'
+      get 'users'
+      get 'help'
+    end
+  end
 
   resources :versions, only: [:show]
   resources :problems do

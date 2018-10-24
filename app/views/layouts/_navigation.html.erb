@@ -78,6 +78,12 @@
 							  <%= link_to "Account", edit_user_path(current_user) %>
 						  </li>
 
+              <% if current_user.has_review_priviliges? %>
+                <li class='g-mh-20'>
+                  <%= link_to "Reports", reports_path %>
+                </li>
+              <% end %>
+
           	  <li class="g-mh-20">
 							  <%= link_to "Log out", destroy_user_session_path, method: :delete %>
 						  </li>

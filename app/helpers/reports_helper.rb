@@ -17,4 +17,10 @@ module ReportsHelper
     end
   end
 
+  def fa_icon(type)
+    return 'fa-question' if type == "Problem"
+    return 'fa-comment' if type == "Comment"
+    
+  end
+
 end

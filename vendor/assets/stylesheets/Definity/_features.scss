@@ -688,11 +688,20 @@
 				margin-top: 10px;
 			}
 		}
+ 
+    .reports-tab-content-text {
+      padding-top: 0;
+    }
+
 
     @media (min-width: 1200px) {
 
 		  .tab-content-text {
 			  padding-left: 80px;
+      }
+
+      .reports-tab-content-text {
+        padding-left: 40px;
       }
     }
 

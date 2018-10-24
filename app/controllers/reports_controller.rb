@@ -1,7 +1,10 @@
 class ReportsController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create, :update]
+  before_action :logged_in_user, only: [:new, :create, :update, :index, :help, 
+                                        :users, :bookmarks, :history]
   before_action :correct_reputation_for_reports, only: [:new, :create, :update]
   before_action :correct_report, only: [:update]
+  before_action :reviewer_priviliges, only: [:index, :help, :users, :bookmarks,
+                                             :history]
 
 
   def new
@@ -31,6 +34,22 @@ class ReportsController < ApplicationController
     @report.update(status: "closed", expired_on: Time.now, details: "Report was closed by the reporter.")
   end
 
+  def index
+    @reports = Report.all.active
+  end
+  
+  def help
+  end
+
+  def bookmarks
+  end
+
+  def users
+  end
+
+  def history
+  end
+
   private
 
     def report_params
@@ -47,6 +66,13 @@ class ReportsController < ApplicationController
     def correct_report
       @report = Report.find(params[:id])
       if @report.user != current_user
+        flash[:alert] = "Action not authorized"
+        redirect_to root_url
+      end
+    end
+
+    def reviewer_priviliges
+      if !current_user.has_review_priviliges?
         flash[:alert] = "Action not authorized"
         redirect_to root_url
       end

@@ -153,6 +153,10 @@ class User < ApplicationRecord
     self.deleted_on.nil? ? false : true
   end
 
+  def has_review_priviliges?
+    reputation >= 10000
+  end
+
   
   private
 

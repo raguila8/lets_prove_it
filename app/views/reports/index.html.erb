@@ -1,0 +1,113 @@
+<div class="container-fluid section">
+  <div class="row">
+
+    <div class="mh-auto ft-tabs">
+      
+          
+        <!-- Tabs -->
+        <div class="col-md-3 col-lg-2 no-gap mb-40">
+          <ul class="tabs-list" role="tablist">
+
+            <!-- Tab 1 -->
+            <li role="presentation" class="active">
+              <a href="<%= reports_path %>" aria-controls="tab1" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                <div class="tab-bottom">
+                  <p><span class='fa fa-flag mr-5'></span> <span class='tab-text'>Reports</span></p>
+                </div>              
+              </a>
+            </li>
+
+            <!-- Tab 2 -->
+            <li role="presentation">
+              <a href="<%= bookmarks_reports_path %>" aria-controls="tab2" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                <div class="tab-bottom">
+                  <p><span class='fa fa-bookmark mr-5'></span> <span class='tab-text'>Bookmarked Reports</span></p>
+                </div>
+              </a>
+            </li>
+
+            <!-- Tab 3 -->
+            <li role="presentation">
+              <a href="<%= history_reports_path %>" aria-controls="tab3" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                <div class="tab-bottom">
+                  <p><span class='fa fa-history mr-5'></span> <span class='tab-text'>History</span></p>
+                </div>
+              </a>
+            </li>
+
+            <!-- Tab 4 -->
+            <li role="presentation">
+              <a href="<%= users_reports_path %>" aria-controls="tab4" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                <div class="tab-bottom">
+                  <p><span class='fa fa-user mr-5'></span> <span class='tab-text'>All Reviewers</span></p>
+                </div>
+              </a>
+            </li>
+
+            <!-- Tab 5 -->
+            <li role="presentation">
+              <a href="<%= help_reports_path %>" aria-controls="tab5" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                <div class="tab-bottom">
+                  <p><span class='fa fa-question mr-5'></span> <span class='tab-text'>Need Help?</span></p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div><!-- / .col-lg-3 -->
+
+
+        <!-- Tabs Content -->
+        <div class="col-md-9 col-lg-10 no-gap tab-content">
+
+          <!-- Tab Content 1 -->
+          <div class="tab-pane fade active in">
+            <div class="tab-content-text reports-tab-content-text page-content">
+              <div class="boxedtitle add-problem-title" style="margin: 0 0 40px 0;"><h2>Reports</h2></div>
+              <div class="tab-list-content">
+                <!-- Table Hover -->
+                <div class="col-lg-12 ws-m">
+                  <h4 class="ws-s">Table Hover</h4>
+                  <div class="table-responsive">        
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 6%; text-align: center;">Reporter</th>
+                        <th>Reported Type</th>
+                        <th>Flags</th>
+                        <th>Status</th>
+                        <th>View</th>
+                        <th>Close</th>
+                        <th>Push up</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% @reports.each do |report| %>
+                        <tr>
+                          <td style="text-align: center; padding-left: 0; padding-right: 0;">
+                            <%= link_to user_path(report.user) do %>
+                              <img class="img-circle" alt="40x40" style="width: 40px; height: 40px;" src="<%= avatar_src(report.user.id) %>" title="<%=report.user.username%>" data-holder-rendered="true">
+                              <% end %>
+                          </td>
+                          <td><span class='fa <%= fa_icon(report.reportable_type) %> mr-5'></span><%= report.reportable_type %></td>
+                          <td>32</td>
+                          <td>34</td>
+                          <td>30</td>
+                          <td>32</td>
+                          <td>34</td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table><!-- / .table -->
+                  </div>
+                </div><!-- / .col-lg-8 -->
+
+              </div>
+            </div>
+          </div><!-- / #tab1 -->
+        </div><!-- / .col-lg-8 -->
+
+    </div>
+  </div>
+</div>
+
+
