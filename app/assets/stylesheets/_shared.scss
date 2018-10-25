@@ -36,6 +36,13 @@ body {
   }
 }
 
+.inline-icon {
+	height: 1.5em;
+	width: 1.5em;
+	vertical-align: middle;
+}
+
+
 // flash messages
 #flash-message-wrapper {
   position: fixed;

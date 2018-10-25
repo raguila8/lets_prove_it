@@ -71,12 +71,17 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reports, only: [:new, :create, :update, :index] do
+  resources :reports, only: [:new, :create, :update, :index, :destroy] do
     collection do
       get 'bookmarks'
       get 'history'
       get 'users'
       get 'help'
+    end
+
+    member do
+      get 'close'
+      put 'close'
     end
   end
 

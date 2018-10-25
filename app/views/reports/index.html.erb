@@ -13,7 +13,7 @@
               <a href="<%= reports_path %>" aria-controls="tab1" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
                 <div class="tab-bottom">
                   <p><span class='fa fa-flag mr-5'></span> <span class='tab-text'>Reports</span></p>
-                </div>              
+                </div>
               </a>
             </li>
 
@@ -48,7 +48,7 @@
             <li role="presentation">
               <a href="<%= help_reports_path %>" aria-controls="tab5" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
                 <div class="tab-bottom">
-                  <p><span class='fa fa-question mr-5'></span> <span class='tab-text'>Need Help?</span></p>
+                  <p><span class='fa fa-question mr-5'></span> <span class='tab-text'>Help</span></p>
                 </div>
               </a>
             </li>
@@ -72,12 +72,12 @@
                     <thead>
                       <tr>
                         <th style="width: 6%; text-align: center;">Reporter</th>
-                        <th>Reported Type</th>
-                        <th>Flags</th>
-                        <th>Status</th>
-                        <th>View</th>
-                        <th>Close</th>
-                        <th>Push up</th>
+                        <th class='th-type'>Reported Type</th>
+                        <th class='th-date'>Date</th>
+                        <th class="th-flags">Flags</th>
+                        <th class="th-status">Status</th>
+                        <th class='th-view'>View</th>
+                        <th class='th-actions'>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -88,12 +88,38 @@
                               <img class="img-circle" alt="40x40" style="width: 40px; height: 40px;" src="<%= avatar_src(report.user.id) %>" title="<%=report.user.username%>" data-holder-rendered="true">
                               <% end %>
                           </td>
-                          <td><span class='fa <%= fa_icon(report.reportable_type) %> mr-5'></span><%= report.reportable_type %></td>
-                          <td>32</td>
-                          <td>34</td>
-                          <td>30</td>
-                          <td>32</td>
-                          <td>34</td>
+                          <td class='td-type'><span class='ml-20'><%= report.reportable_type %></span></td>
+                          <td class='td-date'>
+                            <%= time_ago_in_words(report.created_at) %> ago
+                          </td>
+                          <td class="td-flags" style="white-space: normal;">
+                            <% report.flags.each do |flag| %>
+                              <span class='colored-label'><%=flag.name%></span>
+
+                            <% end %>
+                          </td>
+                          <td class="td-status">
+                            <span class='colored-label <%= report.status.downcase.parameterize %>'><%=report.status%></span>
+                          </td>
+                          <td class='td-view'>
+                            <%= link_to "#{reported_path(report)}" do %>
+                              <button class="btn btn-ghost btn-xs small-padding">View <%= report.reportable_type %></button>
+                            <% end %>
+                          </td>
+                          <td class='td-actions'>
+                            <a href="#" class="dropdown-toggle">
+                              <span class='fa fa-ellipsis-h mr-5' title="actions"></span>
+                            </a>
+ 
+                            <%= link_to "#" do %>
+                              <span class='fa fa-paper-plane mr-5' title="send post to review queue"></span>
+                            <% end %>
+
+                            <%= link_to "#" do %>
+                              <span class='fa fa-ban mr-5' title="decline report"></span>
+                            <% end %>
+
+                          </td>
                         </tr>
                       <% end %>
                     </tbody>

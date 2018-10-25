@@ -37,6 +37,12 @@ class ReportsController < ApplicationController
   def index
     @reports = Report.all.active
   end
+
+  def close
+  end
+
+  def destroy
+  end
   
   def help
   end

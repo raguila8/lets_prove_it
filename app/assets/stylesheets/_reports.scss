@@ -1,0 +1,118 @@
+.colored-label {
+    display: inline-block;
+    padding: .3em .6em .4em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+    background-color: #DC3547;
+    margin-bottom: 2px;
+}
+
+.pending {
+  background-color: #5cb85c;
+}
+
+.closed {
+  background-color: #777;
+}
+
+.in-review {
+  background-color: #ffc107;
+}
+
+.declined {
+  background-color: #d9534f;
+}
+
+.table {
+  .th-flags, .td-flags {
+    width: 16%;
+  }
+
+  .th-status, .td-status {
+    width: 12%;
+  }
+
+  .th-type, .td-type {
+    width: 18%;
+  }
+
+  @media (min-width: 992px) {
+    .th-type, .td-type {
+      width: 19%;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .th-type, .td-type {
+      width: 18%;
+    }
+  }
+
+  @media (min-width: 1500px) {
+    .th-type, .td-type {
+      width: 11%;
+    }
+  }
+
+  .th-view, .td-view, .th-close, .td-close {
+    width: 14%;
+  }
+
+  .th-date, .td-date {
+    width: 18%;
+  }
+
+
+  .td-view {
+    button {
+      font-size: 0.7em;
+      text-transform: none;
+      letter-spacing: normal;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+  }
+
+  .td-actions {
+    .fa {
+      color: #222;
+      font-size: 16px;
+      height: 32px;
+      line-height: 32px;
+      width: 32px;
+      text-align: center;
+      position: relative;
+      border-radius: 50%;
+
+      &:hover {
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), #333);
+        border-color: #00c5dc !important;
+        color: #fff !important;
+      }
+
+    }
+
+    .fa-ban {
+      &:hover {
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), #f4516c);
+        border-color: #f4516c !important;
+        color: #fff !important;
+      }
+    }
+
+    .fa-paper-plane {
+      &:hover {
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), #FFB826);
+        border-color: #FFB826 !important;
+        color: #fff !important;
+      }
+    }
+
+  }
+}

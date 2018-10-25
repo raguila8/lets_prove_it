@@ -341,7 +341,7 @@ ActiveRecord::Schema.define(version: 20180920100247) do
     t.string "education"
     t.string "location"
     t.integer "reputation", default: 0
-    t.datetime "last_seen_at", default: "2018-10-23 22:33:33"
+    t.datetime "last_seen_at", default: "2018-10-25 04:41:38"
     t.datetime "deleted_on"
     t.string "deleted_by"
     t.text "deleted_for"

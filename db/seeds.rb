@@ -84,15 +84,15 @@ votes = ['like', 'bad']
   end
 
   rand(3..5).times do |sr|
-    user = User.order("random()").first
+    user = User.where('reputation >= 700').order("random()").first
     if !user.reported? problem
-      report = Report.create(reportable: problem, 
+      report = Report.create!(reportable: problem, 
                              user_id: user.id,
                              reason: Faker::Lorem.paragraph,
                              status: "pending")
 
       spam_and_offensive_flags.sample(rand(1..2)).each do |flag|
-        FlagReport.create(report: report, flag: flag)
+        FlagReport.create!(report: report, flag: flag)
       end
     end
   end
@@ -102,28 +102,28 @@ votes = ['like', 'bad']
   # add problem comments
   2.times do |i|
     if Faker::Boolean.boolean
-      comment = Comment.create(content: Faker::Lorem.paragraph, 
+      comment = Comment.create!(content: Faker::Lorem.paragraph, 
                             commented_on: problem, 
-                            user_id: User.order("random()").first.id)
+                            user_id: User.where('reputation >= 50').order("random()").first.id)
 
       # votes
       5.times do |time|
-        user = User.order("random()").first
+        user = User.where('reputation >= 200').order("random()").first
         if !user.voted_for? comment
           comment.vote_by voter: user, vote: votes.sample
         end
       end
 
       rand(0..2).times do |rc|
-        user = User.order("random()").first
+        user = User.where('reputation >= 700').order("random()").first
         if !user.reported? comment
-          report = Report.create(reportable: comment, 
+          report = Report.create!(reportable: comment, 
                                  user_id: user.id,
                                  reason: Faker::Lorem.paragraph,
                                  status: "pending")
 
           Flag.all.sample(rand(Flag.count)).each do |flag|
-            FlagReport.create(report: report, flag: flag)
+            FlagReport.create!(report: report, flag: flag)
           end
         end
       end
@@ -135,14 +135,18 @@ votes = ['like', 'bad']
   2.times do |j|
     if Faker::Boolean.boolean
       # add proof
+        user = User.order("random()").first
+        while (problem.proofs.map { |p| p.user }).include? user
+          user = User.order("random()").first
+        end
         proof = Proof.new(content: Faker::Lorem.paragraph(rand(1..5)), 
                           problem_id: problem.id, 
-                          user_id: User.order("random()").first.id)
+                          user_id: user.id)
         puts proof.save_new([], proof.user)[:exception]
         
         # votes
         5.times do |time|
-          user = User.order("random()").first
+          user = User.where('reputation >= 200').order("random()").first
           if !user.voted_for? proof
             proof.vote_by voter: user, vote: votes.sample
           end
@@ -150,14 +154,14 @@ votes = ['like', 'bad']
 
 
         rand(3..5).times do |sr|
-          user = User.order("random()").first
+          user = User.where('reputation >= 700').order("random()").first
           if !user.reported? proof
-            report = Report.create(reportable: proof, 
+            report = Report.create!(reportable: proof, 
                                    user_id: user.id,
                                    reason: Faker::Lorem.paragraph,
                                    status: "pending")
             spam_and_offensive_flags.sample(rand(1..2)).each do |flag|
-              FlagReport.create(report: report, flag: flag)
+              FlagReport.create!(report: report, flag: flag)
             end
           end
         end
@@ -167,28 +171,28 @@ votes = ['like', 'bad']
       # add proof comments
       2.times.each do |k|
         if  Faker::Boolean.boolean
-          comment = Comment.create(content: Faker::Lorem.paragraph, 
+          comment = Comment.create!(content: Faker::Lorem.paragraph, 
                             commented_on: proof, 
-                            user_id: User.order("random()").first.id)
+                            user_id: User.where('reputation >= 50').order("random()").first.id)
 
           # votes
           5.times do |time|
-            user = User.order("random()").first
+            user = User.where('reputation >= 200').order("random()").first
             if !user.voted_for? comment
               comment.vote_by voter: user, vote: votes.sample
             end
           end
 
           rand(0..2).times do |rc|
-            user = User.order("random()").first
+            user = User.where('reputation >= 700').order("random()").first
             if !user.reported? comment
-              report = Report.create(reportable: comment, 
+              report = Report.create!(reportable: comment, 
                                      user_id: user.id,
                                      reason: Faker::Lorem.paragraph,
                                      status: "pending")
        
               Flag.all.sample(rand(Flag.count)).each do |flag|
-                FlagReport.create(report: report, flag: flag)
+                FlagReport.create!(report: report, flag: flag)
               end
             end
           end
