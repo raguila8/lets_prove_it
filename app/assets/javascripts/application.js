@@ -32,4 +32,5 @@
 //= require trix
 //= require trix_uploads.js
 //= require autocomplete.js
+//= require secondary_dropdown.js
 //= require_tree .

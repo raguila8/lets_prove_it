@@ -80,6 +80,14 @@
   }
 
   .td-actions {
+    .secondary-dropdown {
+      display: inline-block;
+
+      .secondary-dropdown-content a {
+        font-size: 12px;
+      }
+    }
+
     .fa {
       color: #222;
       font-size: 16px;
@@ -89,6 +97,7 @@
       text-align: center;
       position: relative;
       border-radius: 50%;
+      cursor: pointer;
 
       &:hover {
         background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), #333);
@@ -106,13 +115,37 @@
       }
     }
 
-    .fa-paper-plane {
+    .fa-bookmark-o {
       &:hover {
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), #FFB826);
-        border-color: #FFB826 !important;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), #1d9d74);
+        border-color: #1d9d74 !important;
         color: #fff !important;
       }
     }
+  }
 
+  .td-more-info {
+    text-align: center;
+
+    .fa {
+      font-size: 14px;
+      height: 28px;
+      line-height: 28px;
+      width: 28px;
+      text-align: center;
+      position: relative;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .fa-info {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), #34bfa3);
+      border-color: #34bfa3;
+      color: #fff;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
   }
 }

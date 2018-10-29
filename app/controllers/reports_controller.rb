@@ -1,11 +1,15 @@
 class ReportsController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create, :update, :index, :help, 
-                                        :users, :bookmarks, :history]
+  before_action :logged_in_user
   before_action :correct_reputation_for_reports, only: [:new, :create, :update]
   before_action :correct_report, only: [:update]
-  before_action :reviewer_priviliges, only: [:index, :help, :users, :bookmarks,
-                                             :history]
+  before_action :reviewer_priviliges, only: [:index, :help, :users, :claimed,
+                                             :history, :show, :close, :decline,
+                                             :reserve]
 
+
+  def show
+    @report = Report.find(params[:id])
+  end
 
   def new
     reportable_klass = params[:reportable_type].camelize.constantize
@@ -41,13 +45,16 @@ class ReportsController < ApplicationController
   def close
   end
 
-  def destroy
+  def decline
+  end
+
+  def reserve
   end
   
   def help
   end
 
-  def bookmarks
+  def reserved
   end
 
   def users

@@ -1,10 +1,10 @@
 <ul>
   <% @flags.each do |flag| %>
-    <li style="font-size: 1.1em;"><b><%= flag.name %></b></li>
+    <li style="font-size: 1.1em;"><%= flag.name %></li>
     <% if flag.name == "other" %>
       <p><%= @report.reason %></p>
     <% end %>
   <% end %>
- <h3 class="mt-10">Would you like to retract your report?</h3>
- <%= link_to "Retract Report", report_path(@report.id), method: :put, class: "btn btn-small", remote: true %>
 </ul>
+ <p class="mt-10">Would you like to retract your report?</p>
+ <%= link_to "Retract", report_path(@report.id), method: :put, class: "btn btn-small", remote: true %>

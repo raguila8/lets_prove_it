@@ -71,9 +71,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reports, only: [:new, :create, :update, :index, :destroy] do
+  resources :reports, only: [:new, :create, :update, :index, :show] do
     collection do
-      get 'bookmarks'
+      get 'reserved'
       get 'history'
       get 'users'
       get 'help'
@@ -82,6 +82,8 @@ Rails.application.routes.draw do
     member do
       get 'close'
       put 'close'
+      put 'decline'
+      put 'reserve'
     end
   end
 

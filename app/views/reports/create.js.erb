@@ -3,7 +3,7 @@
     $('#reportModal #report-form #error_explanation').remove();
     $('#reportModal #report-form').prepend("<%= error_message(@report.errors.full_messages.first) %>");
   <% else %>
-     $('#reportModal').modal('toggle');
+    $('#reportModal').modal('toggle');
 
     $('#flash-message-wrapper').remove();
 

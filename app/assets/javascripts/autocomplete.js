@@ -1,6 +1,5 @@
 $(document).on('turbolinks:load', function() {
 if (!$('.search-dropdown').attr('data-behavior')) {
-  console.log("yesssss");
   initMainSearch();
 }
 

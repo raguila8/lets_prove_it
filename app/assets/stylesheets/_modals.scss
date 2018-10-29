@@ -1,0 +1,69 @@
+/*****************************************
+          ReportModal
+******************************************/
+
+#reportModal {
+  .modal-content {
+    padding: 2em;
+  }
+
+  .reportModalClose {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+
+    &:before {
+      position: absolute;
+      content: "×";
+      font-size: 40px;
+      font-weight: normal;
+      line-height: 80px;
+      height: 80px;
+      width: 80px;
+      text-align: center;
+      top: 3px;
+      right: 3px;
+      color: rgb(0, 0, 0);
+      font-family: Arial, sans-serif;
+      content: "×";
+    }
+  }
+
+  .modal-body {
+    padding-top: 1em 0 0 0;
+    margin-bottom: 0.5em;
+  }
+
+  h2, p, ul {
+    font-family: "proxima-nova", "Helvetica Neue", sans-serif;
+    color: #2F323C;
+  }
+
+  .modal-title {
+    font-size: 2em;
+    line-height: 1.3em;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+  }
+
+  p, ul, span {
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    font-weight: 400;
+  }
+
+  ul {
+    -webkit-padding-start: 40px;
+  }
+
+  #report-form p {
+    -webkit-margin-before: 0;
+  }
+}

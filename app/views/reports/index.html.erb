@@ -1,3 +1,5 @@
+<%= render 'more_info_report' %>
+
 <div class="container-fluid section">
   <div class="row">
 
@@ -19,9 +21,9 @@
 
             <!-- Tab 2 -->
             <li role="presentation">
-              <a href="<%= bookmarks_reports_path %>" aria-controls="tab2" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+              <a href="<%= reserved_reports_path %>" aria-controls="tab2" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
                 <div class="tab-bottom">
-                  <p><span class='fa fa-bookmark mr-5'></span> <span class='tab-text'>Bookmarked Reports</span></p>
+                  <p><span class='fa fa-bookmark mr-5'></span> <span class='tab-text'>Reserved Reports</span></p>
                 </div>
               </a>
             </li>
@@ -78,6 +80,7 @@
                         <th class="th-status">Status</th>
                         <th class='th-view'>View</th>
                         <th class='th-actions'>Actions</th>
+                        <th class='th-more-info'>More Info</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -107,18 +110,30 @@
                             <% end %>
                           </td>
                           <td class='td-actions'>
-                            <a href="#" class="dropdown-toggle">
-                              <span class='fa fa-ellipsis-h mr-5' title="actions"></span>
-                            </a>
+                            <div class='secondary-dropdown'>
+                              <span class='fa fa-ellipsis-h mr-5 secondary-dropdown-toggle' title="actions"></span>
+                              <div id="report-actions-<%=report.id%>" class="secondary-dropdown-content">
+                                <%= link_to send("edit_" + report.reportable_type.downcase + "_path", report.reportable.id) do %>
+                                  <span class='fa fa-pencil mr-5'></span>Edit
+                                <% end %>
+                                <a href="#"><span class='fa fa-check-circle-o mr-5'></span>Close</a>
+                                <a href="#"><span class='fa fa-paper-plane mr-5'></span>Send <%= report.reportable_type %> to Review Queue</a>
+                              </div>
+                            </div>
  
-                            <%= link_to "#" do %>
-                              <span class='fa fa-paper-plane mr-5' title="send post to review queue"></span>
+                            <%= link_to reserve_report_path(report.id), remote: true, method: :put do %>
+                              <span class='fa fa-bookmark-o mr-5' title="Reserve Report"></span>
                             <% end %>
 
-                            <%= link_to "#" do %>
-                              <span class='fa fa-ban mr-5' title="decline report"></span>
+                            <%= link_to decline_report_path(report.id), remote: true, method: :put do %>
+                              <span class='fa fa-ban mr-5' title="Decline Report"></span>
                             <% end %>
 
+                          </td>
+                          <td class='td-more-info'>
+                            <%= link_to report_path(report.id), remote: true do %>
+                              <span class='fa fa-info mr-5' title="More Information"></span>
+                            <% end %>
                           </td>
                         </tr>
                       <% end %>
