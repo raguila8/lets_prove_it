@@ -26,19 +26,25 @@ RSpec.describe Report do
       expect(report.valid?).not_to be_truthy
     end
 
-    it "should have a length of at least 3" do
-      report.status = "a" * 2
-      expect(report.valid?).not_to be_truthy
-      report.status = "a" * 3
-      expect(report.valid?).to be_truthy
-    end
+		it "should be valid statuses" do
+      valid_statuses = ['pending', 'declined', 'closed', 'in review']
+      valid_statuses.each do |valid_status|
+			  report.status = valid_status
+        expect(report.valid?).to be_truthy, 
+          "#{valid_status.inspect} should be valid"
+      end
+	  end
 
-    it "should have a length of at most 70" do
-      report.status = "a" * 70
-      expect(report.valid?).to be_truthy
-      report.status = "a" * 71
-      expect(report.valid?).not_to be_truthy
-    end
+		it "should not have invalid statuses" do 
+      invalid_statuses = ['pendingg', 'open', 'disputed', 'in queue', 
+													  'processed']
+      invalid_statuses.each do |invalid_status|
+			  report.status = invalid_status
+        expect(report.valid?).to_not be_truthy, 
+          "#{invalid_status.inspect} should be invalid"
+      end
+
+		end
   end
 
   describe "details" do

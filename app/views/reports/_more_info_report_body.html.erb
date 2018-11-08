@@ -1,0 +1,63 @@
+
+  <section class='container ft-centered section'>
+    <div class='row'>
+      <div class='col-md-4 col-sm-6 mb-sm-50 ft-item ft-material'>
+			  <%= link_to user_path(report.user.id) do %>
+        <span class='ft-material-span' style="background-image: url('<%=avatar_src(report.user.id)%>'); background-size: cover;"></span>
+	  	  <h5>Reporter</h5>
+			  <p>
+				  <span class='font-weight-600' style="font-size: 1.1em;">
+				    <%= report.user.username%>
+				  </span>
+					<span class="label" style="margin-left: 5px; font-weight: 600; background: <%= reputation_color report.user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%= report.user.reputation%></span>
+        </p>
+				<% end %>
+			</div>
+
+		  <div class="col-md-4 col-sm-6 mb-sm-50 ft-item ft-material">
+		    <%= reported_type_icon(report.reportable_type) %>
+	      <h5>Reported</h5>
+			  <p style='font-size: 1.1em; font-weight: 600;'><%=reported_resource_title(report)%></p>
+			</div>
+
+			<div class="col-md-4 col-sm-6 mb-sm-50 ft-item ft-material">
+			  <%= link_to user_path(report.reportable.user.id) do %>
+			  <span class='ft-material-span' style="background-image: url('<%=avatar_src(report.reportable.user.id)%>'); background-size: cover;"></span>
+			  <h5><%=report.reportable_type%> Creator</h5>
+			  <p>
+				  <span class='font-weight-600' style="font-size: 1.1em;">
+				    <%= report.reportable.user.username%>
+				  </span>
+					<span class="label" style="margin-left: 5px; font-weight: 600; background: <%= reputation_color report.reportable.user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%= report.reportable.user.reputation%></span>
+        </p>
+				<% end %>
+		  </div>
+		</div>
+	</section>	
+
+  <div class="bg-overlay">
+	  <div class="cta-wrapper">
+		  <div class="post-date font-weight-500">
+			  <h3 class="no-transform">
+				  <%= meta_data_icon report %>
+				  <%=report.created_at.strftime('%B %d, %Y')%>
+			  </h3>
+		  </div>
+		  <span class="colored-label <%=report.status.downcase.parameterize%> label-large"><%= report.status %></span>
+		</div>
+	</div>
+
+
+  <section class="container section ft-steps-numbers">
+	  <h2 style="margin-bottom: 40px; text-align: center;">Flags</h2>
+	  <div class="row">
+		  <% report.flags.each_with_index do |flag, index| %>
+		    <!-- Flag  <%= index + 1 %> -->
+			  <div class="col-lg-4 col-md-6 mb-sm-100 ft-item">
+		      <span class="ft-nbr">0<%=index + 1%></span>
+				  <h4><%=flag.name%></h4>
+			    <p><%=flag.description%></p>
+			  </div>
+		  <% end %>
+		</div><!-- / .row -->
+	</section>

@@ -9,6 +9,9 @@ class ReportsController < ApplicationController
 
   def show
     @report = Report.find(params[:id])
+    if not params[:tab].nil?
+      @tab = params[:tab]
+    end
   end
 
   def new

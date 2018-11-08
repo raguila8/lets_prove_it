@@ -1,2 +1,18 @@
-$('#report-info-modal').modal('toggle');
+<% if @tab.nil? %>
+  $('#report-info-modal .modal-content').html("<%= escape_javascript render(:partial => '/reports/more_info_report_content', locals:  {report: @report} ) %>");
+  $('#report-info-modal').modal('toggle');
+<% else %>
+  <% if @tab == 'report' %>
+    if ($('#report-info-modal-body').length == 0) {
+      $('#report-info-modal .modal-body').html("<%= escape_javascript render(:partial => '/reports/more_info_report_body', locals:  {report: @report} ) %>");
+      $('#report-info-modal .modal-body').attr('id', '#report-info-modal-body');
+    }
+  <% elsif @tab == 'resource' %>
+    if ($('#resource-info-modal-body').length == 0) {
+      $('#report-info-modal .modal-body').html("<%= escape_javascript render(:partial => '/reports/more_info_resource_body', locals:  {report: @report} ) %>");
+      $('#report-info-modal .modal-body').attr('id', '#resource-info-modal-body');
+    }
+  <% end %>
+<% end %>
+
 

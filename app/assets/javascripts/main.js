@@ -74,6 +74,14 @@ $(document).on('turbolinks:load', function() {
     });
   }
 
+  // report-info-modal tabs
+  if ($('#report-info-modal').length > 0) {
+    $('#report-info-modal').on('click', '.nav-tabs li', function() {
+      $('#report-info-modal .nav-tabs li').removeClass('active');
+      $(this).addClass('active');
+    });
+  }
+
 
   // Preloader
   $('.preloader img').fadeOut(); // will first fade out the loading animation

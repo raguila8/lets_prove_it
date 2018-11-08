@@ -1,0 +1,59 @@
+
+<div class="blog-post activity_item mb-40" style='padding: 20px 60px 20px 60px;'> 
+  <div class="bp-content">
+    <div class="post-meta" style='padding-left: 0; padding-right: 0;'>
+      <div class="post-date float-left font-weight-500">
+        <span class="no-transform"> 
+          <%= meta_data_icon report.reportable %>
+          <%=report.reportable.created_at.strftime('%B %d, %Y')%>
+        </span>
+      </div>
+      <div class="clearfix"></div>
+    </div><!-- / .meta -->
+    <div class='clearfix'</div>
+    <!-- Post Title -->
+    <div class: "post-title pa-0">
+      <h2 class="problem-desc pb-15 mt-10"><%=report_resource_message(report) %></h2>
+    </div>
+
+
+    <div class="row mt-20">
+      <div class="col-md-12 blog-post-comments proofs-section">
+       <!-- Comment 1 --> 
+        <div class="bp-comment"> 
+          <div class="author-container">
+            <div class="author-img">
+              <a href="<%= user_path(report.reportable.user) %>"><img width="60" height="60" src="<%=avatar_src(report.user.id)%>" alt=""></a>
+            </div>
+
+            <h6><a href="<%= user_path(report.reportable.user) %>"><%= report.reportable.user.username %></a></h6>
+			      <span class="label" style="margin-left: 5px; font-weight: 600; background: <%= reputation_color report.reportable.user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%= report.reportable.user.reputation%></span>
+          </div>
+          <br>
+
+          <div class="comment-content">
+            <%= sanitize report.reportable.content %>
+          </div>
+          <br>
+          <div class="clearfix"></div>
+
+          <% if report.reportable_type == "Problem" %>
+            <span class="problem-comment problem-info"><i class="glyphicon glyphicon-user mr-5"></i> <span id="problem-<%=report.reportable.id%>-followers"><%= pluralize(report.reportable.followers.count, "Follower") %></span></span>
+            <span class="problem-comment problem-info"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(report.reportable.proofs.count, "Proof") %></span>
+            <span class="problem-comment problem-info"><i class="glyphicon glyphicon-eye-open mr-5"></i><%=pluralize(report.reportable.impressionist_count, "view")%></span>
+            <span class="problem-comment problem-info"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(report.reportable.versions.count, "Edit")%></span>
+          <% elsif report.reportable_type == "Proof" %>
+            <span class="problem-comment problem-info"><i class="glyphicon glyphicon-comment mr-5"></i><%= pluralize(report.reportable.comments.count, "Comment") %></span>
+            <span class="problem-comment problem-info"><i class="glyphicon glyphicon-pencil mr-5"></i> <%=pluralize(report.reportable.versions.count, "Edit")%></span>
+          <% elsif report.reportable_type == "Comment" %>
+          
+          <% end %>
+
+          <span class="problem-comment problem-info"><i class="glyphicon glyphicon-thumbs-up mr-5"></i><%= pluralize(report.reportable.cached_votes_up, "Upvote") %></span>
+          <span class="problem-comment problem-info"><i class="glyphicon glyphicon-thumbs-down mr-5"></i><%=pluralize(report.reportable.cached_votes_down, "Downvote")%></span>
+          <span class="problem-view problem-info"><i class="glyphicon glyphicon-heart mr-5"></i> <%= "#{report.reportable.cached_votes_score} Score" %></span>
+        </div><!-- / .bp-comment -->        
+      </div><!-- / .blog-post-comments -->
+    </div><!-- / .row --> 
+  </div>
+</div>

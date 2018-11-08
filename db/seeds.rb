@@ -122,7 +122,7 @@ votes = ['like', 'bad']
                                  reason: Faker::Lorem.paragraph,
                                  status: "pending")
 
-          Flag.all.sample(rand(Flag.count)).each do |flag|
+          Flag.all.sample(rand(1..Flag.count)).each do |flag|
             FlagReport.create!(report: report, flag: flag)
           end
         end
@@ -191,7 +191,7 @@ votes = ['like', 'bad']
                                      reason: Faker::Lorem.paragraph,
                                      status: "pending")
        
-              Flag.all.sample(rand(Flag.count)).each do |flag|
+              Flag.all.sample(rand(1..Flag.count)).each do |flag|
                 FlagReport.create!(report: report, flag: flag)
               end
             end

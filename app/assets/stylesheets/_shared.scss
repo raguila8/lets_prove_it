@@ -24,6 +24,7 @@ body {
   color: #666;
   &:hover {
    color: #111;
+    border-bottom: none;
   }
 }
 
@@ -39,6 +40,12 @@ body {
     color: #333;
     opacity: 0.8;
   }
+}
+
+.label-large {
+  padding: 10px 54px !important;
+  font-size: 1.1em !important;
+  letter-spacing: 3px !important;
 }
 
 .inline-icon {
