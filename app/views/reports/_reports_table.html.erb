@@ -1,0 +1,76 @@
+<!-- Table Hover -->
+<div class="col-lg-12 ws-m">
+	<div class="table-responsive">        
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width: 6%; text-align: center;">Reporter</th>
+					<th class='th-type'>Reported Type</th>
+					<th class='th-date'>Date</th>
+					<th class="th-flags">Flags</th>
+					<th class="th-status">Status</th>
+					<th class='th-view'>View</th>
+					<th class='th-actions'>Actions</th>
+					<th class='th-more-info'>More Info</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @reports.each do |report| %>
+					<tr>
+						<td style="text-align: center; padding-left: 0; padding-right: 0;">
+							<%= link_to user_path(report.user) do %>
+								<img class="img-circle" alt="40x40" style="width: 40px; height: 40px;" src="<%= avatar_src(report.user.id) %>" title="<%=report.user.username%>" data-holder-rendered="true">
+								<% end %>
+						</td>
+						<td class='td-type'><span class='ml-20'><%= report.reportable_type %></span></td>
+						<td class='td-date'>
+							<%= time_ago_in_words(report.created_at) %> ago
+						</td>
+						<td class="td-flags" style="white-space: normal;">
+							<% report.flags.each do |flag| %>
+								<span class='colored-label'><%=flag.name%></span>
+
+							<% end %>
+						</td>
+						<td class="td-status">
+							<span class='colored-label <%= report.status.downcase.parameterize %>'><%=report.status%></span>
+						</td>
+						<td class='td-view'>
+							<%= link_to "#{reported_path(report)}" do %>
+								<button class="btn btn-ghost btn-xs small-padding">View <%= report.reportable_type %></button>
+							<% end %>
+						</td>
+						<td class='td-actions'>
+							<div class='secondary-dropdown'>
+								<span class='fa fa-ellipsis-h mr-5 secondary-dropdown-toggle' title="actions"></span>
+								<div id="report-actions-<%=report.id%>" class="secondary-dropdown-content">
+                  <% if report.reportable_type != 'Comment' %>
+									  <%= link_to send("edit_" + report.reportable_type.downcase + "_path", report.reportable.id) do %>
+										  <span class='fa fa-pencil mr-5'></span>Edit
+									  <% end %>
+                  <% end %>
+									<a href="#"><span class='fa fa-check-circle-o mr-5'></span>Close</a>
+									<a href="#"><span class='fa fa-paper-plane mr-5'></span>Send <%= report.reportable_type %> to Review Queue</a>
+								</div>
+							</div>
+
+							<%= link_to reserve_report_path(report.id), id: "report-reserve-#{report.id}", remote: true, method: :put do %>
+								<span class='fa fa-bookmark-o mr-5 <%= reserve_class(report) %>' title="<%=reserve_title(report)%>"></span>
+							<% end %>
+
+							<%= link_to decline_report_path(report.id), remote: true, method: :put do %>
+								<span class='fa fa-ban mr-5' title="Decline Report"></span>
+							<% end %>
+
+						</td>
+						<td class='td-more-info'>
+							<%= link_to report_path(report.id), remote: true do %>
+								<span class='fa fa-info mr-5' title="More Information"></span>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table><!-- / .table -->
+	</div>
+</div><!-- / .col-lg-8 -->

@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
   before_action :correct_report, only: [:update]
   before_action :reviewer_priviliges, only: [:index, :help, :users, :claimed,
                                              :history, :show, :close, :decline,
-                                             :reserve]
+                                             :reserve, :reserved, :unreserve]
 
 
   def show
@@ -52,12 +52,20 @@ class ReportsController < ApplicationController
   end
 
   def reserve
+    @report = Report.find(params[:id])
+    current_user.reserve @report
+  end
+
+  def unreserve
+    @report = Report.find(params[:id])
+    current_user.unreserve @report
   end
   
   def help
   end
 
   def reserved
+    @reports = current_user.saved_reports
   end
 
   def users

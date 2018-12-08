@@ -267,6 +267,24 @@ class Problem < ApplicationRecord
     has_six_or_more_spam_or_offensive_flags?
   end
 
+  def has_pending_reports?
+    reports.pending.count > 0
+  end
+
+  def self.trending_problem
+    n = 1
+    problems = Problem.where('created_at >= ?', n.week.ago)
+    while problems.count == 0
+      n += 1
+      problems = Problem.where('created_at >= ?', n.week.ago)
+    end
+    problems.where(cached_votes_score: Problem.select('MAX(cached_votes_score)')).first
+  end
+
+  def self.featured
+    @@featured ||= Problem.trending_problem
+  end
+
 
   private
 

@@ -5,7 +5,7 @@ $(document).on('turbolinks:load', function() {
 });
 
 function initSecondaryDropdown() {
-  $('.secondary-dropdown-toggle').on('click', function() {
+  $('body').on('click', '.secondary-dropdown-toggle', function() {
     $(this).next('.secondary-dropdown-content').toggleClass("show");
   });
   

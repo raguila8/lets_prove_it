@@ -84,6 +84,7 @@ Rails.application.routes.draw do
       put 'close'
       put 'decline'
       put 'reserve'
+      delete 'unreserve'
     end
   end
 

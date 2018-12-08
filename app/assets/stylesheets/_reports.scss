@@ -29,6 +29,12 @@
   background-color: #d9534f;
 }
 
+.reserved {
+  background: #111;
+  border-color: #111 !important;
+  color: #fff !important;
+}
+
 .table {
   .th-flags, .td-flags {
     width: 16%;
@@ -117,8 +123,8 @@
 
     .fa-bookmark-o {
       &:hover {
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), #1d9d74);
-        border-color: #1d9d74 !important;
+        background: #111;
+        border-color: #111 !important;
         color: #fff !important;
       }
     }

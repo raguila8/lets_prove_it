@@ -8,7 +8,7 @@
           <span class="glyphicon glyphicon-arrow-left mr-5"></span> Back to problem
         <% end %>
 
-        <div class="form-wrapper">
+        <div class="form-wrapper" style='margin-top: 20px;'>
           <div class="from-header">
 					  <h2>Edit Problem</h2>
 					
@@ -40,6 +40,11 @@
               <%= text_area_tag "version[description]", nil, class: "mb-20 form-control" %>
               <span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
             </div>
+
+            <% if @problem.has_pending_reports? and current_user.has_review_priviliges? %>
+              <div class='clearfix'></div>
+              <%= render partial: '/reports/close_report_form', locals: { resource: @problem } %>
+            <% end %>
 
             <!-- Action Buttons -->
             <div class="form-group">

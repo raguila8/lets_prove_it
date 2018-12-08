@@ -1,6 +1,6 @@
 <!-- ========== Navigation ========== -->
 
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default mega navbar-fw navbar-inverse <%= navbar_position %>">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -26,14 +26,14 @@
           <!-- Login -->
           <li>
             <a href="<%= new_user_session_path %>">
-              <button class="btn-ghost btn-small" style="border-width: 1px;">Login</button>
+              <button class="btn-ghost-light btn-small" style="border-width: 1px;">Login</button>
             </a>
           </li><!-- / Login -->
 
           <!-- Signup -->
           <li>
             <a href="<%= new_user_registration_path %>">
-              <button class="btn btn-small">Signup</button>
+              <button class="btn btn-light btn-small">Signup</button>
             </a>
           </li><!-- / Signup -->
 
@@ -42,13 +42,13 @@
           <!-- New Problem -->
           <li>
             <a href="<%= new_problem_path %>">
-              <button class="btn-ghost btn-small" style="bottom: 3px; border-width: 1px;">Add problem</button>
+              <button class="btn-ghost-light btn-small" style="bottom: 6px;">Add Problem</button>
             </a>
           </li><!-- / New Problem -->
 
           <li class="dropdown dropdown-notifications general-notifications" data-behavior="general-notifications">
             <a href="#notifications-panel" class="dropdown-toggle" data-toggle="dropdown" data-behavior="general-notifications-link">
-              <i class="fa fa-bell-o"><%= notifications_badge %></i>
+              <i class="glyphicon glyphicon-bell"><%= notifications_badge %></i>
             </a>
             <%= render 'shared/notifications_dropdown' %>
           </li> <!-- / message dropdown -->
@@ -57,7 +57,7 @@
           <!-- Messages dropdown -->
           <li class="dropdown dropdown-notifications messages-notifications" data-behavior="message-notifications">
             <a href="#notifications-panel" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-comment-o"><%= messages_badge %></i>
+              <i class="glyphicon glyphicon-comment"><%= messages_badge %></i>
             </a>
             <%= render 'shared/messages_dropdown' %>
           </li> <!-- / message dropdown -->
@@ -65,8 +65,8 @@
           <!-- User dropdown -->
           <li class="dropdown">
 					  <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button" aria-haspopup="true" aria-expanded="false" href="#" style="text-transform: none; font-weight: 600;">
-						  <span class="fa fa-user-o g-mr-5" style="font-size: 15px;"></span>
-						  <span style="font-size: 15px; margin-left: 3px;"><%=current_user.username%></span>
+						  <span class="glyphicon glyphicon-user g-mr-5" style="font-size: 13px;"></span>
+						  <span style="font-size: 14px; letter-spacing: 0.5px;"><%=current_user.username%></span>
 						  <span class="caret"></span>
 					  </a>
         	  <ul class="dropdown-menu">
@@ -95,7 +95,7 @@
  
         <!-- Search -->
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style='font-size: 15px;'><i class="fa fa-search"></i></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i> Search</a>
           <ul class="dropdown-menu search-dropdown">
             <li><form role="search"><input type="search" class="form-control" id="main-search" placeholder="Search..."></form></li>
           </ul>

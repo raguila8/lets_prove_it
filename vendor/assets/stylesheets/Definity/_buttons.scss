@@ -12,8 +12,6 @@
 	background: $dark;
 	color: $light;
 	font-family: $btn-font;
-	text-transform: uppercase;
-	letter-spacing: $btn-letter-spaceing;
 	font-size: $btn-font-size;
 	line-height: $btn-line-height;
 	border-radius: $btn-rounded;
@@ -29,7 +27,7 @@
 
 	&:hover {
 		color: $light;
-		background: lighten($dark, 18%);
+		background: $success-green;
 	}
 
 	&:focus {
@@ -213,8 +211,8 @@ input[class="btn-ghost"] {
 }
 
 .btn-small {
-	padding: 6px 33px;
-	font-size: $btn-font-size - .15em;
+	padding: 6px 28px;
+	font-size: $btn-font-size - .03em;
 }
 
 

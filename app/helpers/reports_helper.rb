@@ -81,4 +81,12 @@ module ReportsHelper
     end
     return msg.html_safe
   end
+
+  def reserve_title(report)
+    current_user.reserved?(report) ? 'Unreserve report' : 'Reserve report'
+  end
+
+  def reserve_class(report)
+    return 'reserved' if current_user.reserved? report
+  end
 end

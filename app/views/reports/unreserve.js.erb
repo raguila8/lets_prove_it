@@ -1,0 +1,4 @@
+$('#report-reserve-<%=@report.id%>').attr('data-method', 'put');
+$('#report-reserve-<%=@report.id%>').attr('href', '<%=reserve_report_path(@report.id)%>');
+$('#report-reserve-<%=@report.id%> .fa-bookmark-o').removeClass('reserved');
+$('#report-reserve-<%=@report.id%> .fa-bookmark-o').attr('title', 'Reserve report');

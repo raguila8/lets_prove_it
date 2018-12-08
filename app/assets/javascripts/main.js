@@ -7,6 +7,10 @@ $(document).on('turbolinks:load', function() {
   initSelector();
   initAccordion();
   initVideoPlayer();
+
+  if ($('#sticky-nav').length > 0) {
+    initStickyNav();
+  }
   
   if ($('#frame').length) {
     initMessages();
@@ -889,7 +893,24 @@ $(document).on('turbolinks:load', function() {
 			$('.player').YTPlayer();
 
 		}
-		
-
 	}
+
+/* --------------------------------------------------------
+  Sticky Nav
+--------------------------------------------------------- */
+
+  function initStickyNav() {
+    var $stickyNav = $('#sticky-nav');
+    var sticky = $stickyNav.offset().top;
+
+    $(window).scroll(function() {
+      console.log('scroll: ' + $(this).scrollTop());
+      if ($(this).scrollTop() >= sticky) {
+        $stickyNav.addClass("sticky")
+        console.log('ssss');
+      } else {
+        $stickyNav.removeClass("sticky");
+      }
+    });
+  }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180920100247) do
+ActiveRecord::Schema.define(version: 20181108024947) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -278,6 +278,16 @@ ActiveRecord::Schema.define(version: 20180920100247) do
     t.text "details", default: ""
     t.datetime "expired_on"
     t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
+  create_table "reserved_reports", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_reserved_reports_on_report_id"
+    t.index ["user_id", "report_id"], name: "index_reserved_reports_on_user_id_and_report_id", unique: true
+    t.index ["user_id"], name: "index_reserved_reports_on_user_id"
   end
 
   create_table "topic_followings", force: :cascade do |t|

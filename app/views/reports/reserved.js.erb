@@ -1,0 +1,2 @@
+$('.tab-content .page-content .boxedtitle h2').text('Reserved Reports');
+$('.tab-content .tab-pane .tab-list-content').html("<%= escape_javascript render(:partial => '/reports/reports_table', local:  { :@reports => @reports } ) %>");

@@ -1,0 +1,13 @@
+<div id='sticky-nav'>
+  <div class='container'>
+	  <div class='sticky-nav-items'>
+      <%= link_to 'Home', feed_path, class: ('is-active' if current_page?(feed_path) or (signed_in? and current_page?(root_path))) %>
+      <%= link_to 'Browse Problems', problems_path, class: ('is-active' if current_page?(problems_path)) %>
+      <% Topic.feed.limit(6).each do |topic| %>
+        <%= link_to topic.name, topic_path(topic.id) %>
+      <% end %>
+      <%= link_to 'More', topics_path, class: ('is-active' if current_page?(topics_path)) %>
+		</div>
+  </div>
+</div>
+

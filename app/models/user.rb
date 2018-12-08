@@ -10,6 +10,8 @@ class User < ApplicationRecord
   acts_as_messageable
   is_impressionable 
 
+  has_many :reserved_reports
+  has_many :saved_reports, through: :reserved_reports, source: :report, dependent: :destroy
   has_many :versions, :dependent => :destroy
   has_many :notifications, foreign_key: :recipient_id, :dependent => :destroy
   has_many :activities, :dependent => :destroy
@@ -133,6 +135,10 @@ class User < ApplicationRecord
     return "<strong style='margin-right: 5px;'>Member Since: </strong> #{created_at.strftime('%B %d, %Y')}"
   end
 
+  def name_or_username
+    name.nil? ? username : name
+  end
+
   def self.feed(options = {user: ""})
     options[:filter] = "all" if options[:filter].nil?
     options[:sorter] = "reputation" if options[:sorter].nil?
@@ -155,6 +161,19 @@ class User < ApplicationRecord
 
   def has_review_priviliges?
     reputation >= 10000
+  end
+
+  def reserve(report)
+    ReservedReport.create(report: report, user: self)
+  end
+
+  def unreserve(report)
+    report = ReservedReport.find_by(report: report, user: self)
+    report.destroy if not report.nil?
+  end
+
+  def reserved?(report)
+    ReservedReport.exists?(report: report, user: self)
   end
 
   

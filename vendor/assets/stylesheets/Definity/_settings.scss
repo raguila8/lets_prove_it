@@ -5,16 +5,17 @@
 
 
 /* ---- Colors ---- */
+$gray-dark: rgba(0,0,0,0.68);
 $danger: #d9534f;
-$dark: #111;
+$dark: rgba(0,0,0,0.84);
 $gray: #777;
-$gray-light: #999;
-$light: #ececec;
+$gray-light: rgba(0,0,0,0.54);
+$light: rgba(255,255,255,0.97);
 $lighter: #f8f8f8;
 $light-bg: #f4f4f4;
 $white: #fff;
 $error-red: #e80000;
-$success-green: #0F9D58;
+$success-green: #1C9963;
 $highlight-text-bg: #17DA5B;
 
 
@@ -85,7 +86,7 @@ $nav-links-font-size: .8em;
 $nav-links-font-weight: 400;
 $nav-links-letter-spacing: 2px;
 $nav-links-color: $gray-light;
-$nav-links-color-hover: $dark;
+$nav-links-color-hover: $gray-dark;
 $nav-link-active-color: $dark;
 // Dropdown
 $dropdown-padding: 20px 0 10px 0;

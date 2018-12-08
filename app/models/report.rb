@@ -16,6 +16,7 @@ class Report < ApplicationRecord
   validates :reason, length: { maximum: 500 }
 
   scope :active, -> { where(expired_on: nil) }
+  scope :pending, -> { where(status: 'pending') }
 
   def add_flags(flag_ids)
     flag_ids.each do |flag_id|
