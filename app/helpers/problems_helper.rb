@@ -6,4 +6,9 @@ module ProblemsHelper
     end
     return html.html_safe
   end
+
+  def image_preview(problem)
+    preview_image = problem.images.first
+    return "background-image: url('#{preview_image.image_data.url}');" if !preview_image.nil?
+  end
 end

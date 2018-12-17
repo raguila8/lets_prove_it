@@ -278,7 +278,7 @@ class Problem < ApplicationRecord
       n += 1
       problems = Problem.where('created_at >= ?', n.week.ago)
     end
-    problems.where(cached_votes_score: Problem.select('MAX(cached_votes_score)')).first
+    problems.where(cached_votes_score: problems.maximum('cached_votes_score')).first
   end
 
   def self.featured

@@ -399,19 +399,24 @@ module ApplicationHelper
     end
   end
  
-  def problems_widget_items
-    html = ""
+  def popular_problems 
     problems = Problem.where('created_at >= ?', 1.week.ago).limit(5)
     i = 2
-    while problems.count == 0 do
+    while problems.count < 4 do
       problems = Problem.where('created_at >= ?', i.week.ago).limit(5)
       i += 1
     end
-
+    return problems
+=begin
     problems.each_with_index do |problem, index|
-      html += "<div class='' style='padding: 10px; #{'border-top: 1px solid #ddd;' if index != 0 }'><a href='/problems/#{problem.id}'><h6 class='main-link' style='font-weight: 600;'>#{problem.title}</h6></a><span style='color: #777; font-size: .8em; line-height: 1.428;'>#{problem.created_at.strftime('%B %d, %Y')}</span></div>"
+      html += "<li class='' style='padding: 10px; #{'border-top: 1px solid #ddd;' if index != 0 }'><a href='/problems/#{problem.id}'><h6 class='main-link' style='font-weight: 600;'>#{problem.title}</h6></a><span style='color: #777; font-size: .8em; line-height: 1.428;'>#{problem.created_at.strftime('%B %d, %Y')}</span></li>"
     end
     return html.html_safe
+=end
+  end
+
+  def followed_problems
+    current_user.problems_following.limit(5)
   end
 
   def hot_topics_items

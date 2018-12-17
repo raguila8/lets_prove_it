@@ -1,15 +1,15 @@
-<!-- Popular Problems- Widget -->
+<!-- Followed Problems- Widget -->
 <div class='row'>
-  <div class="col-md-12 popularProblemsWidget mb-20">
-	  <div class='niceSidebarWidgetHeader' style='background-color: #dfe1bf !important;'>
+  <div class="col-md-12 followedProblemsWidget mb-20">
+	  <div class='niceSidebarWidgetHeader'>
       <h2 class='niceSidebarWidgetTitle headerFont darkType'>
-			  Popular Problems
+			  Followed Problems
 			</h2>
-			<img src='/assets/head_gears.png' class='niceSidebarWidgetImage'>
+			<img src='/assets/book_reader.png' class='niceSidebarWidgetImage'>
 		</div>
 
 	  <ul class="widgetItems pa-32 lightGreyBack">
-		  <% popular_problems.each_with_index do |problem, index| %>
+		  <% followed_problems.each_with_index do |problem, index| %>
         <li class='mb-24 displayFlex'>
           <div class='widgetItemNumber'>
             <%= sprintf('%02d', index + 1) %>
@@ -40,4 +40,3 @@
 	  </ul>
   </div><!-- / .recent-posts-widget -->
 </div>
-

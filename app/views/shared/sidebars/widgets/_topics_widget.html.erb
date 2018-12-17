@@ -1,8 +1,10 @@
 <!-- Tags - Widget -->
-<div class="col-lg-12 ws-s tags-widget primary-card mb-20">
-	<h5 class="header-widget font-weight-600">Topics Following <span class="grey-link float-right glyphicon glyphicon-pencil" id= "edit-followed-topics" title="Edit Topics Following"></span></h5>
+<div class="col-md-12 tags-widget mb-20">
+  <div class='simpleSidebarWidgetHeader'>
+    <h3 class="niceSidebarWidgetTitle headerFont darkType">Topics Following <span class="grey-link float-right glyphicon glyphicon-pencil" id= "edit-followed-topics" title="Edit Topics Following"></span></h5>
+  </div>
   <div class="tag-list-container">
-	  <ul class="tag-list">
+	  <ul class="tag-list pa-32" style='padding-left: 0;'>
       <% current_user.topics_following.each do |topic| %>
 		    <li><a href="/topics/<%=topic.id%>" data-id="<%=topic.id%>" class="arial-ff" style="padding: .4em .5em; line-height: 1; text-transform: lowercase; font-size: 12px;" ><%=topic.name%></a></li>
       <% end %>

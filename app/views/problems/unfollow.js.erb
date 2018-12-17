@@ -1,4 +1,5 @@
 $('#problem-follow-<%=@problem.id%>').html("<a href='<%=problem_follow_path(@problem.id)%>' data-remote='true' data-method='post'><button class='" + $('#problem-follow-<%=@problem.id%>').data("class") + "'>Follow</button></a>");
+$('#problem-follow-<%=@problem.id%>').data('class', 'btn btn-xs btn-success');
 
 $('#problem-<%=@problem.id%>-followers').text('<%= pluralize(@problem.followers.count, "Follower") %>');
 

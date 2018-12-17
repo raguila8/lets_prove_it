@@ -1,0 +1,302 @@
+<%= render "shared/not_signed_in_action_modal" %>
+<%= render 'shared/no_privilige_modal' if signed_in? %>
+<%= render 'problems/edit_topics' if signed_in? %>
+<%= render 'reports/report_modal' if signed_in? %>
+<%= render 'shared/preview' %>
+<%= render partial: 'shared/user_list_modal', locals: { users: @problem.followers } %>
+
+<!-- ========== Single Blog Post ========== -->
+
+<div id="problem-page" class="pt-100 section container blog-classic">
+  <div class="row">
+    <div class="col-lg-8 mb-sm-160 primary-card">
+      <div class="problem-section">
+      <div class="problem-container pb-20 mb-30" id="problem-<%=@problem.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if @problem.comments.count > 0 %>">
+        <!-- Blog Post -->
+        <div class="col-md-12 blog-post-single mb-40 wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+          
+          <!-- Title -->
+          <div class="vote-container vote-container-post" style="padding-top: 0px; padding-bottom: 2px; margin-top: 0;">
+            <%= link_to vote_path(:vote_type => "like", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
+              <%= upvote_span @problem %>
+            <% end %>
+
+            <%= vote_count_span @problem %>
+                        
+            <%= link_to vote_path(:vote_type => "dislike", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
+              <%= downvote_span @problem %>
+            <% end %>
+				  </div>
+
+          <h1 class="post-title font-weight-600" style="padding-top: 12px; margin-top: 0px;"><%= @problem.title %></h1>
+          
+
+          <div class="mb-20 pt-20 mt-30 blog-post-content" style="border-top: 1px solid #ddd;">
+            <%= sanitize @problem.content %>
+          </div>
+
+          <div class="post-meta" id="problem-tags-list">
+            <ul class="tag-list mt-20">
+              <% @problem.topics.active.each do |topic| %>
+                <li>
+                  <%= link_to topic.name, topic_path(topic.id) %>
+                </li>
+              <% end %>
+                <a href="#" id="edit-topics" class="ml-10" title="Edit Topics" data-toggle="modal" data-target="#editTopicsModal"><span class="glyphicon glyphicon-pencil"></span></a>
+            </ul> <!-- / .tag-list -->
+
+          </div><!-- / .meta -->
+
+
+         
+        </div><!-- / .blog-post-single -->
+        
+        <div class="row mb-20">
+          <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.created_at, action: "Asked", user: @problem.user } %>
+          <%= render partial: "problems/problem_author_item", locals: { problem: @problem, action_date: @problem.versions.first.created_at, action: "Edited", user: @problem.versions.first.user} if @problem.versions.count > 1 and @problem.versions.first.user != @problem.user %>
+        </div>
+
+        <%= add_comment_button @problem %>
+        <%#= link_to "Add comment", new_comment_path(commented_on_type: "Problem", commented_on_id: @problem.id), remote: true, class: "comment-replay-btn pull-left btn btn-xs" %>
+        <% if signed_in? %>
+          <%= report_button(@problem) %>
+
+          <% if current_user.reputation > 2000 or @problem.user == current_user%>
+            <%= link_to edit_problem_path(@problem.id),  class: "btn-text btn-xs small-padding float-right" do %>
+              <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+            <% end %>
+          <% end %>
+        <% end %>
+          <div class="clearfix"></div>
+        </div><!-- / .problem-container -->
+        </div>
+        <% @problem.comments.active.order(created_at: :desc).each_with_index do |comment, index| %>
+          
+          <!-- Replay Comment -->
+          <div class="bp-comment-reply" id="comment-<%=comment.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if index < @problem.comments.count - 1 %>">
+            <div class="post-meta pl-15 mt-0">
+              <div class="post-date float-left">
+                <i class="fa fa-calendar-o"></i>
+                <span><%=comment.created_at.strftime('%B %d, %Y')%></span>
+              </div>
+
+              <div class="vote-container vote-container-post float-right mt-0">
+                <%= link_to vote_path(:vote_type => "like", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+                  <%= upvote_span comment %>
+                <% end %>
+                                        
+                <%= vote_count_span comment %>
+
+                <%= link_to vote_path(:vote_type => "dislike", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+                  <%= downvote_span comment %>                      
+                <% end %>
+				      </div>
+
+              <div class="clearfix"></div> 
+            </div><!-- / .meta -->
+            <div class="author-container">
+              <div class="author-img">
+                <a href="<%= user_path(comment.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+              </div>
+              <h6><a href="<%= user_path(comment.user) %>"><%= comment.user.username %></a></h6>
+						  <span class="label" style="font-weight: 600; background: <%= reputation_color comment.user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%= comment.user.reputation%></span>
+            </div>
+
+            <br>
+                  
+            <div class="comment-content" id="comment-content-<%=comment.id%>">
+              <%= sanitize comment.content %>
+            </div>
+            <br>
+
+            <% if signed_in? and comment.user == current_user %>
+              <%= link_to comment_path(comment.id), method: :delete, class: "btn-text btn-small btn-text-danger float-right", data: { confirm: "Are you sure you want to delete your comment?" } do %>
+                <span class="comment-remove"><i class="mr-5 glyphicon glyphicon-remove"></i>Delete</span>
+              <% end %>
+
+              <%= link_to edit_comment_path(comment.id),  remote: true, class: "btn-text btn-small float-right" do %>
+                <span class="comment-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+              <% end %>
+            <% end %>
+            <%= report_button comment %>
+
+            <div class="clearfix"></div>
+          </div><!-- / .bp-comment-reply -->
+        <% end %>
+
+
+        <!-- ========== Comments ========== -->
+        <div class="row">
+          <div class="col-md-12 blog-post-comments proofs-section pa-30">
+            <% if @problem.proofs.count > 0 %>
+              <h3 class="blog-section-title font-weight-600">Proofs <span>(<%= @problem.proofs.count %>)</span></h3>
+            <% end %>
+            <% @problem.proofs.active.each_with_index do |proof, index| %>
+              <div class="mb-20" style="<%= 'border-bottom: 1px solid #ddd;' if @problem.proofs.count - 1 != index %>">
+              <!-- Comment 1 -->
+              <div class="bp-comment" id="proof-<%=proof.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if proof.comments.count > 0 %>">
+                <div class="post-meta pl-15 mt-0">
+                  <div class="post-date float-left">
+                    <%= link_to log_proof_path(proof.id) do %>
+                      <i class="fa fa-calendar-o"></i>
+                      <span><%=proof.created_at.strftime('%B %d, %Y')%></span>
+                    <% end %>
+                  </div>
+
+                  <div class="vote-container vote-container-post float-right">
+                    <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+                      <%= upvote_span proof %>
+                    <% end %>
+
+                    <%= vote_count_span proof %>
+                        
+                    <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+                      <%= downvote_span proof %>
+                    <% end %>
+                  </div>
+                  <div class="clearfix"></div> 
+                </div><!-- / .meta -->
+ 
+                <div class="author-container">
+                  <div class="author-img">
+                    <a href="<%= user_path(proof.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+                  </div>
+                  <h6><a href="<%= user_path(proof.user) %>"><%= proof.user.username %></a></h6>
+						      <span class="label" style="font-weight: 600; background: <%= reputation_color proof.user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%= proof.user.reputation%></span>
+                </div>
+
+                <br>
+                
+                <div class="comment-content" id= "proof-content-<%=proof.id%>">
+                  <%= sanitize proof.content %>
+                </div>
+
+                <div>
+                  <%= add_comment_button proof %>
+                  <%#= link_to "Add comment", new_comment_path(commented_on_type: "Proof", commented_on_id: proof.id), remote: true, class: "comment-replay-btn mb-10 pull-left btn btn-xs" %>
+                </div>
+
+                <div class="proof-actions">
+                  <% if signed_in? and (proof.user == current_user or current_user.reputation >= 10000) %>
+                    <%= link_to proof_path(proof.id), method: :delete, class: "btn-text btn-text-danger btn-xs small-padding", data: { confirm: "Are you sure you want to delete your proof?" } do %>
+                      <span class="proof-remove"><i class="mr-5 glyphicon glyphicon-remove"></i>Delete</span>
+                    <% end %>
+
+                    <%= link_to edit_proof_path(proof.id), class: "btn-text btn-xs small-padding" do %>
+                      <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+                    <% end %>
+                  <% end %>
+
+                  <%= report_button proof%>
+                </div>
+                <div class="clearfix"></div>
+              </div><!-- / .bp-comment -->
+              
+              <% proof.comments.active.order(created_at: :desc).each_with_index do |comment, index| %>
+          
+                <!-- Replay Comment -->
+                <div class="bp-comment-reply" id="comment-<%=comment.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if index < proof.comments.count - 1 %>">
+                  <div class="post-meta pl-15 mt-0">
+                    <div class="post-date float-left">
+                      <i class="fa fa-calendar-o"></i>
+                      <span><%=comment.created_at.strftime('%B %d, %Y')%></span>
+                    </div>
+
+                    <div class="vote-container vote-container-post float-right mt-0">
+                      <%= link_to vote_path(:vote_type => "like", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+                        <%= upvote_span comment %>
+                      <% end %>
+                                        
+                      <%= vote_count_span comment %>
+
+                      <%= link_to vote_path(:vote_type => "dislike", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+                        <%= downvote_span comment %>                      
+                      <% end %>
+				            </div>
+
+                    <div class="clearfix"></div> 
+                  </div><!-- / .meta -->
+                  <div class="author-container">
+                    <div class="author-img">
+                      <a href="<%= user_path(comment.user) %>"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+                    </div>
+                    <h6><a href="<%= user_path(comment.user) %>"><%= comment.user.username %></a></h6>
+						        <span class="label" style="font-weight: 600; background: <%= reputation_color comment.user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%= comment.user.reputation%></span>
+                  </div>
+
+                  <br>
+                  
+                  <div class="comment-content" id="comment-content-<%=comment.id%>">
+                    <%= sanitize comment.content %>
+                  </div>
+                  <br>
+                  <% if signed_in? and comment.user == current_user %>
+                    <%= link_to comment_path(comment.id), method: :delete, class: "btn-text btn-small btn-text-danger float-right", data: { confirm: "Are you sure you want to delete your comment?" } do %>
+                      <span class="comment-remove"><i class="mr-5 glyphicon glyphicon-remove"></i>Delete</span>
+                    <% end %>
+
+                    <%= link_to edit_comment_path(comment.id),  remote: true, class: "btn-text btn-small float-right" do %>
+                      <span class="comment-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+                    <% end %>
+                  <% end %>
+
+                  <%= report_button comment %>
+
+
+                  <div class="clearfix"></div>
+                </div><!-- / .bp-comment-reply -->
+              <% end %>
+              </div>
+            <% end %>     
+
+            <% if signed_in? and Proof.find_by(user_id: current_user.id, problem_id: @problem.id).nil? %>
+ 
+              <!-- Leave a comment -->
+              <div class="comment-form mt-0">
+                <% if @problem.proofs.count == 0 %>
+                  <h4 class="blog-section-title font-weight-600">Be the first to prove</h4>
+                <% else %>
+                  <h4 class="blog-section-title font-weight-600">Leave a proof</h4>
+                <% end %>
+
+                <%= form_with(model: Proof.new, local: true, id: "proof-form", class: "new-model-form") do |form| %>
+                  <%= form.hidden_field :problem_id, value: "#{@problem.id}", id: "problem-id" %>
+                  <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
+
+                  <%= render 'shared/error_messages' %>
+
+                  <div class="form-group">
+                    <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
+                    <trix-editor input="proof_content" class="form-control"></trix-editor>
+                    <span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <!-- Action Buttons --> 
+                  <input type="submit" value="Submit Proof" class="btn mb-5 btn-mult pull-right">
+                  <span class="btn-ghost pull-right mb-5 btn-mult mr-5 preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
+
+                <% end %>
+              </div><!-- / .comment-form -->
+            <% end %>
+
+          </div><!-- / .blog-post-comments -->
+        </div><!-- / .row --> 
+    </div><!-- / .col-md-8 -->
+
+
+
+    <!-- ========== Sidebar ========== -->
+    <%= render "/shared/sidebars/problem_sidebar" %>
+    
+
+  </div><!-- / .row -->
+</div><!-- / .container -->
+<%= render partial: 'shared/user_list_modal', locals: { users: @problem.followers } %>
+
+
+<script>
+  <% if @proof.errors.any? %>
+    document.getElementById('proof-form').scrollIntoView();
+  <% end %>
+</script>

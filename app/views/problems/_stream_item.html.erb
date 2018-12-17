@@ -1,0 +1,42 @@
+<div class='streamItem'>
+  <div class='row'>
+		<article class='col-md-12 mb-48'>
+		  <div class='row displayFlex'>
+				<div class='col-xs-8 textAlignLeft mr-24 pr-0'>
+					<a class='streamCaption'>Algebra</a>
+					<a class='width100pct overflowHidden' href='<%=problem_path(problem.id)%>'>
+						<h3 class='streamTitle'><%= problem.title %></h3>
+					</a>
+					<a href='<%=problem_path(problem.id)%>'>
+						<div class='streamSummary'>
+							This can be a subtitle or first words of the problem
+						</div>
+					</a>
+					<div class='mt-12 textAlignLeft'>
+						<div class='noWrapWithEllipsis verticalAlignMiddle floatLeft'>
+							<div class='noWrapWithEllipsis'>
+								<%= link_to problem.user.username, user_path(problem.user.id),
+															class: 'captionSmall captionStrong underlineLink' %>
+							</div>
+
+							<div class='noWrapWithEllipsis captionSmall'>
+								<span class='time'><%= time_ago_in_words(problem.created_at) %> ago </span>
+								<span class='dot-sep'>&middot;</span>
+								<span class='views'><%=pluralize(problem.impressionist_count, 'view')%></span>
+							</div>
+						</div>
+						<% if signed_in? %>
+							<div id='problem-follow-<%=problem.id%>' class='floatRight' data-class='btn btn-xs <%= 'btn-success' if !current_user.following? problem %>'>
+								<%= follow_link problem, class: "btn btn-xs #{'btn-success' if current_user.following? problem}" %>
+							</div>
+						<% end %>
+					</div>
+
+				</div>
+				<div class='col-xs-3 pl-0 streamImageLinkContainer'>
+					<a href='<%=problem_path(problem.id)%>' class='streamImageLink sizeFull displayBlock' style="<%=image_preview(problem)%>"></a>
+				</div>
+			</div>
+		</article>
+	</div>
+</div>

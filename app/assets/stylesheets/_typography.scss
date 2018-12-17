@@ -13,6 +13,31 @@
   font-family: Arial,"Helvetica Neue",Helvetica,sans-serif !important;
 }
 
+.headerFont {
+  font-family: "Montserrat", "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+}
+
+.bodyFont {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+}
+
+.darkType {
+  color: rgba(0,0,0,.84)!important;
+  fill: rgba(0,0,0,.84)!important;
+}
+
+.lightType {
+  color: rgba(0,0,0,.54) !important;
+}
+
+.underlineLink {
+  &:hover {
+    text-decoration: underline !important;
+    color: inherit;
+  }
+}
+
+
 .grey-link {
   color: #777;
   cursor: pointer;
@@ -30,7 +55,7 @@ code {
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Montserrat", "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
   margin: 0 0 10px;
   text-transform: none;
 }
@@ -50,6 +75,20 @@ h3 {
   font-size: 1.8em;
 }
 
+.btn-xs {
+  padding: 8px 18px;
+  font-size: 11px;
+  line-height: 1em;
+}
+
+.btn-success {
+  color: rgba(255, 255, 255, 0.97);
+  background: #1C9963;
+
+  &:hover {
+    background: rgba(0,0,0,0.84);
+  }
+}
 
 .author-link {
   color: rgba(0,0,0,.84);
@@ -84,7 +123,7 @@ h3 {
 .dot-sep {
   padding-right: .3em;
   padding-left: .3em;
-  font-size: 15px;
+  font-size: inherit;
 }
 
 .header-h1 {

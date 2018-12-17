@@ -2,62 +2,57 @@
 <%= render 'layouts/sticky_nav' %>
 <%= render 'layouts/featured_header' %>
 
-<div id="blog" class="section container-fluid blog-classic">
+<div class="container blog-classic">
   <div class="row">
-    <!-- ========== Blog Posts ========== -->
+    <div class='col-lg-offset-1'>
+      <button class="btn-text font-weight-600" id='filter-btn' style='margin-left: -29px;'><span class="glyphicon glyphicon-filter"></span> Filter</button>
+    </div>
+  </div>
 
-    <div class="col-lg-9">
-
-      <div class="mh-auto ft-tabs">
-        <div class="row">
-            
-          <%= render 'shared/main_site_tabs' %>
-
-          <!-- Tabs Content -->
-          <div class="col-lg-10 no-gap tab-content">
-
-            <!-- Tab Content 1 -->
-            <div class="tab-pane fade active in">
-              <div class="col-md-12 tab-content-text page-content pt-0">
-                <div class="tab-list-content">
-                  <div class="row">
-                    <button class="btn-text font-weight-600" id='filter-btn'><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                  </div>
-                  <div class="row" id="item-filters" style="display: none;" data-filter="all" data-sorter="updated_at">
-                    <div class="col-md-12">
-                      <div class="col-md-6">
-                        <p>Filter:</p>
-                        <ul id="pfolio-filters" class="portfolio-filters filter">
-                          <li class="active"><a href="#" title="All problems" data-filter="all">All</a></li>
-                          <li class=""><a href="#" title="Problems with proofs" data-filter="proved">Proved</a></li>
-                          <li class=""><a href="#" title="Problems that are not proved" data-filter="not_proved">Not Proved</a></li>
-                        </ul>
-                      </div>
-                      <div class="col-md-6">
-                        <p>Sort:</p>
-                        <ul id="pfolio-filters" class="portfolio-filters sorter">
-                          <li class="active"><a href="#" title="Recent problems" data-sorter="created_at">New</a></li>
-                          <li class=""><a href="#" title="Most upvoted problems" data-sorter="cached_votes_score">Top</a></li>
-                          <li class=""><a href="#" title="Problems with most proofs" data-sorter="cached_proofs_count">Hot</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mt-20" id="problem-feed">
-                    <% @problems.each_with_index do |problem, index| %>
-                      <%= render(:partial => 'shared/items/problem_item', locals: { problem: problem }) %>
-                      <% if index % 2 == 1 or index == @problems.count - 1 %>
-                        <div class="clearfix"></div>
-                      <% end %>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div><!-- / #tab1 -->
-          </div><!-- / .col-lg-10 -->
-        </div><!-- / .row -->
+  <div class="row" id="item-filters" style="display: none;" data-filter="all" data-sorter="updated_at">
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <p>Filter:</p>
+        <ul id="pfolio-filters" class="portfolio-filters filter">
+          <li class="active"><a href="#" title="All problems" data-filter="all">All</a></li>
+          <li class=""><a href="#" title="Problems with proofs" data-filter="proved">Proved</a></li>
+          <li class=""><a href="#" title="Problems that are not proved" data-filter="not_proved">Not Proved</a></li>
+        </ul>
       </div>
-    </div><!-- / .col-md-9 -->
-    <%= render 'shared/sidebars/home_sidebar' %>
+      <div class="col-md-6">
+        <p>Sort:</p>
+        <ul id="pfolio-filters" class="portfolio-filters sorter">
+          <li class="active"><a href="#" title="Recent problems" data-sorter="created_at">New</a></li>
+          <li class=""><a href="#" title="Most upvoted problems" data-sorter="cached_votes_score">Top</a></li>
+          <li class=""><a href="#" title="Problems with most proofs" data-sorter="cached_proofs_count">Hot</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-offset-1 col-lg-7 col-md-8">
+      <div class="row" style='padding: 16px 15px;'>
+        <div id="problem-feed">
+          <% @problems.each_with_index do |problem, index| %>
+            <%= render(:partial => 'problems/stream_item', locals: { problem: problem }) %>
+            <% if index % 2 == 1 or index == @problems.count - 1 %>
+              <div class="clearfix"></div>
+            <% end %>
+          <% end %>
+        </div>
+      </div><!-- / .row -->
+    </div><!-- / .col-lg-8 -->
+
+    <aside class='col-md-4 sidebar' style='padding: 16px 15px;'>
+		  <%= render 'shared/sidebars/widgets/popular_problems_widget' %>
+      <% if signed_in? and current_user.topics_following.count > 0 %>
+        <%= render 'shared/sidebars/widgets/topics_widget' %>
+      <% end %>
+      <% if current_user.problems_following.count > 0 %>
+        <%= render '/shared/sidebars/widgets/followed_problems_widget' %>
+      <% end %>
+      <%= render 'shared/sidebars/widgets/footer' %>
+    </aside>
   </div>
 </div>

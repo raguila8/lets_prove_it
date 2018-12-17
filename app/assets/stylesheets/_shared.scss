@@ -3,6 +3,10 @@ body {
   color: #222;
 }
 
+ul li {
+  list-style: none !important;
+}
+
 .btn-xs {
   font-size: 0.60em;
 }
@@ -17,6 +21,71 @@ body {
 
 .show {
   display: block;
+}
+
+.textAlignLeft {
+  text-align: left !important;
+}
+
+.textAlignRight {
+  text-align: right !important;
+}
+
+.verticalAlignMiddle {
+  vertical-align: middle;
+}
+
+.width100pct {
+  width: 100% !important;
+}
+
+.floatRight {
+  float: right !important;
+}
+
+.floatLeft {
+  float: left !important;
+}
+
+.overflowHidden {
+  overflow: hidden !important;
+}
+
+.displayFlex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.lightGreyBack {
+  background: #f1f1f1 !important;
+}
+
+.displayBlock {
+  display: block !important;
+}
+
+.minHeight100 {
+  min-height: 100px !important;
+}
+
+.titleLink {
+  width: 100%;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+.sizeFull {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.noWrapWithEllipsis {
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
 }
 
 
