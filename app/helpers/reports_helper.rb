@@ -13,7 +13,9 @@ module ReportsHelper
 
   def report_button(model, options={})
     if signed_in?
-      "<a class='btn-text btn-xs float-right small-padding reportModalToggle' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}'><span class='proof-edit'><i class='mr-5 glyphicon glyphicon-edit'></i>Report</span></a>".html_safe
+      html = "<a class='btn-text btn-xs float-right small-padding reportModalToggle' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}'><span class='proof-edit'><i class='mr-5 glyphicon glyphicon-edit'></i>Report</span></a>"
+      html = "<a class='reportModalToggle greyLink headerFont' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}'><i class='fa fa-flag-o mr-5'></i>Report</a>"
+      html.html_safe
     end
   end
 

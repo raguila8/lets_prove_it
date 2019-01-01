@@ -1,7 +1,7 @@
 class ProblemsController < ApplicationController
   impressionist actions: [:show]
   before_action :active_problem, :set_problem, only: [:show, :edit, :update, :destroy, :logs,
-                                     :follow, :unfollow, :followers]
+                                     :follow, :unfollow, :followers, :comments]
   before_action :logged_in_user, only: [:edit, :update, :feed, :destroy, :follow, :unfollow]
   before_action :correct_reputation, only: [:edit, :update]
 
@@ -150,6 +150,10 @@ class ProblemsController < ApplicationController
     respond_to do |format|
       format.js {}
     end  
+  end
+
+  def comments
+    
   end
 
   private

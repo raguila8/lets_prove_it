@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181108024947) do
+ActiveRecord::Schema.define(version: 20181218022520) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -224,6 +224,8 @@ ActiveRecord::Schema.define(version: 20181108024947) do
     t.datetime "deleted_on"
     t.string "deleted_by"
     t.text "deleted_for"
+    t.string "image"
+    t.string "subtitle"
     t.index ["user_id"], name: "index_problems_on_user_id"
   end
 

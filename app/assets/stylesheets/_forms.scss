@@ -1,3 +1,19 @@
+.txtstuff {
+    resize: none; /* remove this if you want the user to be able to resize it in modern browsers */
+    overflow: hidden;
+}
+
+.hiddendiv {
+    display: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
+}
+
+.lbr {
+  line-height: 3px;
+}
+
 .login-2 .form-content {
   border-bottom: none !important;
 }
@@ -25,7 +41,7 @@
 }
 
 textarea.form-control {
-  min-height: 10em;
+  min-height: 120px;
 }
 
 /* trix textarea */
@@ -35,4 +51,12 @@ trix-editor {
 
 .bootstrap-tagsinput .label-info {
   background-color: transparent;
+}
+
+.niceTextarea {
+  box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.09);
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
 }

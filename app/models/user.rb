@@ -57,6 +57,11 @@ class User < ApplicationRecord
 
   scope :active, -> { where(deleted_on: nil) }
 
+  def avatar_width
+    image = MiniMagick::Image.open(avatar.path)
+    image[:width]
+  end
+
   def following?(model)
     if model.class.name == "Problem"
       self.problems_following.include?(model)

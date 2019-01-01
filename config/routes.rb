@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :proofs do
     member do
       get :log
+      get :comments
     end
   end
 
@@ -92,6 +93,7 @@ Rails.application.routes.draw do
   resources :problems do
     member do
       get :followers
+      get :comments
     end
   end
   get "/feed", to: "problems#feed", as: :feed

@@ -1,4 +1,5 @@
 class Problem < ApplicationRecord
+  mount_uploader :image, ProblemImageUploader
   before_destroy :update_activities
 
   include Exceptions
@@ -33,6 +34,16 @@ class Problem < ApplicationRecord
                     length: { maximum: 255, minimum: 3 }
 
   scope :active, -> { where(deleted_on: nil) }
+
+  def image_width
+    problem_image = MiniMagick::Image.open(image.path)
+    problem_image[:width]
+  end
+
+  def image_height
+    problem_image = MiniMagick::Image.open(image.path)
+    problem_image[:height]
+  end
  
   def save_new(tagsArray, images, user)
     begin

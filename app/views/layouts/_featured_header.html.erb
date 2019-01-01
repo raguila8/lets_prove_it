@@ -1,33 +1,38 @@
-<header id='featured-header'>
-  <div class="featured-cover">
-    <div class="featured-left">
-		  <div class='featured-left-container'>
-			  <div class='featured-caption'>
-          <p>Featured Problem</p>
+<header id='fancyHeader'>
+  <div class="fancyHeaderCover">
+    <div class="fancyHeaderLeft">
+		  <div class='fancyHeaderLeftContainer'>
+			  <div class='fancyCaption headerFont'>
+          <p class='mb-5'>Featured Problem</p>
 				</div>
 			  <%= link_to problems_path(Problem.featured.id), class: 'header-link-1' do %>
           <h1 class='header-h1'>
 				    <%= Problem.featured.title %>
 			    </h1>
 				<% end %>
-        <div class="author-container" style='margin-top: 20px;'>
+
+        <div class="author-container" style='margin-top: 20px; margn-bottom: 20px;'>
 				  <div class="author-img">
-				    <a href="/users/6"><img width="60" height="60" src="https://2code.info/demo/html/ask-me/images/demo/admin.jpeg" alt=""></a>
+				    <a href="<%=user_path(Problem.featured.user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(Problem.featured.user)%>" alt="Go to the profile of <%=Problem.featured.user.name_or_username%>"></a>
 				  </div>
-					<a class='author-link' href="/users/6">shemar</a>
-					<div class='author-caption'>
-            <span class="time no-wrap"><%= time_ago_in_words(Problem.featured.created_at) %> ago</span>
-						<span class='dot-sep'>&middot;</span>
-            <span class='views no-wrap'><%=pluralize(Problem.featured.impressionist_count, "view")%></span>
-					</div>
+
+
+          <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+            <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(Problem.featured.user.id)%>"><%=Problem.featured.user.name_or_username%></a>
+            <div class="noWrapWithEllipsis captionSmall fontSize-15">
+              <span class="time no-wrap"><%= time_ago_in_words(Problem.featured.created_at) %> ago</span>
+              <span class="dot-sep">·</span>
+              <span class="views no-wrap"><%=pluralize(Problem.featured.cached_proofs_count, 'proof')%></span>
+            </div>
+          </div>
 				  <!--<span class="label" style="font-weight: 600; background: #373940;"><i class="mr-5 fa fa-trophy"></i>8</span>-->
 				</div>
 			</div>
     </div>
 
-    <div class="featured-right">
-    </div>
+    <div class="fancyHeaderRight"></div>
 	</div>
-	<div class="featured-divider"></div>
+
+	<div class="sectionDivider"></div>
 </header>
 

@@ -7,6 +7,11 @@ $(document).on('turbolinks:load', function() {
   initSelector();
   initAccordion();
   initVideoPlayer();
+  initDropdownLink();
+  
+  if ($('textarea').length > 0) {
+    initTextarea();
+  }
 
   if ($('#sticky-nav').length > 0) {
     initStickyNav();
@@ -911,6 +916,45 @@ $(document).on('turbolinks:load', function() {
       } else {
         $stickyNav.removeClass("sticky");
       }
+    });
+  }
+
+  function initDropdownLink() {
+    $('.dropdownLink').on('click', function() {
+      if ($(this).find('.fa-angle-down').length == 1) {
+        $(this).find('.fa-angle-down').removeClass('fa-angle-down').addClass('fa-angle-up');
+      } else {
+        $(this).find('.fa-angle-up').removeClass('fa-angle-up').addClass('fa-angle-down');
+      }
+
+      $(this).closest('.commentsButtonContainer').next('.commentSection').toggleClass('hidden');
+    });
+  }
+
+/* --------------------------------------------------------
+
+  Textarea
+  -------------------------------------------------------- */
+
+  function initTextarea() {
+    var txt = $('textarea'),
+              hiddenDiv = $(document.createElement('div')),
+              content = null;
+
+    txt.addClass('txtstuff');
+    hiddenDiv.addClass('hiddendiv common');
+
+    $('body').append(hiddenDiv);
+
+    txt.on('keyup', function () {
+
+      content = $(this).val();
+
+      content = content.replace(/\n/g, '<br>');
+      hiddenDiv.html(content + '<br class="lbr">');
+
+      $(this).css('height', hiddenDiv.height());
+
     });
   }
 

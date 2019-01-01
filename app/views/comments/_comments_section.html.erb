@@ -1,0 +1,19 @@
+<div class='commentsButtonContainer width100pct headerFont'>
+	<%= link_to '', class: 'greyLink headerFont dropdownLink', remote: true do %>
+		<%= comments_dropdown_span resource %>
+		<span class='fa fa-angle-down ml-2'></span>
+	<% end %>
+</div>
+
+<div class='commentSection hidden'>
+  <%= render partial: 'comments/comment_form', locals: { resource: resource } %>
+  
+  <div id='<%=resource.class.name.downcase%>-comments-<%=resource.id%>'>
+    <% if resource.comments.active.count > 0 %>
+      <% resource.comments.active.order(created_at: :desc).each_with_index do |comment, index| %>
+        <%= render partial: 'comments/comment_item', locals: { comment: comment, index: index } %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+

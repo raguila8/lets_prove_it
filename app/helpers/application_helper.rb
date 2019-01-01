@@ -29,7 +29,7 @@ module ApplicationHelper
       if %w(mathjax_cheatsheet contact).include? action_name
         render partial: "layouts/header2"
       end
-    elsif ("problems" == controller_name and (action_name == "index" or action_name == "feed")) or (controller_name == "topics" and action_name == "index") or current_page?(root_path)
+    elsif ("problems" == controller_name and (action_name == "index" or action_name == "feed" or action_name == "show")) or (controller_name == "topics" and action_name == "index") or current_page?(root_path)
       return
     elsif %w(users topics problems).include? controller_name and action_name == "index"
       render partial: "layouts/header2"

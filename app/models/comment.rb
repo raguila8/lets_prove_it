@@ -9,11 +9,12 @@ class Comment < ApplicationRecord
   has_many :reports, as: :reportable, :dependent => :destroy
   has_many :notifications, as: :notifiable, :dependent => :destroy
   has_many :activities, as: :acted_on, :dependent => :destroy
+  has_many :comments, as: :commented_on, :dependent => :destroy
 
   validates :content, presence: true, length: { maximum: 500, minimum: 3 }
   validate :user_has_privilige
 
-  validates :commented_on_type, presence: true, inclusion: { in: ["Proof", "Problem"] }
+  validates :commented_on_type, presence: true, inclusion: { in: ["Proof", "Problem", "Comment"] }
 
   scope :active, -> { where(deleted_on: nil) }
 

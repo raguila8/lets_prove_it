@@ -1,0 +1,36 @@
+<header id='fancyHeader'>
+  <div class='fancyHeaderCover'>
+    <div class='fancyHeaderLeft'>
+      <div class='fancyHeaderLeftContainer'>
+        <div class='fancyCaption headerFont'>
+          <p class='mb-5'>Algebra</p>
+        </div>
+        <%= link_to problems_path(@problem.id), class: 'header-link-1' do %>
+          <h1 class='header-h1'>
+				    <%= @problem.title %>
+			    </h1>
+				<% end %>
+
+        <div class="author-container" style="margin-top: 22px; margin-bottom: 22px;">
+          <div class="author-img">
+            <a href="<%=user_path(@problem.user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(@problem.user)%>" alt="Go to the profile of <%= @problem.user.name_or_username %>"></a>
+          </div>
+          <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+            <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(@problem.user.id)%>"><%=@problem.user.name_or_username%></a>
+            <div class="noWrapWithEllipsis captionSmall fontSize-15">
+              <span class="time no-wrap"><%= time_ago_in_words(@problem.created_at) %> ago</span>
+              <span class="dot-sep">·</span>
+              <span class="views no-wrap"><%=pluralize(@problem.cached_proofs_count, 'proof')%></span>
+            </div>
+          </div>
+          <!--<span class="label" style="font-weight: 600; background: #373940;"><i class="mr-5 fa fa-trophy"></i>8</span>-->
+        </div>
+
+      </div>
+    </div>
+
+    <div class="fancyHeaderRight"></div>
+  </div>
+  <div class="sectionDivider"></div>
+
+</header>

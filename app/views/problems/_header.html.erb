@@ -1,0 +1,40 @@
+<header class='problemContainer'>
+  <h1 class='problemTitle headerFont'>
+    <%= @problem.title %>
+  </h1>
+  <% if !@problem.subtitle.nil? %>
+    <h2 class='problemSubtitle headerFont lightType'>
+      <%= @problem.subtitle %>
+    </h2>
+  <% end %>
+
+  <div class="author-container" style="margin-top: 22px; margin-bottom: 22px;">
+    <div class="author-img">
+      <a href="<%=user_path(@problem.user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(@problem.user)%>" alt="Go to the profile of <%= @problem.user.name_or_username %>"></a>
+    </div>
+    <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+      <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(@problem.user.id)%>"><%=@problem.user.name_or_username%></a>
+      <div class="noWrapWithEllipsis captionSmall fontSize-15">
+        <span class="time no-wrap"><%= time_ago_in_words(@problem.created_at) %> ago</span>
+        <span class="dot-sep">·</span>
+        <span class="views no-wrap"><%=pluralize(@problem.cached_proofs_count, 'proof')%></span>
+      </div>
+    </div>
+    <!--<span class="label" style="font-weight: 600; background: #373940;"><i class="mr-5 fa fa-trophy"></i>8</span>-->
+  </div>
+
+  <% if !@problem.image.file.nil? %>
+    <figure class='mt-42'>
+      <img src='<%=@problem.image.url%>' alt='Problem image preview' class='problemImagePreview'>
+    </figure>
+  <% end %>
+
+
+  <div class='mt-42 mb-42 darktype bodyFont bodyStyles'>
+    <%= sanitize @problem.content %>
+  </div>
+
+	<%= render partial: 'comments/comments_section', locals: { resource: @problem } %>
+</header>
+
+<div class='sectionDivider'></div>

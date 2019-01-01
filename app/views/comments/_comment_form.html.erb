@@ -1,31 +1,55 @@
-<%= form_with(model: @comment, remote: true, id: "comment-form", class: "mb-20") do |form| %>
-  <%= form.hidden_field :commented_on_type, value: @comment.commented_on_type %>
-  <%= form.hidden_field :commented_on_id, value: @comment.commented_on_id %>
+<%= form_for Comment.new, url: { controller: :comments, action: :create}, 
+               html: { remote: true, class: 'mb-20, mt-20', method: :create, 
+							         style: 'max-width: 650px;' } do |form| %>
+  <%= form.hidden_field :commented_on_type, value: resource.class.name %>
+  <%= form.hidden_field :commented_on_id, value: resource.id %>
 
-  <% if @comment.new_record? %>
-    <h2>New Comment</h2>
-  <% else %>
-    <h2>Edit Comment</h2>
-  <% end %>
 
   <div class="form-group">
-    <%= form.text_area :content, class: "mb-20 form-control", autofocus: true %>
+    <%= form.text_area :content, class: "mb-20 form-control niceTextarea", placeholder: "Write a comment..." %>
+    <!--<span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
+    <div class="clearfix"></div>-->
+		<%= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-left mr-10" %>
+    <span class="btn-ghost mr-5 mb-5 btn-mult preview-btn pull-left borderSmall" data-toggle="modal" data-target="#preview-modal">Preview</span>
+
+
+  </div>
+ <!-- 
+  <%= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-right" %>
+  <span class="btn-ghost mr-5 mb-5 btn-mult preview-btn pull-right" data-toggle="modal" data-target="#preview-modal">Preview</span>
+-->
+<% end %>
+
+<!--
+<%#= form_with(model: @comment, remote: true, id: "comment-form", class: "mb-20") do |form| %>
+  <%#= form.hidden_field :commented_on_type, value: @comment.commented_on_type %>
+  <%#= form.hidden_field :commented_on_id, value: @comment.commented_on_id %>
+
+  <%# if @comment.new_record? %>
+    <h2>New Comment</h2>
+  <%# else %>
+    <h2>Edit Comment</h2>
+  <%# end %>
+
+  <div class="form-group">
+    <%#= form.text_area :content, class: "mb-20 form-control", autofocus: true %>
     <span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
     <div class="clearfix"></div>
   </div>
   
-  <%= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-right" %>
+  <%#= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-right" %>
   <span class="btn-ghost mr-5 mb-5 btn-mult preview-btn pull-right" data-toggle="modal" data-target="#preview-modal">Preview</span>
 
 
-  <% if @comment.new_record? %>
+  <%# if @comment.new_record? %>
     <span href="#" id="cancel-new-comment" class= "btn-ghost mb-5 btn-mult pull-right mr-10" style="cursor: pointer;">
       <span>cancel</span>
     </span>
-  <% else %>
-    <%= link_to cancel_edit_comment_path(@comment.id), remote: true, class: "btn-ghost pull-right mb-5 btn-mult mr-10" do %>
+  <%# else %>
+    <%#= link_to cancel_edit_comment_path(@comment.id), remote: true, class: "btn-ghost pull-right mb-5 btn-mult mr-10" do %>
       <span>cancel</span>
-    <% end %>
-  <% end %>
-<% end %>
-<div class="clearfix mb-20"></div>
+    <%# end %>
+  <%# end %>
+<%# end %>
+-->
+<div class="clearfix mb-50"></div>

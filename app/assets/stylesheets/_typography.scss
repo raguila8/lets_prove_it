@@ -1,3 +1,23 @@
+.fontSize-12 {
+  font-size: 12px !important;
+}
+
+.fontSize-13 {
+  font-size: 13px !important;
+}
+
+.fontSize-14 {
+  font-size: 14px !important;
+}
+
+.fontSize-15 {
+  font-size: 15px !important;
+}
+
+.fontSize-16 {
+  font-size: 16px !important;
+}
+
 .reg-p, .reg-item {
   font-size: 13px;
   font-weight: normal;
@@ -21,6 +41,14 @@
   font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
 }
 
+p, .bodyStyles {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1.58;
+  letter-spacing: -.003em;
+}
+
 .darkType {
   color: rgba(0,0,0,.84)!important;
   fill: rgba(0,0,0,.84)!important;
@@ -30,20 +58,38 @@
   color: rgba(0,0,0,.54) !important;
 }
 
+.darkTypeOnHover {
+  &:hover {
+    color: rgba(0,0,0,.84)!important;
+    fill: rgba(0,0,0,.84)!important;
+  }
+}
+
 .underlineLink {
   &:hover {
+    text-decoration: underline !important;
+    color: inherit;
+  }
+
+  &:focus {
     text-decoration: underline !important;
     color: inherit;
   }
 }
 
 
-.grey-link {
-  color: #777;
+.greyLink {
+  color: rgba(0,0,0,0.54);
   cursor: pointer;
 
   &:hover {
-    color: #333;
+    color: rgba(0,0,0,0.68);
+    text-decoration: none;
+  }
+
+  &:focus {
+    color: rgba(0,0,0,0.68);
+    text-decoration: none;
   }
 }
 
@@ -58,6 +104,7 @@ h1, h2, h3, h4 {
   font-family: "Montserrat", "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
   margin: 0 0 10px;
   text-transform: none;
+  color: rgba(0,0,0,0.84);
 }
 
 h1 {
@@ -92,9 +139,8 @@ h3 {
 
 .author-link {
   color: rgba(0,0,0,.84);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 15px;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif; 
   line-height: 20px;
   letter-spacing: 0;
 }
@@ -105,11 +151,10 @@ h3 {
 
 .author-caption {
   font-size: 15px;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif; 
   line-height: 20px;
   font-weight: 400;
   color: rgba(0,0,0,.54);
-  letter-spacing: 0;
+  letter-spacing: -.3px;
 
   .time {
     
@@ -153,7 +198,7 @@ h3 {
   }
 }
 
-p, .problem-info {
+.problem-info {
   color: #2F323C; font-family: "Helvetica Neue",Arial,sans-serif; font-weight: 300; line-height: 1.5625; margin-bottom: 15px;
 }
 

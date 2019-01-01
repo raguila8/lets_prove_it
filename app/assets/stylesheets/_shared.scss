@@ -1,6 +1,10 @@
 body {
   background: #fff;
-  color: #222;
+  color: rgba(0,0,0,0.84);
+}
+
+.page {
+  margin: 0 60px;
 }
 
 ul li {
@@ -47,6 +51,10 @@ ul li {
   float: left !important;
 }
 
+.borderSmall {
+  border-width: 1px !important;
+}
+
 .overflowHidden {
   overflow: hidden !important;
 }
@@ -66,6 +74,31 @@ ul li {
 
 .minHeight100 {
   min-height: 100px !important;
+}
+
+.sectionDivider {
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  max-width: 1332px;
+  margin: 24px auto;
+}
+
+.width100pct {
+  width: 100% !important;
+}
+
+@media (max-width: 856px) {
+  .sectionDivider {
+    max-width: 856px;
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+}
+
+@media (max-width: 680px) {
+  .sectionDivider {
+    margin: 24px 16px 0 16px;
+  }
 }
 
 .titleLink {

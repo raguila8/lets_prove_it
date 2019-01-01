@@ -31,8 +31,9 @@
 	}
 
 	&:focus {
-		//color: $light;
+		color: $light;
 		outline: none;
+    background: $success-green;
 	}
 } // btn;
 
