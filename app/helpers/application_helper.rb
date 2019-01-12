@@ -415,8 +415,8 @@ module ApplicationHelper
 =end
   end
 
-  def followed_problems
-    current_user.problems_following.limit(5)
+  def bookmarked_problems
+    current_user.bookmarked_problems.limit(5)
   end
 
   def hot_topics_items

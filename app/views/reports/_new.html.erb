@@ -4,11 +4,11 @@
 
   <% flags_list(reportable).each_with_index do |flag, index| %>
     <div class="checkbox <%= 'spam' if flag.name == "spam" %>" id="<%= 'other-checkbox' if flag.name == "other" %>">
-      <label>
+      <label class='headerFont darkType fontSize-16'>
         <%= form.check_box :flags, { multiple: true }, flag.id, false %>
         <%= flag.name %>
       </label>
-      <p><%= sanitize flag.description %></p>
+      <p class='headerFont lightType fontSize-16'><%= sanitize flag.description %></p>
     </div>
   <% end %>
 
@@ -18,5 +18,7 @@
   </div>
 
   <!-- Submit -->
-  <%= form.submit "Submit", class: "btn" %>
+  <%= form.submit "Submit", class: "btn btn-small mt-15 mr-5 mb-5" %>
+  <span class="btn-ghost mb-5 btn-mult borderSmall btn-small mt-15" data-dismiss="modal">Cancel</span>
+
 <% end %>

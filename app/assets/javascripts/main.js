@@ -7,7 +7,7 @@ $(document).on('turbolinks:load', function() {
   initSelector();
   initAccordion();
   initVideoPlayer();
-  initDropdownLink();
+  initCommentsLinks();
   
   if ($('textarea').length > 0) {
     initTextarea();
@@ -64,7 +64,7 @@ $(document).on('turbolinks:load', function() {
 		});
 	}
 
-  if ($('#preview-modal').length > 0) {
+  if ($('.preview-btn').length > 0) {
     initPreview();
   }
 
@@ -266,6 +266,21 @@ $(document).on('turbolinks:load', function() {
 
     if ($(".landing-hero").length > 0) {
       new SmoothScroll('a[href*="#about"]');
+    }
+
+    if ($('.addProofIcon').length > 0) {
+      new SmoothScroll('a[href*="#proof-form"]');
+
+      $(document).on('scrollStop', function(e) {
+        if ($(event.detail.anchor).is($('#proof-form'))) {
+          $('#proof-form trix-editor').focus();
+        }
+      });
+/*
+      $('.addProofIcon').on('click', function() {
+        $('#proof-form trix-editor').focus();
+      });
+      */
     }
 
 
@@ -867,20 +882,38 @@ $(document).on('turbolinks:load', function() {
 		  var content = '';
       if ($($form).attr('id') == "problem-form") {
         content = $($form).find('input[name="problem[content]"]:first').val();
-        console.log(content);
       } else if ($($form).attr('id') == "topic-form") {
         content = $($form).find('input[name="topic[description]"]:first').val();
       } else if ($($form).attr('id') == "proof-form") {
         content = $($form).find('input[name="proof[content]"]:first').val();
-      } else if ($($form).attr('id') == "comment-form") {
-        content = $($form).find('textarea[name="comment[content]"]:first').val();
+      } else if ($($form).hasClass("comment-form")) {
+        var commentData = [{ content: $($form).find('textarea[name="comment[content]"]:first').val() }];
+        var $comments = $($form).next('.commentsStream');
+        
+        if ($comments.find('.postPreview').length > 0) {
+          $comments.find('.postPreview .comment-content').html(commentData[0].content);
+        } else {
+
+          $.tmpl($("#commentPreviewTemplate"), commentData).prependTo( $comments );
+        }
+        
+        setTimeout(function() {
+			    MathJax.Hub.Queue(["Typeset", MathJax.Hub, $comments.find('.commentPreview .comment-content')[0]]);
+		    } ,500);
+
+        return 0;
       }
+ 
 		  math = $('#preview-modal .preview_content > p');
 		  math.html(content);	
 		  setTimeout(function() {
 			  MathJax.Hub.Queue(["Typeset", MathJax.Hub, math[0]]);
 		  } ,500);
 	  });
+
+    $('body').on('click', '.postPreview .close', function() {
+      $(this).closest('.postPreview').remove();
+    });
   }
 
 /* --------------------------------------------------
@@ -919,8 +952,8 @@ $(document).on('turbolinks:load', function() {
     });
   }
 
-  function initDropdownLink() {
-    $('.dropdownLink').on('click', function() {
+  function initCommentsLinks() {
+    $('.commentsDropdownLink').on('click', function() {
       if ($(this).find('.fa-angle-down').length == 1) {
         $(this).find('.fa-angle-down').removeClass('fa-angle-down').addClass('fa-angle-up');
       } else {
@@ -929,6 +962,29 @@ $(document).on('turbolinks:load', function() {
 
       $(this).closest('.commentsButtonContainer').next('.commentSection').toggleClass('hidden');
     });
+
+    $('.addCommentIcon').on('click', function() {
+      $commentSection = $(this).closest('.postActions').next('.commentsButtonContainer').find('.commentsDropdownLink .fa-angle-down').removeClass('fa-angle-down').addClass('fa-angle-up');
+      $commentSection = $(this).closest('.postActions').next('.commentsButtonContainer').next('.commentSection');
+      $commentSection.removeClass('hidden');
+      $commentSection.find('textarea').focus();
+    });
+
+    $('body').on('click', '.replyCommentLink', function() {
+      var commentId = $(this).data('id');
+      var commentData = [{ id: commentId }]
+
+      $.tmpl($("#commentReplyFormTemplate"), commentData).insertAfter( $(this).closest('.bp-comment-reply'));
+/*
+      if ($comments.find('.postPreview').length > 0) {
+          $comments.find('.postPreview .comment-content').html(commentData[0].content);
+        } else {
+
+          $.tmpl($("#commentPreviewTemplate"), commentData).prependTo( $comments );
+        }
+*/
+    });
+
   }
 
 /* --------------------------------------------------------

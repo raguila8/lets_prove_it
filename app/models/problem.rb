@@ -7,7 +7,7 @@ class Problem < ApplicationRecord
   acts_as_votable
 
   belongs_to :user
-  has_many :user_relationships, class_name: "ProblemFollowing", :dependent => :destroy
+  has_many :user_relationships, class_name: "BookmarkedProblem", :dependent => :destroy
   has_many :followers, through: :user_relationships, source: :user
   has_many :versions, -> { order(created_at: :desc) }, 
              as: :versioned, dependent: :destroy
@@ -306,7 +306,7 @@ class Problem < ApplicationRecord
         problems = Problem.joins(topics: :user_relationships).
           where(topic_followings: { user_id: user.id} ).
           union(Problem.joins(:user_relationships).
-            where(problem_followings: { user_id: user.id } )).
+            where(bookmarked_problems: { user_id: user.id } )).
           where("cached_proofs_count #{equality_symbol} 0").
           active.distinct
       else

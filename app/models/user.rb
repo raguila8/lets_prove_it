@@ -20,8 +20,8 @@ class User < ApplicationRecord
   has_many :users_acted_on, as: :acted_on, :dependent => :destroy
 
 
-  has_many :problems_relationships, class_name: "ProblemFollowing", :dependent => :destroy
-  has_many :problems_following, through: :problems_relationships, source: :problem
+  has_many :problems_relationships, class_name: "BookmarkedProblem", :dependent => :destroy
+  has_many :bookmarked_problems, through: :problems_relationships, source: :problem
   has_many :topics_relationships, class_name: "TopicFollowing", :dependent => :destroy
   has_many :topics_following, through: :topics_relationships, source: :topic
   has_many :user_topics
@@ -63,10 +63,7 @@ class User < ApplicationRecord
   end
 
   def following?(model)
-    if model.class.name == "Problem"
-      self.problems_following.include?(model)
-      #ProblemFollowing.exists?(user_id: self.id, problem_id: model.id)
-    elsif model.class.name == "Topic"
+    if model.class.name == "Topic"
       self.topics_following.include?(model)
       #TopicFollowing.exists?(user_id: self.id, topic_id: model.id)
     elsif model.class.name == "User"
@@ -75,10 +72,7 @@ class User < ApplicationRecord
   end
 
   def follow(model)
-    if model.class.name == "Problem"
-      self.problems_following << model
-      #ProblemFollowing.create(user_id: self.id, problem_id: model.id)
-    elsif model.class.name == "Topic"
+    if model.class.name == "Topic"
       self.topics_following << model
       #TopicFollowing.create(user_id: self.id, topic_id: model.id)
     elsif model.class.name == "User"
@@ -87,15 +81,24 @@ class User < ApplicationRecord
   end
 
   def unfollow(model)
-    if model.class.name == "Problem"
-      self.problems_following.destroy(model)
-      #ProblemFollowing.find_by(user_id: self.id, problem_id: model.id)
-    elsif model.class.name == "Topic"
+    if model.class.name == "Topic"
       self.topics_following.destroy(model)
       #ProblemFollowing.find_by(user_id: self.id, problem_id: model.id)
     elsif model.class.name == "User"
       self.following.destroy(model)
     end
+  end
+
+  def bookmarked?(problem)
+    self.bookmarked_problems.include?(problem)
+  end
+
+  def bookmark(problem)
+    self.bookmarked_problems << problem
+  end
+
+  def unbookmark(problem)
+    self.bookmarked_problems.destroy(problem)
   end
 
   def reported?(resource)

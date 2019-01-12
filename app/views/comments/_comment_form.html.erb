@@ -1,21 +1,24 @@
 <%= form_for Comment.new, url: { controller: :comments, action: :create}, 
-               html: { remote: true, class: 'mb-20, mt-20', method: :create, 
+               html: { remote: true, class: 'mb-60 mt-20 comment-form', method: :create, 
 							         style: 'max-width: 650px;' } do |form| %>
   <%= form.hidden_field :commented_on_type, value: resource.class.name %>
   <%= form.hidden_field :commented_on_id, value: resource.id %>
 
 
   <div class="form-group">
-    <%= form.text_area :content, class: "mb-20 form-control niceTextarea", placeholder: "Write a comment..." %>
+    <%= form.text_area :content, class: "mb-0 form-control niceTextarea", placeholder: "Write a comment..." %>
     <!--<span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
     <div class="clearfix"></div>-->
-		<%= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-left mr-10" %>
-    <span class="btn-ghost mr-5 mb-5 btn-mult preview-btn pull-left borderSmall" data-toggle="modal" data-target="#preview-modal">Preview</span>
 
+    <div class='textAreaActions'>
+		  <%= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-left mr-10 ml-10 btn-green" %>
+      <span class="btn mr-5 mb-5 btn-mult preview-btn pull-left borderSmall btn-light" data-toggle="modal" data-target="#preview-modal">Preview</span>
+      <div class='clearfix'></div>
+    </div>
 
   </div>
  <!-- 
-  <%= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-right" %>
+  <%#= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-right" %>
   <span class="btn-ghost mr-5 mb-5 btn-mult preview-btn pull-right" data-toggle="modal" data-target="#preview-modal">Preview</span>
 -->
 <% end %>
@@ -52,4 +55,4 @@
   <%# end %>
 <%# end %>
 -->
-<div class="clearfix mb-50"></div>
+

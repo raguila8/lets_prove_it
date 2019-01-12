@@ -26,8 +26,8 @@
 							</div>
 						</div>
 						<% if signed_in? %>
-							<div id='problem-follow-<%=problem.id%>' class='floatRight' data-class='btn btn-xs <%= 'btn-success' if !current_user.following? problem %>'>
-								<%= follow_link problem, class: "btn btn-xs #{'btn-success' if current_user.following? problem}" %>
+							<div id='problem-bookmark-<%=problem.id%>' class='floatRight'>
+								<%= bookmark_link problem %>
 							</div>
 						<% end %>
 					</div>

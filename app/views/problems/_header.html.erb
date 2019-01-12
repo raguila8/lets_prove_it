@@ -1,4 +1,4 @@
-<header class='problemContainer'>
+<header class='customContainer'>
   <h1 class='problemTitle headerFont'>
     <%= @problem.title %>
   </h1>
@@ -27,14 +27,5 @@
     <figure class='mt-42'>
       <img src='<%=@problem.image.url%>' alt='Problem image preview' class='problemImagePreview'>
     </figure>
-  <% end %>
-
-
-  <div class='mt-42 mb-42 darktype bodyFont bodyStyles'>
-    <%= sanitize @problem.content %>
-  </div>
-
-	<%= render partial: 'comments/comments_section', locals: { resource: @problem } %>
+  <% end %>  
 </header>
-
-<div class='sectionDivider'></div>

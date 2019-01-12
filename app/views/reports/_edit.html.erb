@@ -1,10 +1,13 @@
 <ul>
   <% @flags.each do |flag| %>
-    <li style="font-size: 1.1em;"><%= flag.name %></li>
+    <li class='headerFont darkType' style="font-size: 16px; list-style-type: disc !important;"><%= flag.name %></li>
     <% if flag.name == "other" %>
       <p><%= @report.reason %></p>
     <% end %>
   <% end %>
 </ul>
- <p class="mt-10">Would you like to retract your report?</p>
- <%= link_to "Retract", report_path(@report.id), method: :put, class: "btn btn-small", remote: true %>
+ <p class="mt-10 headerFont darkType fontSize-16 mb-15">Would you like to retract your report?</p>
+ <%= link_to "Retract", report_path(@report.id), method: :put, class: "btn btn-small mr-5 mb-5", remote: true %>
+
+<span class="btn-ghost mb-5 btn-mult borderSmall btn-small" data-dismiss="modal">Cancel</span>
+

@@ -24,9 +24,13 @@
       text-align: center;
       top: 3px;
       right: 3px;
-      color: rgb(0, 0, 0);
+      color: rgba(0, 0, 0, 0.54);
       font-family: Arial, sans-serif;
       content: "×";
+
+      &:hover {
+        color: rgba(0,0,0,0.64);
+      }
     }
   }
 
@@ -48,17 +52,7 @@
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
   }
-
-  p, ul, span {
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    font-size: 1.1em;
-    line-height: 1.5em;
-    font-weight: 400;
-  }
-
+ 
   ul {
     -webkit-padding-start: 40px;
   }

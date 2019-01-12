@@ -1,0 +1,73 @@
+<div class='mt-42 mb-42 darktype bodyFont bodyStyles'>
+  <%= sanitize @problem.content %>
+</div>
+
+<div class='dottedSectionDivider'>
+  <hr>
+</div>
+
+<!-- Problem Meta -->
+
+<div class='row'>
+  <ul class='tags'>
+    <% @problem.topics.active.each do |topic| %>
+      <li>
+			  <%= link_to topic.name, topic_path(topic.id), class: 'greyLink' %>
+			</li>
+    <% end %>
+  </ul>
+</div>
+
+<!-- Problem Actions -->
+<div class='postActions mb-22'>
+  <div class="vote-container vote-container-post mt-0 fontSize-18">
+    <%= link_to vote_path(:vote_type => "like", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
+      <%= upvote_span @problem %>
+    <% end %>
+                                        
+    <%= vote_count_span @problem %>
+
+    <%= link_to vote_path(:vote_type => "dislike", :votable_type => "problem", :id => @problem.id ), method: :put, remote: true do %>
+      <%= downvote_span @problem %>                      
+    <% end %>
+  </div>
+
+	<div class='buttonSet fontSize-22' style='line-height: 40px;'>
+    <%= report_button @problem %>
+
+    <span id='problem-bookmark-<%=@problem.id%>' class='float-right mr-18'>
+      <%= bookmark_link @problem %>
+    </span>
+<!--
+		<%#= link_to '#', class: 'float-right greyLink headerFont mr-18', title: 'Bookmark problem' do %>
+      <i class='fa fa-bookmark-o'></i>
+		<%# end %>
+-->
+		<%= link_to '#proof-form', class: 'float-right greyLink headerFont mr-18 addProofIcon', title: 'Add proof', easing: 'linear' do %>
+      <i class='fa fa-square-o'></i>
+			<% if @problem.proofs.active.count > 0 %>
+        <span class='ml-5 fontSize-14'><%= @problem.proofs.active.count %></span>
+			<% end %>
+
+		<% end %>
+
+
+     
+    <span class='float-right greyLink headerFont mr-18 addCommentIcon' title= 'Add comment'>
+      <i class='fa fa-comment-o'></i>
+			<% if @problem.comments.active.count > 0 %>
+        <span class='ml-5 fontSize-14'><%= @problem.comments.active.count %></span>
+			<% end %>
+		</span>
+  
+    <%= link_to '#', class: 'float-right greyLink headerFont mr-18', title: 'Share on twitter' do %>
+      <i class='fa fa-twitter'></i>
+		<% end %>
+	</div>
+
+	<div class='clearfix'></div>
+
+</div>
+
+
+<%= render partial: 'comments/comments_section', locals: { resource: @problem } %>

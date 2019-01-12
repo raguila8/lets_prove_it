@@ -1,0 +1,91 @@
+<!-- Proof <%= index %> -->
+<div class="bp-comment mb-100 pb-20" id="proof-<%=proof.id%>"> 
+	<div class="vote-container vote-container-post float-right fontSize-18" style='margin-top: 0 !important;'>
+    <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+      <%= upvote_span proof %>
+    <% end %>
+
+    <%= vote_count_span proof %>
+                        
+    <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+      <%= downvote_span proof %>
+    <% end %>
+  </div>
+ 
+  <div class="author-container mb-22">
+    <div class="author-img">
+      <a href="<%= user_path(proof.user) %>"><img width="60" height="60" src="<%=user_avatar_src(proof.user)%>" alt="Go to the profile of <%= proof.user.name_or_username %>"></a>
+    </div>
+
+    <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+      <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%= user_path(proof.user.id) %>"><%= proof.user.name_or_username %></a>
+      
+      <div class="noWrapWithEllipsis captionSmall fontSize-15">
+        <span class="time no-wrap"><%= time_ago_in_words(proof.created_at) %> ago</span>
+      </div>
+
+    </div>
+  </div> 
+                
+  <div class="comment-content mt-42 darkType bodyFont bodyStyles" id= "proof-content-<%=proof.id%>">
+    <%= sanitize proof.content %>
+  </div>
+
+  <div class='dottedSectionDivider'>
+    <hr style='margin-bottom: 12px;'>
+  </div>
+
+	<!-- Problem Meta -->
+
+  <div class='postActions mb-22'>
+    <div class='buttonSet fontSize-22' style='line-height: 40px;'>
+      <%= report_button proof %>
+     
+      <span class= 'float-right greyLink headerFont mr-18 addCommentIcon' title= 'Add comment'>
+        <i class='fa fa-comment-o'></i>
+			  <% if proof.comments.active.count > 0 %>
+          <span class='ml-5 fontSize-14'><%= proof.comments.active.count %></span>
+			  <% end %>
+		  </span>
+  
+      <%= link_to '#', class: 'float-right greyLink headerFont mr-18', title: 'Share on twitter' do %>
+        <i class='fa fa-twitter'></i>
+		  <% end %>
+	  </div>
+
+    <div class='clearfix'></div>
+  </div>
+
+<!--
+  <div>
+    <%#= add_comment_button proof %>
+    <%##= link_to "Add comment", new_comment_path(commented_on_type: "Proof", commented_on_id: proof.id), remote: true, class: "comment-replay-btn mb-10 pull-left btn btn-xs" %>
+  </div>
+-->
+
+
+<!--
+  <div class="proof-actions">
+    <%# if signed_in? and (proof.user == current_user or current_user.reputation >= 10000) %>
+      <%#= link_to proof_path(proof.id), method: :delete, class: "btn-text btn-text-danger btn-xs small-padding", data: { confirm: "Are you sure you want to delete your proof?" } do %>
+        <span class="proof-remove"><i class="mr-5 glyphicon glyphicon-remove"></i>Delete</span>
+      <%# end %>
+
+      <%#= link_to edit_proof_path(proof.id), class: "btn-text btn-xs small-padding" do %>
+        <span class="proof-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+      <%# end %>
+    <%# end %>
+
+    <%#= report_button proof%>
+  </div>
+-->
+
+  <%= render partial: 'comments/comments_section', locals: { resource: proof } %>
+
+</div> <!-- bp-comment -->
+
+<!--
+<%# if index < proof.problem.proofs.active.count - 1 %>
+  <div class="sectionDivider mt-100 mb-100"></div>
+<%# end %>
+-->

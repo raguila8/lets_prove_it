@@ -1,8 +1,0 @@
-$('#problem-follow-<%=@problem.id%>').html("<a href='<%=problem_unfollow_path(@problem.id)%>' data-remote='true' data-method='delete'><button class='" + $('#problem-follow-<%=@problem.id%>').data("class") + "'>Following</button></a>");
-$('#problem-follow-<%=@problem.id%>').data('class', 'btn btn-xs');
-
-$('#problem-<%=@problem.id%>-followers').text('<%= pluralize(@problem.followers.count, "Follower") %>');
-
-if ($("#followers-stat-val").length > 0) {
-  $("#followers-stat-val").text('<%= @problem.followers.count %>');
-}

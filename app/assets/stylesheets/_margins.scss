@@ -1,3 +1,23 @@
+.fancyDividerMargin {
+  padding-left: 2.625rem;
+  padding-right: 2.625rem;
+}
+
+@media (max-width: 1260px) {
+  .fancyDividerMargin {
+    padding-left: 6.875rem;
+    padding-right: 6.875rem;
+  }
+}
+
+
+@media (max-width: 636px) {
+  .fancyDividerMargin {
+    padding-left: 10.875rem;
+    padding-right: 10.875rem;
+  }
+}
+
 .marginAuto {
   margin-left: auto !important;
   margin-right: auto !important;
@@ -14,6 +34,19 @@
 .mr-10 {
   margin-right: 10px;
 }
+
+.mr-12 {
+  margin-right: 12px !important;
+}
+
+.mr-15 {
+  margin-right: 15px !important;
+}
+
+.mr-18 {
+  margin-right: 18px !important;
+}
+
 
 .mr-20 {
   margin-right: 20px !important;
@@ -226,6 +259,10 @@
 
 .pt-20 {
   padding-top: 20px;
+}
+
+.pt-40 {
+  padding-top: 40px !important;
 }
 
 .pt-100 {

@@ -53,10 +53,38 @@ trix-editor {
   background-color: transparent;
 }
 
-.niceTextarea {
-  box-shadow: 0 1px 4px rgba(0,0,0,.03);
+.textAreaActions {
   background: #fff;
   border: 1px solid rgba(0,0,0,.09);
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  border-top: none;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  padding-bottom: 8px;
+  padding-top: 8px;
+
 }
+
+.niceTextarea {
+  //box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.09);
+  border-bottom: none;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+
+  &:hover, &:focus {
+    border-color: rgba(28,153,99, 0.2);
+
+    + .textAreaActions {
+      outline: none;
+      box-shadow: none;
+      border-color: rgba(28,153,99, 0.2);
+    }
+  }
+}
+

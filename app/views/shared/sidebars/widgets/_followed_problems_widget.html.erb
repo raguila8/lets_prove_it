@@ -3,13 +3,13 @@
   <div class="col-md-12 followedProblemsWidget mb-20">
 	  <div class='niceSidebarWidgetHeader'>
       <h2 class='niceSidebarWidgetTitle headerFont darkType'>
-			  Followed Problems
+			  Bookmarked Problems
 			</h2>
 			<img src='/assets/book_reader.png' class='niceSidebarWidgetImage'>
 		</div>
 
 	  <ul class="widgetItems pa-32 lightGreyBack">
-		  <% followed_problems.each_with_index do |problem, index| %>
+		  <% bookmarked_problems.each_with_index do |problem, index| %>
         <li class='mb-24 displayFlex'>
           <div class='widgetItemNumber'>
             <%= sprintf('%02d', index + 1) %>

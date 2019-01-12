@@ -1,0 +1,40 @@
+<div class="bp-comment-reply mb-22 pa-20 commentPreview postPreview" style='background:rgba(0,0,0,0.005);'>
+  <div class='fancyCaption'>
+    <p class='mb-10 fontSize-13 headerFont fontWeight-700 float-left'><i class='fa fa-eye mr-5'></i> Comment preview</p>
+
+    <div class="float-right mt-0 fontSize-16" title='Close preview'>
+      <i class='fa fa-times close' style='color: rgba(0,0,0,0.84); cursor: pointer;'></i>
+	  </div>
+		<div class='clearfix'></div>
+  </div>
+
+
+  <div class="author-container mb-22">
+    <div class="author-img">
+      <a href="<%=user_path(current_user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(current_user)%>" alt="Go to the profile of <%= current_user.name_or_username %>"></a>
+    </div>
+    <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+      <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(current_user.id)%>"><%=current_user.name_or_username%></a>
+      <span class="dot-sep">·</span>
+      <span class="label no-wrap" style="font-weight: 600; background: <%= reputation_color current_user.reputation %>;"><i class="mr-5 fa fa-trophy"></i><%= current_user.reputation%></span>
+
+
+      <div class="noWrapWithEllipsis captionSmall fontSize-15">
+        <span class="time no-wrap">Just now</span>
+      </div>
+    </div>
+  </div>
+                   
+  <div class="comment-content bodyFont bodyStyles fontSize-16 mb-22">
+    ${content}
+  </div>
+
+  <div class="noWrapWithEllipsis captionSmall fontSize-13">
+    <a class='greyLink headerFont' style='cursor: not-allowed;'><i class='mr-5 fa fa-comment-o'></i>Reply</a>
+    <span class="dot-sep">·</span>
+    <a class='greyLink headerFont' style='cursor: not-allowed;'><i class='fa fa-flag-o mr-5'></i>Report</a>
+  </div>
+
+  <div class="clearfix"></div>
+</div><!-- / .bp-comment-reply -->
+

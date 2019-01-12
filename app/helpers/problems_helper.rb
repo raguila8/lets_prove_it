@@ -11,4 +11,15 @@ module ProblemsHelper
     preview_image = problem.images.first
     return "background-image: url('#{preview_image.image_data.url}');" if !preview_image.nil?
   end
+
+  def bookmark_link(problem)
+    is_bookmarked = (signed_in? and current_user.bookmarked?(problem))
+    title = (is_bookmarked ? 'Unbookmark problem' : 'Bookmark problem')
+    bookmark_icon = (is_bookmarked ? 'fa-bookmark' : 'fa-bookmark-o')
+    action = (is_bookmarked ? 'unbookmark' : 'bookmark')
+    method = (is_bookmarked ? 'delete' : 'post')
+
+    content = "<a href='/problems/#{problem.id}/#{action}' class='greyLink headerFont' data-remote='true' data-method='#{method}' title='#{title}'><i class='fa #{bookmark_icon}'></i></a>"
+    content.html_safe
+  end
 end

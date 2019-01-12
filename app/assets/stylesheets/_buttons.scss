@@ -1,0 +1,23 @@
+.btn {
+  border-radius: 3px;
+}
+
+.btn-green {
+  background: #1C9963;
+  
+  &:hover, &:focus {
+    opacity: 0.8;
+  }
+}
+
+.btn-light {
+  border: 1px solid rgba(0,0,0,0.36);
+  color: rgba(0,0,0,0.36);
+  background: #fff;
+  
+  &:hover, &:focus {
+    color: rgba(0,0,0,0.54);
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.54);
+  }
+}

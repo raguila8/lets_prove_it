@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181218022520) do
+ActiveRecord::Schema.define(version: 20190109051138) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20181218022520) do
     t.index ["linkable_id"], name: "index_activities_on_linkable_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
     t.index [nil], name: "index_activities_on_reportable_id"
+  end
+
+  create_table "bookmarked_problems", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id", "user_id"], name: "index_bookmarked_problems_on_problem_id_and_user_id", unique: true
+    t.index ["problem_id"], name: "index_bookmarked_problems_on_problem_id"
+    t.index ["user_id"], name: "index_bookmarked_problems_on_user_id"
   end
 
   create_table "change_types", force: :cascade do |t|
@@ -177,16 +187,6 @@ ActiveRecord::Schema.define(version: 20181218022520) do
     t.datetime "updated_at", null: false
     t.string "action_type"
     t.text "details", default: ""
-  end
-
-  create_table "problem_followings", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "problem_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["problem_id", "user_id"], name: "index_problem_followings_on_problem_id_and_user_id", unique: true
-    t.index ["problem_id"], name: "index_problem_followings_on_problem_id"
-    t.index ["user_id"], name: "index_problem_followings_on_user_id"
   end
 
   create_table "problem_images", force: :cascade do |t|

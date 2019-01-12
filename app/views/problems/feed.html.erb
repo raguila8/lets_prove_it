@@ -49,7 +49,7 @@
       <% if signed_in? and current_user.topics_following.count > 0 %>
         <%= render 'shared/sidebars/widgets/topics_widget' %>
       <% end %>
-      <% if current_user.problems_following.count > 0 %>
+      <% if current_user.bookmarked_problems.count > 0 %>
         <%= render '/shared/sidebars/widgets/followed_problems_widget' %>
       <% end %>
       <%= render 'shared/sidebars/widgets/footer' %>

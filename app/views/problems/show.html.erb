@@ -1,16 +1,50 @@
-<div class='problemContent'>
-  <% if !@problem.image.file.nil? and @problem.image_height >= 500 %>
-    <%= render 'problems/fancy_header' %>
-    <div class='problemContainer'>
-      <%= render 'problems/content' %>
-    </div>
-  <% else %>
-    <section class='problemSection'>
-      <%= render 'problems/header' %>
-			<div class='problemContainer'>
-        <%= render 'problems/content' %>
-		  </div>
-    </section>
-  <% end %>
+<%= render 'reports/report_modal' if signed_in? %>
+
+<% if !@problem.image.file.nil? and @problem.image_height >= 500 %>
+  <%= render 'problems/fancy_header' %>
+  <div class='customContainer mb-100'>
+    <%= render 'problems/content', locals: { @problem => @problem } %>
+  </div>
+<% else %>
+  <section class='problemSection mb-100'>
+    <%= render 'problems/header' %>
+  	<div class='customContainer'>
+      <%= render 'problems/content', locals: { @problem => @problem } %>
+	  </div>
+  </section>
+<% end %>
+
+
+<div class='borderedSection'>
+  <div class='fancySectionDivider'>
+    <div class='fancyDividerMargin'>
+      <h2 class='headerFont'>
+        <%= link_to 'Proofs', '#' %>
+		  </h2>
+	  </div>
+  </div>
+
+  <div class='customContainer'>
+    <% if @problem.proofs.active.count > 0 %>
+      <% @problem.proofs.active.order(created_at: :desc).each_with_index do |proof, index| %>
+        <%= render partial: 'proofs/item', locals: { proof: proof, index: index } %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="sectionDivider"></div>
+
+  <div class='customContainer pt-40'>
+    <%= render partial: 'proofs/form', locals: { :@proof => @problem } %>
+  </div>
 </div>
 
+<% if signed_in? %>
+  <script id='commentPreviewTemplate' type="text/html">
+    <%= render 'comments/preview_comment_template' %>
+  </script>
+
+  <script id='commentReplyFormTemplate' type="text/html">
+    <%= render 'comments/comment_reply_form_template' %>
+  </script>
+<% end %>

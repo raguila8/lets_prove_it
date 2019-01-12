@@ -102,8 +102,8 @@ Rails.application.routes.draw do
   resources :images, only: [:create, :destroy]
   put '/vote', to: 'users#vote', as: :vote
 
-  post '/problems/:id/follow', to: 'problems#follow', as: :problem_follow
-	delete '/problems/:id/unfollow', to: 'problems#unfollow', as: :problem_unfollow
+  post '/problems/:id/bookmark', to: 'problems#bookmark', as: :problem_bookmark
+	delete '/problems/:id/unbookmark', to: 'problems#unbookmark', as: :problem_unbookmark
 
   post '/topics/:id/follow', to: 'topics#follow', as: :topic_follow
 	delete '/topics/:id/unfollow', to: 'topics#unfollow', as: :topic_unfollow

@@ -1,16 +1,16 @@
 class ProblemsController < ApplicationController
   impressionist actions: [:show]
   before_action :active_problem, :set_problem, only: [:show, :edit, :update, :destroy, :logs,
-                                     :follow, :unfollow, :followers, :comments]
+                                     :bookmark, :unbookmark, :followers, :comments]
   before_action :logged_in_user, only: [:edit, :update, :feed, :destroy, :follow, :unfollow]
   before_action :correct_reputation, only: [:edit, :update]
 
-  def follow
-    current_user.follow @problem
+  def bookmark
+    current_user.bookmark @problem
   end
 
-  def unfollow
-    current_user.unfollow @problem
+  def unbookmark
+    current_user.unbookmark @problem
   end
 
   def followers

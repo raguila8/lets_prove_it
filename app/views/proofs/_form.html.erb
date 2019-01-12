@@ -1,22 +1,52 @@
-<%= form_with(model: proof, local: true) do |form| %>
-  <% if proof.errors.any? %>
+<% if signed_in? and Proof.find_by(user_id: current_user.id, problem_id: @problem.id).nil? %>
+ 
+  <!-- Leave a Proof -->
+  <div class="comment-form mt-0"> 
+    <%= form_with(model: Proof.new, local: true, id: "proof-form", class: "new-model-form") do |form| %>
+      <%= form.hidden_field :problem_id, value: "#{@problem.id}", id: "problem-id" %>
+      <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
+
+      <%= render 'shared/error_messages' %>
+
+      <div class="form-group">
+        <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
+        <trix-editor input="proof_content" class="form-control" placeholder='Leave a proof'></trix-editor>
+        <span class="pull-right" style='margin: 5px 5px 5px 0;'><a target="_blank" href="/mathjax_cheatsheet" class="greyLink headerFont fontSize-12"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
+        
+      </div>
+
+      <!-- Action Buttons --> 
+      <input type="submit" value="Submit Proof" class="btn mb-5 btn-mult pull-left mr-10">
+      <span class="btn-ghost pull-left mb-5 btn-mult mr-5 preview-btn borderSmall" data-toggle="modal" data-target="#preview-modal">Preview</span>
+
+    <% end %>
+  </div><!-- / .comment-form -->
+<% end %>
+
+<div class="clearfix mb-50"></div>
+
+<!--
+<%#= form_with(model: proof, local: true) do |form| %>
+  <%# if proof.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(proof.errors.count, "error") %> prohibited this proof from being saved:</h2>
+      <h2><%#= pluralize(proof.errors.count, "error") %> prohibited this proof from being saved:</h2>
 
       <ul>
-      <% proof.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+      <%# proof.errors.full_messages.each do |message| %>
+        <li><%#= message %></li>
+      <%# end %>
       </ul>
     </div>
-  <% end %>
+  <%# end %>
 
   <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content, id: :proof_content %>
+    <%#= form.label :content %>
+    <%#= form.text_area :content, id: :proof_content %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%#= form.submit %>
   </div>
-<% end %>
+<%# end %>
+
+-->
