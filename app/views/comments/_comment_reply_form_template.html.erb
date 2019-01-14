@@ -1,9 +1,9 @@
 <%= form_for Comment.new, url: { controller: :comments, action: :create}, 
-               html: { remote: true, class: 'mb-60 mt-20 comment-form', method: :create, 
-							         style: 'max-width: 650px;' } do |form| %>
+               html: { remote: true, class: 'mb-60 mt-20 comment-reply-form comment-form', method: :create, 
+							         style: "max-width: 650px; padding-left: ${paddingLeft}" } do |form| %>
   
   <input value="Comment" type="hidden" name="comment[commented_on_type]" id="comment_commented_on_type">
-  <input value="$(id)" type="hidden" name="comment[commented_on_id]" id="comment_commented_on_id">
+  <input value="${id}" type="hidden" name="comment[commented_on_id]" id="comment_commented_on_id">
 
   <div class="form-group">
     <%= form.text_area :content, class: "mb-0 form-control niceTextarea", placeholder: "Write a comment..." %>

@@ -887,18 +887,36 @@ $(document).on('turbolinks:load', function() {
       } else if ($($form).attr('id') == "proof-form") {
         content = $($form).find('input[name="proof[content]"]:first').val();
       } else if ($($form).hasClass("comment-form")) {
-        var commentData = [{ content: $($form).find('textarea[name="comment[content]"]:first').val() }];
-        var $comments = $($form).next('.commentsStream');
-        
-        if ($comments.find('.postPreview').length > 0) {
-          $comments.find('.postPreview .comment-content').html(commentData[0].content);
-        } else {
+			  $form = $($form);
+			  content = $($form).find('textarea[name="comment[content]"]:first').val();
+        var commentData;
+				if ($form.hasClass('comment-reply-form')) {
+          commentData = [{ content: content, paddingLeft: 0 }];
 
-          $.tmpl($("#commentPreviewTemplate"), commentData).prependTo( $comments );
-        }
+				} else { 
+          commentData = [{ content: content, paddingLeft: 0 }];
+				}
+
+        //var $comments = $($form).next('.commentsStream');
+        if ($form.next('.postPreview').length > 0) {
+          $form.next('.postPreview').find('.comment-content').html(commentData[0].content);
+			  } else {
+          $.tmpl($("#commentPreviewTemplate"), commentData).insertAfter( $form );
+				}
+/*
+          if ($comments.find('.postPreview').length > 0) {
+            $comments.find('.postPreview .comment-content').html(commentData[0].content);
+          } else {
+            $.tmpl($("#commentPreviewTemplate"), commentData).prependTo( $comments );
+          }
         
+          setTimeout(function() {
+			      MathJax.Hub.Queue(["Typeset", MathJax.Hub, $comments.find('.commentPreview .comment-content')[0]]);
+		      } ,500);
+*/
+
         setTimeout(function() {
-			    MathJax.Hub.Queue(["Typeset", MathJax.Hub, $comments.find('.commentPreview .comment-content')[0]]);
+			    MathJax.Hub.Queue(["Typeset", MathJax.Hub, $form.next('.commentPreview').find('.comment-content')[0]]);
 		    } ,500);
 
         return 0;
@@ -968,23 +986,7 @@ $(document).on('turbolinks:load', function() {
       $commentSection = $(this).closest('.postActions').next('.commentsButtonContainer').next('.commentSection');
       $commentSection.removeClass('hidden');
       $commentSection.find('textarea').focus();
-    });
-
-    $('body').on('click', '.replyCommentLink', function() {
-      var commentId = $(this).data('id');
-      var commentData = [{ id: commentId }]
-
-      $.tmpl($("#commentReplyFormTemplate"), commentData).insertAfter( $(this).closest('.bp-comment-reply'));
-/*
-      if ($comments.find('.postPreview').length > 0) {
-          $comments.find('.postPreview .comment-content').html(commentData[0].content);
-        } else {
-
-          $.tmpl($("#commentPreviewTemplate"), commentData).prependTo( $comments );
-        }
-*/
-    });
-
+    }); 
   }
 
 /* --------------------------------------------------------
@@ -1002,7 +1004,7 @@ $(document).on('turbolinks:load', function() {
 
     $('body').append(hiddenDiv);
 
-    txt.on('keyup', function () {
+    $('.commentSection').on('keyup', 'textarea', function () {
 
       content = $(this).val();
 
@@ -1012,5 +1014,28 @@ $(document).on('turbolinks:load', function() {
       $(this).css('height', hiddenDiv.height());
 
     });
+
+    $('body').on('click', '.replyCommentLink', function() {
+      var commentId = $(this).data('comment-id');
+      var paddingLeft = $(this).data('padding-left');
+      var commentData = [{ id: commentId, paddingLeft: paddingLeft }];
+			console.log(commentData);
+
+      $.tmpl($("#commentReplyFormTemplate"), commentData).insertAfter( $(this).closest('.bp-comment-reply'));
+    
+      $(this).closest('.bp-comment-reply').next('form').find('textarea').focus();
+      txt = $('textarea');
+      txt.addClass('txtstuff');
+
+/*
+      if ($comments.find('.postPreview').length > 0) {
+          $comments.find('.postPreview .comment-content').html(commentData[0].content);
+        } else {
+
+          $.tmpl($("#commentPreviewTemplate"), commentData).prependTo( $comments );
+        }
+*/
+    });
+
   }
 

@@ -7,9 +7,10 @@ module CommentsHelper
     link = ""
     if signed_in?
       if current_user.reputation >= 50 or model.user == current_user
+        padding_left = (model.commented_on_type == "Comment" ? '60px' : '0')
         href="/comments/new?commented_on_type=#{model.class.name}&commented_on_id=#{model.id}"
         link = "<a href='#{href}' data-remote='true' class='comment-replay-btn mb-10 pull-left btn btn-xs'>Reply</a>"
-        link = "<a class='greyLink headerFont replyCommentLink' data-comment-id='#{model.id}'><i class='mr-5 fa fa-comment-o'></i>Reply</a>"
+        link = "<a class='greyLink headerFont replyCommentLink' data-comment-id='#{model.id}' data-padding-left='#{padding_left}'><i class='mr-5 fa fa-comment-o'></i>Reply</a>"
       else
         link = "<button data-toggle='modal' data-target='#noPriviligeModal' class='no-comment-priv comment-replay-btn mb-10 pull-left btn btn-xs'>Add Comment</button>"
         link = "<button data-toggle='modal' data-target='#noPriviligeModal' class='greyLink headerFont no-comment-priv'><i class='mr-5 fa fa-comment-o'></i>Reply</button>"
