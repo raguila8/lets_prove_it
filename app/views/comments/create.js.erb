@@ -1,8 +1,20 @@
 <% if !@comment.nil? and !@comment.errors.any? %>
+  $("form[data-status='submitted']").next('.commentPreview').remove();
+  $("form[data-status='submitted']").after("<%= escape_javascript render(:partial => '/comments/comment_item', :locals => { :comment => @comment, index: (@comment.commented_on.comments.count - 1) }) %>");
+
+  if ($("form[data-status='submitted']").hasClass('comment-reply-form')) {
+    console.log('yerr');
+    $("form[data-status='submitted']").remove();
+  } else {
+    $("form[data-status='submitted']").find('textarea').val('');
+    $("form[data-status='submitted']").removeAttr('data-status');
+  }
+/*
   $('#<%=@comment.commented_on_type.downcase%>-<%=@comment.commented_on_id%> .comment-replay-btn').show();
   $('#<%=@comment.commented_on_type.downcase%>-<%=@comment.commented_on_id%>').next().remove();
-  $('#<%=@comment.commented_on_type.downcase%>-<%=@comment.commented_on_id%>').after("<%= escape_javascript render(:partial => '/comments/comment', :locals => { :@comment => @comment }) %>");
 
+  $('#<%=@comment.commented_on_type.downcase%>-<%=@comment.commented_on_id%>').after("<%= escape_javascript render(:partial => '/comments/comment', :locals => { :@comment => @comment, index: (@comment.commented_on.comments.count - 1) }) %>");
+*/
 
   $('#flash-message-wrapper').remove();
   $('body').append("<div id='flash-message-wrapper' class='notice '><p>Comment was successfully created.</p></div>");
@@ -19,6 +31,6 @@
   } ,500);
 
 <% else %>
-  $('#comment-form').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@comment => @comment }) %>");
+  $("form[data-status='submitted']").prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@comment => @comment }) %>");
 
 <% end %>

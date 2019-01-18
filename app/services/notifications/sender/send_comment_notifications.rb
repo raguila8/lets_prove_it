@@ -49,25 +49,30 @@ module Notifications
       end
 
       def notify_post_editors
-        @notifiable_editors = (@notifiable.versions.map{ |v| v.user }).uniq
-        (@notifiable_editors - (@commenters + [@actor, @notifiable.user])).each do |editor|
-          action = (@comment.commented_on_type == "Proof" ? "commented on a proof you have edited for" : "commented on")
-          Notification.create(recipient: editor, actor: @actor, 
-                              action: action, notifiable: @notifiable,
-                              action_type: "new comment")
-          @sent += 1
+        if @notifiable.class.name != "Comment"
+          @notifiable_editors = (@notifiable.versions.map{ |v| v.user }).uniq
+          (@notifiable_editors - (@commenters + [@actor, @notifiable.user])).each do |editor|
+            action = (@comment.commented_on_type == "Proof" ? "commented on a proof you have edited for" : "commented on")
+            Notification.create(recipient: editor, actor: @actor, 
+                                action: action, notifiable: @notifiable,
+                                action_type: "new comment")
+            @sent += 1
+          end
         end
       end
 
-      # Notify people who have commented on the post
+      # Notify people who have commented on the post if the post is not a
+      # comment
       def notify_other_commenters
-        @commenters = (@notifiable.comments.map{ |c| c.user }).uniq
-        (@commenters - [@actor, @notifiable.user]).each do |commenter|
-          action = (@comment.commented_on_type == "Proof" ? "commented on a proof you have commented on for" : "commented on")
-          Notification.create(recipient: commenter, actor: @actor, 
-                              action: action, notifiable: @notifiable,
-                              action_type: "new comment")
-          @sent += 1
+        if @notifiable.class.name != "Comment"
+          @commenters = (@notifiable.comments.map{ |c| c.user }).uniq
+          (@commenters - [@actor, @notifiable.user]).each do |commenter|
+            action = (@comment.commented_on_type == "Proof" ? "commented on a proof you have commented on for" : "commented on")
+            Notification.create(recipient: commenter, actor: @actor, 
+                                action: action, notifiable: @notifiable,
+                                action_type: "new comment")
+            @sent += 1
+          end
         end
       end
 

@@ -1,5 +1,5 @@
 <!-- Comment Item -->
-         
+
 <div class="bp-comment-reply mb-22 pb-20" id="comment-<%=comment.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if ['Problem', 'Proof'].include? comment.commented_on_type and index < comment.commented_on.comments.count - 1 %>  <%= 'padding-left:60px;' if comment.commented_on_type == 'Comment' %>">
   <% if comment.commented_on_type == 'Comment' and comment.commented_on.commented_on_type == 'Comment' %>
     <div class='fancyCaption'>
@@ -67,9 +67,8 @@
 </div><!-- / .bp-comment-reply -->
 
 <% if comment.comments.active.count > 0 %>
-  <% comment.comments.active.order(created_at: :desc).each_with_index do |comment2, index2| %>
+  <% comment.comments.active.order("created_at DESC").each_with_index do |comment2, index2| %>
     <%= render partial: 'comments/comment_item', locals: { comment: comment2, index: index2 } %>
   <% end %>
 <% end %>
-
 

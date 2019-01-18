@@ -891,7 +891,7 @@ $(document).on('turbolinks:load', function() {
 			  content = $($form).find('textarea[name="comment[content]"]:first').val();
         var commentData;
 				if ($form.hasClass('comment-reply-form')) {
-          commentData = [{ content: content, paddingLeft: 0 }];
+          commentData = [{ content: content, paddingLeft: '60px' }];
 
 				} else { 
           commentData = [{ content: content, paddingLeft: 0 }];
@@ -1019,7 +1019,6 @@ $(document).on('turbolinks:load', function() {
       var commentId = $(this).data('comment-id');
       var paddingLeft = $(this).data('padding-left');
       var commentData = [{ id: commentId, paddingLeft: paddingLeft }];
-			console.log(commentData);
 
       $.tmpl($("#commentReplyFormTemplate"), commentData).insertAfter( $(this).closest('.bp-comment-reply'));
     
@@ -1035,6 +1034,15 @@ $(document).on('turbolinks:load', function() {
           $.tmpl($("#commentPreviewTemplate"), commentData).prependTo( $comments );
         }
 */
+    });
+
+    $('body').on('click', "button[data-action='close-reply-form']", function() {
+      $(this).closest('form').next('.commentPreview').remove();
+      $(this).closest('form').remove();
+    });
+
+    $('body').on('click', "input[data-action='submit-comment']", function() {
+      $(this).closest('form').attr("data-status", "submitted");
     });
 
   }

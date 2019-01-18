@@ -1,6 +1,6 @@
 <% if @exception %>
   <div id="error_explanation">
-   <ul>
+   <ul class='mb-15'>
     <li><%= @exception.message %></li>
     </ul>
   </div>
@@ -24,24 +24,24 @@
 
 <% if  !@exception and !@error and model.errors.any? %>
   <div id="error_explanation">
-   <ul>
+   <ul class='mb-15'>
     <li><%= model.errors.full_messages.first %></li>
     </ul>
   </div>
 <% elsif flash[:failed_login] %>
   <div id="error_explanation">
-   <ul>
+   <ul class='mb-15'>
     <li><%= flash[:failed_login] %></li>
     </ul>
   </div>
 <% elsif flash[:failed_problem_create] %>
   <div id="error_explanation">
-   <ul>
+   <ul class='mb-15'>
     <li><%= flash[:failed_problem_create] %></li>
     </ul>
   </div>
 <% elsif flash[:failed_proof_create]%>
-  <ul>
+  <ul class='mb-15'>
     <li><%= flash[:failed_proof_create] %></li>
     </ul>
   </div>

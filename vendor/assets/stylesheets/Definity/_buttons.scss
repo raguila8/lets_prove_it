@@ -180,7 +180,7 @@ input[class="btn-ghost"] {
 .btn-text-danger {
   border: 2px solid rgba(17,17,17, 0);
 	color: #a94442;
-  text-transform: uppercase;
+  background: rgba(221,221,221,0.2);
 
   &:visited {
 		color: #a94442;
@@ -203,6 +203,10 @@ input[class="btn-ghost"] {
 		//color: #a94442;
 		outline: none;
 		text-decoration: none;
+    color: #a94442;
+		background: none;
+		border: 2px solid #a94442;
+
 	}
 
 }

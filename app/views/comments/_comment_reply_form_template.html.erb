@@ -9,8 +9,9 @@
     <%= form.text_area :content, class: "mb-0 form-control niceTextarea", placeholder: "Write a comment..." %>
 
     <div class='textAreaActions'>
-		  <%= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-left mr-10 ml-10 btn-green" %>
-      <span class="btn mr-5 mb-5 btn-mult preview-btn pull-left borderSmall btn-light" data-toggle="modal" data-target="#preview-modal">Preview</span>
+		  <%= form.submit "Post Comment", class: "btn mb-5 btn-mult pull-left mr-10 ml-10 btn-green", data: { action: 'submit-comment' }  %>
+      <span class="btn mr-10 mb-5 btn-mult preview-btn pull-left borderSmall btn-light" data-toggle="modal" data-target="#preview-modal">Preview</span>
+      <button class='btn btn-text-danger btn-mult borderSmall mb-5 mr-10 pull-left' data-action='close-reply-form'>Cancel</button>
       <div class='clearfix'></div>
     </div>
 

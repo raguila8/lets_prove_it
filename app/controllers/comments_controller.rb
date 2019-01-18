@@ -21,8 +21,8 @@ class CommentsController < ApplicationController
 
         if @comment.commented_on_type == "Problem"
           #Any user who comments on a problem automatically follows it
-          if !current_user.following? @comment.get_problem
-            current_user.follow @comment.get_problem
+          if !current_user.bookmarked? @comment.get_problem
+            current_user.bookmark @comment.get_problem
           end
         end
 
