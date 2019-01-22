@@ -10,15 +10,21 @@
 
       <div class="form-group">
         <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
-        <trix-editor input="proof_content" class="form-control" placeholder='Leave a proof'></trix-editor>
-        <span class="pull-right" style='margin: 5px 5px 5px 0;'><a target="_blank" href="/mathjax_cheatsheet" class="greyLink headerFont fontSize-12"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
-        
-      </div>
+        <trix-editor input="proof_content" class="" placeholder='Leave a proof'></trix-editor>
+        <div class='textAreaActions'>
+		      <%= form.submit "Submit Proof", class: "btn mb-5 btn-mult pull-left mr-10 ml-10 btn-green", data: { action: 'submit-proof' } %>
+          <span class="btn mr-5 mb-5 btn-mult preview-btn pull-left borderSmall btn-light" data-toggle="modal" data-target="#preview-modal">Preview</span>
+          <div class='clearfix'></div>
+        </div>
 
-      <!-- Action Buttons --> 
+        <span class="pull-right" style='margin: 5px 5px 5px 0;'><a target="_blank" href="/mathjax_cheatsheet" class="greyLink headerFont fontSize-12"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
+        <div class='clearfix'></div>
+      </div>
+<!--
+    
       <input type="submit" value="Submit Proof" class="btn mb-5 btn-mult pull-left mr-10">
       <span class="btn-ghost pull-left mb-5 btn-mult mr-5 preview-btn borderSmall" data-toggle="modal" data-target="#preview-modal">Preview</span>
-
+-->
     <% end %>
   </div><!-- / .comment-form -->
 <% end %>

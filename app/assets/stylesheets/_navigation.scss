@@ -1,3 +1,10 @@
+.nav-border {
+  border-color: rgba(20, 94, 101, 0.12) transparent #eee transparent;
+  border-style: solid;
+  border-width: 4px 0 1px;
+  //background: 0 4px 12px 0 rgba(0, 0, 0, 0.05)
+}
+
 #sticky-nav {
   overflow: hidden;
   background-color: #fff;

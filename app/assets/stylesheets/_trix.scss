@@ -1,0 +1,64 @@
+trix-editor {
+  border-color: rgba(0,0,0,0.18);
+  border-bottom: none;
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+
+  padding: 15px;
+}
+
+trix-toolbar {
+  .trix-button-group {
+    margin-bottom: 0;
+    border-bottom: none;
+    border-left: none;
+    border: none;
+  }
+
+  .trix-button-row {
+    padding: 12px;
+    border: 1px solid rgba(0,0,0,0.18);
+    border-bottom: none;
+  }
+
+  .trix-button {
+    border: none;
+
+    &:hover {
+      &:before {
+        opacity: 0.68 !important;
+      }
+    }
+  }
+
+  .trix-button:not(:first-child) {
+    border-left: none;
+  }
+
+  /* Trix Button Icons */
+
+  .trix-button:before {
+    opacity: 0.54;
+  }
+
+  .trix-active:before {
+    opacity: 0.68 !important;
+  }
+/*
+  .trix-button--icon-bold {
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+
+    &:before {
+      content: "\f032";
+    }
+
+  }
+*/
+}

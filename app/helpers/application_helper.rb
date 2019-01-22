@@ -1,5 +1,11 @@
 module ApplicationHelper
 
+  def nav_border 
+    if (action_name != 'feed') and !current_page?(root_path)
+      'nav-border'
+    end
+  end
+
   def flash_class
     return 'notice' if flash[:notice]
     return 'alert' if flash[:alert]
@@ -29,7 +35,7 @@ module ApplicationHelper
       if %w(mathjax_cheatsheet contact).include? action_name
         render partial: "layouts/header2"
       end
-    elsif ("problems" == controller_name and (action_name == "index" or action_name == "feed" or action_name == "show")) or (controller_name == "topics" and action_name == "index") or current_page?(root_path)
+    elsif ("problems" == controller_name and (action_name == "index" or action_name == "feed" or action_name == "show")) or (controller_name == "topics" and action_name == "index") or current_page?(root_path) or controller_name == 'help_center'
       return
     elsif %w(users topics problems).include? controller_name and action_name == "index"
       render partial: "layouts/header2"
@@ -110,6 +116,8 @@ module ApplicationHelper
         "What Are Topics and How do I Use Them?"
       elsif action_name == "reputation"
         "Reputation"
+      elsif action_name == "help"
+        "Hello, <br/> How can we help you?".html_safe
       end
     end
   end
@@ -187,6 +195,8 @@ module ApplicationHelper
         "Render Math with Ease!"
       elsif action_name == "deleting_posts"
    
+      elsif action_name == "help"
+        #"<img src='/assets/help_center.svg'>".html_safe
       end
     end
   end
@@ -267,7 +277,9 @@ module ApplicationHelper
         end
       end
     elsif controller_name == "help_center"
-      if action_name != "help"
+      if action_name == 'help'
+        "<img src='/assets/help_center.svg'>".html_safe
+      else 
         content = "<a href='#{help_path}'><button class='btn-ghost-light btn-small'>Help Center</button></a>"
         return content.html_safe
       end

@@ -1,0 +1,55 @@
+<!-- Proof preview -->
+<div class="bp-comment mb-100 pa-20 proofPreview postPreview" id="proof-preview" style='border:1px solid rgba(0,0,0,0.14);'> 
+
+  <div class='fancyCaption'>
+    <p class='mb-10 fontSize-13 headerFont fontWeight-700 float-left'><i class='fa fa-eye mr-5'></i> Proof preview</p>
+
+    <div class="float-right mt-0 fontSize-18" title='Close preview'>
+      <i class='fa fa-times close' style='color: rgba(0,0,0,0.84); cursor: pointer;'></i>
+	  </div>
+		<div class='clearfix'></div>
+  </div>
+ 
+  <div class="author-container mb-22">
+    <div class="author-img">
+      <a href="<%= user_path(current_user.id) %>"><img width="60" height="60" src="<%=user_avatar_src(current_user)%>" alt="Go to the profile of <%= current_user.name_or_username %>"></a>
+    </div>
+
+    <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+      <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%= user_path(current_user.id) %>"><%= current_user.name_or_username %></a>
+      
+      <div class="noWrapWithEllipsis captionSmall fontSize-15">
+        <span class="time no-wrap">Just now</span>
+      </div>
+
+    </div>
+  </div> 
+                
+  <div class="comment-content mt-42 darkType bodyFont bodyStyles" id= "proof-preview-content">
+    {{html content}}
+  </div>
+
+  <div class='dottedSectionDivider'>
+    <hr style='margin-bottom: 12px;'>
+  </div>
+
+	<!-- Problem Meta -->
+
+  <div class='postActions mb-22'>
+    <div class='buttonSet fontSize-22' style='line-height: 40px;'>
+
+      <a class='greyLink headerFont float-right' style='cursor: not-allowed;'><i class='fa fa-flag-o mr-18'></i></a>
+     
+      <span class= 'float-right greyLink headerFont mr-18' title= 'Add comment' style='cursor: not-allowed;'>
+        <i class='fa fa-comment-o'></i>
+			</span>
+  
+      <%= link_to '', class: 'float-right greyLink headerFont mr-18', title: 'Share on twitter', style: 'cursor: not-allowed;' do %>
+        <i class='fa fa-twitter'></i>
+		  <% end %>
+	  </div>
+
+    <div class='clearfix'></div>
+  </div>
+
+</div> <!-- bp-comment -->

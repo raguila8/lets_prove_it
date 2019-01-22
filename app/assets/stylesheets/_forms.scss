@@ -55,7 +55,7 @@ trix-editor {
 
 .textAreaActions {
   background: #fff;
-  border: 1px solid rgba(0,0,0,.09);
+  border: 1px solid rgba(0,0,0,0.18);
   border-top: none;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -70,7 +70,7 @@ trix-editor {
 .niceTextarea {
   //box-shadow: 0 1px 4px rgba(0,0,0,.03);
   background: #fff;
-  border: 1px solid rgba(0,0,0,.09);
+  border: 1px solid rgba(0,0,0,.18);
   border-bottom: none;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -87,4 +87,3 @@ trix-editor {
     }
   }
 }
-

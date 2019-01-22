@@ -326,6 +326,11 @@
   padding-top: 5px !important;
 }
 
+.pv-6 {
+  padding-bottom: 6px;
+  padding-top: 6px;
+}
+
 .pv-10 {
   padding-bottom: 10px !important;
   padding-top: 10px !important;
@@ -359,8 +364,8 @@
 }
 
 .ph-0 {
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 .ph-15 {

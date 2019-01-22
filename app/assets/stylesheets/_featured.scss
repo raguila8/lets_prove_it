@@ -67,7 +67,6 @@
   }
 
   .fancyHeaderRight {
-    background-image: url(/assets/open_book.jpg);
     width: 50%;
     background-position: center;
     background-origin: border-box;
@@ -77,6 +76,16 @@
     -webkit-flex: 1 0 auto;
     -ms-flex: 1 0 auto;
     flex: 1 0 auto;
+  }
+
+  .open-book-background {
+    background-image: url(/assets/open_book.jpg);
+  }
+
+  .help-center-background {
+    background-image: url(/assets/help_center.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 
   .featured-divider {
@@ -111,8 +120,8 @@
     }
 
     .header-h1 {
-      font-size: 36px;
-      line-height: 40px;
+      font-size: 46px;
+      line-height: 50px;
     }
 
     .fancyHeaderRight {
@@ -124,6 +133,10 @@
       min-height: 400px;
       height: auto;
       margin-top: 0;
+    }
+
+    .help-center-background {
+      width: 75%;
     }
   }
 
@@ -155,5 +168,82 @@
     letter-spacing: 0;
     color: rgba(0,0,0,.36);
     padding-left: 5px;
+  }
+}
+
+/* Featured List */
+
+.featured-text-list {
+  display: flex;
+  justify-content: flex-start;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  flex-flow: row wrap; 
+
+  .featured-text-list-item {
+    border-bottom: 1px solid rgba(20, 94, 101, 0.22);
+    border-top: 1px solid rgba(20, 94, 101, 0.22);
+    margin-top: -1px;
+    position: relative;
+    margin-right: 6.25%;
+    width: 29.16667%;
+  }
+
+  .featured-text-list-link {
+    color: rgba(20, 94, 101, 1);
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0;
+    min-height: 84px;
+    padding: 30px 50px 30px 0;
+    position: relative;
+
+    &:hover {
+      color: rgba(20, 94, 101, 0.8);
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .featured-text-list {
+    flex-flow: column nowrap !important;
+    margin: 30px 0 0 !important;
+  }
+
+  .featured-text-list-item {
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+}
+
+.arrow-link {
+  .arrow-icon {
+    position: absolute;
+    top: 28px;
+    right:0;
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+    vertical-align: middle;
+  }
+  
+  .arrow-icon--circle {
+    transition: stroke-dashoffset .3s ease;
+    stroke-dasharray: 95;
+    stroke-dashoffset: 95;
+  }
+  
+  &:hover {
+    .arrow-icon {
+      transform: translate3d(5px, 0, 0);
+    }
+    
+    .arrow-icon--circle {
+      stroke-dashoffset: 0;
+    }
   }
 }

@@ -1,6 +1,6 @@
 <!-- ========== Navigation ========== -->
 
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top <%= nav_border %>">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -26,14 +26,14 @@
           <!-- Login -->
           <li>
             <a href="<%= new_user_session_path %>">
-              <button class="btn-ghost btn-small" style="border-width: 1px;">Login</button>
+              <button class="btn-ghost" style="border-width: 1px;">Login</button>
             </a>
           </li><!-- / Login -->
 
           <!-- Signup -->
           <li>
             <a href="<%= new_user_registration_path %>">
-              <button class="btn btn-small">Signup</button>
+              <button class="btn">Signup</button>
             </a>
           </li><!-- / Signup -->
 

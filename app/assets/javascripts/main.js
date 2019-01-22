@@ -878,16 +878,29 @@ $(document).on('turbolinks:load', function() {
 
   function initPreview() {
     $('body').on('click', '.preview-btn', function() {
-		  $form = $(this).closest('form')[0];
+		  $form = $($(this).closest('form')[0]);
 		  var content = '';
-      if ($($form).attr('id') == "problem-form") {
-        content = $($form).find('input[name="problem[content]"]:first').val();
-      } else if ($($form).attr('id') == "topic-form") {
-        content = $($form).find('input[name="topic[description]"]:first').val();
-      } else if ($($form).attr('id') == "proof-form") {
-        content = $($form).find('input[name="proof[content]"]:first').val();
-      } else if ($($form).hasClass("comment-form")) {
-			  $form = $($form);
+      if ($form.attr('id') == "problem-form") {
+        content = $form.find('input[name="problem[content]"]:first').val();
+      } else if ($form.attr('id') == "topic-form") {
+        content = $form.find('input[name="topic[description]"]:first').val();
+      } else if ($form.attr('id') == "proof-form") {
+        content = $form.find('input[name="proof[content]"]:first').val();
+        var proofData = [{ content: content }];
+
+        if ($form.next('.postPreview').length > 0) {
+          $form.next('.postPreview').find('#proof-preview-content').html(proofData[0].content);
+			  } else {
+          $.tmpl($("#proofPreviewTemplate"), proofData).insertAfter( $form );
+				}
+
+        setTimeout(function() {
+			    MathJax.Hub.Queue(["Typeset", MathJax.Hub, $form.next('.proofPreview').find('#proof-preview-content')[0]]);
+		    } ,500);
+
+        return 0;
+
+      } else if ($form.hasClass("comment-form")) {
 			  content = $($form).find('textarea[name="comment[content]"]:first').val();
         var commentData;
 				if ($form.hasClass('comment-reply-form')) {

@@ -8,7 +8,7 @@
         <%= form.check_box :flags, { multiple: true }, flag.id, false %>
         <%= flag.name %>
       </label>
-      <p class='headerFont lightType fontSize-16'><%= sanitize flag.description %></p>
+      <p class='headerFont fontSize-16'><%= sanitize flag.description %></p>
     </div>
   <% end %>
 
@@ -18,7 +18,8 @@
   </div>
 
   <!-- Submit -->
-  <%= form.submit "Submit", class: "btn btn-small mt-15 mr-5 mb-5" %>
-  <span class="btn-ghost mb-5 btn-mult borderSmall btn-small mt-15" data-dismiss="modal">Cancel</span>
+  <%= form.submit "Submit", class: "btn btn-padding-small mt-15 mr-5 mb-5" %>
+  <span class="greyLink btn-styles pv-6 mb-5 btn-mult ml-10 mt-15 btn-padding-small ph-0" data-dismiss="modal">Cancel</span>
+  <div class='clearfix'></div>
 
 <% end %>

@@ -7,7 +7,8 @@
   <% end %>
 </ul>
  <p class="mt-10 headerFont darkType fontSize-16 mb-15">Would you like to retract your report?</p>
- <%= link_to "Retract", report_path(@report.id), method: :put, class: "btn btn-small mr-5 mb-5", remote: true %>
+ <%= link_to "Retract", report_path(@report.id), method: :put, class: "btn btn-padding-small mt-15 mr-5 mb-5", remote: true %>
 
-<span class="btn-ghost mb-5 btn-mult borderSmall btn-small" data-dismiss="modal">Cancel</span>
+<span class="greyLink btn-styles pv-6 mb-5 btn-mult ml-10 mt-15 btn-padding-small ph-0" data-dismiss="modal">Cancel</span>
+<div class='clearfix'></div>
 
