@@ -118,6 +118,10 @@ module ApplicationHelper
         "Reputation"
       elsif action_name == "help"
         "Hello, <br/> How can we help you?".html_safe
+      elsif action_name == 'category'
+        first_char_up @category
+      elsif action_name == 'article'
+        @article.titleize
       end
     end
   end
@@ -279,7 +283,11 @@ module ApplicationHelper
     elsif controller_name == "help_center"
       if action_name == 'help'
         "<img src='/assets/help_center.svg'>".html_safe
-      else 
+      elsif action_name == 'category'
+        "<li><a href='#{help_path}'>Help center</a></li><li>#{first_char_up @category}</li>".html_safe
+      elsif action_name == 'article'
+         "<li><a href='#{help_path}'>Help center</a></li><li><a href='#{help_center_category_path(@category)}'>#{first_char_up @category}</a></li><li>#{@article.titleize}</li>".html_safe
+      else
         content = "<a href='#{help_path}'><button class='btn-ghost-light btn-small'>Help Center</button></a>"
         return content.html_safe
       end
@@ -476,5 +484,9 @@ module ApplicationHelper
     else
       return user_avatar_src(User.find(actor_id))
     end
+  end
+
+  def first_char_up(string)
+    string.slice(0,1).capitalize + string.slice(1..-1)
   end
 end

@@ -2,7 +2,7 @@ module HeadersHelper
   def fancy_header_styles 
     if controller_name == "help_center"
       if action_name == "help"
-        'background: rgba(20, 94, 101, 0.22); margin-bottom: 100px;';
+        'background: #f4f6f8; margin-bottom: 100px;';
       end
     end
   end

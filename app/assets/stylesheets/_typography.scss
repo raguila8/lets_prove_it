@@ -1,8 +1,3 @@
-ul {
-  padding: 0;
-  list-style: none;
-}
-
 .fontSize-12 {
   font-size: 12px !important;
 }
@@ -50,6 +45,20 @@ ul {
 
 .fontWeight-700 {
   font-weight: 700 !important;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  padding: 0;
+  margin: 1em 0;
+  border: 0;
+  border-top: 1px solid #eceeef;
+}
+
+code {
+  color: rgba(0,0,0,0.84);
+  background: #f1f1f1;
 }
 
 .reg-p, .reg-item {
@@ -161,6 +170,22 @@ p, .bodyStyles {
 
   &:focus {
     color: rgba(0,0,0,0.54);
+    text-decoration: none;
+  }
+}
+
+.accentLink {
+  color: $accent-dark;
+  text-decoration: none;
+  font-weight: 600;
+
+  &:hover {
+    color: $accent;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    color: $accent;
     text-decoration: none;
   }
 
@@ -317,4 +342,35 @@ h3 {
   font-size: 16px;
 }
 
+/********************* Help Center ***********************/
 
+.help-center-article {
+  p, h3, li {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+    color: rgba(0,0,0,0.84);
+    margin: 0 0 calc(16px * 1.4);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  li {
+    list-style-type: circle;
+  }
+
+  p, li {
+    font-size: 20px;
+    line-height: 1.58;
+    font-weight: 400
+  }
+
+  h1 {
+    margin-bottom: 40px;
+    font-size: calc(20px * 2.1);
+  }
+
+  h3 {
+    font-size: calc(20px * 1.5);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+}

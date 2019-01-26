@@ -12,7 +12,7 @@
         <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
         <trix-editor input="proof_content" class="" placeholder='Leave a proof'></trix-editor>
         <div class='textAreaActions'>
-		      <%= form.submit "Submit Proof", class: "btn mb-5 btn-mult pull-left mr-10 ml-10 btn-green", data: { action: 'submit-proof' } %>
+		      <%= form.submit "Submit Proof", class: "btn-ghost mb-5 btn-mult pull-left mr-10 ml-10", data: { action: 'submit-proof' } %>
           <span class="btn mr-5 mb-5 btn-mult preview-btn pull-left borderSmall btn-light" data-toggle="modal" data-target="#preview-modal">Preview</span>
           <div class='clearfix'></div>
         </div>

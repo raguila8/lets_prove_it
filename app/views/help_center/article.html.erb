@@ -1,0 +1,25 @@
+<div class='wideContainer' style='margin-bottom: 150px; margin-top:20px;'>
+  <div class='row'>
+    <div class='col-md-8'>
+      <ul class='breadcrumb pt-20 mb-40 pl-0'>
+        <li>
+          <a href='<%=help_path%>'>Help center</a>
+        </li>
+        <li>
+          <a href='<%=help_center_category_path(@category)%>'><%=first_char_up @category%></a>
+        </li>
+        <li>
+          <%=@article.titleize%>
+        </li>
+      </ul>
+      <div class='help-center-article'>
+        <%= render "/help_center/#{@category.downcase}/#{@article.parameterize.underscore}" %>
+      </div>
+    </div>
+    <div class='col-md-4 pl-md-50'>
+      <%= render '/shared/sidebars/widgets/articles_in_this_category', locals: { @category => @category, @article => @article } %>
+      <%= render '/shared/sidebars/widgets/contact_us_widget' %>
+    </div>
+  </div>
+</div>
+

@@ -1,19 +1,28 @@
 <%= render '/layouts/fancy_header' %>
 <div class='container'>
-  <span class='label-header headerFont'>General</span>
 
-  <ul class='featured-text-list'>
-    <li class='featured-text-list-item' style='margin-bottom:50px;'>
-      <a href="#" class="featured-text-list-link headerFont arrow-link">
-		    Get started with these Dropbox building blocks
+  <% help_center_categories.each do |category| %>
+    <%= link_to help_center_category_path(category)  do %>
+      <span class='label-header headerFont'><%=category%></span>
+    <% end %>
 
-			  <svg class="arrow-icon" width="32" height="32" viewBox="0 0 32 32">
-				  <g fill="none" stroke="rgba(20, 94, 101, 1)" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10">
-					  <circle class="arrow-icon--circle" cx="16" cy="16" r="15.12"></circle>
-						<path class="arrow-icon--arrow" d="M16.14 9.93L22.21 16l-6.07 6.07M8.23 16h13.98"></path>
-					</g>
-			  </svg>
-	    </a>
-	  </li>
-  </ul>
+    <ul class='featured-text-list'>
+      <% help_center_articles(category).each do |article| %>
+
+        <li class='featured-text-list-item featured-text-list-item-3'>
+          <%= link_to help_center_article_path(category: category, article: article), class: "featured-text-list-link headerFont arrow-link" do %>
+		        <%= article %>
+
+			      <svg class="arrow-icon" width="32" height="32" viewBox="0 0 32 32">
+				      <g fill="none" stroke="rgba(8,134,145,1)" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10">
+					      <circle class="arrow-icon--circle" cx="16" cy="16" r="15.12"></circle>
+						    <path class="arrow-icon--arrow" d="M16.14 9.93L22.21 16l-6.07 6.07M8.23 16h13.98"></path>
+					    </g>
+			      </svg>
+	        <% end %>
+	      </li>
+
+      <% end %>
+    </ul>
+  <% end %>
 </div>

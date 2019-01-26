@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get '/404', :to => 'errors#not_found'
+  get '/422', :to => 'errors#unacceptable'
+  get '/500', :to => 'errors#internal_error'
+
   resources :comments, only: [:new, :edit, :create, :update, :destroy]
 
   get '/comments/:id/cancel_edit_comment', to: 'comments#cancel_edit', as: :cancel_edit_comment
@@ -33,7 +37,22 @@ Rails.application.routes.draw do
   get '/tour', to: 'static_pages#tour', as: :tour
 
   get '/help', to: 'help_center#help', as: :help
-  get '/help/priviliges/:id', to: 'help_center#priviliges', as: :priviliges
+
+  ################## help center categories #####################
+
+  get '/help/:category', to: 'help_center#category', as: :help_center_category
+=begin
+  get '/help/problems', to: 'help_center#problems', as: :help_category_problems
+  get '/help/reputation', to: 'help_center#reputation', as: :help_category_reputation
+  get '/help/proofs', to: 'help_center#proofs', as: :help_category_proofs
+  get '/help/account', to: 'help_center#account', as: :help_category_account
+  get '/help/privileges', to: 'help_center#privileges', as: :help_category_privileges
+=end
+  ################ help center articles ####################
+
+  get '/help/:category/:article', to: 'help_center#article', as: :help_center_article
+=begin
+  #get '/help/priviliges/:id', to: 'help_center#priviliges', as: :priviliges
   get '/help/mathjax_cheatsheet', to: 'help_center#mathjax_cheatsheet', as: :mathjax_cheatsheet
   get '/help/topics', to: 'help_center#on_topics', as: :on_topics
   get '/help/good-problems', to: 'help_center#good_problems', as: :good_problems
@@ -42,9 +61,9 @@ Rails.application.routes.draw do
   get '/help/editing-posts', to: 'help_center#editing_posts', as: :editing_posts
   get '/help/creating-topics', to: 'help_center#creating_topics', as: :creating_topics
   get '/help/deleting-posts', to: 'help_center#deleting_posts', as: :deleting_posts
-  get '/help/reputation', to: 'help_center#reputation', as: :reputation
+  #get '/help/reputation', to: 'help_center#reputation', as: :reputation
   get '/help/badges', to: 'help_center#badges', as: :badges
-
+=end
 
   devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
   devise_scope :user do

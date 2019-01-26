@@ -1,0 +1,20 @@
+<!-- Articles in this category widget -->
+<div class='row'>
+  <div class='col-md-12'>
+    <div class='categories-widget'>
+      <div class='categories-widget-content'>
+        <h5 class='headerFont'>Other Categories</h5>
+			  <ul>
+			    <% (help_center_categories - [@category]).each do |category| %>
+            <li>
+              <%= link_to help_center_category_path(category), class: 'headerFont' do %>
+                <%= category.titleize %>
+
+              <% end %>
+				    </li>
+		      <% end %>
+			  </ul>
+      </div>
+		</div>
+	</div>
+</div>

@@ -305,6 +305,12 @@
   padding-left: 35px;
 }
 
+@media (min-width: 992px) {
+  .pl-md-50 {
+    padding-left: 50px;
+  }
+}
+
 .pr-0 {
   padding-right: 0 !important;
 }

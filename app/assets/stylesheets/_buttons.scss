@@ -3,32 +3,33 @@
 	display: inline-block;
 	padding: $btn-padding;
 	color: $light;
-  background: $base;
+  background: $accent;
 	font-family: $btn-font;
 	font-size: $btn-font-size;
-  font-weight: 600;
+  font-weight: 300;
 	line-height: $btn-line-height;
 	border-radius: 3px;
 	transition: all $btn-trans-time;
-  letter-spacing: 0.06em;
 
 	&:visited {
 
 		&:hover {
-			color: $light;
-			background: lighten($base, 10%);
+      color: #fff;
+      background: $accent;
+			opacity: 0.8;
 		}
 	}
 
 	&:hover {
-		color: $light;
-		background: lighten($base, 10%);
+    color: #fff;
+    background: $accent;
+		opacity: 0.8;
 	}
 
 	&:focus {
-		color: $light;
-		outline: none;
-    background: $base-light;
+    color: #fff;
+    background: $accent;
+		opacity: 0.8;
 	}
 } // btn;
 
@@ -41,10 +42,9 @@
 	padding: $btn-padding;
 	font-family: $btn-font;
 	font-size: $btn-font-size;
-  font-weight: 600;
+  font-weight: 300;
 	line-height: $btn-line-height;
 	transition: all $btn-trans-time;
-  letter-spacing: 0.06em;
   vertical-align: middle;
 }
 
@@ -53,30 +53,33 @@
 .btn-ghost {
 	@extend .btn;
 	background: #fff;
-	color: $dark;
-	border: 1px solid #d0d0d3;
+	color: $accent;
+	border: 1px solid $accent-light;
 	overflow: hidden;
 	z-index: 1;
 
 	
 	&:visited,
 	&:focus {
-	  color: $dark;
+	  color: $accent;
 		text-decoration: none;
-    background: #fafafa;
-    border: 1px solid $dark;
+    background: #fff;
+    border: 1px solid $accent-light;
+    opacity: 0.8;
 	}
 
 	&:hover {
-		color: $dark;
-		background: #fafafa;
-    border: 1px solid $dark;
+		color: $accent;
+		background: #fff;
+    border: 1px solid $accent-light;
+    opacity: 0.8;
 
 		&:visited {
-			color: $dark;
+			color: $accent;
 			text-decoration: none;
-      background: #fafafa;
-      border: 1px solid $dark;
+      background: #fff;
+      border: 1px solid $accent-light;
+      opacity: 0.8;
 		}
 
 		&:after {
@@ -85,35 +88,35 @@
 	}
 
   &:active {
-    color: $dark;
-		background: #f5f5f5;
-    border: 1px solid $dark;
+    color: $accent;
+		background: #fff;
+    border: 1px solid $accent-light;
   }
 }
 
 .btn-secondary {
-  border: 1px solid $base;
-  color: darken($base, 5%);
+  border: 1px solid $accent;
+  color: darken($accent, 5%);
   background: #fff;
 
   &:visited,
 	&:focus {
-	 color: darken($base, 10%);
-   border-color: darken($base, 10%);
+	 color: darken($accent, 10%);
+   border-color: darken($accent, 10%);
 	 text-decoration: none;
    background: #fff;
 	}
 
 	&:hover {
-		color: darken($base, 10%);
+		color: darken($accent, 10%);
 		background: #fff;
-    border-color: darken($base, 5%);
+    border-color: darken($accent, 5%);
 
 		&:visited {
-			color: darken($base, 10%);
+			color: darken($accent, 10%);
 			text-decoration: none;
       background: #fff;
-      border-color: darken($base, 5%);
+      border-color: darken($accent, 5%);
 		}
 
 		&:after {
@@ -150,8 +153,18 @@
   display: inline-block;
   padding: 3px 10px;
   font-size: 20px;
-  font-weight: bold;
-  background: rgba(20, 94, 101, 0.22);
+  font-weight: 600;
+  background: #f4f6f8;
   color: rgba(0,0,0,0.84);
   margin-bottom: 50px;
+
+  &:hover {
+    opacity:0.9;
+  }
+}
+
+@media( max-width: 720px) {
+  .label-header {
+    margin-bottom: 20px;
+  }
 }

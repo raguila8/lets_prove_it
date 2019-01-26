@@ -11,13 +11,15 @@ $white: #fff;
 $error-red: #e80000;
 $success-green: #1C9963;
 $highlight-text-bg: #17DA5B;
-$base: #145e65;
-$base-light: lighten($base, 15%);
+$accent: #219FAA;
+$accent-light: #3BB9C4;
+$accent-dark: rgba(8, 134, 145, 1);
+$accent-light-background: rgba(8, 134, 145, 0.1);
 $grey-light: #fafafa;
 
 
 /* ---- Buttons ---- */
-$btn-padding: 8px 24px;
+$btn-padding: 8px 18px;
 $btn-font: $heading-font;
 $btn-font-size: 1em;
 $btn-letter-spaceing: 2.5px;
@@ -48,8 +50,15 @@ body {
   box-sizing: border-box;
 }
 
-ul li {
-  list-style: none !important;
+.wideContainer {
+  max-width: 1280px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+  margin: 0 auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+
 }
 
 .btn-xs {

@@ -1049,7 +1049,8 @@ $(document).on('turbolinks:load', function() {
 */
     });
 
-    $('body').on('click', "button[data-action='close-reply-form']", function() {
+    $('body').on('click', "span[data-action='close-reply-form']", function() {
+      console.log("HERE");
       $(this).closest('form').next('.commentPreview').remove();
       $(this).closest('form').remove();
     });

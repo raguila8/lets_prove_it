@@ -9,33 +9,35 @@
 	bottom: 7px;
 	margin-bottom: 0;
 	background: none;
-	text-transform: uppercase;
-	font-size: .85em;
-	letter-spacing: 2px;
+	//text-transform: uppercase;
+	font-size: 16px;
+	//letter-spacing: 2px;
 
 	li {
+    color: rgba(0,0,0,0.84);
+    font-weight: 500;
 
 		a {
-			color: $gray-light;
+			color: $accent-dark;
 
 			&:focus {
 				text-decoration: none;
 			}
 
 			&:hover {
-				color: $light;
+				color: $accent;
 			}
 		}
 	}
 
 	li + li {
 		&:before {
-			color: $gray;
+			color: rgba(0,0,0,0.54);
 		}
 	}
 
 	.active {
-		color: $gray;
+		font-weight: 600;
 	}
 }
 
@@ -106,7 +108,7 @@
 } // .pt-dark
 
 .pt-light {
-	background: rgba(20, 94, 101, 0.12);
+	background: #f4f6f8;
 
 	h1 {
 		color: $dark;
@@ -117,18 +119,25 @@
 	.breadcrumb {
 
 		li {
+      color: rgba(0,0,0,0.84);
+      font-weight: 500;
 
-			a {
-				color: $gray-light;
+		  a {
+			  color: $accent-dark;
 
-				&:hover {
-					color: $light;
-				}
-			}
-		}
+			  &:focus {
+				  text-decoration: none;
+		  	}
+
+		  	&:hover {
+		  		opacity: 0.8;
+		  	}
+		  }
+  	}
+
 
 		.active {
-			color: $gray;
+			font-weight: 600;
 		}
 	}
 } // .pt-light

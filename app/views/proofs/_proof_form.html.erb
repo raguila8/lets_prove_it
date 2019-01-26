@@ -11,9 +11,9 @@
   <div class="clearfix"></div>
   </div>
   
-  <input type="submit" value="Submit Proof" class="btn mb-5 btn-mult pull-right">
+  <input type="submit" value="Submit Proof" class="btn-ghost mb-5 btn-mult pull-right">
   
-  <span class="btn-ghost mb-5 btn-mult mr-5 preview-btn pull-right" data-toggle="modal" data-target="#preview-modal">Preview</span>
+  <span class="btn-light mb-5 btn-mult mr-5 preview-btn pull-right" data-toggle="modal" data-target="#preview-modal">Preview</span>
   <%= link_to cancel_edit_path(@proof.id), remote: true, class: "btn-ghost mb-5 btn-mult pull-right mr-10" do %>
     <span>Cancel</span>
   <% end %>

@@ -1,0 +1,19 @@
+<!-- Articles in this category widget -->
+<div class='row'>
+  <div class='col-md-12'>
+    <div class='articles-in-category-widget'>
+      <div class='articles-in-category-widget-content'>
+        <h5 class='headerFont'>Articles in this Category</h5>
+			  <ul>
+			    <% (help_center_articles(@category) - [@article]).each do |article| %>
+            <li>
+              <%= link_to help_center_article_path(category: @category, article: article), class: 'headerFont' do %>
+                <%= article.titleize %>
+					    <% end %>
+				    </li>
+		      <% end %>
+			  </ul>
+      </div>
+		</div>
+	</div>
+</div>
