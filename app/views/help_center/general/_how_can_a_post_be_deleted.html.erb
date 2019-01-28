@@ -1,0 +1,61 @@
+<h1> How can a post be deleted? </h1>
+
+<h3>By a User:</h3>
+<hr>
+
+<ul>
+  <li><b>The author</b> can typically delete their own posts, except when: 
+    <ul>
+      <li class='decimal-item'>
+			  the post is a problem and has at least one proof with 
+				at least one upvote.
+			</li>
+      <li class='decimal-item'>
+			  the post is a proof and has at least one upvote 
+				(it doesn't matter if the overall score is negative).
+			</li>
+    </ul>
+  </li>
+  <li><b>Moderators</b> can delete any posts instantly.</li>
+  <li>
+	  <b>Users with 10000 reputation or more</b> can delete reported posts 
+		that are in the "review queue".
+	</li>
+</ul>
+
+<h3>By the System:</h3>
+<hr>
+
+<ul>
+  <li>
+	  <b>Dead problem:</b> Problems that are over 60 days old, with a voting 
+    score of 0 or less and no proofs will automatically be deleted.
+	</li>
+  <li>
+	  <b>Bad comments:</b> Comments that have a voting score of -5 or less.
+	</li>
+</ul>
+
+<h3>What is the Review Queue?</h3>
+<hr>
+
+<p>
+  When a post is reported or obtains a voting score of -5, it is sent to the 
+	review queue. Here, posts are reviewed thoroughly by moderators and users 
+	with <%= link_to "post moderator priviliges", "#" %> (>= 10000 reputation).
+	Post moderators will review reported posts, compare it to our community
+	rules, and take an action. The possible actions are:
+	<li class='decimal-item'>
+	  Ignore the report. If the moderators conclude that the post in question
+		follows our comunity's rules, nothing happens and the post is removed
+		from the review queue.
+	</li>
+	<li class='decimal-item'>
+    Conclude that the post is against the community's rules. A warning message
+		is then sent to the user and the post is removed from public view.	
+	</li>
+	<li class='decimal-item'>
+    Fix the problem through editing. An effort is made to edit the post and 
+		to mark it as OK if it can be improved.
+	</li>
+</p>

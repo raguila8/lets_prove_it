@@ -1,0 +1,62 @@
+<h1> Report </h1>
+
+<h3>Reputation Needed: 300 </h3>
+<hr>
+
+<p>
+  Reporting is a way to bring innapropriate content to the attention of 
+	moderators and trusted users, so that they can determine the fate 
+	of the post.
+</p>
+
+<p> 
+  The following are the currently implemented flag types that you can report: 
+</p>
+
+<ul>
+  <li><b>Spam</b>.</li> 
+  <li><b>offensive</b>.</li>
+  <li><b>Not a proof</b> (proofs only).</li>
+  <li><b>Duplicate</b>.</li>
+  <li><b>vague or unclear</b> (problems only).</li>
+  <li><b>Not a proof problem</b> (problems only).</li>
+  <li><b>Low quality</b> (i.e. post is very hard to understand, little thought was put into it, editing can not salvage the post).</li>
+  <li><b>Other</b></li>
+</ul>
+
+<h3>How do I report a Post?</h3>
+<hr>
+
+<p>
+  Click on the report link under a post and you will see a pop-up modal with 
+	a list of report options similar to the ones above.
+</p>
+
+<h3>What happens to reports?</h3>
+<hr>
+
+<p>
+  When a post is reported it is sent to the review queue. Here, posts are 
+	reviewed thoroughly by moderators and users with 
+	<%= link_to "moderator tools priviliges", help_center_article_path(
+							  category: 'Privileges', 
+							  article: 'Moderator Tools'),
+							class: 'accentLink' %>
+	(>= 7500 reputation).These trusted users will review reported posts, 
+	compare it to our community rules, and take an action. 
+	The possible actions are:
+
+  <li class='decimal-item'>
+	  Ignore the report. If the moderators conclude that the post in question
+		follows our comunity's rules, nothing happens and the post is removed
+		from the review queue.
+	</li>
+	<li class='decimal-item'>
+    Conclude that the post is against the community's rules. A warning message
+		is then sent to the user and the post is removed from public view.	
+	</li>
+	<li class='decimal-item'>
+    Fix the problem through editing. An effort is made to edit the post and 
+		to mark it as OK if it can be improved.
+	</li>
+</p> 

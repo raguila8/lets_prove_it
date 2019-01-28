@@ -12,14 +12,14 @@
   }
 }
 
-#fancyHeader {
+#fancyHeader, .fancyBanner {
   font-family: "Montserrat", "Open Sans", "Helvetica Neue", Helvetica, sans-serif; 
   display: block;
   margin-left: 64px;
   margin-right: 64px;
   margin-bottom: 40px;
   
-  .fancyHeaderCover {
+  .fancyHeaderCover, .fancyBannerCover {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -36,7 +36,7 @@
     align-content: stretch;
   }
   
-  .fancyHeaderLeft {
+  .fancyHeaderLeft, .rightTextBanner .fancyBannerRight {
     width: 50%;
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 auto;
@@ -57,7 +57,7 @@
     justify-content: center!important;
   }
 
-  .fancyHeaderLeftContainer {
+  .fancyHeaderLeftContainer, .rightTextBanner .fancyBannerRightContainer {
     margin-left: auto;
     max-width: 612px;
     width: 100%;
@@ -66,7 +66,13 @@
     box-sizing: border-box;
   }
 
-  .fancyHeaderRight {
+  .rightTextBanner .fancyBannerRightContainer {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 60px - 32px 60px;
+  }
+
+  .fancyHeaderRight, .rightTextBanner .fancyBannerLeft {
     width: 50%;
     background-position: center;
     background-origin: border-box;
@@ -80,6 +86,12 @@
 
   .open-book-background {
     background-image: url(/assets/open_book.jpg);
+  }
+
+  .rightTextBanner .activeSupport {
+    background-image: url(/assets/contact_us.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 
   .help-center-background {
@@ -96,7 +108,7 @@
   }
 
   @media (max-width: 1199px) {
-    .fancyHeaderCover {
+    .fancyHeaderCover, .fancyBannerCover {
       height: auto!important;
       -webkit-box-orient: vertical;
       -webkit-box-direction: normal;
@@ -109,11 +121,11 @@
       align-items: center;
     }
 
-    .fancyHeaderLeft {
+    .fancyHeaderLeft, .rightTextBanner .fancyBannerRight {
       width: 100%;
     }
 
-    .fancyHeaderLeftContainer {
+    .fancyHeaderLeftContainer, .rightTextBanner .fancyBannerRightContainer{
       margin: 0 auto;
       max-width: 700px;
       padding: 30px 16px 0 16px;
@@ -124,7 +136,7 @@
       line-height: 50px;
     }
 
-    .fancyHeaderRight {
+    .fancyHeaderRight, .rightTextBanner .fancyBannerLeft {
       width: 100%;
       -webkit-box-ordinal-group: 0;
       -webkit-order: -1;
@@ -135,7 +147,7 @@
       margin-top: 0;
     }
 
-    .help-center-background {
+    .help-center-background, .rightTextBanner .fancyBannerLeft {
       width: 75%;
     }
   }
@@ -155,7 +167,7 @@
   }
 }
 @media (max-width: 1199px) {
-  #fancyHeader {
+  #fancyHeader, .fancyBanner {
     margin-left: 0;
     margin-right: 0;
   }

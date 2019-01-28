@@ -342,6 +342,10 @@ h3 {
   font-size: 16px;
 }
 
+.decimal-item {
+  list-style-type: decimal !important;
+}
+
 /********************* Help Center ***********************/
 
 .help-center-article {
@@ -370,6 +374,12 @@ h3 {
 
   h3 {
     font-size: calc(20px * 1.5);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  h4 {
+    font-size: calc(20px * 1.2);
     font-weight: 500;
     line-height: 1.2;
   }

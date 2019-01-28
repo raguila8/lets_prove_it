@@ -1,0 +1,29 @@
+<h1> What are topics and how do I use them? </h1>
+
+<p> 
+  Topics are a way of connecting users with problems they will be able to 
+	answer by sorting problems into specific, well-defined categories.
+</p>
+
+<p> 
+  Topics are also used to help you identify problems that are relavent or 
+	interesting to you. Users can follow topics in order to recieve problems 
+	within specific topics in their 
+	<%= signed_in? ? link_to("feed", feed_path, class: 'accentLink') : "feed" %>. 
+	You can <%= link_to "browse and search new topics", 
+	                     topics_path, class: 'accentLink' %> 
+  in the topics index page to improve your feed.
+</p>
+
+<p> 
+  Each problem has to have at least one topic and can have up to five. 
+	Clicking on the topic tag corresponding to a problem brings you to a page 
+	that shows you all problems and proofs within that topic.
+</p>
+
+<p>
+  Users with sufficient reputation can edit the topic tags of a problem if 
+	they feel a certain tag was used innapropriately or if the problem is 
+	missing a topic.
+</p>
+

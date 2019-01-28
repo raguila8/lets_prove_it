@@ -13,7 +13,7 @@
         </li>
       </ul>
       <div class='help-center-article'>
-        <%= render "/help_center/#{@category.downcase}/#{@article.parameterize.underscore}" %>
+        <%= render "/help_center/#{@category.downcase}/#{@article.tr("'", '').parameterize.underscore}" %>
       </div>
     </div>
     <div class='col-md-4 pl-md-50'>

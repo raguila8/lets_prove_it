@@ -11,7 +11,8 @@
 
         <li class='featured-text-list-item featured-text-list-item-3'>
           <%= link_to help_center_article_path(category: category, article: article), class: "featured-text-list-link headerFont arrow-link" do %>
-		        <%= article %>
+		        <%= article %> 
+            <%= privilege_reputation(article) if is_privilege_category?(category) %>
 
 			      <svg class="arrow-icon" width="32" height="32" viewBox="0 0 32 32">
 				      <g fill="none" stroke="rgba(8,134,145,1)" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10">
@@ -26,3 +27,4 @@
     </ul>
   <% end %>
 </div>
+<%= render '/help_center/contact_us_banner' %>
