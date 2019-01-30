@@ -1,0 +1,92 @@
+<%= render "shared/not_signed_in_action_modal" %>
+<%= render 'reports/report_modal' if signed_in? %>
+
+<!-- ========== Single Blog Post ========== -->
+
+<div id="topic-page" class="pt-100 section container-fluid blog-classic">
+  <div class="row">
+    <div class="col-lg-9">
+      <div class="mh-auto ft-tabs">
+        <div class="row">
+            
+          <!-- Tabs -->
+          <div class="col-lg-2 no-gap">
+            <ul class="tabs-list" role="tablist">
+
+              <!-- Tab 1 -->
+              <li role="presentation" class="active">
+                <a href="<%=description_topic_path(@topic)%>" aria-controls="tab1" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>Description</h1>
+                    <i class="fa fa-comment"></i>
+                  </div>
+                </a>
+              </li> 
+ 
+              <!-- Tab 3 -->
+              <li role="presentation">
+                <a href="<%=problems_topic_path(@topic)%>" aria-controls="tab2" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>Problems</h1>
+                    <i class="fa fa-question-circle"></i>
+                  </div>
+                </a>
+              </li>
+
+              <!-- Tab 3 -->
+              <li role="presentation">
+                <a href="<%=proofs_topic_path(@topic)%>" aria-controls="tab3" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>Proofs</h1>
+                    <i class="fa fa-comment"></i>
+                  </div>
+                </a>
+              </li>
+
+ 
+              <!-- Tab 4 -->
+              <li role="presentation">
+                <a href="<%=log_topic_path(@topic)%>" aria-controls="tab4" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>Edits</h1>
+                    <i class="fa fa-pencil-square"></i>
+                  </div>
+                </a>
+              </li>
+
+              <!-- Tab 5 -->
+              <li role="presentation">
+                <a href="<%=followers_topic_path(@topic)%>" aria-controls="tab5" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1>Followers</h1>
+                    <i class="fa fa-users"></i>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div><!-- / .col-lg-4 -->
+
+
+          <!-- Tabs Content -->
+          <div class="col-lg-10 no-gap tab-content">
+
+            <!-- Tab Content 1 -->
+            <div class="tab-pane fade active in">
+              <div class="mt-20 tab-content-text page-content pt-0">
+                <div class="tab-list-content">
+                  <%= render 'topics/topic_description' %>
+                </div>
+              </div>
+            </div><!-- / #tab1 -->
+          </div><!-- / .col-lg-8 -->
+        </div><!-- / .row -->
+      </div>
+    </div><!-- / .col-md-8 -->
+
+
+
+    <!-- ========== Sidebar ========== -->
+    <%= render 'shared/sidebars/topic_sidebar' %>
+    
+  </div><!-- / .row -->
+</div><!-- / .container -->

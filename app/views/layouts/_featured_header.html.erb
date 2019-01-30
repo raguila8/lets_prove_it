@@ -1,11 +1,11 @@
-<header id='fancyHeader'>
+<header id='fancyHeader' class='mb-0'>
   <div class="fancyHeaderCover">
     <div class="fancyHeaderLeft">
 		  <div class='fancyHeaderLeftContainer'>
 			  <div class='fancyCaption headerFont'>
           <p class='mb-5'>Featured Problem</p>
 				</div>
-			  <%= link_to problems_path(Problem.featured.id), class: 'header-link-1' do %>
+			  <%= link_to problem_path(Problem.featured.id), class: 'header-link-1' do %>
           <h1 class='header-h1'>
 				    <%= Problem.featured.title %>
 			    </h1>
@@ -30,7 +30,7 @@
 			</div>
     </div>
 
-    <div class="fancyHeaderRight open-book-background"></div>
+    <div class="fancyHeaderRight featured-header-background"></div>
 	</div>
 
 	<div class="sectionDivider"></div>

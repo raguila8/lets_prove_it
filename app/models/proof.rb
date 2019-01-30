@@ -18,8 +18,6 @@ class Proof < ApplicationRecord
 
 
   validates :content, presence: true, length: { maximum: 10000, minimum: 15 }
-  validates_uniqueness_of :user_id, :scope => [:problem_id]
-
   scope :active, -> { where(deleted_on: nil) }
 
   def save_new(images, user)

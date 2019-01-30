@@ -1,0 +1,246 @@
+<%= render "shared/not_signed_in_action_modal" %>
+<%= render 'shared/no_privilige_modal' if signed_in? %>
+<%= render '/conversations/new_conversation_modal' if signed_in? %>
+
+<div class="user-profile pt-100 section container-fluid blog-classic" id="profile-page">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="profile-main-div mb-40 primary-card" id="profile-<%=@user.id%>">
+        <div class="row">
+          <div class="col-lg-3">
+            <!-- User Image -->
+            <div class="profile-img-container <%= "edit-toggle" if current_user == @user %>  g-mb-40" title="<%= 'Edit-Image' if current_user == @user %>">
+              <% if current_user == @user %>
+                <%= form_for @user, :url => update_image_user_path(@user), html: { multipart: true, id: "img-edit-form", class: "text-center" } do |f| %>
+                  <label>
+                    <div class="edit-overlay">
+                      <i class="fa fa-pencil-square"></i>
+                    </div>
+                  
+                    <img class="profile-img mh-auto img-responsive w-100" src="<%=user_avatar_src(@user)%>">
+                    <%= f.file_field :avatar, class: "profile-img-file", accept: 'image/jpeg,image/jpg,image/gif,image/png' %>
+
+                  </label>
+                <% end %>  
+              <% else %>      
+                <img class="profile-img mh-auto img-responsive w-100" src="<%=user_avatar_src(@user)%>">
+
+              <% end %>
+            </div><!-- End User Image -->
+
+            <!-- User Contact Buttons -->
+            <% if signed_in? and current_user != @user %>
+              <div class="user-contact-btns-<%=@user.id%>">
+                <button id='msg-user-btn' class="mt-20 btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary new-msg" data-toggle="modal" data-target="#newConversationModal">Message</button>
+              </div>
+            <% end %>
+
+            <% if signed_in? and current_user == @user %>
+              <div class="user-action-btns">
+                <%= link_to edit_user_path(@user)  do %>
+                  <button class="mt-20 btn btn-block mb-10 g-pv-12" >Edit Profile</button>
+                <% end %>
+              </div>
+            <% end %>
+              <!-- End User Contact Buttons -->		
+          </div>
+
+          <div class="col-lg-9">
+            <div class="col-md-12 col-lg-12">
+
+              <!-- User details -->
+              <h1 id='username' class="font-weight-600 dont-break-out username normal-spacing mb-10"><%=@user.username%></h1>
+              <h3 class="font-weight-500 no-transform normal-spacing opacity-8 mt-0 mb-20 g-mt-0 ellipsis-wrap">
+                <%= @user.name if @user.name%>
+              </h3>
+              <p class="font-size-16">
+                <%= @user.bio if !@user.bio.blank? %>
+              </p>
+              <!-- End User details -->
+              <!-- User position -->
+              <ul class="info_list"> 
+                <%= user_info_list @user %>
+              </ul>
+            </div> 
+          </div>
+        </div>
+      </div>
+
+      <div class="mh-auto ft-tabs">
+        <div class="row">
+            
+          <!-- Tabs -->
+          <div class="col-lg-2 no-gap">
+            <ul class="tabs-list" role="tablist">
+
+              <!-- Tab 1 -->
+              <li role="presentation" class="active">
+                <a href="<%= proofs_user_path(@user) %>" aria-controls="tab1" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1><%= @user.proofs.count %></h1>
+                    <i class="fa fa-comment"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Proofs</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 2 -->
+              <li role="presentation">
+                <a href="<%= problem_edits_user_path(@user) %>" aria-controls="tab2" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1><%= @user.versions.where(versioned_type: "Problem").count %></h1>
+                    <i class="fa fa-pencil-square"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Problem Edits</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 3 -->
+              <li role="presentation">
+                <a href="<%= problems_following_user_path(@user) %>" aria-controls="tab3" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1><%= @user.problems_following.count%></h1>
+                    <i class="fa fa-question-circle"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Problems Following</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 4 -->
+              <li role="presentation">
+                <a href="<%= topics_following_user_path(@user) %>" aria-controls="tab4" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1><%= @user.topics_following.count%></h1>
+                    <i class="fa fa-tag"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Topics Following</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 5 -->
+              <li role="presentation">
+                <a href="<%= topic_edits_user_path(@user) %>" aria-controls="tab5" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1><%= @user.versions.where(versioned_type: "Topic").count%></h1>
+                    <i class="fa fa-pencil-square"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Topic Edits</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 6 -->
+              <li role="presentation">
+                <a href="<%= followers_user_path(@user) %>" aria-controls="tab6" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1><%= @user.followers.count%></h1>
+                    <i class="fa fa-users"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Followers</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 7 -->
+              <li role="presentation">
+                <a href="<%= following_user_path(@user) %>" aria-controls="tab8" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1><%= @user.following.count%></h1>
+                    <i class="fa fa-users"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Following</p>
+                  </div>              
+                </a>
+              </li>
+
+              <!-- Tab 8 -->
+              <li role="presentation">
+                <a href="<%= activity_user_path(@user) %>" aria-controls="tab1" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
+                  <div class="tab-top">
+                    <h1><%= @user.activities.count%></h1>
+                    <i class="fa fa-desktop"></i>
+                  </div>
+                  <div class="tab-bottom">
+                    <p>Activity</p>
+                  </div>              
+                </a>
+              </li>
+            </ul>
+          </div><!-- / .col-lg-4 -->
+
+
+          <!-- Tabs Content -->
+          <div class="col-lg-10 no-gap tab-content">
+
+            <!-- Tab Content 1 -->
+            <div class="tab-pane fade active in">
+              <div class="tab-content-text page-content">
+                <div class="boxedtitle add-problem-title mb-40"><h2>Proofs</h2></div>
+                <div class="tab-list-content">
+                <% @user.proofs.order(created_at: :desc).each do |proof| %>
+                  <div class="col-md-12">
+                    <div class="blog-post wow fadeIn" data-wow-delay=".1s" data-wow-duration="2s">
+        
+                      <div class="bp-content">
+                      
+                        <!-- Meta data -->
+                        <div class="post-meta">
+                          <div class="post-date float-left">
+                            <i class="fa fa-calendar-o"></i>
+                            <span>Prooved on <%=proof.created_at.strftime('%B %d, %Y')%></span>
+                          </div>
+                          <div class="vote-container vote-container-post float-right">
+                            <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+                              <%= upvote_span proof %>
+                            <% end %>
+
+                            <%= vote_count_span proof %>
+                        
+                            <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+                              <%= downvote_span proof %>
+                            <% end %>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div><!-- / .meta -->
+
+                        <!-- Post Title -->
+                        <%= link_to problem_path(proof.problem.id), class: "post-title pa-0" do %>
+                          <h2 class="problem-desc pb-15" title="Problem"><%=proof.problem.title%></h2>
+                        <% end %>
+
+                        <div class="mb-30 mt-20 blog-post-content">
+                          <%= sanitize proof.content %>
+                        </div>
+
+                        <!-- Link -->
+                        <a href="<%=problem_path(proof.problem.id)%>" class="btn btn-small">Read More</a>
+                      </div><!-- / .bp-content -->
+                    </div><!-- / .blog-post -->
+                  </div><!-- / .col-md-12 -->
+                <% end %>
+                </div>
+              </div>
+            </div><!-- / #tab1 -->
+          </div><!-- / .col-lg-8 -->
+
+        </div><!-- / .row -->
+      </div>
+    </div>
+
+    <!-- ========== Sidebar ========== -->
+    <%= render 'shared/sidebars/user_sidebar' %>
+  </div>
+</div>
+ 
+    

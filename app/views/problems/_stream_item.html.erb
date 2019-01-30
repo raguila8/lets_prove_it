@@ -25,6 +25,7 @@
 								<span class='views'><%=pluralize(problem.impressionist_count, 'view')%></span>
 							</div>
 						</div>
+
 						<% if signed_in? %>
 							<div id='problem-bookmark-<%=problem.id%>' class='floatRight'>
 								<%= bookmark_link problem %>

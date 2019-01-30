@@ -84,8 +84,10 @@
     flex: 1 0 auto;
   }
 
-  .open-book-background {
-    background-image: url(/assets/open_book.jpg);
+  .featured-header-background {
+    background-image: url(/assets/featured.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 
   .rightTextBanner .activeSupport {
@@ -178,7 +180,7 @@
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 0;
-    color: rgba(0,0,0,.36);
+    color: rgba(0,0,0,.56);
     padding-left: 5px;
   }
 }
@@ -278,3 +280,5 @@
     }
   }
 }
+
+

@@ -22,8 +22,9 @@ class Topic < ApplicationRecord
   validates :cached_problems_count, presence: true, 
                                     numericality: {only_integer: true,
                                       greater_than_or_equal_to: 0 }
-  validates_format_of :name, :with => /\A[a-z\d\.\+\-\#]*\z/,
-    :message => "can only contain a-z, 0-9, +, #, -, ."
+
+  validates_format_of :name, :with => /\A[A-Za-z\d\s]*\z/,
+    :message => "can only contain a-z, A-Z, 0-9, ' '"
 
   scope :active, -> { where(deleted_on: nil) }
 
@@ -96,4 +97,27 @@ class Topic < ApplicationRecord
   def soft_deleted?
     self.deleted_on.nil? ? false : true
   end
+
+  def trending_problem 
+    n = 1
+    problems = self.problems.where('problems.created_at >= ?', n.week.ago)
+    while problems.count == 0
+      n += 1
+      problems = self.problems.where('problems.created_at >= ?', n.week.ago)
+    end
+
+    problems.where(cached_votes_score: problems.maximum('cached_votes_score')).first
+  end
+
+  def featured_problem
+    @featured_problem ||= trending_problem
+  end
+
+  def related_topics
+    Topic.select("topics.id, topics.name, count(problem_topics.topic_id) as count").where.not(id: self.id).joins(:problem_topics).where(problem_topics: { problem_id: problems }).group("problem_topics.topic_id").order("count DESC").limit(5)
+  end
+
+  private
+
+    
 end

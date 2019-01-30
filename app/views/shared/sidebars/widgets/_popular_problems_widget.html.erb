@@ -3,14 +3,14 @@
   <div class="col-md-12 popularProblemsWidget mb-20">
 	  <div class='niceSidebarWidgetHeader' style='background-color: #dfe1bf !important;'>
       <h2 class='niceSidebarWidgetTitle headerFont darkType'>
-			  Popular Problems
+			  <%= popular_problems_widget_title %>
 			</h2>
 			<img src='/assets/head_gears.png' class='niceSidebarWidgetImage'>
 		</div>
 
 	  <ul class="widgetItems pa-32 lightGreyBack">
 		  <% popular_problems.each_with_index do |problem, index| %>
-        <li class='mb-24 displayFlex'>
+        <li class='mb-24' style='display: flex;'>
           <div class='widgetItemNumber'>
             <%= sprintf('%02d', index + 1) %>
 					</div>

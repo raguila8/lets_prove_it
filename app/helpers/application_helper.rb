@@ -35,7 +35,7 @@ module ApplicationHelper
       if %w(mathjax_cheatsheet contact).include? action_name
         render partial: "layouts/header2"
       end
-    elsif ("problems" == controller_name and (action_name == "index" or action_name == "feed" or action_name == "show")) or (controller_name == "topics" and action_name == "index") or current_page?(root_path) or controller_name == 'help_center'
+    elsif ("problems" == controller_name and (action_name == "index" or action_name == "feed" or action_name == "show")) or (controller_name == "topics") or current_page?(root_path) or controller_name == 'help_center'
       return
     elsif %w(users topics problems).include? controller_name and action_name == "index"
       render partial: "layouts/header2"
@@ -419,22 +419,7 @@ module ApplicationHelper
     end
   end
  
-  def popular_problems 
-    problems = Problem.where('created_at >= ?', 1.week.ago).limit(5)
-    i = 2
-    while problems.count < 4 do
-      problems = Problem.where('created_at >= ?', i.week.ago).limit(5)
-      i += 1
-    end
-    return problems
-=begin
-    problems.each_with_index do |problem, index|
-      html += "<li class='' style='padding: 10px; #{'border-top: 1px solid #ddd;' if index != 0 }'><a href='/problems/#{problem.id}'><h6 class='main-link' style='font-weight: 600;'>#{problem.title}</h6></a><span style='color: #777; font-size: .8em; line-height: 1.428;'>#{problem.created_at.strftime('%B %d, %Y')}</span></li>"
-    end
-    return html.html_safe
-=end
-  end
-
+  
   def bookmarked_problems
     current_user.bookmarked_problems.limit(5)
   end

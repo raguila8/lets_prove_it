@@ -38,6 +38,7 @@
 
 .widgetItemContent {
   min-width: 200px;
+  max-width: 233px;
   margin-left: 16px;
   -webkit-box-flex: 1;
   -webkit-flex: 1 1 auto;
@@ -120,7 +121,7 @@
   }
 }
 
-.articles-in-category-widget, .categories-widget {
+.articles-in-category-widget, .categories-widget, .related-topics-widget {
   padding: 40px 30px 50px;
   border: 1px solid #d0d0d3;
   margin-top: 75px;
@@ -136,7 +137,7 @@
     width: calc(100% + 2px);
   }
 
-  .articles-in-category-widget-content, .categories-widget-content {
+  .articles-in-category-widget-content, .categories-widget-content, .related-topics-widget-content {
 
     h5 {
       color: rgba(0,0,0,0.84);

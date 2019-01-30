@@ -1,92 +1,69 @@
-<%= render "shared/not_signed_in_action_modal" %>
-<%= render 'reports/report_modal' if signed_in? %>
-
-<!-- ========== Single Blog Post ========== -->
-
-<div id="topic-page" class="pt-100 section container-fluid blog-classic">
-  <div class="row">
-    <div class="col-lg-9">
-      <div class="mh-auto ft-tabs">
-        <div class="row">
+<div class='wideContainer mt-60'>
+  <div class='row'>
+    <div class='col-md-8'>
+      <div class='topic-feature'>
+        <% if !@topic.featured_problem.image.blank? %>
+          <%= link_to problem_path(@topic.featured_problem.id), class: 'topic-feature-image mb-15', 
+					                                   style: "background-image: url(#{@topic.featured_problem.image})" do %>
             
-          <!-- Tabs -->
-          <div class="col-lg-2 no-gap">
-            <ul class="tabs-list" role="tablist">
+					<% end %>
+				<% end %>
 
-              <!-- Tab 1 -->
-              <li role="presentation" class="active">
-                <a href="<%=description_topic_path(@topic)%>" aria-controls="tab1" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
-                  <div class="tab-top">
-                    <h1>Description</h1>
-                    <i class="fa fa-comment"></i>
-                  </div>
-                </a>
-              </li> 
- 
-              <!-- Tab 3 -->
-              <li role="presentation">
-                <a href="<%=problems_topic_path(@topic)%>" aria-controls="tab2" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
-                  <div class="tab-top">
-                    <h1>Problems</h1>
-                    <i class="fa fa-question-circle"></i>
-                  </div>
-                </a>
-              </li>
+        <div class='fancyCaption headerFont'>
+          <p class='mb-0'>Featured Problem</p>
+				</div>
 
-              <!-- Tab 3 -->
-              <li role="presentation">
-                <a href="<%=proofs_topic_path(@topic)%>" aria-controls="tab3" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
-                  <div class="tab-top">
-                    <h1>Proofs</h1>
-                    <i class="fa fa-comment"></i>
-                  </div>
-                </a>
-              </li>
+        <%= link_to problem_path(@topic.featured_problem.id), 
+				                         class: 'header-link-1' do %>
+          <h1 class='header-h1'>
+				    <%= @topic.featured_problem.title %>
+			    </h1>
+				<% end %>
 
- 
-              <!-- Tab 4 -->
-              <li role="presentation">
-                <a href="<%=log_topic_path(@topic)%>" aria-controls="tab4" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
-                  <div class="tab-top">
-                    <h1>Edits</h1>
-                    <i class="fa fa-pencil-square"></i>
-                  </div>
-                </a>
-              </li>
-
-              <!-- Tab 5 -->
-              <li role="presentation">
-                <a href="<%=followers_topic_path(@topic)%>" aria-controls="tab5" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
-                  <div class="tab-top">
-                    <h1>Followers</h1>
-                    <i class="fa fa-users"></i>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div><!-- / .col-lg-4 -->
+				<div class="author-container" style='margin-top: 20px; margn-bottom: 20px;'>
+				  <div class="author-img">
+				    <a href="<%=user_path(@topic.featured_problem.user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(@topic.featured_problem.user)%>" alt="Go to the profile of <%=@topic.featured_problem.user.name_or_username%>"></a>
+				  </div>
 
 
-          <!-- Tabs Content -->
-          <div class="col-lg-10 no-gap tab-content">
+          <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+            <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(@topic.featured_problem.user.id)%>"><%=@topic.featured_problem.user.name_or_username%></a>
+            <div class="noWrapWithEllipsis captionSmall fontSize-15">
+              <span class="time no-wrap"><%= time_ago_in_words(@topic.featured_problem.created_at) %> ago</span>
+              <span class="dot-sep">·</span>
+              <span class="views no-wrap"><%=pluralize(@topic.featured_problem.cached_proofs_count, 'proof')%></span>
+            </div>
+          </div>
+				</div>
+			</div>
+      <div>
+        <h3 class='headerFont pb-8 fontWeight-600 darktype fontSize-16 bb-light'>
+          Latest
+        </h3>
 
-            <!-- Tab Content 1 -->
-            <div class="tab-pane fade active in">
-              <div class="mt-20 tab-content-text page-content pt-0">
-                <div class="tab-list-content">
-                  <%= render 'topics/topic_description' %>
-                </div>
-              </div>
-            </div><!-- / #tab1 -->
-          </div><!-- / .col-lg-8 -->
-        </div><!-- / .row -->
+        <div class='pt-30'>
+          <div class='topic-problem-feed'>
+            <% @topic.problems.order(created_at: :desc).each_with_index do |problem, index| %>
+              <%= render(:partial => 'problems/stream_item', locals: { problem: problem }) %>
+            <% end %>
+          </div>
+        </div>
       </div>
-    </div><!-- / .col-md-8 -->
+	  </div>
+    <div class='col-md-4'>
+      <div class='topic-sidebar'>
+        <%= render '/shared/sidebars/widgets/topic_meta', locals: { @topic => @topic } %>
+        <%@related_topics = @topic.related_topics%>
+        <% if @related_topics.length > 2 %>
+          <%= render '/shared/sidebars/widgets/related_topics', locals: { @related_topics => @related_topics } %>
+        <% end %>
 
+        <% if @topic.problems.count > 2 %>
+          <%= render '/shared/sidebars/widgets/popular_problems_widget', locals: { @topic => @topic } %>
+        <% end %>
+			</div>
+		</div>
 
+	</div>
 
-    <!-- ========== Sidebar ========== -->
-    <%= render 'shared/sidebars/topic_sidebar' %>
-    
-  </div><!-- / .row -->
-</div><!-- / .container -->
+</div>

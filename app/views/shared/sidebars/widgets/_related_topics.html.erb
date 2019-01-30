@@ -1,0 +1,21 @@
+<!-- Articles in this category widget -->
+<div class='row'>
+  <div class='col-md-12'>
+    <div class='related-topics-widget mt-40 mb-40'>
+      <div class='related-topics-widget-content'>
+        <h5 class='headerFont'>Related Topics</h5>
+			  <ul>
+				   
+			    <% @related_topics.each do |topic| %>
+            <li>
+              <%= link_to topic_path(topic.id), class: 'headerFont' do %>
+                <%= topic.name.titleize %>
+
+              <% end %>
+				    </li>
+		      <% end %>
+			  </ul>
+      </div>
+		</div>
+	</div>
+</div>
