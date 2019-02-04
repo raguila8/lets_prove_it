@@ -8,9 +8,21 @@ $(document).on('turbolinks:load', function() {
   initAccordion();
   initVideoPlayer();
   initCommentsLinks();
+
+  if ($('#proof-form').length > 0) {
+    initFullscreen();
+  }
+
+  if ($('#problem-form').length > 0) {
+    initProblemForm();
+  }
   
   if ($('textarea').length > 0) {
     initTextarea();
+  }
+
+  if ($('.fancy-tabs').length > 0) {
+    initFancyTabs();
   }
 
   if ($('#sticky-nav').length > 0) {
@@ -1050,7 +1062,6 @@ $(document).on('turbolinks:load', function() {
     });
 
     $('body').on('click', "span[data-action='close-reply-form']", function() {
-      console.log("HERE");
       $(this).closest('form').next('.commentPreview').remove();
       $(this).closest('form').remove();
     });
@@ -1061,3 +1072,63 @@ $(document).on('turbolinks:load', function() {
 
   }
 
+
+/* ------------------------------------------------------------------
+    Fancy Tabs
+    ----------------------------------------------------------------- */
+
+  function initFancyTabs() {
+
+    function loadSection($input) {
+      var $target = $($input.data('target'));
+
+      if ($target.attr('data-loaded') == "false") {
+        var user_id = $input.closest('.fancy-tabs').data('user');
+
+        $.ajax({
+          type: "GET",
+			    url: "/users/" + user_id + "/" + $target.data('content'),
+			    headers: {
+			     Accept: "text/javascript; charset=utf-8",
+			      "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			    },
+          beforeSend: function() {
+            $target.html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
+          }
+        });
+
+      }
+    }
+
+    $('.fancy-tabs').on('click', 'input', function() {
+      loadSection($(this));
+    });
+  }
+
+/* ------------------------------------------------------------------
+    Fullscreen
+  -----------------------------------------------------------------*/
+
+  function initFullscreen() {
+    $('#proof-form').on('click', 'trix-toolbar .trix-button--icon-fullscreen', function() {
+      if ($('.proof-form-container').hasClass('proof-form-container-fullscreen')) {
+        $('.proof-form-container').removeClass('proof-form-container-fullscreen');
+        $('body').removeClass('overflow-y-hidden');
+      } else {
+        $('.proof-form-container').addClass('proof-form-container-fullscreen');
+        $('body').addClass('overflow-y-hidden');
+        $('trix-editor').focus();
+      }
+    });
+  }
+
+/* ---------------------------------------------------------------------
+  Problem Form
+ -----------------------------------------------------------------------*/
+
+  function initProblemForm() {
+    $li = $(".multi-step-bar li[data-open='true']");
+    if ($li.text() == "Title") {
+      $(".form-nav span[data-nav='previous']").addClass('hide');
+    }
+  }

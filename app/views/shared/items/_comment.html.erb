@@ -10,7 +10,7 @@
               <img src='<%=user_avatar_src(comment.user)%>'></img>
             </a>
           </div>
-          <%= activity.message %>  on <%=activity.created_at.strftime('%B %d, %Y')%>
+          <%#= activity.message %>   <%#=activity.created_at.strftime('%B %d, %Y')%>
         </span>
       </div>
       <div class="clearfix"></div>
@@ -18,7 +18,7 @@
     <div class="comment-content nice-text" style="margin-top: 15px;">
       <%= sanitize comment.content %>
     </div>
-    <%= link_to "Read More", activity.link, class: "btn btn-small" %>
+    <%#= link_to "Read More", activity.link, class: "btn btn-small" %>
     <div class="clearfix"></div>
   </div>
 </div>

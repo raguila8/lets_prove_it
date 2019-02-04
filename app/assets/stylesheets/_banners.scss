@@ -1,0 +1,85 @@
+/***************************** Profile Header ***************************/
+
+.profile-meta-group {
+  display: flex;
+  flex-direction: row;
+
+  .profile-image {
+    float: none;
+    clear: none;
+    margin: 0;
+    width: 125px;
+    height: 125px;
+    margin-right: 26px;
+    margin-left: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+
+    img {
+      height: auto;
+      width: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  .profile-headings {
+    flex: 1 75%;
+    max-width: 705px;
+
+    .profile-heading-group {
+      display: flex;
+
+      h1 {
+        flex: 1 75%;
+        margin-top: 10px;
+      }
+    }
+
+    .user-follow-meta {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-right: 12px;
+      margin-left: 32px;
+    }
+
+    .profile-about {
+      margin-top: 7px;
+      max-width: 705px;
+      color: rgba(0,0,0,0.64);
+    }
+  }
+}
+
+@media (max-width: 1036px) {
+  .profile-meta-group {
+    .profile-image {
+      width: 105px;
+      height: 105px;
+    }
+  }
+}
+
+@media (max-width: 781px) {
+  .profile-meta-group {
+    flex-direction: row-reverse;
+
+    .profile-image {
+      float: right;
+      clear: right;
+      margin: 0 0 0 10px;
+      width: 65px;
+      height: 65px;
+    }
+
+    .profile-heading-group {
+      h1 {
+        font-size: 30px;
+      }
+
+      .profile-about {
+        font-size: 15px;
+      }
+    }
+  }
+}
+

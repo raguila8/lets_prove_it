@@ -16,7 +16,7 @@
         <%= render "/help_center/#{@category.downcase}/#{@article.tr("'", '').parameterize.underscore}" %>
       </div>
     </div>
-    <div class='col-md-4 pl-md-50'>
+    <div class='col-md-4 pl-lg-50'>
       <%= render '/shared/sidebars/widgets/articles_in_this_category', locals: { @category => @category, @article => @article } %>
       <%= render '/shared/sidebars/widgets/contact_us_widget' %>
     </div>

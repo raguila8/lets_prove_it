@@ -36,12 +36,20 @@ body {
   color: rgba(0,0,0,0.84);
 }
 
+.white-background {
+  background: #fff !important;
+}
+
 .page {
   margin: 0 60px;
 }
 
 .bb-light {
   border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
 }
 
 .customContainer {
@@ -89,6 +97,10 @@ body {
   text-align: right !important;
 }
 
+.textAlignCenter {
+  text-align: center !important;
+}
+
 .verticalAlignMiddle {
   vertical-align: middle;
 }
@@ -103,6 +115,11 @@ body {
 
 .floatLeft {
   float: left !important;
+}
+
+.light-grey-card {
+  background: #f4f6f8;
+  padding: 24px 40px;
 }
 
 .borderSmall {

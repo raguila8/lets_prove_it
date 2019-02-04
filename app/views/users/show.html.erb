@@ -1,0 +1,39 @@
+<div class='container'>
+  <%= render '/shared/headers/profile_header' %>
+
+  <div class='fancy-tabs mt-30' data-user="<%=@user.id%>">
+  <input id="tab1" type="radio" name="tabs" data-target='#content1' checked>
+    <label for="tab1" title='Problems'>Problems</label>
+
+  <input id="tab2" type="radio" name="tabs" data-target='#content2'>
+    <label for="tab2" title='Proofs'>Proofs</label>
+
+  <input id="tab3" type="radio" name="tabs" data-target='#content3'>
+    <label for="tab3" title='Comments'>Comments</label>
+
+  <section id="content1" data-loaded='true' data-content='problems'>
+    <% @user.problems.active.order(created_at: :desc).each do |problem| %>
+      <%= render :partial => 'problems/stream_item', locals: { problem: problem } %>
+    <% end %>
+	</section>
+
+  <section id="content2" data-loaded='false' data-content='proofs'>
+    <p>
+      Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin.
+    </p>
+    <p>
+      Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
+    </p>
+  </section>
+
+  <section id="content3" data-loaded='false' data-content='comments'>
+    <p>
+      Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
+    </p>
+    <p>
+      Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin.
+    </p>
+  </section>
+
+  </div>
+</div>

@@ -66,3 +66,12 @@ document.addEventListener("trix-attachment-remove", function(event) {
   
   deleteFile(attachment);
 });
+
+document.addEventListener("trix-initialize", function(event) {
+  if ($('.proof-editor').length > 0) {
+    $('.proof-editor').prev('trix-toolbar').find('.trix-button-row').
+      append("<span class='trix-button-group trix-button-group--custom-tools'><button type='button' class='trix-button trix-button--icon trix-button--icon-fullscreen' title='Fullscreen'>'Fullscreen'</button></span>");
+  }
+});
+
+

@@ -1,7 +1,7 @@
 <% if signed_in?  %>
  
   <!-- Leave a Proof -->
-  <div class="comment-form mt-0"> 
+  <div class="proof-form-container mt-0"> 
     <%= form_with(model: Proof.new, local: true, id: "proof-form", class: "new-model-form") do |form| %>
       <%= form.hidden_field :problem_id, value: "#{@problem.id}", id: "problem-id" %>
       <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
@@ -10,15 +10,32 @@
 
       <div class="form-group">
         <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
-        <trix-editor input="proof_content" class="" placeholder='Leave a proof'></trix-editor>
+        <trix-editor input="proof_content" class="proof-editor" placeholder='Leave a proof'></trix-editor>
         <div class='textAreaActions'>
-		      <%= form.submit "Submit Proof", class: "btn-ghost mb-5 btn-mult pull-left mr-10 ml-10", data: { action: 'submit-proof' } %>
-          <span class="btn mr-5 mb-5 btn-mult preview-btn pull-left borderSmall btn-light" data-toggle="modal" data-target="#preview-modal">Preview</span>
+          <div class='textAreaActionsContainer'>
+		      <%= form.submit "Submit Proof", class: "btn-ghost mb-5 pull-left mr-10 ml-10", data: { action: 'submit-proof' } %>
+          <span class="btn mr-5 mb-5 preview-btn pull-left borderSmall btn-light" data-toggle="modal" data-target="#preview-modal">Preview</span>
+
+          <div class='secondary-dropdown pull-right' style='margin: 5px 20px 5px 5px;'>
+					  <span class='fa fa-ellipsis-h secondary-dropdown-toggle greyLink fontSize-20'></span>
+						<div class="secondary-dropdown-content headerFont fontSize-15">
+              <%= link_to "Math formatting", 
+                    help_center_article_path(article: "How Do I Write Math On My Posts?", 
+                                             category: "General"), 
+                    class: "darkType" %>
+							<%= link_to "How to write a good proof", 
+                    help_center_article_path(article: "How Do I Write A Good Proof?", 
+                                             category: "Proofs"), 
+                    class: "darkType" %>
+
+              <%= link_to "More help", help_path, class: "darkType" %>
+
+						</div>
+					</div>
+
           <div class='clearfix'></div>
         </div>
-
-        <span class="pull-right" style='margin: 5px 5px 5px 0;'><a target="_blank" href="/mathjax_cheatsheet" class="greyLink headerFont fontSize-12"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
-        <div class='clearfix'></div>
+        </div>
       </div>
 <!--
     

@@ -1,3 +1,3 @@
-$('#user-follow-<%=@user.id%>').html("<a class='mt-0' href='<%=follow_user_path(@user.id)%>' data-remote='true' data-method='post'><button class='" + $('#user-follow-<%=@user.id%>').data("class") + "'>Follow</button></a>");
+$('#user-follow-<%=@user.id%>').html("<a class='' href='<%=follow_user_path(@user.id)%>' data-remote='true' data-method='post'><button class='btn btn-ghost btn-small'>Follow</button></a>");
 
 $('#user-<%=@user.id%>-followers').text('<%= pluralize(@user.followers.count, "Follower") %>');

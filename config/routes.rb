@@ -77,6 +77,8 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:show, :index, :edit, :update] do
     member do
+      get :problems
+      get :comments
       get :problem_edits
       get :problems_following
       get :proofs

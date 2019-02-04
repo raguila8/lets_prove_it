@@ -6,7 +6,7 @@ class UsersController < ApplicationController
                                      :problem_edits, :problems_following,
                                      :topics_following, :topic_edits, :show, 
                                      :activity, :followers, :following, :edit,
-                                     :update_image ]
+                                     :update_image, :problems, :comments ]
   before_action :active_record, only: [:vote]
   after_action :create_activity, only: [:vote]
 
@@ -36,6 +36,14 @@ class UsersController < ApplicationController
 
   def proofs
     @proofs = @user.proofs.active.order(created_at: :desc)
+  end
+
+  def comments
+    @comments = @user.comments.active.order(created_at: :desc)
+  end
+
+  def problems
+    @problems = @user.problems.active.order(created_at: :desc)
   end
 
   def problem_edits
