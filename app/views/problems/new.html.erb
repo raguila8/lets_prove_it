@@ -12,13 +12,12 @@
     <div class="col-md-12 col-lg-offset-1 col-lg-10">
       <div class="problem-form-wrapper">
         
-
-        <div class="mb-60 textAlignCenter">
-			    <h2 class='headerFont mt-0 mb-30 darkType'>Write a title that summarizes the problem</h2>
+        <div class="step-meta">
+			    <h2>Write a title that summarizes the problem</h2>
 					
-				  <p class='bodyFont'>The title is the first thing that users will see. It should help them quickly understand what the problem is about.</p>
+				  <p>The title is the first thing that users will see. It should help them quickly understand what the problem is about.</p>
 
-          <div class='light-grey-card mt-25'>
+          <div class='light-grey-card'>
             <h4 class='bodyFont'>
               Here are some tips for making a good title:
             </h4>
@@ -47,14 +46,21 @@
           <%= render 'shared/error_messages' %>
           <%= form.hidden_field :tags, value: "", id: "problem-tags" %>
           <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
-          <div class="form-group show">
+          <div class="form-group title-form-group show">
             <%= form.label :title, "Problem Title *" %>
-            <%= form.text_field :title, class: "form-control", placeholder: "What's your problem's title?" %>
+            <div class='input-container title-input-container'>
+              <%= form.text_field :title, class: "form-control", placeholder: "What's your problem's title?", required: true, minlength: 10, maxlength: 255  %>
+            </div>
           </div> 
 
-          <div class="form-group">
+          <div class="form-group tags-form-group">
             <label for="topic_name">Topics *</label>
+            <div id='tags-input-container'>
+
+            </div>
+						<!--
             <input class="form-control" type="text" name="topic[name]" id="topics-input" autocomplete="off">
+						-->
           </div>
 
           <div class="form-group">
@@ -71,7 +77,7 @@
           </div>
         <% end %>
         <div class='form-nav mt-30'>
-          <span class="btn mb-5 ml-15 floatRight">Next</span>
+          <span class="btn mb-5 ml-15 floatRight btn-next" disabled>Next</span>
           <span class="btn btn-light mb-5 floatRight" data-nav='previous'>Previous</span>
         </div>
 

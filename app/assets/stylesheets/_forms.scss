@@ -129,4 +129,55 @@ trix-editor {
       letter-spacing: 0.3px;
     }
   }
+
+  .step-meta {
+    margin-bottom: 60px;
+    text-align:center !important;
+
+    h2 {
+      font-size: calc(20px * 1.8);
+      margin-bottom: 30px !important;
+      margin-top: 0 !important;
+      color: rgba(0, 0, 0, 0.84) !important;
+      fill: rgba(0, 0, 0, 0.84) !important;
+      font-family: "Montserrat", "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+    }
+
+    p {
+      font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+    }
+
+    .light-grey-card {
+      margin-top: 25px;
+    }
+  }
+}
+
+/* -------------------------------------------------------------
+  Error Handling
+ ------------------------------------------------------------------*/
+
+input.has-error {
+  border-color: $error-red;
+}
+
+.input-error {
+  position: absolute;
+  top: 50%;
+  right: .7em;
+  font-size: 20px;
+  margin-top: -8.575px;
+  color: $error-red;
+}
+
+.input-container {
+  position: relative !important;
+}
+
+.input-error-msg {
+  display: inline-block;
+  margin-top: 2px;
+  color: $error-red;
+  font-size: 14px;
+  font-weight: 500;
 }

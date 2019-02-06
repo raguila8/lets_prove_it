@@ -14,7 +14,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   if ($('#problem-form').length > 0) {
-    initProblemForm();
+    initNewProblemForm();
   }
   
   if ($('textarea').length > 0) {
@@ -1126,9 +1126,101 @@ $(document).on('turbolinks:load', function() {
   Problem Form
  -----------------------------------------------------------------------*/
 
-  function initProblemForm() {
-    $li = $(".multi-step-bar li[data-open='true']");
+  function initNewProblemForm() {
+
+    // CONSTANTS
+		var titleContent = `
+			  <h2>Write a title that summarizes the problem</h2>	
+				<p>The title is the first thing that users will see. It should help them quickly understand what the problem is about.</p>
+        <div class='light-grey-card'>
+          <h4 class='bodyFont'>
+            Here are some tips for making a good title:
+          </h4>
+ 
+          <ul>
+            <li>
+              If the theorem has a name make that your title. Sum up your entire 
+              problem in one sentence. Include details that will help people identify 
+              and solve your problem. Include any constraints or variants to your 
+              problem that make it different from similar problems already on the site. 
+            </li>
+            <li>
+              Spelling, grammar and punctuation are important! Make sure you proof-read 
+              it or have someone proof-read it for you if your english is not good.
+            </li>
+            <li>
+              Write the title last if you are having trouble summarizing the problem. 
+              Sometimes writing the problem first can make it easier for you to 
+              describe the problem.
+            </li>
+          </ul>
+        </div>
+    `;
+
+		var tagsContent = `
+		  <h2> What is your problem about? </h2>
+      <p>
+			  Topics are a way of connecting users with problems they are 
+			  interested in by sorting problems into specific, well-defined 
+				categories. Choose at least one and up to five tags.
+			</p>
+		`;
+		
+    var $li = $(".multi-step-bar li[data-open='true']");
+
+		function updateForm($li) {
+		  $('.form-group').removeClass('show');
+      if ($li.text() == "Title") {
+        $('.problem-form-wrapper .step-meta').html(titleContent);
+				$('.title-form-group').addClass('show');
+			} else if ($li.text() == "Tags") {
+        $('.problem-form-wrapper .step-meta').html(tagsContent);
+        $('.tags-form-group').addClass('show');
+			}
+		}
+
     if ($li.text() == "Title") {
       $(".form-nav span[data-nav='previous']").addClass('hide');
     }
+
+    // Click on next
+    $('.form-nav').on('click', '.btn-next', function() {
+      if ($(this).attr('disabled')) {
+        
+      } else {
+			  $li.attr('data-open', false);
+				$li = $li.next('li');
+        $li.addClass('active').attr('data-open', true);
+				$(".form-nav span[data-nav='previous']").removeClass('hide').addClass('show');
+
+        updateForm($li);
+			}
+    });
+
+    // Click on previous
+    $('.form-nav').on('click', "span[data-nav='previous']", function() {
+      $li.attr('data-open', false).removeClass('active');
+			$li = $li.prev('li');
+      $li.attr('data-open', true);
+      if ($li.text() == "Title") {
+        $(".form-nav span[data-nav='previous']").removeClass('show').addClass('hide');
+			}
+
+			updateForm($li);
+		});
+
+    // Click on multi-step-bar link
+		$(".multi-step-bar").on('click', "li[data-open='false']", function() {
+      $li.attr('data-open', false);
+      $li = $(this);
+			$li.nextAll('li').removeClass('active');
+			$li.prevAll('li').addClass('active');
+			$li.addClass('active').attr('data-open', true);
+
+      if ($li.text() == "Title") {
+        $(".form-nav span[data-nav='previous']").removeClass('show').addClass('hide');
+			}
+
+			updateForm($li);
+		});
   }

@@ -15,6 +15,7 @@
 //= require jquery
 //= require google-fonts.js
 //= require bootstrap-sprockets
+//= require taggle.js
 //= require jquery-ui.js
 //= require jquery.mCustomScrollbar.js
 //= require toastr
