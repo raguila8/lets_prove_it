@@ -908,6 +908,8 @@
      * @return {String}
      */
     Taggle.prototype._formatTag = function(text) {
+        // replace all whitespace to single spaces
+        text = text.replace(/\s+/g, " ");
         return this.settings.preserveCase ? text : text.toLowerCase();
     };
 

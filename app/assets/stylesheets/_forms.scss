@@ -120,13 +120,16 @@ trix-editor {
       text-align: left;
     }
 
-    li {
-      list-style-type: circle;
+    li, p {
       color: rgba(0,0,0,0.84);
       font-weight: 500;
       margin-bottom: 10px;
       font-size: 18px;
       letter-spacing: 0.3px;
+    }
+
+    li {
+      list-style-type: circle;
     }
   }
 
@@ -151,14 +154,34 @@ trix-editor {
       margin-top: 25px;
     }
   }
+  
+  #problem-form {
+    .btn-submit {
+      display: none;
+    }
+  }
+}
+
+#review-step {
+  .btn-next {
+    display: none;
+  }
+
+  .preview-btn {
+    margin-left: 10px;
+  }
+
+  .btn-submit {
+    display: inline-block;
+  }
 }
 
 /* -------------------------------------------------------------
   Error Handling
  ------------------------------------------------------------------*/
 
-input.has-error {
-  border-color: $error-red;
+.has-error {
+  border-color: $error-red !important;
 }
 
 .input-error {
@@ -181,3 +204,67 @@ input.has-error {
   font-size: 14px;
   font-weight: 500;
 }
+
+.trix-form-container-fullscreen .input-error-msg {
+  padding-left: 30px !important;
+}
+
+.trix-form-container-fullscreen .input-error {
+  padding-right: 30px !important;
+}
+
+.tags-tooltip {
+  visibility: hidden;
+  min-width: 200px;
+  background-color: #fff;
+  color: rgba(0,0,0,0.84);
+  text-align: center;
+  border-radius: 3px;
+  padding: 14px;
+  position: absolute;
+  z-index: 1;
+  top: 150%;
+  left: 50%;
+  margin-left: -60px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.25), 0 0 1px rgba(0,0,0,.35);
+}
+
+.tooltip-arrow {
+  left: 50%;
+  top: 1px;
+  clip: rect(0 18px 14px -4px);
+  position: absolute;
+  margin-left: -7px;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+
+    -webkit-transform: rotate(45deg) translate(6px,6px);
+    transform: rotate(45deg) translate(6px,6px);
+    -webkit-box-shadow: -1px -1px 1px -1px rgba(0,0,0,.54);
+    box-shadow: -1px -1px 1px -1px rgba(0,0,0,.54);
+  }
+}
+
+#tags-input-container .ui-menu {
+  font-family: $headerFont;
+  padding-top: 0;
+
+  .topic-label {
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 15px;
+    line-height: 2;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    
+    
+  }
+}
+

@@ -12,7 +12,6 @@ function initMainSearch() {
       },
 		  _renderItem: function( ul, item ) {
 			  if (item.category === "Users") {
-          console.log(item.image_url);
           if (item.image_url !== "/assets/avatar.png") {
             item.image_url = "/uploads/user/avatar/" + item.id + "/thumb_" + item.image_url;
           }
@@ -56,7 +55,6 @@ function initMainSearch() {
 					  query: request.term
 				  },
 				  success: function(data) {
-            console.log(data);
 					  response(data.suggestions);
 			  	}
 			  });

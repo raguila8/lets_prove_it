@@ -29,6 +29,11 @@ $btn-bg: $dark;
 $btn-rounded: 0;
 $btn-trans-time: .5s;
 
+/* --------- Fonts ----------*/
+
+$headerFont: "Montserrat", "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+$bodyFont: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+
 
 
 body {
@@ -377,7 +382,6 @@ body {
 /* autocomplete */
 
 .ui-menu {
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
 	min-width: 250px;
   margin-top: 12px;
 	border: 1px solid $light;
@@ -387,6 +391,7 @@ body {
   padding-bottom: 0px;
 
   li {
+    color: rgba(0,0,0,0.84);
     a {
       padding: 8px 16px !important;
       width: 100%;
@@ -395,7 +400,7 @@ body {
 						padding: $dropdown-link-padding;
 						letter-spacing: $dropdown-link-letter-spacing;
 						line-height: $dropdown-link-line-height;
-						border-left: 3px solid rgba(17,17,17, 0);
+						border-left: 3px solid $accent;
 						transition: all .3s;
 
 						
@@ -418,7 +423,7 @@ body {
     border-top: none !important;
     border-right: none !important;
     border-bottom: none !important;
-    border-left: 3px solid #000 !important;
+    border-left: 3px solid $accent !important;
     color: #333 !important;
 }
 

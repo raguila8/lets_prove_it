@@ -19,6 +19,10 @@ Rails.application.routes.draw do
       get :log
       get :description
     end
+
+    collection do
+      get :search
+    end
   end
 
   resources :proofs do

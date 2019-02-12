@@ -168,6 +168,23 @@ p, .bodyStyles {
   }
 }
 
+.bodyLink {
+  color: $accent;
+  text-decoration: underline;
+
+  &:hover {
+    color: $accent;
+    text-decoration:underline;
+    opacity: 0.8;
+  }
+
+  &:focus {
+    color: $accent;
+    text-decoration: underline;
+  }
+
+}
+
 .lightGreyLink, .lightGrayLink {
   color: rgba(0,0,0,0.36);
   cursor: pointer;

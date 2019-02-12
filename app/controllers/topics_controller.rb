@@ -30,6 +30,15 @@ class TopicsController < ApplicationController
     end
   end
 
+  def search
+    respond_to do |format|
+      format.json {
+        @suggestions = Topic.search("%#{params[:query]}%")
+        render json: { suggestions: @suggestions }
+      }
+    end
+  end
+
   # GET /topics/1
   # GET /topics/1.json
   def show

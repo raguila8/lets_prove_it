@@ -68,10 +68,21 @@ document.addEventListener("trix-attachment-remove", function(event) {
 });
 
 document.addEventListener("trix-initialize", function(event) {
-  if ($('.proof-editor').length > 0) {
-    $('.proof-editor').prev('trix-toolbar').find('.trix-button-row').
+  if ($('.proof-editor, #problem-form').length > 0 && $('trix-toolbar .trix-button--icon-fullscreen').length == 0) {
+    $('trix-toolbar').find('.trix-button-row').
       append("<span class='trix-button-group trix-button-group--custom-tools'><button type='button' class='trix-button trix-button--icon trix-button--icon-fullscreen' title='Fullscreen'>'Fullscreen'</button></span>");
   }
+/*
+  let trixEditor = document.querySelector('trix-editor');
+  let wrapper = document.createElement('div');
+  wrapper.classList.add('input-container');
+  let parent = trixEditor.parentNode;
+
+  // set the wrapper as child (instead of the element)
+  parent.replaceChild(wrapper, trixEditor);
+  // set element as child of wrapper
+  wrapper.appendChild(trixEditor);
+  */
 });
 
 

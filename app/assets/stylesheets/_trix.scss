@@ -77,7 +77,7 @@ trix-toolbar {
   Fullscreen
   ---------------------------------------------------------------------*/
 
-.proof-form-container-fullscreen {
+.trix-form-container-fullscreen {
   margin: 0 !important;
   position: fixed !important;
   top: 0 !important;
@@ -92,6 +92,19 @@ trix-toolbar {
 
   #proof-form {
     
+  }
+
+  #problem-form {
+    .title-form-group, .tags-form-group {
+      display: none !important;
+    }
+  }
+
+  #review-step {
+    color: green;
+    #problem-form {
+
+    }
   }
 
   trix-toolbar {
@@ -153,7 +166,7 @@ trix-toolbar {
     margin-top: 0;
   }
 
-  .proofPreview {
+  .proofPreview, .trixContentPreview, .postPreview {
     background: #ffffff !important;
     top: 0 !important;
     left: 0 !important;

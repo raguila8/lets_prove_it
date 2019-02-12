@@ -9,12 +9,12 @@ $(document).on('turbolinks:load', function() {
   initVideoPlayer();
   initCommentsLinks();
 
-  if ($('#proof-form').length > 0) {
+  if ($('#proof-form, #problem-form').length > 0) {
     initFullscreen();
   }
 
   if ($('#problem-form').length > 0) {
-    initNewProblemForm();
+    //initNewProblemForm();
   }
   
   if ($('textarea').length > 0) {
@@ -894,6 +894,20 @@ $(document).on('turbolinks:load', function() {
 		  var content = '';
       if ($form.attr('id') == "problem-form") {
         content = $form.find('input[name="problem[content]"]:first').val();
+        var data = [{ content: content }];
+    
+        if ($form.next('.postPreview').length > 0) {
+          $form.next('.postPreview').find('.general-preview-content').html(data[0].content);
+			  } else {
+          $.tmpl($("#generalPreviewTemplate"), data).insertAfter( $form );
+				}
+
+        setTimeout(function() {
+			    MathJax.Hub.Queue(["Typeset", MathJax.Hub, $form.next('.postPreview').find('.general-preview-content')[0]]);
+		    } ,500);
+
+        return 0;
+
       } else if ($form.attr('id') == "topic-form") {
         content = $form.find('input[name="topic[description]"]:first').val();
       } else if ($form.attr('id') == "proof-form") {
@@ -1110,12 +1124,13 @@ $(document).on('turbolinks:load', function() {
   -----------------------------------------------------------------*/
 
   function initFullscreen() {
-    $('#proof-form').on('click', 'trix-toolbar .trix-button--icon-fullscreen', function() {
-      if ($('.proof-form-container').hasClass('proof-form-container-fullscreen')) {
-        $('.proof-form-container').removeClass('proof-form-container-fullscreen');
+    $('#proof-form, #problem-form').on('click', 'trix-toolbar .trix-button--icon-fullscreen', function() {
+      console.log('clicked fs');
+      if ($('.trix-form-container').hasClass('trix-form-container-fullscreen')) {
+        $('.trix-form-container').removeClass('trix-form-container-fullscreen');
         $('body').removeClass('overflow-y-hidden');
       } else {
-        $('.proof-form-container').addClass('proof-form-container-fullscreen');
+        $('.trix-form-container').addClass('trix-form-container-fullscreen');
         $('body').addClass('overflow-y-hidden');
         $('trix-editor').focus();
       }
@@ -1193,6 +1208,8 @@ $(document).on('turbolinks:load', function() {
         $li.addClass('active').attr('data-open', true);
 				$(".form-nav span[data-nav='previous']").removeClass('hide').addClass('show');
 
+        //$(".form-nav .btn-next").attr('disabled', true);
+
         updateForm($li);
 			}
     });
@@ -1223,4 +1240,24 @@ $(document).on('turbolinks:load', function() {
 
 			updateForm($li);
 		});
+
+    // On enter
+    $('#problem-form').on('keyup keypress', function(e) {
+      var keyCode = e.keyCode || e.which;
+      if (keyCode === 13) { 
+        e.preventDefault();
+
+        if ($li.text() != "Review") {
+          if (!$('.form-nav .btn-next').attr('disabled')) {
+			      $li.attr('data-open', false);
+				    $li = $li.next('li');
+            $li.addClass('active').attr('data-open', true);
+				    $(".form-nav span[data-nav='previous']").removeClass('hide').addClass('show');
+
+            updateForm($li);
+		    	}
+        }
+        return false;
+      }
+    });
   }

@@ -16,7 +16,7 @@ class Topic < ApplicationRecord
 
 
   before_save { self.name = name.downcase }
-  validates :name, presence: true, length: { minimum: 3, maximum: 35 },
+  validates :name, presence: true, length: { minimum: 3, maximum: 25 },
                    uniqueness: true
   validates :description, presence: true, length: { minimum: 35, maximum: 10000 }
   validates :cached_problems_count, presence: true, 
@@ -115,6 +115,11 @@ class Topic < ApplicationRecord
 
   def related_topics
     Topic.select("topics.id, topics.name, count(problem_topics.topic_id) as count").where.not(id: self.id).joins(:problem_topics).where(problem_topics: { problem_id: problems }).group("problem_topics.topic_id").order("count DESC").limit(5)
+  end
+
+  def self.search(pattern)
+    Topic.select("name AS label", "id AS id", "cached_problems_count AS cached_problems_count").where("name LIKE ?", pattern).limit(5)
+
   end
 
   private
