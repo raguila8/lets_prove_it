@@ -33,6 +33,8 @@ class Problem < ApplicationRecord
   validates :title, presence: true, uniqueness: { case_sensitive: false }, 
                     length: { maximum: 255, minimum: 10 }
 
+  validates :topics, presence: true
+
   scope :active, -> { where(deleted_on: nil) }
 
   def image_width

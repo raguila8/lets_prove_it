@@ -1,13 +1,4 @@
-$(document).on('turbolinks:load', function() {
-  if ($('form').length > 0) {
-    //initFormValidations();
-  }
-
-  if ($('#problem-form').length > 0) {
-    initNewProblemForm();
-	}
-
-  // error icon node
+// error icon node
 	const errorIcon = document.createElement("span");
 	errorIcon.className = 'fa fa-exclamation-circle input-error';
 
@@ -19,7 +10,7 @@ $(document).on('turbolinks:load', function() {
 
   // refractor later
   function addInputError(input) {
-    if ($(input).data('field') == "problem-content") {
+    if ($(input).data('field') == "content") {
       let toolbarHeight = $('trix-toolbar').height();
       $(input).addClass('has-error');
       $(input).closest('.input-container').next('.textAreaActions').addClass('has-error');
@@ -32,15 +23,28 @@ $(document).on('turbolinks:load', function() {
       } else {
         $(input).addClass('has-error');
       }
-      $(input).closest('.input-container').append(errorIcon);
+      $(input).closest('.input-container').append(errorIcon.cloneNode(false));
     }
   }
 
   function addInputErrorMsg(input, errorText) {
-    errorMsg.textContent = errorText;
-    $(input).closest('.form-group').append(errorMsg);
+    let textNode = errorMsg.cloneNode(true);
+    textNode.textContent = errorText;
+    $(input).closest('.form-group').append(textNode);
   }
 
+
+
+$(document).on('turbolinks:load', function() {
+  if ($('form').length > 0) {
+    //initFormValidations();
+  }
+
+  if ($('#problem-form').length > 0) {
+    initNewProblemForm();
+	}
+
+  
   
 	/* ---------------------------------------------------
 	 New Problem Form
@@ -141,6 +145,7 @@ $(document).on('turbolinks:load', function() {
     initNewProblemFormValidations();
 	  initNewProblemFormGeneral();
     initProblemTags();
+    initNewProblemSubmission();
 	}
 
 
@@ -155,7 +160,7 @@ $(document).on('turbolinks:load', function() {
       $('#problem-form').on('input', '.form-input-validate', function(event) {
         let $input = $(this);
         let minLength = 10;
-        if ($(this).data('field') == "problem-content") {
+        if ($(this).data('field') == "content") {
           $input = $(this).closest('.form-group').find('#problem_content');
           minLength = 20;
         }
@@ -307,11 +312,12 @@ $(document).on('turbolinks:load', function() {
 
     // When input is blurred and its value is not empty, validate field.
     $form.on('blur', '.form-input-validate', function() {
+      console.log('title');
       let $input = $(this);
       let minLength = 10;
       let maxLength = 255;
 
-      if ($(this).data('field') == "problem-content") {
+      if ($(this).data('field') == "content") {
         $input = $(this).closest('.form-group').find('#problem_content');
         minLength = 30;
         maxLength = 5000;
@@ -342,8 +348,6 @@ $(document).on('turbolinks:load', function() {
               addInputErrorMsg($input[0], errorText);
           }
         } else {
-          console.log('not valid');
-          addInputError($input[0]);
           if ($input[0].validity.tooShort) {
             errorText = $li.text() + " must be at least " + minLength + " characters";
           } else if ($(this)[0].validity.tooLong) {
@@ -375,6 +379,7 @@ $(document).on('turbolinks:load', function() {
 		});
 
     $form.on('keydown', '.form-input-validate', function(e) {
+      console.log('title');
       var keyCode = e.keyCode || e.which;
       if (keyCode === 13) {
         if ($(this).data('field') == "title") {
@@ -405,6 +410,58 @@ $(document).on('turbolinks:load', function() {
     });
   }
 
+  /* -----------------------------------------------------------------
+    Form submission
+    ------------------------------------------------------------------*/
+  function initNewProblemSubmission() {
+    $('.problem-form-container .form-nav').on('click', '.btn-submit', function() {
+      const $inputs = $('#problem-form .form-input-validate');
+      let isValid = true;
+      $inputs.each(function(index) {
+        let $input = $(this);
+        let minLength = 10;
+        let maxLength = 255;
+        let errorText = "";
+        let field = "Title";
+
+        if ($(this).data('field') == "topics") {
+          if ($('#tags-input-container .taggle_list .taggle').length < 1) {
+            errorText = "Problem must have at least 1 tag";
+            isValid = false;
+          } else if ($('#tags-input-container .taggle_list .taggle').length > 5) {
+            errorText = "Problem has too many tags. It can have at most 5 tags";
+            isValid = false;
+          }
+        } else {
+          if ($(this).data('field') == "content") {
+            $input = $(this).closest('.form-group').find('#problem_content');
+            minLength = 30;
+            maxLength = 5000;
+            field = "Problem"
+          }
+
+          if ($input.attr("minlength") && $input.val().trim().replace(/\s+/g, " ").length < minLength) {
+            errorText = field + " must be at least " + minLength + " characters";
+            isValid = false;
+          } else if ($input.val().trim().length > maxLength) {
+            errorText = field + " is too long. " + field + " can be at most " + maxLength + " characters";
+            isValid = false;
+          }
+        }
+
+        if (!isValid) {
+          addInputError($(this)[0]);
+          addInputErrorMsg($input[0], errorText);
+        }
+      });
+
+      if (isValid) {
+			  var form = document.getElementById('problem-form');
+				Rails.fire(form, 'submit');
+      }
+    });
+  }
+
 
 
   /* -----------------------------------------------------------------
@@ -430,8 +487,8 @@ $(document).on('turbolinks:load', function() {
         $li.addClass('active').attr('data-open', true);
 				$(".form-nav span[data-nav='previous']").removeClass('hide').addClass('show');
 
-        updateNextButton();
         updateForm($li);
+        updateNextButton();
 			}
     });
 
@@ -462,8 +519,8 @@ $(document).on('turbolinks:load', function() {
         $li.addClass('active').attr('data-open', true);
 				$(".form-nav span[data-nav='previous']").removeClass('hide').addClass('show');
 
-        updateNextButton();
         updateForm($li);
+        updateNextButton();
       }
     });
 
@@ -476,9 +533,8 @@ $(document).on('turbolinks:load', function() {
         $(".form-nav span[data-nav='previous']").removeClass('show').addClass('hide');
 			}
 
+      updateForm($li);
       updateNextButton();
-
-			updateForm($li);
 		});
 
     // Click on multi-step-bar link
@@ -495,8 +551,8 @@ $(document).on('turbolinks:load', function() {
         $(".form-nav span[data-nav='previous']").removeClass('hide').addClass('show');
       }
 
+      updateForm($li);
       updateNextButton();
-			updateForm($li);
 		});
   }
 
@@ -504,10 +560,11 @@ $(document).on('turbolinks:load', function() {
     if ($('#tags-input-container').length > 0) {
       const myTaggle = new Taggle('tags-input-container', {
         duplicateTagClass: 'bounce',
+        hiddenInputName: "tags[]",
 
         inputFormatter: function(inputElement) {
           $(inputElement).addClass('form-input-validate');
-          $(inputElement).attr('data-field', 'tags');
+          $(inputElement).attr('data-field', 'topics');
         },
 
 				onBeforeTagAdd: function(event, tag) {
@@ -617,38 +674,66 @@ $(document).on('turbolinks:load', function() {
     }
 	}
 
+  function getProblemInputs() {
+    return $('#problem-form .form-input-validate');
+  }
+
 
   function readyForNextStep() {
-    let step = $li.text()
-    let $input = $('#problem-form .form-input-validate');
+    let $input = $('#problem-form .form-input-validate:visible');
+    let minLength = 10;
+    let maxLength = 255;
+    let isValid = true;
 
-    if (step == "Tags") {
-      if ($('#tags-input-container .taggle').length > 0) {
-        return true;
-      } else {
-        return false;
-      }
-    } else if ($input[0].validity.valid) {
-      if (step == "Title") {
-        if ($input[0].value.trim().replace(/\s+/g, " ").length >= 10)  {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return true;
+    if ($input.data('field') == "topics") {
+      if ($('#tags-input-container .taggle_list .taggle').length < 1) {
+        isValid = false;
+      } else if ($('#tags-input-container .taggle_list .taggle').length > 5) {
+        isValid = false;
       }
     } else {
-      return false;
+      if ($input.data('field') == "content") {
+        $input = $input.closest('.form-group').find('#problem_content');
+        minLength = 30;
+        maxLength = 5000;
+      }
+
+      if ($input.attr("minlength") && $input.val().trim().replace(/\s+/g, " ").length < minLength) {
+        isValid = false;
+      } else if ($input.val().trim().length > maxLength) {
+        isValid = false;
+      }
     }
+    return isValid;
   }
 
   function updateNextButton() {
-    if (readyForNextStep()) {
+    if ($('.form-nav .btn-next:visible').length > 0 && readyForNextStep()) {
       document.querySelector('.form-nav .btn-next').removeAttribute('disabled');
     } else {
       document.querySelector('.form-nav .btn-next').setAttribute('disabled', true);
     }
   }
+/*
+  function submitProblem() {
+    $form = $('#problem-form');
+    let title = $form.find('.title-form-group .form-input-validate').val();
+    let tags [];
+    $form.find('tags-form-group .taggle_list .taggle_text').each(function(index) {
+      tags.push($(this).
+    });
 
+    $.ajax({
+      type: "POST",
+			url: "/problems",
+			headers: {
+				Accept: "text/javascript; charset=utf-8",
+		  	  "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			}, data: {
+        problem: { 'title' => 
+      }
+    });
+
+  }
+*/
 });

@@ -44,7 +44,7 @@
         <div class='problem-form-container'>
 				<%= form_with(model: @problem, remote: true, id: "problem-form", class: 'validate-form') do |form| %>
           <%= render 'shared/error_messages' %>
-          <%= form.hidden_field :tags, value: "", id: "problem-tags" %>
+          <%#= form.hidden_field :tags, value: "", id: "problem-tags" %>
           <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
 
           <div class="form-group title-form-group show">
@@ -66,9 +66,9 @@
 
           <div class="form-group problem-content-form-group">
             <%= form.label :content, "Problem body *" %>
-            <%= form.hidden_field :content, class: "mb-20 form-control", id: "problem_content", required: true,  minlength: '20', maxlength: '5000' %>
+            <%= form.hidden_field :content, class: "mb-20 form-control", id: "problem_content", required: true,  minlength: '30', maxlength: '5000' %>
 						<div class='input-container problem-content-input-container'> 
-              <trix-editor input="problem_content" class="form-input-validate" data-field='problem-content'></trix-editor>
+              <trix-editor input="problem_content" class="form-input-validate" data-field='content'></trix-editor>
             </div>
 
             <div class='textAreaActions'>

@@ -13,11 +13,11 @@ class Image < ApplicationRecord
     if images.length >= 1
       images.each do |id|
         if !Image.exists?(id.to_i)
-          raise Exceptions::ImagesFieldInvalid.new, "Images field is invalid"
+          raise Errors::ImagesFieldInvalid.new, "Images field is invalid"
         end
         image = Image.find(id)
         if image.belongs_to_a_model?
-          raise Exceptions::ImagesFieldInvalid.new, "Images field is invalid"
+          raise Errors::ImagesFieldInvalid.new, "Images field is invalid"
         end
         if image.user != user
           raise Exceptions::ImagesFieldInvalid.new, "Images field is invalid"

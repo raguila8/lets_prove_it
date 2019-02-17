@@ -95,6 +95,10 @@ trix-toolbar {
   }
 
   #problem-form {
+    .problem-content-form-group label {
+      display: none;
+    }
+
     .title-form-group, .tags-form-group {
       display: none !important;
     }
@@ -173,6 +177,10 @@ trix-toolbar {
     margin: 0 auto;
     margin-bottom: 120px;
     width: 66%;
+  }
+
+  .form-nav {
+    display: none;
   }
 }
 
