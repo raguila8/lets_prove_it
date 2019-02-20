@@ -1,5 +1,5 @@
 <!-- Replay Comment -->
-<div class="bp-comment-reply" id="comment-<%=@comment.id%>" >
+<div class="bp-comment-reply" id="comment-<%=@comment.id%>" data-comment-id='<%=comment.id%>'>
   <div class="post-meta pl-15 mt-0">
     <div class="post-date float-left">
       <i class="fa fa-calendar-o"></i>
@@ -34,13 +34,15 @@
     <%= sanitize @comment.content %>
   </div>
   <br>
+  <div class='comment-actions'>
   <% if signed_in? and @comment.user == current_user %>
     <%= link_to comment_path(@comment.id), method: :delete, class: "btn-text btn-small btn-text-danger float-right", data: { confirm: "Are you sure you want to delete your comment?" } do %>
       <span class="comment-remove"><i class="mr-5 glyphicon glyphicon-remove"></i>Delete</span>
     <% end %>
 
-    <%= link_to edit_comment_path(@comment.id),  remote: true, class: "btn-text btn-small float-right" do %>
-      <span class="comment-edit"><i class="mr-5 glyphicon glyphicon-edit"></i>Edit</span>
+    <%= link_to '#',  remote: true, class: "btn-text btn-small float-right" do %>
+      <span class="comment-edit"><i class="mr-5 glyphicon glyphicon-edit" data-comment-id="<%=comment.id%>"></i>Edit</span>
+    </div>
     <% end %>
   <% end %>
   <div class="clearfix"></div>

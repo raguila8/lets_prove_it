@@ -13,13 +13,14 @@ module ReportsHelper
 
   def report_button(model, options={})
     if signed_in?
-      if model.class.name == "Problem" or model.class.name == 'Proof'
-        html = "<a class='reportModalToggle greyLink headerFont float-right' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}' title='Report'><i class='fa fa-flag-o mr-5'></i></a>"
-      else
-        html = "<a class='btn-text btn-xs float-right small-padding reportModalToggle' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}'><span class='proof-edit'><i class='mr-5 glyphicon glyphicon-edit'></i>Report</span></a>"
-        html = "<a class='reportModalToggle greyLink headerFont #{options[:class]}' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}'><i class='fa fa-flag-o mr-5'></i>Report</a>"
+      if current_user != model.user
+        if model.class.name == "Problem" or model.class.name == 'Proof'
+          html = "<a class='reportModalToggle greyLink headerFont float-right mr-18' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}' title='Report'><i class='fa fa-flag-o mr-5'></i></a>"
+        else
+          html = "<span class='dot-sep'>·</span> <a class='reportModalToggle greyLink headerFont' data-remote='true' href='/reports/new?reportable_id=#{model.id}&amp;reportable_type=#{model.class.name}'><i class='fa fa-flag-o mr-5'></i>Report</a>"
+        end
+        html.html_safe
       end
-      html.html_safe
     end
   end
 

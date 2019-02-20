@@ -75,52 +75,15 @@ class ProblemsController < ApplicationController
   # POST /problems
   # POST /problems.json
   def create
-=begin
-    @problem = Problem.new(problem_params)
-    @problem.user_id = current_user.id
-    @new_images = problem_images_params["images"]
-    images_array = @new_images.split(",")
-    tags = params["tags"]
-=end
-
     @interactor = ProblemCreation::ProblemCreationInteractor.call(self.params.merge(user_id: current_user.id))
 
     if @interactor.success?
-      Notifications::Sender::SendNotifications.new(notification_type: :new_problem,
-                                                     actor: current_user,
-                                                     resource: @interactor.problem).call
       redirect_to @interactor.problem, notice: 'Problem was successfully created.' 
     else
       
       #flash[:error] = interactor.error
       #render :new
     end
-=begin
-    respond_to do |format|
-
-        @exception = @problem.save_new(tags, images_array, current_user)[:exception]
-      if !@exception
-
-        #User should automatically follow problem
-        if !current_user.following? @problem
-          current_user.follow @problem
-        end
-
-        Notifications::Sender::SendNotifications.new(notification_type: :new_problem,
-                                                     actor: current_user,
-                                                     resource: @problem).call
-         
-        format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
-        format.json { render :show, status: :created, location: @problem }
-      else
-        format.html { 
-          flash.now[:failed_problem_create] = @exception.message
-          render :new 
-        }
-        format.json { render json: @problem.errors, status: :unprocessable_entity }
-      end
-    end
-=end
   end
 
   # PATCH/PUT /problems/1

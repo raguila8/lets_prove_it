@@ -713,3 +713,13 @@
   font-family: 'Enriqueta', arial, serif;
   text-transform: none;
 }
+
+.bp-comment-reply .comment-content {
+  font-size: 16px;
+  font-family: $bodyFont;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.58;
+  letter-spacing: -.003em;
+  margin-bottom: 22px; 
+}

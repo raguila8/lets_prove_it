@@ -1025,7 +1025,36 @@ $(document).on('turbolinks:load', function() {
       $commentSection = $(this).closest('.postActions').next('.commentsButtonContainer').next('.commentSection');
       $commentSection.removeClass('hidden');
       $commentSection.find('textarea').focus();
-    }); 
+    });
+
+    $(".bp-comment-reply .comment-edit").on('click', function() {
+      let $comment = $(this).closest('.bp-comment-reply');
+			if ($comment.next('form.comment-edit-form').length == 0) {
+			  let commentId = $comment.data('comment-id');
+				let commentContent = $comment.find('.comment-content').text().trim();
+        let commentData = [{ commentId: commentId, commentContent: commentContent }];
+
+			  $comment.find('.comment-content').hide();
+				$comment.find('.comment-actions').hide();
+				$comment.find('.vote-container').hide();
+
+				$.tmpl($("#commentEditFormTemplate"), commentData).appendTo( $comment.find('.comment-content-container'));
+   
+        $comment.find('form').find('textarea').focus();
+        txt = $('textarea');
+        txt.addClass('txtstuff');
+			}
+    });
+
+    $('.bp-comment-reply').on('click', "span[data-action='close-edit-form']", function() {
+		  let $comment = $(this).closest('.bp-comment-reply');
+      $comment.find('.commentPreview').remove();
+      $(this).closest('form').remove();
+
+      $comment.find('.comment-content').show();
+			$comment.find('.comment-actions').show();
+			$comment.find('.vote-container').show();
+    });
   }
 
 /* --------------------------------------------------------
@@ -1055,15 +1084,18 @@ $(document).on('turbolinks:load', function() {
     });
 
     $('body').on('click', '.replyCommentLink', function() {
-      var commentId = $(this).data('comment-id');
-      var paddingLeft = $(this).data('padding-left');
-      var commentData = [{ id: commentId, paddingLeft: paddingLeft }];
+      var $comment = $(this).closest('.bp-comment-reply');
+      if ($comment.next('form.comment-reply-form').length == 0) {
+        var commentId = $(this).data('comment-id');
+        var paddingLeft = $(this).data('padding-left');
+        var commentData = [{ id: commentId, paddingLeft: paddingLeft }];
 
-      $.tmpl($("#commentReplyFormTemplate"), commentData).insertAfter( $(this).closest('.bp-comment-reply'));
+        $.tmpl($("#commentReplyFormTemplate"), commentData).insertAfter( $comment);
     
-      $(this).closest('.bp-comment-reply').next('form').find('textarea').focus();
-      txt = $('textarea');
-      txt.addClass('txtstuff');
+        $comment.next('form').find('textarea').focus();
+        txt = $('textarea');
+        txt.addClass('txtstuff');
+      }
 
 /*
       if ($comments.find('.postPreview').length > 0) {

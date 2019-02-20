@@ -1,0 +1,18 @@
+<form class="mb-20 mt-20 comment-form comment-edit-form fontSize-14" style="max-width: 650px;" id="edit_comment-${commentId}" action="/comments/${commentId}" accept-charset="UTF-8" data-remote="true" method="post">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+	<input type="hidden" name="_method" value="patch">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>" />
+
+  <div class="form-group">
+    <div class='input-container'>
+	    <textarea class="mb-0 form-control niceTextarea pt-15 txtstuff form-input-validate" placeholder="Write a comment..." name="comment[content]" id="comment_content" data-field='content'>${commentContent}</textarea>
+    </div>
+
+    <div class="textAreaActions">
+			<input type="submit" name="commit" value="Update Comment" class="btn-ghost mb-5 pull-left mr-10 ml-10" data-action="update-comment" data-disable-with="Update Comment">
+			<span class="btn mr-5 mb-5 preview-btn pull-left borderSmall btn-light">Preview</span>
+      <span class='greyLink btn-styles mb-5 ml-5 pull-left ph-0' data-action='close-edit-form'>Cancel</span>
+			<div class="clearfix"></div>
+	  </div>
+  </div>
+</form>

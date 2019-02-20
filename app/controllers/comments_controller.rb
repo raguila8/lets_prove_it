@@ -15,6 +15,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
+    @comment.content = @comment.content.strip
 
     respond_to do |format|
       if @comment.save
@@ -51,17 +52,9 @@ class CommentsController < ApplicationController
     end
   end
 
-  def 
-
   def update
-    @comment.update_attributes(comment_params)
-    respond_to do |format|
-      if @comment.save
-        format.js {}
-      else
-        format.js {}
-      end
-    end
+    @comment.content = params[:comment][:content].strip
+    @comment.save
   end
 
   def destroy

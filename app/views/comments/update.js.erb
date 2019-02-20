@@ -1,9 +1,13 @@
+ $comment = $(".bp-comment-reply[data-comment-id='<%=@comment.id%>']");
 <% if !@comment.nil? and !@comment.errors.any? %>
-  $('#comment-<%=@comment.id%> .comment-remove').css('display', 'block');
-  $('#comment-<%=@comment.id%> .comment-edit').css('display', 'block');
+  console.log("<%=@comment.content%>");
+	$comment.find('.comment-actions').show();
+	$comment.find('.vote-container').show();
+  $comment.find('.comment-content:hidden').html("<%=@comment.content%>").show();
 
-  $('#comment-<%=@comment.id%> .comment-content').html("<%= escape_javascript render(:partial => '/comments/comment_content', :locals => { :@comment => @comment }) %>");
-
+  $comment.find('form.comment-edit-form').next('.commentPreview').remove();
+  $comment.find('form.comment-edit-form').remove();
+ 
   $('#flash-message-wrapper').remove();
   $('body').append("<div id='flash-message-wrapper' class='notice '><p>Comment was successfully updated.</p></div>");
 
@@ -13,14 +17,13 @@
     });
   }, 5000);
 
-  
-  $comment = $('#comment-content-<%= @comment.id %>');
   setTimeout(function() {
-	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $comment[0]]);
+	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $comment.find('.comment-content')[0]]);
   } ,500);
 
 
 <% else %>
-  $('#comment-form-<%=@comment.id%>').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@comment => @comment }) %>");
-
+  $input = $comment.find(".comment-edit-form textarea");
+  addInputError($input[0]);
+  addInputErrorMsg($input[0], "<%= @comment.errors.full_messages.join(". ") %>");
 <% end %>

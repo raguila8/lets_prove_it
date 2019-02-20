@@ -1,5 +1,128 @@
-<%= render 'shared/preview' %>
+<div class='widerContainer mt-40'>
+  <div class='row'>
+    <div class='col-lg-8'>
+      
+      <div class="post-edit-form-wrapper pt-0">
+			  <ul class='breadcrumb pt-20 mb-40 pl-0'>
+        <li>
+          <%= link_to @problem.title, problem_path(@problem) %>
+        </li>
+        <li>
+          Problem Edit
+        </li>
+      </ul>
 
+        <div class="from-header">
+					<h2 class='darkType mt-0 mb-30 darktype headerFont fontWeight-600 inlineBlock'>Edit <span style="color: #219FAA;">Problem</span></h2>	
+				</div>
+
+					<%= form_with(model: @problem, local: true, id: "problem-form") do |form| %>
+            <%= render 'shared/error_messages' %>
+            <%= form.hidden_field :tags, value: @problem.topics.map{|t| t.name}.join(","), id: "problem-tags" %>
+            <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
+            <div class="form-group">
+              <%= form.label :title, "Problem Title *" %>
+              <%= form.text_field :title, class: "form-control" %>
+            </div> 
+
+            <div class="form-group" id="problem-topics-data" data-topics="<%=@problem.topics.map{|t| t.name}.join(",")%>">
+              <label for="topic_name">Topics *</label>
+              <input class="form-control" type="text" name="topic[name]" id="topics-input" data-provide="typeahead">
+            </div>
+
+            <div class="form-group">
+              <%= form.label :content, "body *" %>
+              <%= form.hidden_field :content, value: @problem.content, class: "mb-20 form-control", id: "problem_content" %>
+              <trix-editor input="problem_content"></trix-editor>
+            </div>
+
+            <div class="form-group">
+              <%= label_tag "version[description]", "What are you changing? *" %>
+              <%= text_area_tag "version[description]", nil, class: "mb-20 form-control" %>
+              <span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
+            </div>
+
+            <% if @problem.has_pending_reports? and current_user.has_review_privileges? %>
+              <div class='clearfix'></div>
+              <%= render partial: '/reports/close_report_form', locals: { resource: @problem } %>
+            <% end %>
+
+            <!-- Action Buttons -->
+            <div class="form-group">
+              <span class="btn mb-5 btn-mult btn-ghost mr-5 preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
+              <%= form.submit "Submit", class: "btn mb-5 btn-mult", style: "display: inline-block; margin-top: 0;" %>
+            </div>
+          <% end %>
+        </div><!-- / .form-wrapper -->
+
+
+		</div>
+		<div class='col-lg-4'>
+      <div class='problem-edit-sidebar'>
+        <div class='problem-meta-widget'>
+          <h2 class="noWrapWithEllipsis headerFont darkType fontWeight-600 fontSize-28" title="<%=@problem.title%>"><%=@problem.title%></h2>
+				
+				  <div class="author-container" style='margin-top: 20px; margn-bottom: 20px;'>
+				    <div class="author-img">
+				      <a href="<%=user_path(@problem.user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(@problem.user)%>" alt="Go to the profile of <%=@problem.user.name_or_username%>"></a>
+				    </div>
+
+            <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+              <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(@problem.user.id)%>"><%=@problem.user.name_or_username%></a>
+              <div class="noWrapWithEllipsis captionSmall fontSize-15">
+                <span class="time no-wrap"><%= time_ago_in_words(@problem.created_at) %> ago</span>
+                <span class="dot-sep">·</span>
+                <span class="views no-wrap"><%=pluralize(@problem.cached_proofs_count, 'proof')%></span>
+              </div>
+            </div>
+				  </div>
+
+					<div class="mt-20">
+					  <span class="headerFont lightType fontSize-16">
+	            Editing is important for keeping problems and proofs clear, 
+							grammatically correct and relevant.
+						</span>
+					</div>
+
+          <div class='meta-card white-bordered-card mt-20'>
+            <h4>
+              Edits are expected to leave the post better than how you 
+							found it
+						</h4>
+
+						<p> Here are some reasons for edits: </p>
+
+            <ul>
+              <li>
+	              To improve spelling, grammar or punctuation.
+	            </li>
+              <li>
+	              To clarify the meaning of the post. It is important not to change the 
+		            intended meaning of the poster.
+	            </li>
+              <li>
+	              To include important information that is found in the comments. 
+		            Sometimes additional information or a clarification arises in the comments. 
+		            It is better to keep all of the relevant information in one place.
+	            </li>
+              <li>
+	              To correct a mistake or error made.
+	            </li>
+              <li>
+	              To add citations, links or resources.
+	            </li>
+            </ul>
+					</div>
+
+
+				</div>
+			</div>
+    </div>
+	</div>
+</div>
+
+
+<!--
 <div class="contact-3 pv-80" id="edit-problem-page">
   <div class="container">
     <div class="row"> 
@@ -41,7 +164,7 @@
               <span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
             </div>
 
-            <% if @problem.has_pending_reports? and current_user.has_review_priviliges? %>
+            <% if @problem.has_pending_reports? and current_user.has_review_privileges? %>
               <div class='clearfix'></div>
               <%= render partial: '/reports/close_report_form', locals: { resource: @problem } %>
             <% end %>
@@ -57,3 +180,4 @@
     </div><!-- / .row --> 
   </div><!-- / .container -->
 </div><!-- / .contact-3 -->
+-->

@@ -40,7 +40,9 @@
   <div class='postActions mb-22'>
     <div class='buttonSet fontSize-22' style='line-height: 40px;'>
       <%= report_button proof %>
-     
+      <%= edit_button proof %>
+    
+ 
       <span class= 'float-right greyLink headerFont mr-18 addCommentIcon' title= 'Add comment'>
         <i class='fa fa-comment-o'></i>
 			  <% if proof.comments.active.count > 0 %>

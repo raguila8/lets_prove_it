@@ -167,8 +167,12 @@ class User < ApplicationRecord
     self.deleted_on.nil? ? false : true
   end
 
-  def has_review_priviliges?
-    reputation >= 10000
+  def has_review_privileges?
+    reputation >= 7500
+  end
+
+  def has_edit_privileges?
+    reputation >= 1500
   end
 
   def reserve(report)

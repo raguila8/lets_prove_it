@@ -11,26 +11,45 @@
   // refractor later
   function addInputError(input) {
     if ($(input).data('field') == "content") {
-      let toolbarHeight = $('trix-toolbar').height();
+      console.log($(input).closest('.input-container').next('.textAreaActions')[0]);
       $(input).addClass('has-error');
       $(input).closest('.input-container').next('.textAreaActions').addClass('has-error');
-      $(input).closest('.input-container').append(errorIcon.cloneNode(false));
-
-      $('.problem-content-input-container .input-error').attr('style', 'margin-top: calc(23.7px - 8.575px) !important');
     } else {
       if ($(input).hasClass('taggle_input')) {
         $('#tags-input-container').addClass('has-error');
       } else {
         $(input).addClass('has-error');
       }
+    }
+
+    if ($(input).closest('.input-container').find('.input-error').length == 0) {
+      console.log('running!');
       $(input).closest('.input-container').append(errorIcon.cloneNode(false));
     }
+
+    if ($(input).closest('.problem-content-input-container').length) {
+      let toolbarHeight = $('trix-toolbar').height();
+      $('.problem-content-input-container .input-error').attr('style', 'margin-top: calc(23.7px - 8.575px) !important');
+    }
+
   }
 
   function addInputErrorMsg(input, errorText) {
-    let textNode = errorMsg.cloneNode(true);
-    textNode.textContent = errorText;
-    $(input).closest('.form-group').append(textNode);
+    if ($(input).closest('.form-group').find('.input-error-msg').length) {
+      $(input).closest('.form-group').find('.input-error-msg').html(errorText);
+    } else {
+      let textNode = errorMsg.cloneNode(true);
+      textNode.innerHTML = errorText;
+      $(input).closest('.form-group').append(textNode);
+    }
+  }
+
+  function removeInputValidations(input) {
+    $(input).closest('.form-group').find('.has-error').removeClass('has-error');
+	  if ($(input).next('.input-error').length > 0) {
+      $(input).next('.input-error').remove();
+      $(input).closest('.form-group').find('.input-error-msg').remove();
+	  }
   }
 
 
@@ -42,16 +61,26 @@ $(document).on('turbolinks:load', function() {
 
   if ($('#problem-form').length > 0) {
     initNewProblemForm();
-	}
+	} else if ($('#proof-form').length > 0) {
+    initGeneralFormValidations();
+  }
 
-  
+ /* ---------------------------------------------------
+  General Form validations
+  -------------------------------------------------- */
+
+  function initGeneralFormValidations() {
+    $('body').on('focus', 'form .form-input-validate', function(event) {
+      removeInputValidations(this);
+    });
+  }
+
   
 	/* ---------------------------------------------------
 	 New Problem Form
 	 -----------------------------------------------------*/
 
   function initNewProblemForm() {
-
     // CONSTANTS
 
 		titleContent = `
@@ -370,11 +399,7 @@ $(document).on('turbolinks:load', function() {
           $(this).closest('.form-group').find('.input-error-msg').remove();
         }
       } else {
-        $(this).closest('.form-group').find('.has-error').removeClass('has-error');
-			  if ($(this).next('.input-error').length > 0) {
-          $(this).next('.input-error').remove();
-          $(this).closest('.form-group').find('.input-error-msg').remove();
-			  }
+        removeInputValidations(this);
       }
 		});
 

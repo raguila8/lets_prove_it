@@ -106,33 +106,7 @@ trix-editor {
   h2 {
     font-size: calc(20px * 1.8);
   }
-
-  .light-grey-card {
-    margin-top: 25px;
-  
-    h4 {
-      font-size: calc(18px * 1.3);
-      font-weight: 600;
-      margin-bottom: 15px;
-    }
-
-    ul {
-      text-align: left;
-    }
-
-    li, p {
-      color: rgba(0,0,0,0.84);
-      font-weight: 500;
-      margin-bottom: 10px;
-      font-size: 18px;
-      letter-spacing: 0.3px;
-    }
-
-    li {
-      list-style-type: circle;
-    }
-  }
-
+ 
   .step-meta {
     margin-bottom: 60px;
     text-align:center !important;
@@ -162,6 +136,8 @@ trix-editor {
   }
 }
 
+
+
 #review-step {
   .btn-next {
     display: none;
@@ -173,6 +149,37 @@ trix-editor {
 
   .btn-submit {
     display: inline-block;
+  }
+}
+
+/* ---------------------------------------------------------------------
+  Edit Post
+ ------------------------------------------------------------------------ */
+
+.post-edit-form-wrapper {
+  padding-top: 40px;
+  padding-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 750px;
+
+  h2 {
+    font-size: calc(20px * 1.8);
+    margin-bottom: 30px !important;
+    margin-top: 0 !important;
+    color: rgba(0, 0, 0, 0.84) !important;
+    fill: rgba(0, 0, 0, 0.84) !important;
+    font-family: "Montserrat", "Open Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+  }
+
+  .from-header h2 {
+    &:after {
+      content: ""; /* This is necessary for the pseudo element to work. */ 
+      display: block; /* This will put the pseudo element on its own line. */
+      width: 55px; /* Change this to whatever width you want. */
+      padding-top: 14px; /* This creates some space between the element and the border. */
+      border-bottom: 1px solid rgba(0,0,0,0.84); /* This creates the border. Replace black with whatever color you want. */
+    }
   }
 }
 

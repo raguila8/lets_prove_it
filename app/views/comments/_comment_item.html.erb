@@ -1,6 +1,6 @@
 <!-- Comment Item -->
 
-<div class="bp-comment-reply mb-22 pb-20" id="comment-<%=comment.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if ['Problem', 'Proof'].include? comment.commented_on_type and index < comment.commented_on.comments.count - 1 %>  <%= 'padding-left:60px;' if comment.commented_on_type == 'Comment' %>">
+<div class="bp-comment-reply mb-22 pb-20" data-comment-id="<%=comment.id%>" style="<%= 'border-bottom: 1px solid #ddd;' if ['Problem', 'Proof'].include? comment.commented_on_type and index < comment.commented_on.comments.count - 1 %>  <%= 'padding-left:60px;' if comment.commented_on_type == 'Comment' %>">
   <% if comment.commented_on_type == 'Comment' and comment.commented_on.commented_on_type == 'Comment' %>
     <div class='fancyCaption'>
       <p class='mb-10 fontSize-13 headerFont fontWeight-700'><i class='fa fa-reply mr-5'></i> In reply to <a class="lightGreyLink underlineLink fontSize-12" href="<%=user_path(comment.commented_on.user.id)%>"><%=comment.commented_on.user.name_or_username%></a></p>
@@ -37,30 +37,26 @@
     <!--<span class="label" style="font-weight: 600; background: #373940;"><i class="mr-5 fa fa-trophy"></i>8</span>-->
   </div>
                    
-  <div class="comment-content bodyFont bodyStyles fontSize-16 mb-22" id="comment-content-<%=comment.id%>">
-    <%= sanitize comment.content %>
+  <div class="comment-content-container">
+    <div class='comment-content' id="comment-content-<%=comment.id%>">
+      <%= sanitize comment.content %>
+    </div>
   </div>
 
-  <div class="noWrapWithEllipsis captionSmall fontSize-13">
+  <div class="noWrapWithEllipsis captionSmall fontSize-13 comment-actions">
     <%= add_comment_button comment %> 
-    <span class="dot-sep">·</span>
-    <%= report_button comment %>
-
 
     <% if signed_in? and comment.user == current_user %> 
       
       <span class="dot-sep">·</span>
-      <%= link_to edit_comment_path(comment.id),  remote: true, class: "headerFont greyLink" do %>
-        <span class="comment-edit"><i class="mr-5 fa fa-edit"></i>Edit</span>
-      <% end %>
+      <span class="comment-edit headerFont greyLink"><i class="mr-5 fa fa-edit"></i>Edit</span>
 
       <span class="dot-sep">·</span>
       <%= link_to comment_path(comment.id), method: :delete, class: "greyLink headerFont", data: { confirm: "Are you sure you want to delete your comment?" } do %>
         <span class="comment-remove"><i class="mr-5 fa fa-trash-o"></i>Delete</span>
       <% end %>
-
     <% end %>
-
+    <%= report_button comment %>
   </div>
 
   <div class="clearfix"></div>
