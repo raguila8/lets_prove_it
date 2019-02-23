@@ -11,7 +11,6 @@
   // refractor later
   function addInputError(input) {
     if ($(input).data('field') == "content") {
-      console.log($(input).closest('.input-container').next('.textAreaActions')[0]);
       $(input).addClass('has-error');
       $(input).closest('.input-container').next('.textAreaActions').addClass('has-error');
     } else {
@@ -23,7 +22,6 @@
     }
 
     if ($(input).closest('.input-container').find('.input-error').length == 0) {
-      console.log('running!');
       $(input).closest('.input-container').append(errorIcon.cloneNode(false));
     }
 
@@ -31,7 +29,6 @@
       let toolbarHeight = $('trix-toolbar').height();
       $('.problem-content-input-container .input-error').attr('style', 'margin-top: calc(23.7px - 8.575px) !important');
     }
-
   }
 
   function addInputErrorMsg(input, errorText) {
@@ -56,22 +53,33 @@
 
 $(document).on('turbolinks:load', function() {
   if ($('form').length > 0) {
-    //initFormValidations();
+    initFormValidations();
+		initBorderColors();
   }
 
   if ($('#problem-form').length > 0) {
     initNewProblemForm();
 	} else if ($('#proof-form').length > 0) {
-    initGeneralFormValidations();
-  }
+    //initGeneralFormValidations();
+  } else if ($('#edit-problem-form').length > 0 ) {
+    initProblemTags();
+	}
 
  /* ---------------------------------------------------
   General Form validations
   -------------------------------------------------- */
 
-  function initGeneralFormValidations() {
+  function removeValidationsOnFocus() {
     $('body').on('focus', 'form .form-input-validate', function(event) {
-      removeInputValidations(this);
+      if ($(this).hasClass('taggle_input')) {
+        if ($('#tags-input-container').hasClass('has-error')) {
+          $('#tags-input-container').removeClass('has-error');
+          $('#tags-input-container').find('.input-error').remove();
+          $(this).closest('.form-group').find('.input-error-msg').remove();
+        }
+      } else {
+        removeInputValidations(this);
+      }
     });
   }
 
@@ -86,7 +94,7 @@ $(document).on('turbolinks:load', function() {
 		titleContent = `
 			  <h2>Write a title that summarizes the problem</h2>	
 				<p>The title is the first thing that users will see. It should help them quickly understand what the problem is about.</p>
-        <div class='light-grey-card'>
+        <div class='meta-card light-grey-card'>
           <h4 class='bodyFont'>
             Here are some tips for making a good title:
           </h4>
@@ -128,7 +136,7 @@ $(document).on('turbolinks:load', function() {
         You can link to similar problems so that others can better 
         understand your question and make sure it is not repeated.
       </p>
-      <div class='light-grey-card'>
+      <div class='meta-card light-grey-card'>
         <h4 class='bodyFont'>
           Make sure the problem is a theorem or that it 
           asks to prove a mathematical statement
@@ -154,7 +162,7 @@ $(document).on('turbolinks:load', function() {
           still describes the problem.
         </p>
 
-        <div class='light-grey-card'>
+        <div class='meta-card light-grey-card'>
           <h4 class='bodyFont'>
             Respond to feedback after posting your problem
           </h4>
@@ -182,9 +190,11 @@ $(document).on('turbolinks:load', function() {
 	  Validations
 		-------------------------------------------------------------*/
 
-  function initFormValidations() { 
+  function initFormValidations() {
 	  const $form  = $('.validate-form');
-
+    validateOnBlur($form);
+    removeValidationsOnFocus();
+/*
     if ($('#problem-form').length > 0) {
       $('#problem-form').on('input', '.form-input-validate', function(event) {
         let $input = $(this);
@@ -296,6 +306,7 @@ $(document).on('turbolinks:load', function() {
         
       }
     });
+*/
   }
 
   function initNewProblemFormValidations() {
@@ -339,58 +350,9 @@ $(document).on('turbolinks:load', function() {
       }
     });
 
-    // When input is blurred and its value is not empty, validate field.
-    $form.on('blur', '.form-input-validate', function() {
-      console.log('title');
-      let $input = $(this);
-      let minLength = 10;
-      let maxLength = 255;
+    //validateOnBlur($form);
 
-      if ($(this).data('field') == "content") {
-        $input = $(this).closest('.form-group').find('#problem_content');
-        minLength = 30;
-        maxLength = 5000;
-
-        if ($input.val().length > 0) { 
-          let isValid = true;
-          if ($input[0].value.trim().replace(/\s+/g, " ").length < minLength) {
-            errorText = $li.text() + " must be at least " + minLength + " characters";
-            isValid = false;
-          } else if ($input[0].value.trim().length > maxLength) {
-            errorText = $li.text() + " is too long. " + $li.text() + " can be at most " + maxLength + " characters";
-            isValid = false;
-          }
-          if (!isValid) {
-            addInputError($(this)[0]);
-            addInputErrorMsg($input[0], errorText);
-          }
-        }
-        return 0;
-      }
-
-      if ($input.val().length > 0) {
-        if ($input[0].validity.valid) {
-          console.log($input[0].validity);
-          if ($input.attr("minlength") && $input.val().length > 0 && $input[0].value.trim().replace(/\s+/g, " ").length < minLength) {
-              errorText = $li.text() + " must be at least " + minLength + " characters";
-              addInputError($(this)[0]);
-              addInputErrorMsg($input[0], errorText);
-          }
-        } else {
-          if ($input[0].validity.tooShort) {
-            errorText = $li.text() + " must be at least " + minLength + " characters";
-          } else if ($(this)[0].validity.tooLong) {
-            errorText = $li.text() + " must be at least " + minLength + " characters";
-          }
-
-          addInputError($(this)[0]);
-          addInputErrorMsg($input[0], errorText);
-        }
-      }
-    });
-
-
-
+/*
     $form.on('focus', '.form-input-validate', function(event) {
       if ($(this).hasClass('taggle_input')) {
         if ($('#tags-input-container').hasClass('has-error')) {
@@ -402,9 +364,9 @@ $(document).on('turbolinks:load', function() {
         removeInputValidations(this);
       }
 		});
+*/
 
     $form.on('keydown', '.form-input-validate', function(e) {
-      console.log('title');
       var keyCode = e.keyCode || e.which;
       if (keyCode === 13) {
         if ($(this).data('field') == "title") {
@@ -440,7 +402,7 @@ $(document).on('turbolinks:load', function() {
     ------------------------------------------------------------------*/
   function initNewProblemSubmission() {
     $('.problem-form-container .form-nav').on('click', '.btn-submit', function() {
-      const $inputs = $('#problem-form .form-input-validate');
+      const $inputs = $('.problem-form .form-input-validate');
       let isValid = true;
       $inputs.each(function(index) {
         let $input = $(this);
@@ -458,17 +420,22 @@ $(document).on('turbolinks:load', function() {
             isValid = false;
           }
         } else {
+				  let inputLength = $(this).val().trim().replace(/\s+/g, " ").length
           if ($(this).data('field') == "content") {
             $input = $(this).closest('.form-group').find('#problem_content');
             minLength = 30;
             maxLength = 5000;
             field = "Problem"
+            const { editor } = this.editor;
+            let trixContent = editor.getDocument().toString();
+						inputLength = trixContent.trim().length;
+						console.log("trixContent: " + trixContent);
           }
 
-          if ($input.attr("minlength") && $input.val().trim().replace(/\s+/g, " ").length < minLength) {
+          if ($input.attr("minlength") && inputLength < minLength) {
             errorText = field + " must be at least " + minLength + " characters";
             isValid = false;
-          } else if ($input.val().trim().length > maxLength) {
+          } else if (inputLength > maxLength) {
             errorText = field + " is too long. " + field + " can be at most " + maxLength + " characters";
             isValid = false;
           }
@@ -481,8 +448,9 @@ $(document).on('turbolinks:load', function() {
       });
 
       if (isValid) {
-			  var form = document.getElementById('problem-form');
-				Rails.fire(form, 'submit');
+			  var $form = $('.problem-form');
+			  //var form = document.getElementById('problem-form');
+				Rails.fire($form[0], 'submit');
       }
     });
   }
@@ -739,6 +707,60 @@ $(document).on('turbolinks:load', function() {
       document.querySelector('.form-nav .btn-next').setAttribute('disabled', true);
     }
   }
+
+  function validateOnBlur($form) {
+    // When input is blurred and its value is not empty, validate field.
+    $form.on('blur', '.form-input-validate', function(event) {
+      let $input = $(this);
+      let minLength = 10;
+      let maxLength = 255;
+
+      if ($(this).data('field') == "content") {
+        $input = $(this).closest('.form-group').find("input[data-type='trix']");
+        minLength = 30;
+        maxLength = 10000;
+
+        const { editor } = event.target;
+        let trixContent = editor.getDocument().toString();
+
+        if ($input.val().length > 0) { 
+          let isValid = true;
+          if (trixContent.trim().length < minLength) {
+            errorText = $(this).data('title') + " must be at least " + minLength + " characters";
+            isValid = false;
+          } else if (trixContent.trim().length > maxLength) {
+            errorText = $(this).data('title') + " is too long. " + $li.text() + " can be at most " + maxLength + " characters";
+            isValid = false;
+          }
+          if (!isValid) {
+            addInputError($(this)[0]);
+            addInputErrorMsg($input[0], errorText);
+          }
+        }
+        return 0;
+      }
+
+      if ($input.val().length > 0) {
+        if ($input[0].validity.valid) {
+          if ($input.attr("minlength") && $input.val().length > 0 && $input[0].value.trim().replace(/\s+/g, " ").length < minLength) {
+              errorText = $li.text() + " must be at least " + minLength + " characters";
+              addInputError($(this)[0]);
+              addInputErrorMsg($input[0], errorText);
+          }
+        } else {
+          if ($input[0].validity.tooShort) {
+            errorText = $(this).data('title') + " must be at least " + minLength + " characters";
+          } else if ($(this)[0].validity.tooLong) {
+            errorText = $(this).data('title') + " must be at least " + minLength + " characters";
+          }
+
+          addInputError($(this)[0]);
+          addInputErrorMsg($input[0], errorText);
+        }
+      }
+    });
+
+  }
 /*
   function submitProblem() {
     $form = $('#problem-form');
@@ -761,4 +783,31 @@ $(document).on('turbolinks:load', function() {
 
   }
 */
+
+  function initBorderColors() {
+    $("body").on('focus', '.form-input-validate', function() {
+		  if ($(this).hasClass('taggle_input')) {
+        $(this).closest('.input-container').addClass('input-focused');
+				return;
+			}
+
+      $(this).addClass('input-focused');
+			if ($(this).hasClass("niceTextarea") || $(this).is("trix-editor")) {
+        $(this).closest('.form-group').find('.textAreaActions').addClass('input-focused');
+			}
+		});
+
+    $("body").on('blur', '.form-input-validate', function() {
+      $(this).removeClass('input-focused');
+			if ($(this).hasClass("niceTextarea") || $(this).is("trix-editor")) {
+        $(this).closest('.form-group').find('.textAreaActions').removeClass('input-focused');
+			}
+
+      if ($(this).hasClass('taggle_input')) {
+        $(this).closest('.input-container').removeClass('input-focused');
+			}
+
+		});
+
+	}
 });

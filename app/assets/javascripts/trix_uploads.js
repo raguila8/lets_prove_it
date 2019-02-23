@@ -68,7 +68,7 @@ document.addEventListener("trix-attachment-remove", function(event) {
 });
 
 document.addEventListener("trix-initialize", function(event) {
-  if ($('.proof-editor, #problem-form').length > 0 && $('trix-toolbar .trix-button--icon-fullscreen').length == 0) {
+  if ($('.proof-editor, #problem-form, #edit-problem-form').length > 0 && $('trix-toolbar .trix-button--icon-fullscreen').length == 0) {
     $('trix-toolbar').find('.trix-button-row').
       append("<span class='trix-button-group trix-button-group--custom-tools'><button type='button' class='trix-button trix-button--icon trix-button--icon-fullscreen' title='Fullscreen'>'Fullscreen'</button></span>");
   }

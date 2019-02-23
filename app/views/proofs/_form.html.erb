@@ -2,15 +2,17 @@
  
   <!-- Leave a Proof -->
   <div class="proof-form-container trix-form-container mt-0"> 
-    <%= form_with(model: Proof.new, local: true, id: "proof-form", class: "new-model-form") do |form| %>
+    <%= form_with(model: Proof.new, local: true, id: "proof-form", class: "new-model-form validate-form") do |form| %>
       <%= form.hidden_field :problem_id, value: "#{@problem.id}", id: "problem-id" %>
       <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
 
       <%= render 'shared/error_messages' %>
 
       <div class="form-group">
-        <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content" %>
-        <trix-editor input="proof_content" class="proof-editor" placeholder='Leave a proof'></trix-editor>
+        <%= form.hidden_field :content, class: "mb-20 form-control", id: "proof_content", required: true, minlength: '30', maxlength: '10000', data: { type: "trix" } %>
+        <div class='input-container'>
+          <trix-editor input="proof_content" class="proof-editor form-input-validate" placeholder='Leave a proof' data-field="content" data-title="Proof"></trix-editor>
+        </div>
         <div class='textAreaActions'>
           <div class='textAreaActionsContainer'>
 		      <%= form.submit "Submit Proof", class: "btn-ghost mb-5 pull-left mr-10 ml-10", data: { action: 'submit-proof' } %>

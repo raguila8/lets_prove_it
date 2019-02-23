@@ -29,7 +29,7 @@ class Problem < ApplicationRecord
                                       greater_than_or_equal_to: 0 }
 
 
-  validates :content, presence: true, length: { maximum: 5000, minimum: 30 }
+  validates :content, presence: true, length: { maximum: 10000, minimum: 30 }
   validates :title, presence: true, uniqueness: { case_sensitive: false }, 
                     length: { maximum: 255, minimum: 10 }
 

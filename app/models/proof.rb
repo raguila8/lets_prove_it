@@ -17,7 +17,7 @@ class Proof < ApplicationRecord
   has_many :activities, as: :acted_on, :dependent => :destroy
 
 
-  validates :content, presence: true, length: { maximum: 10000, minimum: 15 }
+  validates :content, presence: true, length: { maximum: 10000, minimum: 30 }
   scope :active, -> { where(deleted_on: nil) }
 
   def save_new(images, user)

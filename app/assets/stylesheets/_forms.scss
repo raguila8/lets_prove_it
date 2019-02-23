@@ -78,16 +78,28 @@ trix-editor {
   border-bottom-left-radius: 0;
 
   &:hover, &:focus {
-    border-color: rgba(28,153,99, 0.2);
+    //border-color: rgba(59, 185, 196, 0.66);
 
     + .textAreaActions {
       outline: none;
       box-shadow: none;
-      border-color: rgba(28,153,99, 0.2);
+      //border-color: rgba(28,153,99, 0.2);
     }
   }
 }
 
+.form-group:hover .niceTextarea,
+  .form-group:hover .textAreaActions {
+  //border-color: rgba(59, 185, 196, 0.66);
+}
+
+.input-border-color {
+  border-color: rgba(0,0,0,0.18) !important;
+}
+
+.input-focused {
+  border-color: rgba(59, 185, 196, 0.86) !important;
+}
 /* --------------------------------------------------------------------
   New Problem 
   ------------------------------------------------------------------------*/
@@ -269,9 +281,11 @@ trix-editor {
     line-height: 2;
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
-    
-    
+    overflow: hidden;    
   }
+}
+
+.changes-form-group textarea {
+  min-height: 180px;
 }
 

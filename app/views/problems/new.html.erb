@@ -17,7 +17,7 @@
 					
 				  <p>The title is the first thing that users will see. It should help them quickly understand what the problem is about.</p>
 
-          <div class='light-grey-card'>
+          <div class='meta-card light-grey-card'>
             <h4 class='bodyFont'>
               Here are some tips for making a good title:
             </h4>
@@ -42,7 +42,7 @@
           </div>
 				</div>
         <div class='problem-form-container'>
-				<%= form_with(model: @problem, remote: true, id: "problem-form", class: 'validate-form') do |form| %>
+				<%= form_with(model: @problem, remote: true, id: "problem-form", class: 'validate-form problem-form') do |form| %>
           <%= render 'shared/error_messages' %>
           <%#= form.hidden_field :tags, value: "", id: "problem-tags" %>
           <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
@@ -50,25 +50,20 @@
           <div class="form-group title-form-group show">
             <%= form.label :title, "Problem Title *" %>
             <div class='input-container title-input-container'>
-              <%= form.text_field :title, class: "form-control form-input-validate", placeholder: "What's your problem's title?", required: true, minlength: 10, maxlength: 255, autocomplete: "off", data: { field: 'title' }  %>
+              <%= form.text_field :title, class: "form-control form-input-validate", placeholder: "What's your problem's title?", required: true, minlength: 10, maxlength: 255, autocomplete: "off", data: { field: 'title', title: "title" }  %>
             </div>
           </div> 
 
           <div class="form-group tags-form-group">
             <label for="topic_name">Topics *</label>
-            <div class='input-container' id='tags-input-container'>
-
-            </div>
-						<!--
-            <input class="form-control" type="text" name="topic[name]" id="topics-input" autocomplete="off">
-						-->
+            <div class='input-container' id='tags-input-container'></div>
           </div>
 
           <div class="form-group problem-content-form-group">
             <%= form.label :content, "Problem body *" %>
-            <%= form.hidden_field :content, class: "mb-20 form-control", id: "problem_content", required: true,  minlength: '30', maxlength: '5000' %>
+            <%= form.hidden_field :content, class: "mb-20 form-control", id: "problem_content", required: true,  minlength: '30', maxlength: '10000', data: { type: "trix" } %>
 						<div class='input-container problem-content-input-container'> 
-              <trix-editor input="problem_content" class="form-input-validate" data-field='content'></trix-editor>
+              <trix-editor input="problem_content" class="form-input-validate" data-field='content' data-title="Problem"></trix-editor>
             </div>
 
             <div class='textAreaActions'>

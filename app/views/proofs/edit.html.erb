@@ -11,7 +11,7 @@
 					  <p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p>
 					</div>
 
-					<%= form_with(model: @proof, local: true, id: "proof-form") do |form| %>
+					<%= form_with(model: @proof, local: true, id: "proof-form", class: "validate-form") do |form| %>
             <%= render 'shared/error_messages' %>
            
             <%= form.hidden_field :problem_id, value: "#{@proof.problem.id}" %> 

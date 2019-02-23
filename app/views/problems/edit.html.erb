@@ -15,44 +15,86 @@
         <div class="from-header">
 					<h2 class='darkType mt-0 mb-30 darktype headerFont fontWeight-600 inlineBlock'>Edit <span style="color: #219FAA;">Problem</span></h2>	
 				</div>
-
-					<%= form_with(model: @problem, local: true, id: "problem-form") do |form| %>
+          <div class='problem-form-container trix-form-container'>
+					<%= form_with(model: @problem, remote: true, id: "edit-problem-form", class: "validate-form problem-form") do |form| %>
             <%= render 'shared/error_messages' %>
-            <%= form.hidden_field :tags, value: @problem.topics.map{|t| t.name}.join(","), id: "problem-tags" %>
+            <%#= form.hidden_field :tags, value: @problem.topics.map{|t| t.name}.join(","), id: "problem-tags" %>
             <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
-            <div class="form-group">
+
+            <div class="form-group title-form-group">
               <%= form.label :title, "Problem Title *" %>
-              <%= form.text_field :title, class: "form-control" %>
+              <div class='input-container title-input-container'>
+                <%= form.text_field :title, 
+                      class: "form-control form-input-validate", 
+                      placeholder: "What's your problem's title?", 
+                      required: true, minlength: 10, maxlength: 255, 
+                      autocomplete: "off", 
+                      data: { field: "title", title: "title" }  %>
+              </div>
             </div> 
 
-            <div class="form-group" id="problem-topics-data" data-topics="<%=@problem.topics.map{|t| t.name}.join(",")%>">
+            <div class="form-group tags-form-group" id="problem-topics-data">
               <label for="topic_name">Topics *</label>
-              <input class="form-control" type="text" name="topic[name]" id="topics-input" data-provide="typeahead">
+              <div class='input-container' id='tags-input-container'></div>
             </div>
 
-            <div class="form-group">
-              <%= form.label :content, "body *" %>
-              <%= form.hidden_field :content, value: @problem.content, class: "mb-20 form-control", id: "problem_content" %>
-              <trix-editor input="problem_content"></trix-editor>
+            <div class="form-group problem-content-form-group">
+              <%= form.label :content, "Problem body *" %>
+              <%= form.hidden_field :content, value: @problem.content, 
+                    class: "mb-20 form-control", id: "problem_content", 
+                    required: true, minlength: '30', maxlength: '10000', 
+                    data: { type: 'trix' } %>
+              <div class='input-container problem-content-input-container'> 
+                <trix-editor input="problem_content" class="form-input-validate" data-field="content" data-title="Problem"></trix-editor>
+              </div>
+
+              <div class='textAreaActions'>
+                <div class='textAreaActionsContainer'>
+                  <span class="btn mr-5 mb-5 ml-10 preview-btn pull-left borderSmall btn-light">Preview</span>
+
+                  <div class='secondary-dropdown pull-right' style='margin: 5px 20px 5px 5px;'>
+					          <span class='fa fa-ellipsis-h secondary-dropdown-toggle greyLink fontSize-20'></span>
+						        <div class="secondary-dropdown-content headerFont fontSize-15">
+                      <%= link_to "Math formatting", 
+                        help_center_article_path(article: "How Do I Write Math On My Posts?", 
+                                                 category: "General"), 
+                        class: "darkType" %>
+							        <%= link_to "How to write a good proof", 
+                        help_center_article_path(article: "How Do I Write A Good Proof?", 
+                                                 category: "Proofs"), 
+                        class: "darkType" %>
+
+                      <%= link_to "More help", help_path, class: "darkType" %>
+					          </div>
+					        </div>
+
+                  <div class='clearfix'></div>
+                </div>
+              </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group changes-form-group">
               <%= label_tag "version[description]", "What are you changing? *" %>
-              <%= text_area_tag "version[description]", nil, class: "mb-20 form-control" %>
-              <span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
+              <div class='input-container changes-input-container'>
+                <%= text_area_tag "version[description]", nil, 
+                      class: "form-control form-input-validate",
+                      required: true, minlength: '10', maxlength: '750',
+                      data: { field: "changes", title: "Description" } %>
+              </div>
             </div>
 
-            <% if @problem.has_pending_reports? and current_user.has_review_privileges? %>
+<!--
+            <%# if @problem.has_pending_reports? and current_user.has_review_privileges? %>
               <div class='clearfix'></div>
-              <%= render partial: '/reports/close_report_form', locals: { resource: @problem } %>
-            <% end %>
+              <%#= render partial: '/reports/close_report_form', locals: { resource: @problem } %>
+            <%# end %>
 
-            <!-- Action Buttons -->
-            <div class="form-group">
-              <span class="btn mb-5 btn-mult btn-ghost mr-5 preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
-              <%= form.submit "Submit", class: "btn mb-5 btn-mult", style: "display: inline-block; margin-top: 0;" %>
-            </div>
+-->
           <% end %>
+          <div class='form-nav mt-30'>
+            <span class="btn mb-5 ml-15 floatRight btn-submit"> Update problem</span>
+          </div>
+          </div>
         </div><!-- / .form-wrapper -->
 
 
@@ -113,71 +155,12 @@
 	            </li>
             </ul>
 					</div>
-
-
 				</div>
 			</div>
     </div>
 	</div>
 </div>
 
-
-<!--
-<div class="contact-3 pv-80" id="edit-problem-page">
-  <div class="container">
-    <div class="row"> 
-      <div class="col-md-12 col-lg-offset-1 col-lg-10">
-        <%= link_to problem_path(@problem.id), class: "main-link", style: "font-weight: 600; font-size: 1.5em;" do %>
-          <span class="glyphicon glyphicon-arrow-left mr-5"></span> Back to problem
-        <% end %>
-
-        <div class="form-wrapper" style='margin-top: 20px;'>
-          <div class="from-header">
-					  <h2>Edit Problem</h2>
-					
-					  <p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p>
-					</div>
-
-					<%= form_with(model: @problem, local: true, id: "problem-form") do |form| %>
-            <%= render 'shared/error_messages' %>
-            <%= form.hidden_field :tags, value: @problem.topics.map{|t| t.name}.join(","), id: "problem-tags" %>
-            <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
-            <div class="form-group">
-              <%= form.label :title, "Problem Title *" %>
-              <%= form.text_field :title, class: "form-control" %>
-            </div> 
-
-            <div class="form-group" id="problem-topics-data" data-topics="<%=@problem.topics.map{|t| t.name}.join(",")%>">
-              <label for="topic_name">Topics *</label>
-              <input class="form-control" type="text" name="topic[name]" id="topics-input" data-provide="typeahead">
-            </div>
-
-            <div class="form-group">
-              <%= form.label :content, "body *" %>
-              <%= form.hidden_field :content, value: @problem.content, class: "mb-20 form-control", id: "problem_content" %>
-              <trix-editor input="problem_content"></trix-editor>
-            </div>
-
-            <div class="form-group">
-              <%= label_tag "version[description]", "What are you changing? *" %>
-              <%= text_area_tag "version[description]", nil, class: "mb-20 form-control" %>
-              <span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
-            </div>
-
-            <% if @problem.has_pending_reports? and current_user.has_review_privileges? %>
-              <div class='clearfix'></div>
-              <%= render partial: '/reports/close_report_form', locals: { resource: @problem } %>
-            <% end %>
-
-            <!-- Action Buttons -->
-            <div class="form-group">
-              <span class="btn mb-5 btn-mult btn-ghost mr-5 preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
-              <%= form.submit "Submit", class: "btn mb-5 btn-mult", style: "display: inline-block; margin-top: 0;" %>
-            </div>
-          <% end %>
-        </div><!-- / .form-wrapper -->
-      </div><!-- / .col-md-12 -->
-    </div><!-- / .row --> 
-  </div><!-- / .container -->
-</div><!-- / .contact-3 -->
--->
+<script id='generalPreviewTemplate' type="text/html">
+  <%= render 'shared/general_preview_template' %>
+</script>

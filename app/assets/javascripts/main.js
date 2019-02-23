@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function() {
   initVideoPlayer();
   initCommentsLinks();
 
-  if ($('#proof-form, #problem-form').length > 0) {
+  if ($('#proof-form, #problem-form, #edit-problem-form').length > 0) {
     initFullscreen();
   }
 
@@ -892,7 +892,7 @@ $(document).on('turbolinks:load', function() {
     $('body').on('click', '.preview-btn', function() {
 		  $form = $($(this).closest('form')[0]);
 		  var content = '';
-      if ($form.attr('id') == "problem-form") {
+      if ($form.attr('id') == "problem-form" || $form.attr('id') == "edit-problem-form") {
         content = $form.find('input[name="problem[content]"]:first').val();
         var data = [{ content: content }];
     
@@ -1072,7 +1072,7 @@ $(document).on('turbolinks:load', function() {
 
     $('body').append(hiddenDiv);
 
-    $('.commentSection').on('keyup', 'textarea', function () {
+    $('.commentSection, .changes-form-group').on('keyup', 'textarea', function () {
 
       content = $(this).val();
 
@@ -1156,8 +1156,7 @@ $(document).on('turbolinks:load', function() {
   -----------------------------------------------------------------*/
 
   function initFullscreen() {
-    $('#proof-form, #problem-form').on('click', 'trix-toolbar .trix-button--icon-fullscreen', function() {
-      console.log('clicked fs');
+    $('#proof-form, #problem-form, #edit-problem-form').on('click', 'trix-toolbar .trix-button--icon-fullscreen', function() {
       if ($('.trix-form-container').hasClass('trix-form-container-fullscreen')) {
         $('.trix-form-container').removeClass('trix-form-container-fullscreen');
         $('body').removeClass('overflow-y-hidden');
