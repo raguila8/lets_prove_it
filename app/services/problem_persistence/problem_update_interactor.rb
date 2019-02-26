@@ -1,6 +1,5 @@
-module ProblemCreation
-  class ProblemCreationInteractor
-    #include Errors::ErrorHandler
+module ProblemPersistence
+  class ProblemUpdateInteractor
 
     def self.call(params)
       interactor = new(params)
@@ -19,12 +18,11 @@ module ProblemCreation
     end
 
     def run
-      @problem_service = ProblemCreationService.new(params) 
+      @problem_service = ProblemUpdateService.new(params)
 
     # NEED TO DO
     rescue Errors::ImagesFieldInvalid
       @success = false
-
     rescue ActiveRecord::RecordInvalid => exception
       @errors = exception.record.errors
       @success = false

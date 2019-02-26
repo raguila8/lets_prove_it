@@ -1,8 +1,24 @@
-<% if @exception %>
-  $('#editTopicsModal #problem-form').prepend("<%= escape_javascript render(:partial => '/problems/_topics_list', :locals => { :@problem => @problem, :@exception => @exception }) %>");
+<% @interactor.errors.each do |attribute, error| %>
+  console.log("attribute: <%=attribute%>,   error: <%=error%>");
 
-<% else %>
+  <% if attribute == :description %>
+    $input = $("#edit-problem-form textarea[data-field='<%=attribute%>']");
+  <% else %>
+    $input = $("#edit-problem-form input[data-field='<%=attribute%>']");
+  <% end %>
+
+  addInputError($input[0]);
+  addInputErrorMsg($input[0], "<%= @interactor.errors.full_messages_for(attribute).join(". ") %>");
+
+<% end %>
+
+/*
+<%# if @exception %>
+  $('#editTopicsModal #problem-form').prepend("<%#= escape_javascript render(:partial => '/problems/_topics_list', :locals => { :@problem => @problem, :@exception => @exception }) %>");
+
+<%# else %>
   $('#editTopicsModal').modal('toggle');
   $('#problem-tags-list').empty();
-  $('#problem-tags-list').append("<%= escape_javascript render(:partial => '/problems/topics_list', :locals => { :@problem => @problem }) %>");
-<% end %>
+  $('#problem-tags-list').append("<%#= escape_javascript render(:partial => '/problems/topics_list', :locals => { :@problem => @problem }) %>");
+<%# end %>
+*/

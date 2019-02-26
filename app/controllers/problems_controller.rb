@@ -75,7 +75,7 @@ class ProblemsController < ApplicationController
   # POST /problems
   # POST /problems.json
   def create
-    @interactor = ProblemCreation::ProblemCreationInteractor.call(self.params.merge(user_id: current_user.id))
+    @interactor = ProblemPersistence::ProblemCreationInteractor.call(self.params.merge(user_id: current_user.id))
 
     if @interactor.success?
       redirect_to @interactor.problem, notice: 'Problem was successfully created.' 
@@ -89,27 +89,33 @@ class ProblemsController < ApplicationController
   # PATCH/PUT /problems/1
   # PATCH/PUT /problems/1.json
   def update
-    @problem.update_attributes(problem_params)
-    @new_images = problem_images_params["images"]
-    @new_images = "" if !@new_images
-    images_array = @new_images.split(",")
-    tags = problem_tags_params["tags"]
-    tagsArray = tags.split(",")
-    version_description = params["version"]["description"]
+    @interactor = ProblemPersistence::ProblemUpdateInteractor.call(self.params.merge(user_id: current_user.id))
 
-    respond_to do |format|
-      @exception = @problem.save_edit(tagsArray, images_array, version_description, current_user)[:exception]
-      if !@exception
+    if @interactor.success?
+      redirect_to @problem, notice: 'Problem was successfully updated.' 
+    end
+
+    #@problem.update_attributes(problem_params)
+    #@new_images = problem_images_params["images"]
+    #@new_images = "" if !@new_images
+    #images_array = @new_images.split(",")
+    #tags = problem_tags_params["tags"]
+    #tagsArray = tags.split(",")
+    #version_description = params["version"]["description"]
+
+    #respond_to do |format|
+      #@exception = @problem.save_edit(tagsArray, images_array, version_description, current_user)[:exception]
+      #if !@exception
         #User who edits a problem automatically follows it
-        if !current_user.following? @problem
-          current_user.follow @problem
-        end
+       # if !current_user.following? @problem
+        #  current_user.follow @problem
+       # end
 
         # Notify problem followers
-        Notifications::Sender::SendNotifications.new(notification_type: :updated_problem,
-                                                     actor: current_user,
-                                                     resource: @problem).call
-
+        #Notifications::Sender::SendNotifications.new(notification_type: :updated_problem,
+         #                                            actor: current_user,
+          #                                           resource: @problem).call
+=begin
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
         format.json { render :show, status: :ok, location: @problem }
       else
@@ -120,7 +126,8 @@ class ProblemsController < ApplicationController
         format.json { render json: @problem.errors, status: :unprocessable_entity }
       end
       format.js { @problem.reload }
-    end
+=end
+    #end
   end
 
   # DELETE /problems/1

@@ -1,4 +1,4 @@
-module ProblemCreation
+module ProblemPersistence
   class ProblemCreationService
     attr_reader :problem
 
@@ -24,13 +24,12 @@ module ProblemCreation
         ActiveRecord::Base.transaction do
           add_tags!
           @problem.save!
-          byebug
           create_version!
           Image.add_new_images!(@problem, @images, @user)
           @user.follow @problem if !@user.following? @problem
           Notifications::Sender::SendNotifications.new(notification_type: :new_problem,
-                                                     actor: current_user,
-                                                     resource: @interactor.problem).call
+                                                     actor: @user,
+                                                     resource: @problem).call
         end
       end
     end

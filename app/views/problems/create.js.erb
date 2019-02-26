@@ -1,5 +1,9 @@
 <% @interactor.errors.each do |attribute, error| %>
-  $input = $("#problem-form input[data-field='<%=attribute%>']");
+  <% if attribute == :name %>
+    $input = $("#problem-form input[data-field='topics']");
+  <% else %>
+    $input = $("#problem-form input[data-field='<%=attribute%>']");
+  <% end %>
   addInputError($input[0]);
   addInputErrorMsg($input[0], "<%= @interactor.errors.full_messages_for(attribute).join(". ") %>");
 <% end %>

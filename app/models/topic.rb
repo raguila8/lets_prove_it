@@ -15,7 +15,7 @@ class Topic < ApplicationRecord
   has_many :activities, as: :acted_on, :dependent => :destroy
 
 
-  before_save { self.name = name.downcase }
+  before_save { self.name = name.downcase.titleize }
   validates :name, presence: true, length: { minimum: 3, maximum: 25 },
                    uniqueness: true
   validates :description, length: { maximum: 10000 }

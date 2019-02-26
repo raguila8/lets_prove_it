@@ -63,6 +63,7 @@ $(document).on('turbolinks:load', function() {
     //initGeneralFormValidations();
   } else if ($('#edit-problem-form').length > 0 ) {
     initProblemTags();
+    initProblemSubmission();
 	}
 
  /* ---------------------------------------------------
@@ -182,7 +183,7 @@ $(document).on('turbolinks:load', function() {
     initNewProblemFormValidations();
 	  initNewProblemFormGeneral();
     initProblemTags();
-    initNewProblemSubmission();
+    initProblemSubmission();
 	}
 
 
@@ -400,9 +401,9 @@ $(document).on('turbolinks:load', function() {
   /* -----------------------------------------------------------------
     Form submission
     ------------------------------------------------------------------*/
-  function initNewProblemSubmission() {
+  function initProblemSubmission() {
     $('.problem-form-container .form-nav').on('click', '.btn-submit', function() {
-      const $inputs = $('.problem-form .form-input-validate');
+      const $inputs = $('#problem-form .form-input-validate');
       let isValid = true;
       $inputs.each(function(index) {
         let $input = $(this);
@@ -420,17 +421,18 @@ $(document).on('turbolinks:load', function() {
             isValid = false;
           }
         } else {
-				  let inputLength = $(this).val().trim().replace(/\s+/g, " ").length
+				  let inputLength = $(this).val().trim().length;
           if ($(this).data('field') == "content") {
             $input = $(this).closest('.form-group').find('#problem_content');
             minLength = 30;
             maxLength = 5000;
             field = "Problem"
-            const { editor } = this.editor;
+            const { editor } = this;
             let trixContent = editor.getDocument().toString();
 						inputLength = trixContent.trim().length;
-						console.log("trixContent: " + trixContent);
           }
+
+          maxLength = $input.attr('maxlength');
 
           if ($input.attr("minlength") && inputLength < minLength) {
             errorText = field + " must be at least " + minLength + " characters";
@@ -449,10 +451,13 @@ $(document).on('turbolinks:load', function() {
 
       if (isValid) {
 			  var $form = $('.problem-form');
-			  //var form = document.getElementById('problem-form');
 				Rails.fire($form[0], 'submit');
       }
     });
+  }
+
+  function inputMaxLength(input) {
+    $(input).data('maxlength');
   }
 
 
@@ -549,11 +554,22 @@ $(document).on('turbolinks:load', function() {
 		});
   }
 
+  function prefilledTags() {
+    tags = [];
+    if ($('#problem-topics-data .prefilled-tag').length > 0) {
+      $('#problem-topics-data .prefilled-tag').each(function(index) {
+        tags.push($(this).data('tag'));
+      });
+    }
+    return tags;
+  }
+
 	function initProblemTags() {
-    if ($('#tags-input-container').length > 0) {
+    if ($('#tags-input-container').length > 0 && $('#tags-input-container .taggle_list').length == 0) {
       const myTaggle = new Taggle('tags-input-container', {
         duplicateTagClass: 'bounce',
         hiddenInputName: "tags[]",
+        tags: prefilledTags(),
 
         inputFormatter: function(inputElement) {
           $(inputElement).addClass('form-input-validate');

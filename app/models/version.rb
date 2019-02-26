@@ -15,9 +15,9 @@ class Version < ApplicationRecord
   has_many :activities, as: :acted_on, :dependent => :destroy
 
 
-  validates :title, presence: true, length: { maximum: 255, minimum: 3 }
+  validates :title, presence: true, length: { maximum: 255, minimum: 10 }
 
-  validates :content, presence: true, length: { maximum: 5000, minimum: 15 }
+  validates :content, presence: true, length: { maximum: 10000, minimum: 30 }
   validates :description, presence: true, length: { maximum: 750, minimum: 10 }
   validates :version_number, presence: true, numericality: { only_integer: true,
                                                greater_than_or_equal_to: 1 }
@@ -51,7 +51,7 @@ class Version < ApplicationRecord
     end
   end
 
-  def addTopics!(tags)
+  def add_topics!(tags)
     tags.each do |tag|
       topic = Topic.find_by(name: tag)
       if topic
@@ -60,7 +60,7 @@ class Version < ApplicationRecord
     end
   end
 
-  def addTopic!(topic)
+  def add_topic!(topic)
     VersionTopic.create!(version_id: self.id, topic_id: topic.id)
   end
 

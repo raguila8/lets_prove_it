@@ -34,6 +34,9 @@
             </div> 
 
             <div class="form-group tags-form-group" id="problem-topics-data">
+						  <% @problem.topics.each do |topic| %>
+						    <%= content_tag :div, '', class: 'prefilled-tag', data: { tag: topic.name } %>
+						  <% end %>
               <label for="topic_name">Topics *</label>
               <div class='input-container' id='tags-input-container'></div>
             </div>
@@ -79,7 +82,7 @@
                 <%= text_area_tag "version[description]", nil, 
                       class: "form-control form-input-validate",
                       required: true, minlength: '10', maxlength: '750',
-                      data: { field: "changes", title: "Description" } %>
+                      data: { field: "description", title: "Description" } %>
               </div>
             </div>
 
