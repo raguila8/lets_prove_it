@@ -42,73 +42,19 @@ class ProofsController < ApplicationController
     end
   end
 
-  # POST /proofs
-  # POST /proofs.json
   def create
-    @proof = Proof.new(proof_params)
-    @problem = Problem.find(@proof.problem_id)
-    #@proof.problem_id = @problem.id
-    @proof.user_id = current_user.id
-    @new_images = proof_images_params["images"]
-    images_array = @new_images.split(",")
+    @interactor = ProofPersistence::ProofCreationInteractor.call(self.params.merge(user_id: current_user.id))
 
-
-    respond_to do |format|
-      exception = @proof.save_new(images_array, current_user)[:exception]
-      if !exception
-        #Any user who proofs a problem automatically follows it
-        if !current_user.following? @problem
-          current_user.follow @problem
-        end
-
-        # Create notifications for users following the problem
-        Notifications::Sender::SendNotifications.new(notification_type: :new_proof,
-                                                     actor: current_user,
-                                                     resource: @proof).call
-        
-        format.html { redirect_to @problem, notice: 'Proof was successfully created.' }
-        format.json { render :show, status: :created, location: @proof }
-      else
-        format.html {
-          flash.now[:failed_proof_create] = exception.message
-          render :template => "problems/show", locale: { id: @problem.id } 
-        }
-
-        format.json { render json: @proof.errors, status: :unprocessable_entity }
-      end
+    if @interactor.success?
+      redirect_to @interactor.proof.problem, notice: 'Proof was successfully created.' 
     end
   end
 
-  # PATCH/PUT /proofs/1
-  # PATCH/PUT /proofs/1.json
   def update
-    @proof.update_attributes(proof_params)
-    @new_images = proof_images_params["images"]
-    images_array = @new_images.split(",")
-    version_description = params["version"]["description"]
+    @interactor = ProofPersistence::ProofUpdateInteractor.call(self.params.merge(user_id: current_user.id))
 
-    #@problem = Problem.find(@proof.problem_id)
-
-    respond_to do |format|
-      @exception = @proof.save_edit(images_array, current_user, version_description)[:exception]
-      if !@exception
-
-        #Any user who edits a proof for a problem automatically follows it
-        if !current_user.following? @proof.problem
-          current_user.follow @proof.problem
-        end
-
-        # Notify users who have commented on or edited proof
-        Notifications::Sender::SendNotifications.new(notification_type: :updated_proof,
-                                                     actor: current_user,
-                                                     resource: @proof).call
-
-        format.html { redirect_to @proof.problem, notice: 'Proof was successfully updated.' }
-
-      else
-        format.html { render :edit }
-      end
-      format.js {}
+    if @interactor.success?
+      redirect_to @interactor.proof, notice: 'Proof was successfully updated.' 
     end
   end
 

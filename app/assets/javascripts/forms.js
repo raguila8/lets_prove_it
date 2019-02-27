@@ -59,8 +59,8 @@ $(document).on('turbolinks:load', function() {
 
   if ($('#problem-form').length > 0) {
     initNewProblemForm();
-	} else if ($('#proof-form').length > 0) {
-    //initGeneralFormValidations();
+	} else if ($('#edit-proof-form').length > 0) {
+    initProofEditSubmission();
   } else if ($('#edit-problem-form').length > 0 ) {
     initProblemTags();
     initProblemSubmission();
@@ -403,9 +403,10 @@ $(document).on('turbolinks:load', function() {
     ------------------------------------------------------------------*/
   function initProblemSubmission() {
     $('.problem-form-container .form-nav').on('click', '.btn-submit', function() {
-      const $inputs = $('#problem-form .form-input-validate');
-      let isValid = true;
+      const $inputs = $('.problem-form .form-input-validate');
+      var hasError = false;
       $inputs.each(function(index) {
+        var isValid = true;
         let $input = $(this);
         let minLength = 10;
         let maxLength = 255;
@@ -416,16 +417,18 @@ $(document).on('turbolinks:load', function() {
           if ($('#tags-input-container .taggle_list .taggle').length < 1) {
             errorText = "Problem must have at least 1 tag";
             isValid = false;
+            hasError = true;
           } else if ($('#tags-input-container .taggle_list .taggle').length > 5) {
             errorText = "Problem has too many tags. It can have at most 5 tags";
             isValid = false;
+            hasError = true;
           }
         } else {
 				  let inputLength = $(this).val().trim().length;
           if ($(this).data('field') == "content") {
             $input = $(this).closest('.form-group').find('#problem_content');
             minLength = 30;
-            maxLength = 5000;
+            maxLength = 10000;
             field = "Problem"
             const { editor } = this;
             let trixContent = editor.getDocument().toString();
@@ -437,9 +440,11 @@ $(document).on('turbolinks:load', function() {
           if ($input.attr("minlength") && inputLength < minLength) {
             errorText = field + " must be at least " + minLength + " characters";
             isValid = false;
+            hasError = true;
           } else if (inputLength > maxLength) {
             errorText = field + " is too long. " + field + " can be at most " + maxLength + " characters";
             isValid = false;
+            hasError = true;
           }
         }
 
@@ -449,8 +454,57 @@ $(document).on('turbolinks:load', function() {
         }
       });
 
-      if (isValid) {
+      if (!hasError) {
 			  var $form = $('.problem-form');
+				Rails.fire($form[0], 'submit');
+      }
+    });
+  }
+
+  function initProofEditSubmission() {
+    $('.proof-form-container .form-nav').on('click', '.btn-submit', function() {
+      const $inputs = $('.proof-form .form-input-validate');
+      var hasError = false;
+      $inputs.each(function(index) {
+        var isValid = true;
+        let $input = $(this);
+        let minLength = 10;
+        let maxLength = 255;
+        let errorText = "";
+        let field = "Description";
+
+        let inputLength = $(this).val().trim().length;
+        if ($(this).data('field') == "content") {
+          $input = $(this).closest('.form-group').find('#proof_content');
+          minLength = 30;
+          maxLength = 10000;
+          field = "Content"
+          const { editor } = this;
+          let trixContent = editor.getDocument().toString();
+				  inputLength = trixContent.trim().length;
+        }
+
+        maxLength = $input.attr('maxlength');
+
+        if ($input.attr("minlength") && inputLength < minLength) {
+          errorText = field + " is too short (minimum is " + minLength + " characters)";
+          isValid = false;
+          hasError = true;
+        } else if (inputLength > maxLength) {
+          errorText = field + " is too long. " + field + " can be at most " + maxLength + " characters";
+          isValid = false;
+          hasError = true;
+        }
+
+        if (!isValid) {
+          addInputError($(this)[0]);
+          addInputErrorMsg($input[0], errorText);
+        }
+
+      });
+
+      if (!hasError) {
+			  var $form = $('.proof-form');
 				Rails.fire($form[0], 'submit');
       }
     });
@@ -742,7 +796,7 @@ $(document).on('turbolinks:load', function() {
         if ($input.val().length > 0) { 
           let isValid = true;
           if (trixContent.trim().length < minLength) {
-            errorText = $(this).data('title') + " must be at least " + minLength + " characters";
+            errorText =  "Content is too short (minimum is " + minLength + " characters)";
             isValid = false;
           } else if (trixContent.trim().length > maxLength) {
             errorText = $(this).data('title') + " is too long. " + $li.text() + " can be at most " + maxLength + " characters";
@@ -758,14 +812,14 @@ $(document).on('turbolinks:load', function() {
 
       if ($input.val().length > 0) {
         if ($input[0].validity.valid) {
-          if ($input.attr("minlength") && $input.val().length > 0 && $input[0].value.trim().replace(/\s+/g, " ").length < minLength) {
-              errorText = $li.text() + " must be at least " + minLength + " characters";
-              addInputError($(this)[0]);
-              addInputErrorMsg($input[0], errorText);
+          if ($input.attr("minlength") && $input.val().length > 0 && $input[0].value.trim().length < minLength) {
+            errorText = $input.data('title') + " must be at least " + minLength + " characters";
+            addInputError($(this)[0]);
+            addInputErrorMsg($input[0], errorText);
           }
         } else {
           if ($input[0].validity.tooShort) {
-            errorText = $(this).data('title') + " must be at least " + minLength + " characters";
+            errorText = $(this).data('title') + " is too short (minimum is " + minLength + " characters)";
           } else if ($(this)[0].validity.tooLong) {
             errorText = $(this).data('title') + " must be at least " + minLength + " characters";
           }

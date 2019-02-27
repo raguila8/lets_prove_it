@@ -1,0 +1,3 @@
+var $input = $("#proof-form .form-input-validate[data-field='content']");
+addInputError($input[0]);
+addInputErrorMsg($input[0], "<%= @interactor.errors.full_messages_for('content').first %>");

@@ -94,8 +94,8 @@ trix-toolbar {
     
   }
 
-  #problem-form, #edit-problem-form {
-    .problem-content-form-group label {
+  #problem-form, #edit-problem-form, #edit-proof-form {
+    .problem-content-form-group label, .proof-content-form-group label {
       display: none;
     }
 

@@ -1,23 +1,11 @@
-<% if !@proof.nil? and !@exception %>
-  $('#proof-<%=@proof.id%> .proof-remove').css('display', 'block');
-  $('#proof-<%=@proof.id%> .proof-edit').css('display', 'block');
+<% @interactor.errors.each do |attribute, error| %>
 
-  $('#proof-content-<%=@proof.id%>').html("<%= escape_javascript render(:partial => '/proofs/proof_content', :locals => { :@proof => @proof }) %>");
+  <% if attribute == :description %>
+    $input = $("#edit-proof-form textarea[data-field='<%=attribute%>']");
+  <% else %>
+    $input = $("#edit-proof-form input[data-field='<%=attribute%>']");
+  <% end %>
 
-  $('#flash-message-wrapper').remove();
-  $('body').append("<div id='flash-message-wrapper' class='notice hidden'><p>Proof was successfully updated.</p></div>");
-
-  $('#flash-message-wrapper').slideUp(500);
-  setTimeout(function(){
-    $('#flash-message-wrapper').slideDown(500);
-  }, 5000);
-
-  $proof = $('#proof-content-<%= @proof.id %>');
-  setTimeout(function() {
-	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $proof[0]]);
-  } ,500);
-
-<% else %>
-  $('#proof-form-<%=@proof.id%>').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', :locals => { :@exception => @exception }) %>");
-
+  addInputError($input[0]);
+  addInputErrorMsg($input[0], "<%= @interactor.errors.full_messages_for(attribute).join(". ") %>");
 <% end %>

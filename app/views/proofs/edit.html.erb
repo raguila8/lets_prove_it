@@ -1,5 +1,151 @@
-<%= render 'shared/preview' %>
+<div class='widerContainer mt-40'>
+  <div class='row'>
+    <div class='col-lg-8'>
+      
+      <div class="post-edit-form-wrapper pt-0">
+			  <ul class='breadcrumb pt-20 mb-40 pl-0'>
+        <li>
+          <%= link_to @proof.problem.title, problem_path(@proof.problem) %>
+        </li>
+        <li>
+          <%= link_to "Proof", proof_path(@proof) %>
+        </li>
+        <li>
+          Proof Edit
+        </li>
+      </ul>
 
+        <div class="from-header">
+					<h2 class='darkType mt-0 mb-30 darktype headerFont fontWeight-600 inlineBlock'>Edit <span style="color: #219FAA;">Proof</span></h2>	
+				</div>
+          <div class='proof-form-container trix-form-container'>
+					<%= form_with(model: @proof, remote: true, id: "edit-proof-form", class: "validate-form proof-form") do |form| %>
+            <%= form.hidden_field :problem_id, value: "#{@proof.problem.id}" %> 
+            <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %> 
+
+
+            <div class="form-group proof-content-form-group">
+              <%= form.label :content, "Proof body *" %>
+              <%= form.hidden_field :content, value: @proof.content, 
+                    class: "mb-20 form-control", id: "proof_content", 
+                    required: true, minlength: '30', maxlength: '10000', 
+                    data: { type: 'trix' } %>
+              <div class='input-container proof-content-input-container'> 
+                <trix-editor input="proof_content" class="proof-editor form-input-validate" data-field="content" data-title="Proof"></trix-editor>
+              </div>
+
+              <div class='textAreaActions'>
+                <div class='textAreaActionsContainer'>
+                  <span class="btn mr-5 mb-5 ml-10 preview-btn pull-left borderSmall btn-light">Preview</span>
+
+                  <div class='secondary-dropdown pull-right' style='margin: 5px 20px 5px 5px;'>
+					          <span class='fa fa-ellipsis-h secondary-dropdown-toggle greyLink fontSize-20'></span>
+						        <div class="secondary-dropdown-content headerFont fontSize-15">
+                      <%= link_to "Math formatting", 
+                        help_center_article_path(article: "How Do I Write Math On My Posts?", 
+                                                 category: "General"), 
+                        class: "darkType" %>
+							        <%= link_to "How to write a good proof", 
+                        help_center_article_path(article: "How Do I Write A Good Proof?", 
+                                                 category: "Proofs"), 
+                        class: "darkType" %>
+
+                      <%= link_to "More help", help_path, class: "darkType" %>
+					          </div>
+					        </div>
+
+                  <div class='clearfix'></div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group changes-form-group">
+              <%= label_tag "version[description]", "What are you changing? *" %>
+              <div class='input-container changes-input-container'>
+                <%= text_area_tag "version[description]", nil, 
+                      class: "form-control form-input-validate",
+                      required: true, minlength: '10', maxlength: '750',
+                      data: { field: "description", title: "Description" } %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class='form-nav mt-30'>
+            <span class="btn mb-5 ml-15 floatRight btn-submit"> Update proof</span>
+          </div>
+          </div>
+        </div><!-- / .form-wrapper -->
+
+		</div>
+		<div class='col-lg-4'>
+      <div class='proof-edit-sidebar'>
+        <div class='proof-meta-widget'>
+				
+				  <div class="author-container" style='margin-top: 20px; margn-bottom: 20px;'>
+				    <div class="author-img">
+				      <a href="<%=user_path(@proof.user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(@proof.user)%>" alt="Go to the profile of <%=@proof.user.name_or_username%>"></a>
+				    </div>
+
+            <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+              <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(@proof.user.id)%>"><%=@proof.user.name_or_username%></a>
+              <div class="noWrapWithEllipsis captionSmall fontSize-15">
+                <span class="time no-wrap"><%= time_ago_in_words(@proof.created_at) %> ago</span>
+                <span class="dot-sep">·</span>
+                <span class="views no-wrap"><%=pluralize(@proof.comments.count, 'comment')%></span>
+              </div>
+            </div>
+				  </div>
+
+					<div class="mt-20">
+					  <span class="headerFont lightType fontSize-16">
+	            Editing is important for keeping problems and proofs clear, 
+							grammatically correct and relevant.
+						</span>
+					</div>
+
+          <div class='meta-card white-bordered-card mt-20'>
+            <h4>
+              Edits are expected to leave the post better than how you 
+							found it
+						</h4>
+
+						<p> Here are some reasons for edits: </p>
+
+            <ul>
+              <li>
+	              To improve spelling, grammar or punctuation.
+	            </li>
+              <li>
+	              To clarify the meaning of the post. It is important not to change the 
+		            intended meaning of the poster.
+	            </li>
+              <li>
+	              To include important information that is found in the comments. 
+		            Sometimes additional information or a clarification arises in the comments. 
+		            It is better to keep all of the relevant information in one place.
+	            </li>
+              <li>
+	              To correct a mistake or error made.
+	            </li>
+              <li>
+	              To add citations, links or resources.
+	            </li>
+            </ul>
+					</div>
+				</div>
+			</div>
+    </div>
+	</div>
+</div>
+
+<script id='generalPreviewTemplate' type="text/html">
+  <%= render 'shared/general_preview_template' %>
+</script>
+
+
+
+<!--
 <div class="contact-3 pv-80" id="edit-proof-page">
   <div class="container">
     <div class="row">
@@ -11,32 +157,32 @@
 					  <p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p>
 					</div>
 
-					<%= form_with(model: @proof, local: true, id: "proof-form", class: "validate-form") do |form| %>
-            <%= render 'shared/error_messages' %>
+					<%#= form_with(model: @proof, local: true, id: "proof-form", class: "validate-form") do |form| %>
+            <%#= render 'shared/error_messages' %>
            
-            <%= form.hidden_field :problem_id, value: "#{@proof.problem.id}" %> 
-            <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %> 
+            <%#= form.hidden_field :problem_id, value: "#{@proof.problem.id}" %> 
+            <%#= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %> 
             
             <div class="form-group">
-              <%= form.label :content, "body *" %>
-              <%= form.hidden_field :content, value: @proof.content, class: "mb-20 form-control", id: "proof-input-#{@proof.id}" %>
-              <trix-editor input="proof-input-<%=@proof.id%>"></trix-editor>
+              <%#= form.label :content, "body *" %>
+              <%#= form.hidden_field :content, value: @proof.content, class: "mb-20 form-control", id: "proof-input-#{@proof.id}" %>
+              <trix-editor input="proof-input-<%#=@proof.id%>"></trix-editor>
             </div>
 
             <div class="form-group">
-              <%= label_tag "version[description]", "What are you changing? *" %>
-              <%= text_area_tag "version[description]", nil, class: "mb-20 form-control" %>
+              <%#= label_tag "version[description]", "What are you changing? *" %>
+              <%#= text_area_tag "version[description]", nil, class: "mb-20 form-control" %>
               <span class="pull-right"><a target="_blank" href="/mathjax_cheatsheet" class="grey-link"><span class="glyphicon glyphicon-info-sign"></span> Math Formatting</a></span>
             </div>
 
-            <!-- Action Buttons -->
             <div class="form-group">
               <span class="btn mb-5 btn-mult btn-ghost mr-5 preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
-              <%= form.submit "Submit", class: "btn mb-5 btn-mult", style: "display: inline-block; margin-top: 0;" %>
+              <%#= form.submit "Submit", class: "btn mb-5 btn-mult", style: "display: inline-block; margin-top: 0;" %>
             </div>
-          <% end %>
-        </div><!-- / .form-wrapper -->
-      </div><!-- / .col-md-12 -->
-    </div><!-- / .row --> 
-  </div><!-- / .container -->
-</div><!-- / .contact-3 -->
+          <%# end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->

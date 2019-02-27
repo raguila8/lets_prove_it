@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function() {
   initVideoPlayer();
   initCommentsLinks();
 
-  if ($('#proof-form, #problem-form, #edit-problem-form').length > 0) {
+  if ($('#proof-form, #edit-proof-form, #problem-form, #edit-problem-form').length > 0) {
     initFullscreen();
   }
 
@@ -59,7 +59,6 @@ $(document).on('turbolinks:load', function() {
 
   // Mathjax
   if (window.MathJax && !$("body[data-mathjax]").length && !$("#edit-problem-page").length && !$("#edit-topic-page").length) {
-    console.log("i am god");
     MathJax.Hub.Queue(
       ["Typeset",MathJax.Hub]
   	);
@@ -142,7 +141,6 @@ $(document).on('turbolinks:load', function() {
       $(".tags-widget .tag-list-container").html(html);
       $('#follow-topics-input').focus();
       $('body').on('click', '.tag-list-container .tag', function() {
-        console.log(topicsMap.get($(this).text()));
         window.location.href = "/topics/" + topicsMap.get($(this).text());
       });
 
@@ -176,7 +174,6 @@ $(document).on('turbolinks:load', function() {
 		// Sticky Nav & Transparent Background
 
     if ($('.navbar-fixed-top').length > 0) {
-    console.log('noooooo');
 		$(window).scroll(function(){
 	    if ($('.navbar-fixed-top').length > 0) {
 			if ($(window).scrollTop() > 20) {
@@ -210,13 +207,11 @@ $(document).on('turbolinks:load', function() {
 		    }
 
     		if ($('nav').hasClass('mobile-nav')) {
-          console.log("sjdkjdjjjj");
     			$('nav').removeClass('navbar-trans');
     			$('nav').removeClass('navbar-trans-dark');
     		} else {
     			if ($(window).width() >= 1259 && $(window).top&& $('.navbar-fixed-top').length > 0) {
     				$('nav').addClass('navbar-trans');
-            console.log("8=d");
     			}
     		}
         
@@ -910,14 +905,14 @@ $(document).on('turbolinks:load', function() {
 
       } else if ($form.attr('id') == "topic-form") {
         content = $form.find('input[name="topic[description]"]:first').val();
-      } else if ($form.attr('id') == "proof-form") {
+      } else if ($form.hasClass("proof-form")) {
         content = $form.find('input[name="proof[content]"]:first').val();
         var proofData = [{ content: content }];
 
         if ($form.next('.postPreview').length > 0) {
-          $form.next('.postPreview').find('#proof-preview-content').html(proofData[0].content);
+          $form.next('.postPreview').find('.general-preview-content').html(proofData[0].content);
 			  } else {
-          $.tmpl($("#proofPreviewTemplate"), proofData).insertAfter( $form );
+          $.tmpl($("#generalPreviewTemplate"), proofData).insertAfter( $form );
 				}
 
         setTimeout(function() {
@@ -999,10 +994,8 @@ $(document).on('turbolinks:load', function() {
     var sticky = $stickyNav.offset().top;
 
     $(window).scroll(function() {
-      console.log('scroll: ' + $(this).scrollTop());
       if ($(this).scrollTop() >= sticky) {
         $stickyNav.addClass("sticky")
-        console.log('ssss');
       } else {
         $stickyNav.removeClass("sticky");
       }
@@ -1156,7 +1149,7 @@ $(document).on('turbolinks:load', function() {
   -----------------------------------------------------------------*/
 
   function initFullscreen() {
-    $('#proof-form, #problem-form, #edit-problem-form').on('click', 'trix-toolbar .trix-button--icon-fullscreen', function() {
+    $('#proof-form, #edit-proof-form, #problem-form, #edit-problem-form').on('click', 'trix-toolbar .trix-button--icon-fullscreen', function() {
       if ($('.trix-form-container').hasClass('trix-form-container-fullscreen')) {
         $('.trix-form-container').removeClass('trix-form-container-fullscreen');
         $('body').removeClass('overflow-y-hidden');

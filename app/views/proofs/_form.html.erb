@@ -2,7 +2,7 @@
  
   <!-- Leave a Proof -->
   <div class="proof-form-container trix-form-container mt-0"> 
-    <%= form_with(model: Proof.new, local: true, id: "proof-form", class: "new-model-form validate-form") do |form| %>
+    <%= form_with(model: Proof.new, remote: true, id: "proof-form", class: "new-model-form validate-form proof-form") do |form| %>
       <%= form.hidden_field :problem_id, value: "#{@problem.id}", id: "problem-id" %>
       <%= form.hidden_field :images, value: "#{@new_images}", id: "new-images" %>
 
