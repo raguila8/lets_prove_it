@@ -1,0 +1,28 @@
+<li class='version-item' data-version-id="<%=version.id%>">
+  <time class="cbp_tmtime headerFont" datetime="2013-04-10 18:30"> <span><%=nice_date(version)%></span><span></span></time>
+	<div class="cbp_tmicon"><%=version.version_number%></div>
+	<div class="cbp_tmlabel">
+    <div class='row'>
+      <span class='fa fa-caret-down accordion-toggle'></span>
+
+      <div class='col-md-8'>
+		    <p><%=version.description%></p>
+      </div>
+      <div class='col-md-4'>
+        <div class="author-container">
+		      <div class="author-img">
+		        <a href="<%=user_path(version.user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(version.user)%>" alt="Go to the profile of <%=version.user.name_or_username%>"></a>
+		      </div>
+
+          <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+            <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(version.user.id)%>"><%=version.user.name_or_username%></a>
+            <div class="noWrapWithEllipsis captionSmall fontSize-15">
+              <span class="time no-wrap"><%=action_on_post(version) %> <%= time_ago_in_words(version.created_at) %> ago</span>
+            </div>
+          </div>
+	      </div>
+        <div class='clearfix'></div>
+      </div>
+    </div>
+	</div>
+</li>

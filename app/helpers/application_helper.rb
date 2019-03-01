@@ -35,7 +35,7 @@ module ApplicationHelper
       if %w(mathjax_cheatsheet contact).include? action_name
         render partial: "layouts/header2"
       end
-    elsif ("problems" == controller_name and (action_name == "index" or action_name == "feed" or action_name == "show" or action_name == 'new' or action_name == "edit" or action_name == "logs")) or (controller_name == "topics") or current_page?(root_path) or controller_name == 'help_center' or controller_name == "proofs"
+    elsif ("problems" == controller_name and (action_name == "index" or action_name == "feed" or action_name == "show" or action_name == 'new' or action_name == "edit" or action_name == "log")) or (controller_name == "topics") or current_page?(root_path) or controller_name == 'help_center' or controller_name == "proofs"
       return
     elsif %w(users topics problems).include? controller_name and action_name == "index"
       render partial: "layouts/header2"
@@ -475,5 +475,9 @@ module ApplicationHelper
 
   def first_char_up(string)
     string.slice(0,1).capitalize + string.slice(1..-1)
+  end
+
+  def nice_date(model)
+    model.created_at.year == Time.now.year ? model.created_at.strftime("%b %e") : model.created_at.strftime("%b %e, %Y")
   end
 end

@@ -25,6 +25,7 @@ module ProblemPersistence
           add_tags!
           @problem.save!
           create_version!
+          create_version_topics!
           Image.add_new_images!(@problem, @images, @user)
           @user.follow @problem if !@user.following? @problem
           Notifications::Sender::SendNotifications.new(notification_type: :new_problem,
@@ -46,6 +47,12 @@ module ProblemPersistence
 
         topic = (topic.nil? ? create_new_tag!(tag) : topic)
         add_tag_to_problem!(topic)
+      end
+    end
+
+    def create_version_topics!
+      @problem.topics.each do |topic|
+        VersionTopic.create!(version_id: @version.id, topic_id: topic.id)
       end
     end
 

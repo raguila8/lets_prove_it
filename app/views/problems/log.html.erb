@@ -1,0 +1,48 @@
+<div class='container'>
+  <div class='mb-40 mt-60'>
+    <div class='fancyCaption headerFont'>
+      <ul class='breadcrumb pt-20 mb-20 pl-0'>
+        <li>
+          <%= link_to @problem.title, problem_path(@problem) %>
+        </li>
+        <li>
+          Problem log
+        </li>
+      </ul>
+		</div>
+
+    <%= link_to problem_path(@problem), 
+	                        class: 'header-link-1' do %>
+      <h1 class='header-h1'>
+        <%= @problem.title %>
+	    </h1>
+		<% end %>
+
+    <div class="author-container" style='margin-top: 20px; margn-bottom: 20px;'>
+		  <div class="author-img">
+		    <a href="<%=user_path(@problem.user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(@problem.user)%>" alt="Go to the profile of <%=@problem.user.name_or_username%>"></a>
+		  </div>
+
+      <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+        <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(@problem.user.id)%>"><%=@problem.user.name_or_username%></a>
+        <div class="noWrapWithEllipsis captionSmall fontSize-15">
+          <span class="time no-wrap"><%= time_ago_in_words(@problem.created_at) %> ago</span>
+          <span class="dot-sep">·</span>
+          <span class="views no-wrap"><%=pluralize(@problem.cached_proofs_count, 'proof')%></span>
+        </div>
+      </div>
+	  </div>
+	</div>
+
+  <div class='log-timeline mb-120'>
+    <h3 class='headerFont pb-8 fontWeight-600 darktype fontSize-16 bb-light'>
+      Log
+    </h3>
+
+    <ul class="cbp_tmtimeline">
+      <% @problem.versions.each_with_index do |version, index| %>
+        <%= render(:partial => 'versions/version_item', locals: { :version => version, :@problem => @problem }) %>
+      <% end %>
+		</ul>
+  </div>
+</div>

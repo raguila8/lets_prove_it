@@ -1,0 +1,42 @@
+<header class='customContainer'>
+  <h1 class='problemTitle headerFont'>
+    <%= version.title %>
+  </h1>
+
+<!--
+  <%# if !version.subtitle.nil? %>
+    <h2 class='problemSubtitle headerFont lightType'>
+      <%#= @problem.subtitle %>
+    </h2>
+  <%# end %>
+-->
+ 
+<!--
+  <%# if !version.image.file.nil? %>
+    <figure class='mt-42'>
+      <img src='<%#=@problem.image.url%>' alt='Problem image preview' class='problemImagePreview'>
+    </figure>
+  <%# end %>
+-->
+</header>
+
+<div class='customContainer'>
+  <div class='mt-42 mb-42 darktype bodyFont bodyStyles version-content'>
+    <%= sanitize version.content %>
+  </div>
+
+  <div class='dottedSectionDivider'>
+    <hr>
+  </div>
+
+  <!-- Problem Tags -->
+  <div class='row'>
+    <ul class='tags'>
+      <% version.get_version_topics.each do |topic| %>
+        <li>
+			    <%= link_to topic.name, topic_path(topic.id), class: 'greyLink' %>
+		  	</li>
+      <% end %>
+    </ul>
+  </div>
+</div>

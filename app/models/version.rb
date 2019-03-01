@@ -27,15 +27,15 @@ class Version < ApplicationRecord
 
   def get_version_topics
     it = 1
-    while self.topics.empty?
-      self.topics = prev_version(it).topics
+    while self.topics.active.empty?
+      self.topics = prev_version(it).topics.active
       it += 1
     end
     return self.topics
   end
 
   def prev_version(it)
-    Version.find_by(problem_id: self.problem_id, version_number: self.version_number - it)
+    Version.find_by(versioned: self.versioned, version_number: self.version_number - it)
   end
 
   def self.create_problem!(problem, user, tags=nil)

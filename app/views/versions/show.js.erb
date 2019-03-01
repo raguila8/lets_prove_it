@@ -1,11 +1,9 @@
-$("#collapse-<%=@version.id%> .panel-body").append("<%= escape_javascript render(:partial => '/versions/content', locals:  {version: @version} ) %>");
+$(".version-item[data-version-id='<%=@version.id%>'] .version-content-container").append("<%= escape_javascript render(:partial => '/versions/content', locals:  {version: @version} ) %>");
 
-$content = $("#collapse-<%=@version.id%> .panel-body");
-  setTimeout(function() {
-	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $content[0]]);
+$content = $(".version-item[data-version-id='<%=@version.id%>'] .version-content");
+setTimeout(function() {
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, $content[0]]);
 } ,500);
 
-$content.find(".spinner").slideUp(1000);
-$content.data("has-content", "true");
-
-
+$content.closest(".version-content-container").find(".spinner").slideUp(1000);
+$content.closest(".version-item").attr("data-has-content", true);

@@ -1,20 +1,44 @@
-<%= render 'reports/report_modal' if signed_in? %>
+<div class='container'>
+  <div class='mb-40 mt-60'>
+    <div class='fancyCaption headerFont'>
+      <ul class='breadcrumb pt-20 mb-20 pl-0'>
+        <li>
+          <%= link_to @proof.problem.title, problem_path(@proof.problem) %>
+        </li>
+        <li>
+          <%= link_to "Proof", proof_path(@proof) %>
+        </li>
+        <li>
+          log
+        </li>
+      </ul>
+		</div>
+ 
+    <div class="author-container" style='margin-top: 20px; margn-bottom: 20px;'>
+		  <div class="author-img">
+		    <a href="<%=user_path(@proof.user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(@proof.user)%>" alt="Go to the profile of <%=@proof.user.name_or_username%>"></a>
+		  </div>
 
-<div id="proof-versions-page" class="pt-100 section container blog-classic">
-  <%= link_to problem_path(@proof.problem.id), class: "main-link", style: "font-weight: 600; font-size: 1.5em;" do %>
-    <span class="glyphicon glyphicon-arrow-left mr-5"></span> Go to problem
-  <% end %>
-  <div class="row mt-20">
-    <div class="col-md-12 mb-sm-160">
-      <div class="col-md-12">
-              
-        <!-- FAQ Accordion -->
-        <div class="panel-group accordions-1" id="faq-accordion-1" role="tablist" aria-multiselectable="true">
-          <% @proof.versions.each_with_index do |version, index| %>
-            <%= render partial: 'shared/items/version_item', locals: { model: version } %>
-          <% end %>
-        </div><!-- / .panel-group .accordion-1 -->
-      </div><!-- / .col-md-12 -->
-    </div><!-- / .col-md-8 -->
-  </div><!-- / .row -->
-</div><!-- / #problem-versions-page -->
+      <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+        <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(@proof.user.id)%>"><%=@proof.user.name_or_username%></a>
+        <div class="noWrapWithEllipsis captionSmall fontSize-15">
+          <span class="time no-wrap"><%= time_ago_in_words(@proof.created_at) %> ago</span>
+          <span class="dot-sep">·</span>
+          <span class="views no-wrap"><%=pluralize(@proof.comments.count, 'comment')%></span>
+        </div>
+      </div>
+	  </div>
+	</div>
+
+  <div class='log-timeline mb-120'>
+    <h3 class='headerFont pb-8 fontWeight-600 darktype fontSize-16 bb-light'>
+      Log
+    </h3>
+
+    <ul class="cbp_tmtimeline">
+      <% @proof.versions.each_with_index do |version, index| %>
+        <%= render(:partial => 'versions/version_item', locals: { :version => version }) %>
+      <% end %>
+		</ul>
+  </div>
+</div>

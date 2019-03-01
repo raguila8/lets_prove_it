@@ -123,7 +123,7 @@ Rails.application.routes.draw do
   end
   get "/feed", to: "problems#feed", as: :feed
 
-  get '/problems/:id/logs', to: 'problems#logs', as: :problem_logs
+  get '/problems/:id/log', to: 'problems#log', as: :problem_log
   resources :images, only: [:create, :destroy]
   put '/vote', to: 'users#vote', as: :vote
 

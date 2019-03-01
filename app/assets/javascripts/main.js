@@ -801,72 +801,39 @@ $(document).on('turbolinks:load', function() {
   Accordion
  ----------------------------------------------------------*/
 
-  function initAccordion() {
-    $("body").on('click', ".panel .version-toggle", function() {
-      var $toggle = $(this).find('.glyphicon');
-      if ($toggle.hasClass("glyphicon-chevron-down")) {
-        $toggle.removeClass("glyphicon-chevron-down");
-        $toggle.addClass("glyphicon-chevron-up");
+  function initAccordion() { 
+    $("body").on('click', ".version-item .accordion-toggle", function() {
+      var $toggle = $(this);
+      var $version = $toggle.closest('.version-item');
+      var versionId = $version.data('version-id');
+
+      if ($toggle.hasClass("fa-caret-down")) {
+        $toggle.removeClass("fa-caret-down");
+        $toggle.addClass("fa-caret-up"); 
+
+        if (!$version.data('has-content')) {
+          $.ajax({
+            type: "GET",
+			      url: "/versions/" + versionId,
+			      headers: {
+			       Accept: "text/javascript; charset=utf-8",
+			        "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			      },
+            beforeSend: function() {
+              $version.append("<div class='version-content-container'><div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div></div>");
+            },
+            succcess: function() {
+            }
+          });
+        } else {
+          $version.find('.version-content-container').slideDown();
+        }
       } else {
-        $toggle.removeClass("glyphicon-chevron-up");
-        $toggle.addClass("glyphicon-chevron-down");
-      }      
-    });
-
-    var $versionContent = $(".version-content")
-    $('body').on("shown.bs.collapse", '.version-content', function(e) {
-      var versionId = $(this).data("version");
-      var $content = $(this).find(".panel-body");
-      if ($content.data("has-content") == false) {
-        $.ajax({
-          type: "GET",
-			    url: "/versions/" + versionId,
-			    headers: {
-			     Accept: "text/javascript; charset=utf-8",
-			      "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
-			    },
-          beforeSend: function() {
-            $content.html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
-          },
-          succcess: function() {
-          }
-        });
+        $toggle.removeClass("fa-caret-up");
+        $toggle.addClass("fa-caret-down");
+        $version.find(".version-content-container").slideUp();
       }
-    });
-
-
-    $("body").on('click', ".faq-panel .panel-title", function() {
-      var $toggle = $(this).find('.glyphicon');
-      if ($toggle.hasClass("glyphicon-chevron-down")) {
-        $toggle.removeClass("glyphicon-chevron-down");
-        $toggle.addClass("glyphicon-chevron-up");
-      } else {
-        $toggle.removeClass("glyphicon-chevron-up");
-        $toggle.addClass("glyphicon-chevron-down");
-      }
-
-    });
-
-    $("#collapse-general-3").on("shown.bs.collapse", function(e) {
-      var $content = $(this).find(".panel-body");
-      if ($content.data("has-content") == false) {
-        $.ajax({
-          type: "GET",
-			    url: "/help/mathjax_cheatsheet",
-			    headers: {
-			     Accept: "text/javascript; charset=utf-8",
-			      "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
-			    },
-          beforeSend: function() {
-            $content.html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
-          },
-          succcess: function() {
-          }
-        });
-
-      }
-    });
-
+    }); 
   }
 
 /* --------------------------------------------------------
