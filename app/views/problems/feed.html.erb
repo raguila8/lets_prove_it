@@ -1,9 +1,9 @@
 <%= render 'shared/no_privilige_modal' %>
 <%= render 'layouts/sticky_nav' %>
 <%= render 'layouts/featured_header' %>
-<div class='sectionDivider'></div>
 
 <div class="container blog-classic">
+<!--
   <div class="row">
     <div class='col-lg-offset-1'>
       <button class="btn-text font-weight-600" id='filter-btn' style='margin-left: -29px;'><span class="glyphicon glyphicon-filter"></span> Filter</button>
@@ -30,9 +30,11 @@
       </div>
     </div>
   </div>
+-->
+
 
   <div class="row">
-    <div class="col-lg-offset-1 col-lg-7 col-md-8">
+    <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10">
       <div class="row" style='padding: 16px 15px;'>
         <div id="problem-feed">
           <% @problems.each_with_index do |problem, index| %>
@@ -45,15 +47,17 @@
       </div><!-- / .row -->
     </div><!-- / .col-lg-8 -->
 
+<!--
     <aside class='col-md-4 sidebar' style='padding: 16px 15px;'>
-		  <%= render 'shared/sidebars/widgets/popular_problems_widget' %>
-      <% if signed_in? and current_user.topics_following.count > 0 %>
-        <%= render 'shared/sidebars/widgets/topics_widget' %>
-      <% end %>
-      <% if current_user.bookmarked_problems.count > 0 %>
-        <%= render '/shared/sidebars/widgets/followed_problems_widget' %>
-      <% end %>
-      <%= render 'shared/sidebars/widgets/footer' %>
+		  <%#= render 'shared/sidebars/widgets/popular_problems_widget' %>
+      <%# if signed_in? and current_user.topics_following.count > 0 %>
+        <%#= render 'shared/sidebars/widgets/topics_widget' %>
+      <%# end %>
+      <%# if current_user.bookmarked_problems.count > 0 %>
+        <#%= render '/shared/sidebars/widgets/followed_problems_widget' %>
+      <%# end %>
+      <%#= render 'shared/sidebars/widgets/footer' %>
     </aside>
+-->
   </div>
 </div>

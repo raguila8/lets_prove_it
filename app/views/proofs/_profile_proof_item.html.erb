@@ -1,0 +1,71 @@
+<div class='profile-item profile-problem-item lh-1-5'>
+  <div>
+    <div class="author-container pl-20 pr-20 mt-22 mb-22" style="display: flex; flex-direction: row;">
+      <div class="author-img">
+        <a href="<%=user_path(proof.user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(proof.user)%>" alt="Go to the profile of <%= proof.user.name_or_username %>"></a>
+      </div>
+      <div class='noWrapWithEllipsis headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+        <a class="captionSmall captionStrong underlineLink fontSize-15" href="<%=user_path(proof.user.id)%>"><%=proof.user.name_or_username%></a>
+        <div class="noWrapWithEllipsis captionSmall fontSize-15">
+          <span class="time no-wrap"><%= time_ago_in_words(proof.created_at) %> ago</span>
+          <span class="dot-sep">·</span>
+          <span class="views no-wrap"><%=pluralize(proof.comments.count, 'comment')%></span>
+        </div>
+      </div>
+    </div>
+		
+		<%= link_to problem_path(proof.problem) do %>
+      <div class='pr-20 pl-20'>
+        <div class='profile-item mb-20 light-box-shadow'> 
+          <div class='pl-20 pr-20'>
+					  <div class='flex flex-row'>
+						  <div class='flex flex-row flex-grow-1'>
+                <span class='headerFont darkType fontSize-16'><%= proof.problem.title %></span>
+							</div>
+							<div class='flex flex-row flex-grow-0 lightType align-items-center'>
+                <i class='fa fa-square mr-6'></i>
+                <span class='fontSize-15 headerFont' style='line-height:20px;'><%= proof.problem.cached_proofs_count %></span>
+							</div>
+		        </div>
+						<span class='lightType headerFont fontSize-14' >
+              <%= proof.problem.user.name_or_username %>
+						</span>
+					</div>
+				</div>
+			</div>
+		<% end %>
+
+		<%= link_to proof_path(proof) do %>
+      <div>
+        <section class="break-words">
+          <div class='pr-20 pl-20 mt-20 profile-proof-item-content darkType fontSize-16 lh-1-66'>
+            <%= sanitize proof.content %>
+						<div class='fading-container'></div>
+					</div>
+				</section>
+			</div>
+		<% end %>
+
+		<span class='profile-item-footer headerFont'>
+      <div class='pt-20 pl-20 pr-20 flex flex-row'>
+        <div class="vote-container vote-container-post mt-0 fontSize-18">
+          <%= link_to vote_path(:vote_type => "like", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+            <%= upvote_span proof %>
+          <% end %>
+                                        
+          <%#= vote_count_span problem %>
+
+          <%= link_to vote_path(:vote_type => "dislike", :votable_type => "proof", :id => proof.id ), method: :put, remote: true do %>
+            <%= downvote_span proof %>                      
+          <% end %>
+          <%= vote_count_span proof %>
+        </div>
+<!--
+        <div class='comments fontSize-14 mr-18'>
+          <%#=pluralize(proof.comments.count, 'comment')%>
+        </div>
+-->
+			</div>
+		</span>
+	</div>
+</div>

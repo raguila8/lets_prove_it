@@ -31,7 +31,7 @@ class Problem < ApplicationRecord
 
   validates :content, presence: true, length: { maximum: 10000, minimum: 30 }
   validates :title, presence: true, uniqueness: { case_sensitive: false }, 
-                    length: { maximum: 255, minimum: 10 }
+                    length: { maximum: 150, minimum: 10 }
 
   validates :topics, presence: true
 
@@ -296,6 +296,14 @@ class Problem < ApplicationRecord
 
   def self.featured
     @@featured ||= Problem.trending_problem
+  end
+
+  def has_image_to_preview?
+    !images.first.nil?
+  end
+
+  def preview_image_url
+    has_image_to_preview? ? images.first.image_data.url : nil
   end
 
 

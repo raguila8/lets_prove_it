@@ -385,7 +385,7 @@ $(document).on('turbolinks:load', function() {
             if ($(this)[0].validity.tooShort) {
               errorText = "Title must be at least 10 characters";
             } else if ($(this)[0].validity.tooLong) {
-              errorText = "Title can't be longer that 255 characters";
+              errorText = "Title can't be longer that 150 characters";
             } else if ($(this)[0].validity.valueMissing) {
               errorText = "Title is missing";
             }
@@ -409,7 +409,7 @@ $(document).on('turbolinks:load', function() {
         var isValid = true;
         let $input = $(this);
         let minLength = 10;
-        let maxLength = 255;
+        let maxLength = 150;
         let errorText = "";
         let field = "Title";
 
@@ -469,7 +469,7 @@ $(document).on('turbolinks:load', function() {
         var isValid = true;
         let $input = $(this);
         let minLength = 10;
-        let maxLength = 255;
+        let maxLength = 150;
         let errorText = "";
         let field = "Description";
 
@@ -745,7 +745,7 @@ $(document).on('turbolinks:load', function() {
   function readyForNextStep() {
     let $input = $('#problem-form .form-input-validate:visible');
     let minLength = 10;
-    let maxLength = 255;
+    let maxLength = 150;
     let isValid = true;
 
     if ($input.data('field') == "topics") {
@@ -783,7 +783,7 @@ $(document).on('turbolinks:load', function() {
     $form.on('blur', '.form-input-validate', function(event) {
       let $input = $(this);
       let minLength = 10;
-      let maxLength = 255;
+      let maxLength = 150;
 
       if ($(this).data('field') == "content") {
         $input = $(this).closest('.form-group').find("input[data-type='trix']");

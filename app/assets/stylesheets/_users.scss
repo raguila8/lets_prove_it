@@ -2,6 +2,61 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.profile-item {
+  margin-bottom: 30px;
+  padding: 22px 0;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.1);
+
+  .profile-item-footer {
+    color: rgba(0,0,0,0.54);
+    font-size: 16px;
+
+    .vote-container {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+      align-items: center;
+ 
+      span {
+        margin-right: 12px;
+      }
+    }
+
+    .views, .bookmark {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 0;
+      align-items: center;
+    }
+  }
+}
+
+/* ----------------------------------------------------
+  Proof item
+  -------------------------------------------------- */
+
+.profile-proof-item-content {
+  max-height: 250px;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: -.003em;
+  font-weight: 400;
+  font-style: normal;
+
+  .fading-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8%;
+    text-align: center;
+    margin: 0;
+    background-image: -moz-linear-gradient(top, transparent, #fff);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, transparent),color-stop(1, #fff));
+  }
+}
+
 .username {
   text-transform: none;
 }

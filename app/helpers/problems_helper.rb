@@ -12,15 +12,20 @@ module ProblemsHelper
     return "background-image: url('#{preview_image.image_data.url}');" if !preview_image.nil?
   end
 
-  def bookmark_link(problem)
+  def get_stream_item_class(problem)
+    problem.has_image_to_preview? ? "col-xs-8 mr-24 pr-0" : "col-xs-12"
+  end
+
+  def bookmark_link(problem, options={})
     if signed_in? and current_user != problem.user
       is_bookmarked = (current_user.bookmarked?(problem))
       title = (is_bookmarked ? 'Unbookmark problem' : 'Bookmark problem')
       bookmark_icon = (is_bookmarked ? 'fa-bookmark' : 'fa-bookmark-o')
       action = (is_bookmarked ? 'unbookmark' : 'bookmark')
       method = (is_bookmarked ? 'delete' : 'post')
+      klass = (options.key?(:class) ? options[:class] : "fontSize-20 greyLink headerFont")
 
-      content = "<a href='/problems/#{problem.id}/#{action}' class='greyLink headerFont fontSize-20' data-remote='true' data-method='#{method}' title='#{title}'><i class='fa #{bookmark_icon}'></i></a>"
+      content = "<a href='/problems/#{problem.id}/#{action}' class='#{klass}' data-remote='true' data-method='#{method}' title='#{title}'><i class='fa #{bookmark_icon}'></i></a>"
       content.html_safe
     end
   end

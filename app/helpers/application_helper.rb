@@ -353,20 +353,21 @@ module ApplicationHelper
 
   def upvote_span(model)
     model_str = model.class.name.downcase
-    "<span id='#{model_str}-upvote-#{model.id}' class='glyphicon glyphicon-triangle-top #{"upvoted" if signed_in? and current_user.liked? model}'></span>".html_safe
+    votable = ((signed_in? and current_user.has_upvote_privileges? and model.user != current_user) ? true : false)
+    "<span id='#{model_str}-upvote-#{model.id}' class='fa fa-thumbs-o-up #{"upvoted" if signed_in? and current_user.liked? model} #{' disabled' if model.user == current_user}' data-votable=#{votable}></span>".html_safe
   end
 
   def vote_count_span(model)
     model_str = model.class.name.downcase
-    vote = ""
     vote = "upvoted" if signed_in? and current_user.liked? model
     vote = "downvoted" if signed_in? and current_user.voted_down_on? model
-    "<span class='#{vote}' id='#{model_str}-vote-count-#{model.id}' style='text-align: center; margin-left: -2px;'>#{model.cached_votes_score} </span>".html_safe
+    "<span class='vote-score #{vote}' id='#{model_str}-vote-count-#{model.id}' style='text-align: center; margin-left: -2px;'>#{model.cached_votes_score} </span>".html_safe
   end
 
   def downvote_span(model)
     model_str = model.class.name.downcase
-    "<span id='#{model_str}-downvote-#{model.id}' class='glyphicon glyphicon-triangle-bottom #{"downvoted" if signed_in? and current_user.voted_down_on? model}'></span>".html_safe
+    votable = ((signed_in? and current_user.has_downvote_privileges? and model.user != current_user) ? true : false)
+    "<span id='#{model_str}-downvote-#{model.id}' class='fa fa-thumbs-o-down #{"downvoted" if signed_in? and current_user.voted_down_on? model} #{' disabled' if current_user == model.user}' data-votable=#{votable}></span>".html_safe
   end
 
   def vote_actions(model)

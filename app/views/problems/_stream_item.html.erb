@@ -1,10 +1,9 @@
 <div class='streamItem'>
   <div class='row'>
-		<article class='col-md-12 mb-48'>
+		<article class='col-md-12'>
 		  <div class='row displayFlex'>
-				<div class='col-xs-8 textAlignLeft mr-24 pr-0'>
-					<a class='streamCaption'>Algebra</a>
-					<a class='width100pct overflowHidden' href='<%=problem_path(problem.id)%>'>
+				<div class="<%= get_stream_item_class(problem) %> textAlignLeft">
+						<a class='width100pct overflowHidden' href='<%=problem_path(problem.id)%>'>
 						<h3 class='streamTitle'><%= problem.title %></h3>
 					</a>
 					<a href='<%=problem_path(problem.id)%>'>
@@ -22,22 +21,41 @@
 							<div class='noWrapWithEllipsis captionSmall'>
 								<span class='time'><%= time_ago_in_words(problem.created_at) %> ago </span>
 								<span class='dot-sep'>&middot;</span>
-								<span class='views'><%=pluralize(problem.impressionist_count, 'view')%></span>
+								<span class='proofs mr-12'><%=pluralize(problem.cached_proofs_count, 'proof')%></span>
+                <% if signed_in? %>
+							    <div id='problem-bookmark-<%=problem.id%>' class="bookmark" style='display: inline-block;'>
+								    <%= bookmark_link problem, class: "greyLink headerFont fontSize-16" %>
+							    </div>
+						    <% end %>
 							</div>
 						</div>
-
-						<% if signed_in? %>
-							<div id='problem-bookmark-<%=problem.id%>' class='floatRight'>
-								<%= bookmark_link problem %>
+<!--
+						<% #if signed_in? %>
+							<div id='problem-bookmark-<%#=problem.id%>' class='floatRight'>
+								<%#= bookmark_link problem %>
 							</div>
-						<% end %>
+						<%# end %>
+-->
 					</div>
 
 				</div>
-				<div class='col-xs-3 pl-0 streamImageLinkContainer'>
-					<a href='<%=problem_path(problem.id)%>' class='streamImageLink sizeFull displayBlock' style="<%=image_preview(problem)%>"></a>
-				</div>
+        
+        <% if problem.has_image_to_preview? %>
+				  <div class='col-xs-3 pl-0 streamImageLinkContainer'>
+					  <a href='<%=problem_path(problem.id)%>' class='streamImageLink sizeFull displayBlock' style="background-image: url('<%= problem.preview_image_url %>');"></a>
+				  </div>
+        <% end %>
 			</div>
+
+      <div class='row mt-20 ml-0'>
+        <ul class='tags pl-0 mb-0 fontSize-14'>
+          <% problem.topics.active.limit(5).each do |topic| %>
+            <li>
+			        <%= link_to topic.name, topic_path(topic.id), class: 'greyLink' %>
+			      </li>
+          <% end %>
+        </ul>
+      </div>
 		</article>
 	</div>
 </div>

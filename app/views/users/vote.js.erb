@@ -1,9 +1,9 @@
 <% if signed_in? %>
   <% if @vote.response == :error and current_user != @post.user %>
-    <% if @vote.vote_type == "like" and current_user.reputation < 10 %>
+    <% if @vote.vote_type == "like" and !current_user.has_upvote_privileges? %>
       $('#noPriviligeModal .modal-body .custom-content').html("<p>You need at least 10 <a href='/help/reputation'>reputation</a> to upvote. Gain more privileges by increasing your reputation by posting helpful problems and proofs.</p><a href='/help/priviliges/2' class='btn btn-ghost text-center btn-small mb-10'>Learn More</a>");
       $('#noPriviligeModal').modal('show');
-    <% elsif @vote.vote_type == "dislike" and current_user.reputation < 200 %>
+    <% elsif @vote.vote_type == "dislike" and !current_user.has_downvote_privileges? %>
       $('#noPriviligeModal .modal-body .custom-content').html("<p>You need at least 200 <a href='/help/reputation'>reputation</a> to downvote. Gain more privileges by increasing your reputation by posting helpful problems and proofs.</p><a href='/help/priviliges/4' class='btn btn-ghost btn-small text-center mb-10'>Learn More</a>");
       $('#noPriviligeModal').modal('show');
     <% end %>
@@ -19,21 +19,6 @@
     }, 5000);
 
   <% elsif @vote.response == :success %>
-    <% if @vote.action_taken == :like %>
-      $("#<%=@post.class.name.downcase%>-upvote-<%=@post.id%>").addClass('upvoted');
-      $("#<%=@post.class.name.downcase%>-vote-count-<%=@post.id%>").addClass('upvoted');
-    <% elsif @vote.action_taken == :dislike %>
-      $("#<%=@post.class.name.downcase%>-downvote-<%=@post.id%>").addClass('downvoted');
-      $("#<%=@post.class.name.downcase%>-vote-count-<%=@post.id%>").addClass('downvoted');
-    <% elsif @vote.action_taken == :undislike %>
-      $("#<%=@post.class.name.downcase%>-downvote-<%=@post.id%>").removeClass('downvoted');
-      $("#<%=@post.class.name.downcase%>-vote-count-<%=@post.id%>").removeClass('downvoted');
-    <% elsif @vote.action_taken == :unlike %>
-      $("#<%=@post.class.name.downcase%>-upvote-<%=@post.id%>").removeClass('upvoted');
-      $("#<%=@post.class.name.downcase%>-vote-count-<%=@post.id%>").removeClass('upvoted');
-    <% end %>
-
-    $("#<%=@post.class.name.downcase%>-vote-count-<%=@post.id%>").text("<%=@post.cached_votes_score%>");
     $(".user-reputation-<%=current_user.id%>").text("<%=current_user.reputation%>");
     $(".user-reputation-<%=@post.user.id%>").text("<%=@post.user.reputation%>");
   <% end %>

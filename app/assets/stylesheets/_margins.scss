@@ -29,6 +29,14 @@
   margin-right: 5px;
 }
 
+.mr-6 {
+  margin-right: 6px;
+}
+
+.mr-8 {
+  margin-right: 8px;
+}
+
 .mr-9 {
   margin-right: 9px !important;
 }
@@ -253,6 +261,11 @@
 .ml-2 {
   margin-left: 3px !important;
 }
+
+.ml-0 {
+  margin-left: 0;
+}
+
 .mh-auto {
   margin-left: auto;
   margin-right: auto;
@@ -315,6 +328,10 @@
   padding-left: 15px !important;
 }
 
+.pl-20 {
+  padding-left: 20px;
+}
+
 .pl-30 {
   padding-left: 30px;
 }
@@ -325,6 +342,10 @@
 
 .pr-0 {
   padding-right: 0 !important;
+}
+
+.pr-20 {
+  padding-right: 20px;
 }
 
 .pr-30 {

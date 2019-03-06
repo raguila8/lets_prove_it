@@ -41,12 +41,17 @@ body {
   color: rgba(0,0,0,0.84);
 }
 
+
 .white-background {
   background: #fff !important;
 }
 
 .page {
   margin: 0 60px;
+}
+
+.disabled {
+  cursor: not-allowed;
 }
 
 .bb-light {
@@ -89,6 +94,10 @@ body {
 
 .inlineBlock {
   display: inline-block;
+}
+
+.light-box-shadow {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .btn-xs {
@@ -183,6 +192,26 @@ body {
 .displayFlex {
   display: flex;
   flex-wrap: wrap;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.flex-grow-0 {
+  flex-grow: 0;
+}
+
+.align-items-center {
+  align-items: center;
 }
 
 .lightGreyBack {
@@ -657,7 +686,7 @@ body {
 /* votes */
 
 .upvoted {
-  color: #318e08 !important;
+  color: #03a87c!important;
 }
 
 .downvoted {
@@ -695,6 +724,11 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.break-words {
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .navbar .navbar-nav li a:focus {

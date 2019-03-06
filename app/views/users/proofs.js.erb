@@ -1,4 +1,4 @@
-$('#content2').html("<%= escape_javascript render(:partial => '/shared/items/proof_item', collection:  @proofs, as: :model ) %>");
+$('#content2').html("<%= escape_javascript render(:partial => '/proofs/profile_proof_item', collection:  @proofs, as: :proof ) %>");
 
 $content = $('#content2');
   setTimeout(function() {

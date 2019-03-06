@@ -175,6 +175,14 @@ class User < ApplicationRecord
     reputation >= 1500
   end
 
+  def has_downvote_privileges?
+    reputation >= 200
+  end
+
+  def has_upvote_privileges?
+    reputation >= 10
+  end
+
   def reserve(report)
     ReservedReport.create(report: report, user: self)
   end

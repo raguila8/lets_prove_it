@@ -9,6 +9,10 @@ $(document).on('turbolinks:load', function() {
   initVideoPlayer();
   initCommentsLinks();
 
+  if ($('.vote-container').length > 0) {
+    initVotingButtons();
+  }
+
   if ($('#proof-form, #edit-proof-form, #problem-form, #edit-problem-form').length > 0) {
     initFullscreen();
   }
@@ -1251,4 +1255,50 @@ $(document).on('turbolinks:load', function() {
         return false;
       }
     });
+  }
+
+/* --------------------------------------------------------------------
+      Voting
+  -----------------------------------------------------------------*/
+
+  function initVotingButtons() {
+    $('body').on("click", ".vote-container span[data-votable='true']", function(e) {
+      let $otherButton = getOtherVotingButton($(this));
+      let $voteCount = getVoteCount($(this));
+      let score = parseInt($voteCount.text());
+
+      if ($(this).hasClass('fa-thumbs-o-up')) {
+        if ($voteCount.hasClass('downvoted')) {
+          $voteCount.removeClass('downvoted');
+          $otherButton.removeClass('downvoted');
+          $voteCount.text(score + 1);
+        } else if (!$(this).hasClass('upvoted')) {
+          $(this).addClass('upvoted');
+          $voteCount.addClass('upvoted');
+          $voteCount.text(score + 1);
+        }
+      } else if ($(this).hasClass('fa-thumbs-o-down')) {
+        if ($voteCount.hasClass('upvoted')) {
+          $voteCount.removeClass('upvoted');
+          $voteCount.text(score - 1);
+          $otherButton.removeClass('upvoted');
+        } else if (!$(this).hasClass('downvoted')) {
+          $(this).addClass('downvoted');
+          $voteCount.addClass('downvoted');
+          $voteCount.text(score - 1);
+        }
+      }
+    });
+  }
+
+  function getOtherVotingButton($button) {
+    if ($button.hasClass('fa-thumbs-o-up')) {
+      return $button.closest('.vote-container').find('.fa-thumbs-o-down');
+    } else if ($button.hasClass('fa-thumbs-o-down')) {
+      return $button.closest('.vote-container').find('.fa-thumbs-o-up');
+    }
+  }
+
+  function getVoteCount($button) {
+    return $button.closest('.vote-container').find('span.vote-score');
   }
