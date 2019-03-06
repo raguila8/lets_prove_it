@@ -2,6 +2,12 @@
   $("form[data-status='submitted']").next('.commentPreview').remove();
   $("form[data-status='submitted']").after("<%= escape_javascript render(:partial => '/comments/comment_item', :locals => { :comment => @comment, index: (@comment.commented_on.comments.count - 1) }) %>");
 
+  <% if @comment.commented_on_type == "Proof" %>
+    let $commentsButtonContainer = $("form[data-status='submitted']").closest('.commentSection').prev(".commentsButtonContainer");
+    $commentsButtonContainer.find(".commentsDropdownLink span:first-child").text("Comments (<%= @comment.root.comments.count %>)");
+    $commentsButtonContainer.prev(".postActions").find(".addCommentIcon span").text("<%= @comment.root.comments.count %>");
+  <% end %>
+
   if ($("form[data-status='submitted']").hasClass('comment-reply-form')) {
     $("form[data-status='submitted']").remove();
   } else {

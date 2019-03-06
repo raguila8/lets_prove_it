@@ -991,7 +991,7 @@ $(document).on('turbolinks:load', function() {
       $commentSection.find('textarea').focus();
     });
 
-    $(".bp-comment-reply .comment-edit").on('click', function() {
+    $("body").on('click', ".bp-comment-reply .comment-edit", function() {
       let $comment = $(this).closest('.bp-comment-reply');
 			if ($comment.next('form.comment-edit-form').length == 0) {
 			  let commentId = $comment.data('comment-id');
@@ -1010,7 +1010,7 @@ $(document).on('turbolinks:load', function() {
 			}
     });
 
-    $('.bp-comment-reply').on('click', "span[data-action='close-edit-form']", function() {
+    $('body').on('click', ".bp-comment-reply span[data-action='close-edit-form']", function() {
 		  let $comment = $(this).closest('.bp-comment-reply');
       $comment.find('.commentPreview').remove();
       $(this).closest('form').remove();

@@ -23,8 +23,15 @@
                 <span class='headerFont darkType fontSize-16'><%= proof.problem.title %></span>
 							</div>
 							<div class='flex flex-row flex-grow-0 lightType align-items-center'>
-                <i class='fa fa-square mr-6'></i>
-                <span class='fontSize-15 headerFont' style='line-height:20px;'><%= proof.problem.cached_proofs_count %></span>
+							  <div class='flex flex-row align-items-center'>
+                  <i class='fa fa-thumbs-up mr-6'></i>
+                  <span class='fontSize-15 headerFont fontWeight-400 mr-8' style='line-height:20px;'><%= proof.problem.cached_votes_score %></span>
+								</div>
+
+							  <div class='flex flex-row align-items-center'>
+                  <i class='fa fa-square mr-6'></i>
+                  <span class='fontSize-15 headerFont fontWeight-400' style='line-height:20px;'><%= proof.problem.cached_proofs_count %></span>
+								</div>	
 							</div>
 		        </div>
 						<span class='lightType headerFont fontSize-14' >

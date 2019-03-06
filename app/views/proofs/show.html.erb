@@ -1,9 +1,49 @@
-<p id="notice"><%= notice %></p>
+<div class='customContainer pt-20'>
+  <%= link_to problem_path(@proof.problem) do %>
+    <div class='pr-20 pl-20'>
+      <div class='profile-item mb-50 light-box-shadow'> 
+        <div class='pl-20 pr-20'>
+					<div class='flex flex-row'>
+						<div class='flex flex-row flex-grow-1'>
+              <span class='headerFont darkType fontSize-16'><%= @proof.problem.title %></span>
+						</div>
+						<div class='flex flex-row flex-grow-0 lightType align-items-center'>
+						  <div class='flex flex-row align-items-center'>
+                <i class='fa fa-thumbs-up mr-6'></i>
+                <span class='fontSize-15 headerFont fontWeight-400 mr-8' style='line-height:20px;'><%= @proof.problem.cached_votes_score %></span>
+							</div>
 
-<p>
-  <strong>Content:</strong>
-  <%= @proof.content %>
-</p>
+						  <div class='flex flex-row align-items-center'>
+                <i class='fa fa-square mr-6'></i>
+                <span class='fontSize-15 headerFont fontWeight-400' style='line-height:20px;'><%= @proof.problem.cached_proofs_count %></span>
+							</div>	
+						</div>
+		      </div>
+					<span class='lightType headerFont fontSize-14' >
+            <%= @proof.problem.user.name_or_username %>
+					</span>
+				</div>
+			</div>
+		</div>
+	<% end %>
 
-<%= link_to 'Edit', edit_proof_path(@proof) %> |
-<%= link_to 'Back', proofs_path %>
+  <%= render partial: 'proofs/item', locals: { proof: @proof } %>
+</div>
+
+<% if signed_in? %>
+  <script id='commentPreviewTemplate' type="text/html">
+    <%= render 'comments/preview_comment_template' %>
+  </script>
+
+  <script id='commentReplyFormTemplate' type="text/html">
+    <%= render 'comments/comment_reply_form_template' %>
+  </script>
+
+  <script id='commentEditFormTemplate' type="text/html">
+    <%= render 'comments/comment_edit_form_template' %>
+  </script>
+
+  <script id='generalPreviewTemplate' type="text/html">
+    <%= render 'shared/general_preview_template' %>
+  </script>
+<% end %>

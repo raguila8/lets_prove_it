@@ -20,7 +20,16 @@ class Comment < ApplicationRecord
 
 
   def get_problem
-    commented_on_type == "Proof" ? commented_on.problem : commented_on
+    root = root
+    root.class.name == "Proof" ? root.problem : root
+  end
+
+  def root
+    parent = commented_on
+    while parent.class.name == "Comment"
+      parent = parent.commented_on
+    end
+    return parent
   end
 
   def take_down(deleted_by, deleted_for)
