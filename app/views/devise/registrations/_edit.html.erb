@@ -1,25 +1,54 @@
-<div class="boxedtitle add-problem-title mb-40"><h2>Change Password</h2></div>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "mb-40" }) do |form| %>
+<header class='account-heading headerFont darkType'>
+  <h2>Change your password</h2>
+</header>
 
-  <%= render 'shared/error_messages' %>
+<%= form_for(@user, as: :user, url: registration_path(:user), html: { method: :put, class: "account-form validate-form" }) do |form| %>
 
-  <div class="form-group">
-    <%= form.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+  <%#= render 'shared/error_messages' %>
 
-    <%= form.password_field :password, class: "form-control" %>
+  <div class="form-group change-password-group">
+    <%= form.label :password, "Your new password" %>
+ 
+    <div class='account-actions'>
+      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn' data-field='password'>Change password</span>
+    </div>
+ 
+    <p class='bodyFont color-dark-74 fontSize-14 mb-15'>
+      Desired password must be at least 6 characters long
+    </p>
+
+    <div class='input-container'>
+      <%= form.password_field :password,
+                              class: "form-control form-input-validate",
+                              required: true, minlength: 6, maxlength: 128,
+                              data: { field: 'password', title: 'password',
+                                      changed: false } %>
+    </div>
+
+    <%= form.label :password_confirmation, "Confirm your new password", class: 'mt-30' %>
+
+    <div class='input-container'>
+      <%= form.password_field :password_confirmation, autocomplete: "off", 
+                              class: "form-control form-input-validate",
+                              required: true, minlength: 6, maxlength: 128,
+                              data: { field: 'password confirmation', 
+                                      title: 'password confirmation',
+                                      changed: false } %>
+    </div>
+
+    <%= form.label :current_password, "Your current password", class: 'mt-30' %> 
+    <p class='bodyFont color-dark-74 fontSize-14 mb-15'>
+      We need your current password to confirm your changes
+    </p>
+
+    <div class='input-container'>
+      <%= form.password_field :current_password, autocomplete: "off", 
+                              class: "form-control form-input-validate",
+                              required: true, minlength: 6, maxlength: 128,
+                              data: { field: 'current password',
+                                      title: 'current password',
+                                      changed: false } %>
+    </div> 
   </div>
-
-  <div class="form-group">
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= form.password_field :current_password, autocomplete: "off", class: "form-control" %>
-  </div>
-
-  <!-- Submit -->
-  <%= form.submit "Submit", class: "btn" %>
 <% end %>
 

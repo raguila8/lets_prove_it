@@ -561,3 +561,92 @@
     max-width: 75%;
   }
 }
+
+/* ------------------------------------------------------------
+  Account
+ -------------------------------------------------------------- */
+.account-settings-sidebar {
+  .account-settings-tabs {
+    list-style: none;
+    li {
+      padding-bottom: 20px;
+
+      a {
+        position: relative;
+        color: rgba(0,0,0,0.64);
+        padding-left: 15px;
+        padding-right: 15px;
+
+        &:hover {
+          color: rgba(0,0,0,0.84);
+        }
+      }
+    }
+
+    li.active a {
+      color: rgba(0,0,0,0.84) !important;
+      font-weight: 600;
+      
+      &:before {
+        position: absolute;
+        content: '';
+        display: block;
+        height: 100%;
+        top: 0;
+        left: -1px;
+        width: 3px;
+        background: $accent;
+      }
+    }
+  }
+}
+
+.account-heading {
+  h2 {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 12px;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+.account-form {
+  .form-group {
+    padding-top: 30px;
+    padding-bottom: 35px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+
+    label {
+      font-size: 1.2em;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .input-container {
+      width: 40%;
+    }
+
+    .account-actions {
+      float: right;
+    }
+
+    textarea {
+      min-height: 180px;
+    }
+  }
+
+  .input-error-msg {
+    display: block;
+  }
+}
+
+@media (max-width: 992px) {
+  .account-form {
+    .form-group {
+      .input-container {
+        width: 55%;
+      }
+    }
+  }
+}

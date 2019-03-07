@@ -32,20 +32,34 @@
   }
 
   function addInputErrorMsg(input, errorText) {
-    if ($(input).closest('.form-group').find('.input-error-msg').length) {
+    if ($(input).closest('.form-group').find('.input-error-msg').length && $(input).closest('.form-group').hasClass('changed-password-group')) {
       $(input).closest('.form-group').find('.input-error-msg').html(errorText);
     } else {
       let textNode = errorMsg.cloneNode(true);
       textNode.innerHTML = errorText;
-      $(input).closest('.form-group').append(textNode);
+      if ($(input).closest('.form-group').hasClass('change-password-group')) {
+        $(input).closest('.input-container').after(textNode);
+      } else {
+        $(input).closest('.form-group').append(textNode);
+      }
     }
   }
 
   function removeInputValidations(input) {
-    $(input).closest('.form-group').find('.has-error').removeClass('has-error');
+    if ($(input).closest('.form-group').hasClass('change-password-group')) {
+      $(input).removeClass('has-error');
+    } else {
+      $(input).closest('.form-group').find('.has-error').removeClass('has-error');
+    }
+
 	  if ($(input).next('.input-error').length > 0) {
       $(input).next('.input-error').remove();
-      $(input).closest('.form-group').find('.input-error-msg').remove();
+
+      if ($(input).closest('.form-group').hasClass('change-password-group')) {
+        $(input).closest('.input-container').next('.input-error-msg').remove();
+      } else {
+        $(input).closest('.form-group').find('.input-error-msg').remove();
+      }
 	  }
   }
 
@@ -64,7 +78,9 @@ $(document).on('turbolinks:load', function() {
   } else if ($('#edit-problem-form').length > 0 ) {
     initProblemTags();
     initProblemSubmission();
-	}
+	} else if ($('.account-form').length > 0) {
+    initAccountForms();
+  }
 
  /* ---------------------------------------------------
   General Form validations
@@ -195,119 +211,6 @@ $(document).on('turbolinks:load', function() {
 	  const $form  = $('.validate-form');
     validateOnBlur($form);
     removeValidationsOnFocus();
-/*
-    if ($('#problem-form').length > 0) {
-      $('#problem-form').on('input', '.form-input-validate', function(event) {
-        let $input = $(this);
-        let minLength = 10;
-        if ($(this).data('field') == "content") {
-          $input = $(this).closest('.form-group').find('#problem_content');
-          minLength = 20;
-        }
-        if ($input[0].validity.valid) {
-          if ($input[0].value.trim().replace(/\s+/g, " ").length >= minLength) {
-            document.querySelector('.form-nav .btn-next').removeAttribute('disabled');
-          } else {
-            document.querySelector('.form-nav .btn-next').setAttribute('disabled', true);
-          }
-        } else {
-          document.querySelector('.form-nav .btn-next').setAttribute('disabled', true);
-        }
-      });
-    }
-
-    $form.on('input', '.form-input-validate', function(event) {
-      if ($(this)[0].validity.valid) {
-        if ($(this).closest('form').attr('id') == 'problem-form') {
-          if ($(this).data('field') == "title") {
-            if ($(this)[0].value.trim().replace(/\s+/g, " ").length >= 10) {
-              document.querySelector('.form-nav .btn-next').removeAttribute('disabled');
-            } else {
-              document.querySelector('.form-nav .btn-next').setAttribute('disabled', true);
-            }
-          }
-        }
-      } else {
-        if ($(this).closest('form').attr('id') == 'problem-form') {
-          document.querySelector('.form-nav .btn-next').setAttribute('disabled', true);
-        }
-      }
-    });
-
-    $form.on('blur', '.form-input-validate', function() {
-      if ($(this)[0].validity.valid) {
-        if ($(this).closest('form').attr('id') == 'problem-form') {
-          if ($(this).data('field') == "title") {
-            if ($(this).val().length > 0 && $(this)[0].value.trim().replace(/\s+/g, " ").length < 10) {
-              errorText = "Title must be at least 10 characters";
-              addInputError(this);
-              addInputErrorMsg(this, errorText);
-            }
-          }
-        }
-
-      } else {
-        if ($(this).val().length > 0) {
-          addInputError(this);
-          if ($(this)[0].validity.tooShort) {
-            errorText = "Title must be at least 10 characters";
-          } else if ($(this)[0].validity.tooLong) {
-            errorText = "Title can't be longer that 255 characters";
-          }
-          addInputError(this);
-          addInputErrorMsg(this, errorText);
-        }
-      } 
-    });
-
-    $form.on('focus', '.form-input-validate', function(event) {
-      if ($(this).hasClass('taggle_input')) {
-        if ($('#tags-input-container').hasClass('has-error')) {
-          $('#tags-input-container').removeClass('has-error');
-          $('#tags-input-container').find('.input-error').remove();
-          $(this).closest('.form-group').find('.input-error-msg').remove();
-        }
-      } else {
-        $(this).removeClass('has-error');
-			  if ($(this).next('.input-error').length > 0) {
-          $(this).next('.input-error').remove();
-          $(this).closest('.form-group').find('.input-error-msg').remove();
-			  }
-      }
-		});
-
-    $form.on('keydown', '.form-input-validate', function(e) {
-      var keyCode = e.keyCode || e.which;
-      if (keyCode === 13) {
-        if ($(this).closest('form').attr('id') == 'problem-form') {
-          if ($(this).data('field') == "title") {
-            e.preventDefault();
-            if (!$('.form-nav .btn-next').attr('disabled')) {
-			        $li.attr('data-open', false);
-				      $li = $li.next('li');
-              $li.addClass('active').attr('data-open', true);
-				      $(".form-nav span[data-nav='previous']").removeClass('hide').addClass('show');
-
-              updateForm($li);
-		        } else {
-              $(this).blur();
-              addInputError(this);
-              if ($(this)[0].validity.tooShort) {
-                errorText = "Title must be at least 10 characters";
-              } else if ($(this)[0].validity.tooLong) {
-                errorText = "Title can't be longer that 255 characters";
-              } else if ($(this)[0].validity.valueMissing) {
-                errorText = "Title is missing";
-              }
-              addInputError(this);
-              addInputErrorMsg(this, errorText);
-            }
-          }
-        }             
-        
-      }
-    });
-*/
   }
 
   function initNewProblemFormValidations() {
@@ -819,9 +722,11 @@ $(document).on('turbolinks:load', function() {
           }
         } else {
           if ($input[0].validity.tooShort) {
-            errorText = $(this).data('title') + " is too short (minimum is " + minLength + " characters)";
+            errorText = $(this).data('title') + " is too short (minimum is " + $(this).attr('minLength') + " characters)";
           } else if ($(this)[0].validity.tooLong) {
-            errorText = $(this).data('title') + " must be at least " + minLength + " characters";
+            errorText = $(this).data('title') + " must be at least " + $(this).attr('maxLength')  + " characters";
+          } else if ($(this)[0].validity.typeMismatch) {
+            errorText = "Please enter a valid email";
           }
 
           addInputError($(this)[0]);
@@ -829,7 +734,6 @@ $(document).on('turbolinks:load', function() {
         }
       }
     });
-
   }
 /*
   function submitProblem() {
@@ -878,6 +782,56 @@ $(document).on('turbolinks:load', function() {
 			}
 
 		});
-
 	}
+
+  /* -------------------------------------------------------------------
+    Account Forms
+    ------------------------------------------------------------------ */
+
+    function initAccountForms() {
+      triggerEditButtonOnClick();
+      triggerEditButtonOnInputChange();
+      triggerCancelOnClick();
+    }
+
+    function triggerEditButton($btn, action='clicked') {
+      $input = $btn.closest('.form-group').find('.form-input-validate').first();
+      $input.data('changed', true);
+      if (action == 'clicked') {
+        $input.focus();
+      }
+      $btn.removeClass('edit-field-btn').addClass('cancel-field-btn').text('Cancel');
+      let text = "Save";
+      if ($btn.closest('.form-group').hasClass('change-password-group')) {
+        text = "Change Password";
+      }
+      $btn.before("<span class='btn-ghost btn-small btn-padding-xs mr-8 save-btn'>" + text + "</span>");
+    }
+
+    function triggerEditButtonOnClick() {
+      $('.account-form .account-actions').on('click', '.edit-field-btn', function() {
+        triggerEditButton($(this));
+      });
+    }
+
+    function triggerEditButtonOnInputChange() {
+      $('.account-form').on("input", '.form-input-validate', function() {
+        if (!$(this).data('changed')) {
+          triggerEditButton($(this).closest('.form-group').find('.edit-field-btn'), 'changed');
+        }
+      });
+    }
+
+    function triggerCancelOnClick() {
+      $('.account-form .account-actions').on('click', '.cancel-field-btn', function() {
+        $input = $(this).closest('.form-group').find('.form-input-validate');
+        $input.data('changed', false).val($input.data('default')).blur();
+        $input.each(function(index) {
+          removeInputValidations($input[index]);
+        });
+
+        $(this).addClass('edit-field-btn').removeClass('cancel-field-btn').text("Edit " + $(this).data('field'));
+        $(this).prev('.save-btn').remove();
+      });
+    }
 });

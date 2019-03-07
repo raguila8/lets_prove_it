@@ -128,7 +128,7 @@
 
 .btn-light {
   border: 1px solid rgba(0,0,0,0.2);
-  color: rgba(0,0,0,0.84);
+  color: rgba(0,0,0,0.64);
   background: #fff;
   
   &:hover, &:focus {
@@ -147,6 +147,10 @@
 
 .btn-padding-small {
   padding: 6px 26px;
+}
+
+.btn-padding-xs {
+  padding: 8px 16px;
 }
 
 .label-header {

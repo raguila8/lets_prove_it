@@ -44,6 +44,10 @@ textarea.form-control {
   min-height: 120px;
 }
 
+input.form-control {
+  color: rgba(0,0,0,0.64);
+}
+
 /* trix textarea */
 trix-editor {
   min-height: 10em;

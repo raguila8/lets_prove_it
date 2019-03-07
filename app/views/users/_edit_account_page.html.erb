@@ -1,50 +1,29 @@
-<div class="pt-100 section container-fluid blog-classic" id="account-edit">
-  <div class="row">
-    <div class="col-md-12">
-      
-      <div class="mh-auto ft-tabs">
-        <div class="row">
-            
-          <!-- Tabs -->
-          <div class="col-lg-2 no-gap">
-            <ul class="tabs-list" role="tablist">
+<div class='wideContainer pt-80 pb-80' id='account-edit'>
+  <div class='row'>
+    <div class='col-md-3 account-settings-sidebar pr-30'>
+      <ul class='account-settings-tabs fontSize-20 headerFont fontWeight-400'>
+        <li class="<%= 'active' if current_page?(edit_user_path(@user))%>">
+          <a href="<%= edit_user_path(@user) %>">
+            <span>Edit Profile</span>
+          </a>
+        </li>
 
-              <!-- Tab 1 -->
-              <li role="presentation" class="<%= 'active' if current_page?(edit_user_path(@user))%>">
-                <a href="<%= edit_user_path(@user) %>" aria-controls="tab1" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
-                  <div class="tab-bottom">
-                    <p>Edit Profile</p>
-                  </div>
-                </a>
-              </li>
+        <!-- Tab 2 -->
+        <li class="<%= 'active' if current_page?(edit_user_registration_path)%>">
+          <a href="<%= edit_user_registration_path %>">
+            <span>Change Password</span>
+          </a>
+        </li>
+			</ul>
+		</div>
+		<div class='col-md-8'>
+      <header class='account-heading headerFont darkType'>
+        <h2>Update your profile</h2>
+			</header>
 
-              <!-- Tab 2 -->
-              <li role="presentation" class="<%= 'active' if current_page?(edit_user_registration_path)%>">
-                <a href="<%= edit_user_registration_path %>" aria-controls="tab2" role="tab" data-toggle="tab" data-remote="true" aria-expanded="true">
-                  <div class="tab-bottom">
-                    <p>Change Password</p>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div><!-- / .col-lg-4 -->
-
-
-          <!-- Tabs Content -->
-          <div class="col-lg-10 no-gap tab-content">
-
-            <!-- Tab Content 1 -->
-            <div class="tab-pane fade active in">
-              <div class="col-md-8 tab-content-text page-content mt-20">
-                <div class="tab-list-content">
-                  <%= edit_account_content((@user if !@user.nil?))%>
-                </div>
-              </div>
-            </div><!-- / #tab1 -->
-          </div><!-- / .col-lg-8 -->
-        </div><!-- / .row -->
-      </div>
-    </div>
-  </div>
+			<%= render partial: "users/edit", locals: { :@user => @user } %>
+			<%= render partial: "devise/registrations/edit", locals: { :@user => @user } %>
+		</div>
+	</div>
 </div>
 

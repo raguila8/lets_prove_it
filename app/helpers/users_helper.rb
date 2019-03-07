@@ -42,4 +42,12 @@ module UsersHelper
     button += "</div>"
     return button.html_safe
   end
+
+  def display_name_label
+    @user.name.nil? ? "Create a display name" : "Your display name"
+  end
+
+  def bio_label
+    @user.bio.nil? ? "Create a short bio" : "Your bio"
+  end
 end

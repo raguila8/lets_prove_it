@@ -49,8 +49,6 @@ fieldset[disabled] .form-control {
 		font-size: .8em;
 		font-family: $heading-font;
 		/*text-transform: uppercase;*/
-    text-transform: capitalize;
-		letter-spacing: 2px;
 		color: $dark;
 	}
 } // .form-group

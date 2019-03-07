@@ -43,7 +43,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
 										uniqueness: { case_sensitive: false }
   validates :bio, length: { maximum: 500 }
-  validates :name, length: { maximum: 70 }
+  validates :name, length: { minimum: 3, maximum: 70 }
   validates :occupation, length: { maximum: 70 }
   validates :education, length: { maximum: 70 }
   validates :location, length: { maximum: 70 }

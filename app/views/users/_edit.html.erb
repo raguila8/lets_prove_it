@@ -1,43 +1,77 @@
-<div class="boxedtitle add-problem-title mb-40"><h2>Edit Profile</h2></div>
-<%= form_with(model: @user, id: "user-form") do |form| %>
-  <%= render 'shared/error_messages' %>
+<%= form_with(model: @user, id: "user-form", class: 'account-form validate-form') do |form| %>
+  <%#= render 'shared/error_messages' %>
 
   <div class="form-group">
-    <%= form.label :email %>
-    <%= form.email_field :email, class: "form-control" %>
+    <%= form.label :email, "Your email" %>
+
+    <div class='account-actions'>
+      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn' data-field='email'>Edit email</span>
+    </div>
+
+    <p class='bodyFont color-dark-74 fontSize-14 mb-15'>
+      We will never share your email address or display it publicly
+    </p>
+
+    <div class='input-container'>
+      <%= form.email_field :email, class: "form-control form-input-validate", 
+                           required: true, maxlength: 255, 
+                           data: { field: 'email', title: 'email', 
+                                   changed:  false,
+                                   default: @user.email } %>
+    </div>
   </div>
 
   <div class="form-group">
-    <%= form.label :username %>
-    <%= form.text_field :username, class: "form-control" %>
+    <%= form.label :username, "Your username" %>
+   
+    <div class='account-actions'>
+      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn' data-field='username'>Edit username</span>
+    </div>
+
+    <div class='input-container'> 
+      <%= form.text_field :username, class: "form-control form-input-validate",
+                          required: true, minlength: 5, maxlength: 18,
+                          data: { field: 'username', title: 'username',
+                                  changed: false, default: @user.username } %>
+    </div>
   </div>
 
   <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "form-control" %>
+    <%= form.label :name, display_name_label %>
+
+    <div class='account-actions'>
+      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn' data-field='name'>Edit name</span>
+    </div>
+
+    <p class='bodyFont color-dark-74 fontSize-14 mb-15'>
+      This is how other users will see you on FormalProofs
+    </p>
+
+
+    <div class='input-container'>
+      <%= form.text_field :name, class: "form-control form-input-validate",
+                           required: true, minlength: 3, maxlength: 70, 
+                           data: { field: 'name', title: 'name',
+                                   changed: false, default: @user.name } %>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= form.label :occupation %>
-    <%= form.text_field :occupation, class: "form-control" %>
-  </div>
+  <div class="form-group" style='border-bottom: none;'>
+    <%= form.label :bio, bio_label %>
+ 
+    <div class='account-actions'>
+      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn' data-field='bio'>Edit bio</span>
+    </div>
+ 
+    <p class='bodyFont color-dark-74 fontSize-14 mb-15'> Your bio will be visible on your profile page </p>
 
-  <div class="form-group">
-    <%= form.label :education %>
-    <%= form.text_field :education, class: "form-control" %>
+    <div class='input-container' style='width: 75%;'>
+      <%= form.text_area :bio, 
+                         class: "form-control form-input-validate pt-15",
+                         required: true, maximum: 500,
+                         data: { field: 'bio', title: 'bio',
+                                 changed: false, default: @user.bio }  %>
+    </div>
   </div>
-
-  <div class="form-group">
-    <%= form.label :location %>
-    <%= form.text_field :location, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :bio %>
-    <%= form.text_area :bio, class: "form-control" %>
-  </div>
-
-  <!-- Submit -->
-  <%= form.submit "Submit", class: "btn" %>
 <% end %>
 
