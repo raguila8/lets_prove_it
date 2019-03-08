@@ -69,13 +69,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(user_params)
-			# Handle a successful update
-			flash[:success] = "Profile updated"
-			redirect_to @user
-		else
-			render 'edit'
-		end
+    @attribute_changed = params[:user].keys.first
+    @user.update_attributes(user_params)
   end
 
   def update_image

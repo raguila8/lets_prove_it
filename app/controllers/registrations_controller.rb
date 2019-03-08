@@ -2,10 +2,20 @@ class RegistrationsController < Devise::RegistrationsController
   include ApplicationHelper
   #before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :configure_permitted_parameters, only: [:create]
+  before_action :authenticate_user!, only: [:update]
+
 
   # inherit form devise controller
   def create
     super
+  end
+
+  def update
+    @user = current_user
+    if @user.update_with_password(user_password_params)
+      # Sign in the user by passing validation in case their password changed
+      bypass_sign_in(@user)
+    end
   end
 
   protected
@@ -26,5 +36,9 @@ class RegistrationsController < Devise::RegistrationsController
  
     def user_params
       params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    end
+
+    def user_password_params
+      params.require(:user).permit(:password, :password_confirmation, :current_password)
     end
 end

@@ -566,24 +566,25 @@
   Account
  -------------------------------------------------------------- */
 .account-settings-sidebar {
-  .account-settings-tabs {
+  #account-settings-tabs {
     list-style: none;
+    top: 80px !important;
+    
+
     li {
       padding-bottom: 20px;
 
-      a {
+      span {
         position: relative;
         color: rgba(0,0,0,0.64);
         padding-left: 15px;
         padding-right: 15px;
-
-        &:hover {
-          color: rgba(0,0,0,0.84);
-        }
+        cursor: pointer;
       }
     }
 
-    li.active a {
+/*
+    li.active span {
       color: rgba(0,0,0,0.84) !important;
       font-weight: 600;
       
@@ -598,6 +599,7 @@
         background: $accent;
       }
     }
+*/
   }
 }
 

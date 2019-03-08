@@ -1,16 +1,16 @@
-<header class='account-heading headerFont darkType'>
+<header class='account-heading headerFont darkType' data-section='password'>
   <h2>Change your password</h2>
 </header>
 
-<%= form_for(@user, as: :user, url: registration_path(:user), html: { method: :put, class: "account-form validate-form" }) do |form| %>
+<%= form_for(@user, as: :user, url: registration_path(:user), html: { method: :put, class: "account-form validate-form password-form", remote: true}) do |form| %>
 
   <%#= render 'shared/error_messages' %>
 
   <div class="form-group change-password-group">
     <%= form.label :password, "Your new password" %>
  
-    <div class='account-actions'>
-      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn' data-field='password'>Change password</span>
+    <div class='account-actions' data-field='password'>
+      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn'>Change password</span>
     </div>
  
     <p class='bodyFont color-dark-74 fontSize-14 mb-15'>
@@ -31,8 +31,8 @@
       <%= form.password_field :password_confirmation, autocomplete: "off", 
                               class: "form-control form-input-validate",
                               required: true, minlength: 6, maxlength: 128,
-                              data: { field: 'password confirmation', 
-                                      title: 'password confirmation',
+                              data: { field: 'password_confirmation', 
+                                      title: 'password_confirmation',
                                       changed: false } %>
     </div>
 
@@ -45,8 +45,8 @@
       <%= form.password_field :current_password, autocomplete: "off", 
                               class: "form-control form-input-validate",
                               required: true, minlength: 6, maxlength: 128,
-                              data: { field: 'current password',
-                                      title: 'current password',
+                              data: { field: 'current_password',
+                                      title: 'current_password',
                                       changed: false } %>
     </div> 
   </div>

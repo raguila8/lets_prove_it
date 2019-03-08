@@ -1,23 +1,20 @@
 <div class='wideContainer pt-80 pb-80' id='account-edit'>
   <div class='row'>
     <div class='col-md-3 account-settings-sidebar pr-30'>
-      <ul class='account-settings-tabs fontSize-20 headerFont fontWeight-400'>
-        <li class="<%= 'active' if current_page?(edit_user_path(@user))%>">
-          <a href="<%= edit_user_path(@user) %>">
-            <span>Edit Profile</span>
-          </a>
+      <ul class='fontSize-18 headerFont fontWeight-400' id='account-settings-tabs'>
+        <li><span class='fontWeight-600 fontSize-22 darkType' style='cursor: text;'>Settings</span></li>
+        <li class="<%= 'active' if current_page?(edit_user_path(@user))%>" data-section='profile'>
+          <span>Edit Profile</span>
         </li>
 
         <!-- Tab 2 -->
-        <li class="<%= 'active' if current_page?(edit_user_registration_path)%>">
-          <a href="<%= edit_user_registration_path %>">
-            <span>Change Password</span>
-          </a>
+        <li class="<%= 'active' if current_page?(edit_user_registration_path)%>" data-section='password'>
+          <span>Change Password</span>
         </li>
 			</ul>
 		</div>
 		<div class='col-md-8'>
-      <header class='account-heading headerFont darkType'>
+      <header class='account-heading headerFont darkType' data-section='profile'>
         <h2>Update your profile</h2>
 			</header>
 

@@ -1,11 +1,11 @@
-<%= form_with(model: @user, id: "user-form", class: 'account-form validate-form') do |form| %>
+<%= form_with(model: @user, id: "user-form", class: 'account-form validate-form profile-form', data: { user: @user.id }) do |form| %>
   <%#= render 'shared/error_messages' %>
 
   <div class="form-group">
     <%= form.label :email, "Your email" %>
 
-    <div class='account-actions'>
-      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn' data-field='email'>Edit email</span>
+    <div class='account-actions' data-field='email'>
+      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn'>Edit email</span>
     </div>
 
     <p class='bodyFont color-dark-74 fontSize-14 mb-15'>
@@ -24,8 +24,8 @@
   <div class="form-group">
     <%= form.label :username, "Your username" %>
    
-    <div class='account-actions'>
-      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn' data-field='username'>Edit username</span>
+    <div class='account-actions' data-field='username'>
+      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn'>Edit username</span>
     </div>
 
     <div class='input-container'> 
@@ -39,8 +39,8 @@
   <div class="form-group">
     <%= form.label :name, display_name_label %>
 
-    <div class='account-actions'>
-      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn' data-field='name'>Edit name</span>
+    <div class='account-actions' data-field='name'>
+      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn'>Edit name</span>
     </div>
 
     <p class='bodyFont color-dark-74 fontSize-14 mb-15'>
@@ -56,11 +56,11 @@
     </div>
   </div>
 
-  <div class="form-group" style='border-bottom: none;'>
+  <div class="form-group bio-form-group" style='border-bottom: none;'>
     <%= form.label :bio, bio_label %>
  
-    <div class='account-actions'>
-      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn' data-field='bio'>Edit bio</span>
+    <div class='account-actions' data-field='bio'>
+      <span class='btn btn-small btn-padding-xs btn-light edit-field-btn'>Edit bio</span>
     </div>
  
     <p class='bodyFont color-dark-74 fontSize-14 mb-15'> Your bio will be visible on your profile page </p>
@@ -68,7 +68,7 @@
     <div class='input-container' style='width: 75%;'>
       <%= form.text_area :bio, 
                          class: "form-control form-input-validate pt-15",
-                         required: true, maximum: 500,
+                         required: true, maximum: 140,
                          data: { field: 'bio', title: 'bio',
                                  changed: false, default: @user.bio }  %>
     </div>

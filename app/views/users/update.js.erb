@@ -1,1 +1,19 @@
+var $input = $(".profile-form .form-input-validate[data-field='<%=@attribute_changed%>']");
 
+<% if @user.errors.any? %>
+  addInputError($input[0]);
+  addInputErrorMsg($input[0], "<%= @user.errors.full_messages_for(@attribute_changed).join(". ") %>");
+<% else %>
+  $('#flash-message-wrapper').remove();
+  $('body').append("<div id='flash-message-wrapper' class='notice '><p> <%= @attribute_changed %> was successfully updated.</p></div>");
+
+  setTimeout(function() {
+    $('#flash-message-wrapper').fadeOut("slow", function() {
+      $(this).remove();
+    });
+  }, 5000);
+
+	$input.attr('data-default', $input.val());
+	$btn = $input.closest('.form-group').find('.cancel-field-btn');
+  triggerCancel($btn);
+<% end %>

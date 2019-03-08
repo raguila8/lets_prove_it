@@ -1,6 +1,5 @@
  $comment = $(".bp-comment-reply[data-comment-id='<%=@comment.id%>']");
 <% if !@comment.nil? and !@comment.errors.any? %>
-  console.log("<%=@comment.content%>");
 	$comment.find('.comment-actions').show();
 	$comment.find('.vote-container').show();
   $comment.find('.comment-content:hidden').html("<%=@comment.content%>").show();

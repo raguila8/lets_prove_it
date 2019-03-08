@@ -1,0 +1,21 @@
+<% if @user.errors.any? %>
+  <% @user.errors.each do |attribute, error| %>
+    var $input = $(".password-form .form-input-validate[data-field='<%=attribute%>']");
+
+    addInputError($input[0]);
+    addInputErrorMsg($input[0], "<%= @user.errors.full_messages_for(attribute).join(". ") %>");
+	<% end %>
+<% else %>
+  $('#flash-message-wrapper').remove();
+  $('body').append("<div id='flash-message-wrapper' class='notice '><p> password was successfully updated.</p></div>");
+
+  setTimeout(function() {
+    $('#flash-message-wrapper').fadeOut("slow", function() {
+      $(this).remove();
+    });
+  }, 6000);
+
+	$btn = $('.change-password-group .cancel-field-btn');
+  triggerCancel($btn);
+
+<% end %>

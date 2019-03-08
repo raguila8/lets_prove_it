@@ -32,7 +32,8 @@
   }
 
   function addInputErrorMsg(input, errorText) {
-    if ($(input).closest('.form-group').find('.input-error-msg').length && $(input).closest('.form-group').hasClass('changed-password-group')) {
+    if (($(input).closest('.input-container').next('.input-error-msg').length > 0) && ($(input).closest('.form-group').hasClass('change-password-group'))) {
+      console.log('first if');
       $(input).closest('.form-group').find('.input-error-msg').html(errorText);
     } else {
       let textNode = errorMsg.cloneNode(true);
@@ -688,6 +689,14 @@ $(document).on('turbolinks:load', function() {
       let minLength = 10;
       let maxLength = 150;
 
+      if ($input.attr("minlength")) {
+        minLength = $input.attr("minlength");
+      }
+
+      if ($input.attr("maxlength")) {
+        maxLength = $input.attr("maxlength");
+      }
+
       if ($(this).data('field') == "content") {
         $input = $(this).closest('.form-group').find("input[data-type='trix']");
         minLength = 30;
@@ -735,6 +744,7 @@ $(document).on('turbolinks:load', function() {
       }
     });
   }
+
 /*
   function submitProblem() {
     $form = $('#problem-form');
@@ -792,6 +802,8 @@ $(document).on('turbolinks:load', function() {
       triggerEditButtonOnClick();
       triggerEditButtonOnInputChange();
       triggerCancelOnClick();
+      initChangePasswordForm();
+      initProfileForm();
     }
 
     function triggerEditButton($btn, action='clicked') {
@@ -803,7 +815,7 @@ $(document).on('turbolinks:load', function() {
       $btn.removeClass('edit-field-btn').addClass('cancel-field-btn').text('Cancel');
       let text = "Save";
       if ($btn.closest('.form-group').hasClass('change-password-group')) {
-        text = "Change Password";
+        text = "Update password";
       }
       $btn.before("<span class='btn-ghost btn-small btn-padding-xs mr-8 save-btn'>" + text + "</span>");
     }
@@ -824,14 +836,114 @@ $(document).on('turbolinks:load', function() {
 
     function triggerCancelOnClick() {
       $('.account-form .account-actions').on('click', '.cancel-field-btn', function() {
-        $input = $(this).closest('.form-group').find('.form-input-validate');
-        $input.data('changed', false).val($input.data('default')).blur();
-        $input.each(function(index) {
-          removeInputValidations($input[index]);
+        triggerCancel($(this));
+      });
+    }
+
+    
+    function initChangePasswordForm() {
+      $('.password-form .form-group').on('click', '.save-btn', function() {
+        const $inputs = $('.password-form .form-input-validate');
+        var hasError = false;
+        $inputs.each(function(index) {
+          var isValid = true;
+          let $input = $(this);
+          let minLength = 6;
+          let maxLength = 128;
+
+          let errorText = "";
+          let field = $(this).data('field');
+
+          let inputLength = $(this).val().trim().length;
+
+          if (inputLength < minLength) {
+            errorText = field + " is too short (minimum is " + minLength + " characters)";
+            isValid = false;
+            hasError = true;
+          } else if (inputLength > maxLength) {
+            errorText = field + " is too long. " + field + " can be at most " + maxLength + " characters";
+            isValid = false;
+            hasError = true;
+          }
+
+          if (!isValid) {
+            addInputError($(this)[0]);
+            addInputErrorMsg($input[0], errorText);
+          }
         });
 
-        $(this).addClass('edit-field-btn').removeClass('cancel-field-btn').text("Edit " + $(this).data('field'));
-        $(this).prev('.save-btn').remove();
+        if (!hasError) {
+			    var $form = $('.password-form');
+				  Rails.fire($form[0], 'submit');
+        }
+      });
+    }
+
+    function initProfileForm() {
+      $('.profile-form .form-group').on('click', '.save-btn', function() {
+        let $input = $(this).closest('.form-group').find('.form-input-validate');
+        let minLength = $input.attr("minlength");
+        let maxLength = $input.attr("maxlength");
+        let hasError = false;
+ 
+        if ($input[0].validity.tooShort) {
+          errorText = $input.data('title') + " is too short (minimum is " + $input.attr('minLength') + " characters)";
+          hasError = true;
+        } else if ($input[0].validity.tooLong) {
+          errorText = $input.data('title') + " must be at least " + $input.attr('maxLength')  + " characters";
+          hasError = true;
+        } else if ($input[0].validity.typeMismatch) {
+          errorText = "Please enter a valid email";
+          hasError = true;
+        }
+
+        if (hasError) {
+          addInputError($input[0]);
+          addInputErrorMsg($input[0], errorText);
+        } else {
+
+          let field = $(this).closest('.account-actions').data('field');
+          let val = $input.val();
+          let user_id = $(this).closest('.profile-form').data('user');
+          let data = new Object();
+          let user = new Object();
+
+          data.user = user;
+          user[field] = val;
+
+          $.ajax({
+            type: "PATCH",
+			      url: "/users/" + user_id,
+			      headers: {
+				      Accept: "text/javascript; charset=utf-8",
+				     "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			      },
+            data: data,
+            beforeSend: function() {
+            
+            },
+            success: function() {
+            
+            }
+          });
+        }
       });
     }
 });
+
+function triggerCancel($btn) {
+  $input = $btn.closest('.form-group').find('.form-input-validate');
+  $input.data('changed', false).val($input.attr('data-default')).blur();
+  $input.each(function(index) {
+    removeInputValidations($input[index]);
+  });
+
+  let action = "Edit";
+  if ($btn.closest('.form-group').hasClass('change-password-group')) {
+    action = "Change";
+  }
+
+  $btn.addClass('edit-field-btn').removeClass('cancel-field-btn').text(action + " "  + $btn.closest('.account-actions').data('field'));
+  $btn.prev('.save-btn').remove();
+}
+

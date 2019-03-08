@@ -8,6 +8,7 @@ $(document).on('turbolinks:load', function() {
   initAccordion();
   initVideoPlayer();
   initCommentsLinks();
+	initAccountPage();
 
   if ($('.vote-container').length > 0) {
     initVotingButtons();
@@ -1036,7 +1037,7 @@ $(document).on('turbolinks:load', function() {
 
     $('body').append(hiddenDiv);
 
-    $('.commentSection, .changes-form-group').on('keyup', 'textarea', function () {
+    $('.commentSection, .changes-form-group, .profile-form .bio-form-group').on('keyup', 'textarea', function () {
 
       content = $(this).val();
 
@@ -1302,3 +1303,27 @@ $(document).on('turbolinks:load', function() {
   function getVoteCount($button) {
     return $button.closest('.vote-container').find('span.vote-score');
   }
+
+	function initAccountPage() {
+    if ($('#account-settings-tabs').length > 0) {
+      $('#account-settings-tabs').on('click', 'li', function() {
+        $('#account-settings-tabs li').removeClass('active');
+				$(this).addClass('active');
+        let section = $(this).data('section');
+        $([document.documentElement, document.body]).animate({
+				  scrollTop: $(".account-heading[data-section='" + section +"']").offset().top - 40
+				}, 1000);
+
+			});
+
+      $(window).scroll(function(){
+          if ($(window).scrollTop() > 80) {
+            $("#account-settings-tabs").addClass('fixed');
+					} else if ($(window).scrollTop() < 80) {
+            $("#account-settings-tabs").removeClass('fixed');
+					}
+
+				});
+
+		}
+	}
