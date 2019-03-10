@@ -569,7 +569,7 @@
   #account-settings-tabs {
     list-style: none;
     top: 80px !important;
-    
+     padding-left: 0;   
 
     li {
       padding-bottom: 20px;
@@ -643,7 +643,20 @@
   }
 }
 
+#account-edit {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
 @media (max-width: 992px) {
+  .account-settings-sidebar {
+    display: none;
+  }
+
+  #account-edit {
+    padding-top: 40px;
+  }
+
   .account-form {
     .form-group {
       .input-container {

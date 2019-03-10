@@ -252,6 +252,12 @@ $(document).on('turbolinks:load', function() {
 	    $(".navbar-collapse").css({ maxHeight: $(window).height() - $(".navbar-header").height() + "px" });
 
 
+    if ($('.dropdown .fa-search').length > 0) {
+      $('.navbar #search-toggle').on('click', function() {
+        setTimeout(function() { $('#main-search').focus() }, 100);
+      });
+    }
+
 	} // initNavbar
 
 
