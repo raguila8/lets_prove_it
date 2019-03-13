@@ -40,7 +40,9 @@
         <% if @results[:users].empty? %>
           <%= render partial: '/shared/no_results_found' %>
         <% else %>
-
+          <% @results[:users].each do |user| %>
+            <%= render :partial => "users/user_item", locals: { user: user } %>
+          <% end %>
         <% end %>
       </section>
     </div>

@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.user-item {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
 .profile-item {
   margin-bottom: 30px;
   padding: 22px 0;

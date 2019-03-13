@@ -1,0 +1,18 @@
+<div class='pa-20 user-item'>
+<div class="author-container" style="margin-top: 22px; margin-bottom: 22px;">
+  <div class="author-img">
+    <a href="<%=user_path(user.id)%>"><img width="60" height="60" src="<%=user_avatar_src(user)%>" alt="Go to the profile of <%= user.name_or_username %>"></a>
+  </div>
+  <div class='headerFont' style='padding-top: 7.5px; padding-bottom: 7.5px;'>
+    <a class="captionSmall captionStrong underlineLink fontSize-16 fontWeight-600" href="<%=user_path(user.id)%>"><%=user.name_or_username%></a> <span class='color-dark-64'><span class='la la-trophy ml-5'></span> <span><%=user.reputation%></span></span>
+
+    <div class='float-right ml-8 mb-8'>
+		  <%= follow_button(user) if signed_in? and current_user != user %>
+    </div>
+
+    <div class="captionSmall color-dark-74">
+      <p class="line-clamp-2 fontSize-15 break-words"><%= user.bio %></p>
+    </div>
+  </div>
+</div>
+</div>

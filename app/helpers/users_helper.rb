@@ -30,13 +30,14 @@ module UsersHelper
     return "#DD9934" if reputation >= 25000    
   end
 
-  def follow_button
-    button = "<div class='user-follow-meta' id='user-follow-#{@user.id}'>"
-    if !current_user.following?(@user)
-      button += "<a href='#{follow_user_path(@user.id)}' data-remote='true' data-method='post'>"
+  def follow_button(user=nil)
+    user = (user.nil? ? @user : user)
+    button = "<div class='user-follow-meta' id='user-follow-#{user.id}'>"
+    if !current_user.following?(user)
+      button += "<a href='#{follow_user_path(user.id)}' data-remote='true' data-method='post'>"
       button += "<button class='btn btn-ghost btn-small'>Follow</button></a>"
     else
-      button += "<a href='#{unfollow_user_path(@user.id)}' data-remote='true' data-method='delete'>"
+      button += "<a href='#{unfollow_user_path(user.id)}' data-remote='true' data-method='delete'>"
       button += "<button class='btn btn-small'>Following</button></a>"
     end
     button += "</div>"

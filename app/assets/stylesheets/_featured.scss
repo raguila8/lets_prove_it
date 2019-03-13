@@ -286,7 +286,8 @@
 #user-tabs {
   label[for*='1']:before { content: '\f0f6'; }
   label[for*='2']:before { content: '\f0c8'; }
-  label[for*='3']:before { content: '\f0e5'; }
+  label[for*='3']:before { content: '\f0c0'; }
+  label[for*='4']:before { content: '\f0c0'; }
 }
 
 #search-tabs {
@@ -323,6 +324,12 @@
     margin-right: 10px;
   }
 
+  label.la:before {
+    font-family: lineawesome !important;
+  }
+
+  
+
   label:hover {
     color: rgba(0,0,0,0.64);
     cursor: pointer;
@@ -337,7 +344,8 @@
 
   #tab1:checked ~ #content1,
   #tab2:checked ~ #content2,
-  #tab3:checked ~ #content3 {
+  #tab3:checked ~ #content3,
+  #tab4:checked ~ #content4 {
     display: block;
   }
 

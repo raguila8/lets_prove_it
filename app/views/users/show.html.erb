@@ -7,19 +7,34 @@
 
   <input id="tab2" type="radio" name="tabs" data-target='#content2'>
     <label for="tab2" title='Proofs'>Proofs</label>
-<!--
+
   <input id="tab3" type="radio" name="tabs" data-target='#content3'>
-    <label for="tab3" title='Comments'>Comments</label>
--->
+    <label for="tab3" title='Followers'>Followers (<%=number_to_human(@user.followers.count)%>)</label>
+
+  <input id="tab4" type="radio" name="tabs" data-target='#content4'>
+    <label for="tab4" title='Following'>Following (<%= number_to_human(@user.following.count) %>)</label> 
+
 
   <section id="content1" class='pt-30 profile-content' data-loaded='true' data-content='problems'>
-    <% @user.problems.active.order(created_at: :desc).each do |problem| %>
-      <%= render :partial => 'problems/profile_stream_item', locals: { problem: problem } %>
+    <% if @user.problems.active.count == 0 %>
+      <%= render partial: '/shared/no_results_found' %>
+    <% else %>
+      <% @user.problems.active.order(created_at: :desc).each do |problem| %>
+        <%= render :partial => 'problems/profile_stream_item', locals: { problem: problem } %>
+      <% end %>
     <% end %>
 	</section>
 
   <section id="content2" class='pt-30 profile-content' data-loaded='false' data-content='proofs'>
    </section>
+
+  <section id="content3" class='pt-30 profile-content' data-loaded='false' data-content='followers'>
+   </section>
+
+  <section id="content4" class='pt-30 profile-content' data-loaded='false' data-content='following'>
+   </section>
+
+
 
 <!--
   <section id="content3" class='pt-30 profile-content' data-loaded='false' data-content='comments'>

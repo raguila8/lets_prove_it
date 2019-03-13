@@ -5,6 +5,7 @@
  @import "jquery-ui.css";
  @import "font-awesome";
  @import "linea-font.css";
+ @import "line-awesome.css";
  @import "jquery.mCustomScrollbar.css";
  @import "toastr";
  @import "bootstrap-tagsinput.css";
@@ -25,6 +26,18 @@
 
   font-weight: normal;
   font-style: normal;
-
 }
+
+@font-face {
+  font-family: "LineAwesome";
+  src: url(asset_path("line-awesome.eot?v=1.1."));
+  src: url(asset_path("line-awesome.eot??v=1.1.#iefix")) format("embedded-opentype"),
+       url(asset_path("line-awesome.woff2?v=1.1.")) format("woff2"),
+       url(asset_path("line-awesome.woff?v=1.1.")) format("woff"),
+       url(asset_path("line-awesome.ttf?v=1.1.")) format("truetype"),
+       url(asset_path("line-awesome.svg?v=1.1.#fa")) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
 

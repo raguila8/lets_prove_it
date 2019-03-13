@@ -1,8 +1,14 @@
-$('.tab-content .boxedtitle h2').text("Following");
-$('.tab-content .tab-list-content').append("<section class='ft-boxed-hover' id='user-items'><div class='row'><ul></ul></div></section>");
+<% if @users.empty? %>
+  $('#content4').html("<%= escape_javascript render(:partial => '/shared/no_results_found') %>");
+<% else %>
 
-<% @users.each do |user| %>
-  $('.tab-content .tab-list-content ul').append("<%= escape_javascript render(:partial => '/shared/items/user_item', locals: { user: user }) %>");
+$('#content4').html("<%= escape_javascript render(:partial => '/users/user_item', collection:  @users, as: :user ) %>");
+
+$content = $('#content4');
+  setTimeout(function() {
+	  MathJax.Hub.Queue(["Typeset", MathJax.Hub, $content[0]]);
+} ,500);
+
+$('.spinner').slideUp(3000);
+$('#content4').attr("data-loaded", true);
 <% end %>
-
-$('.spinner').slideUp(1000);

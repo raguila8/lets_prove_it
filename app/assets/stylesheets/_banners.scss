@@ -4,6 +4,10 @@
   display: flex;
   flex-direction: row;
 
+  .profile-meta-stats {
+    color: rgba(0,0,0,0.64);
+  }
+
   .profile-image {
     float: none;
     clear: none;

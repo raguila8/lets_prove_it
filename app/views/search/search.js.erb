@@ -14,14 +14,8 @@ if ($('#search-tabs').length == 0) {
 <% end %>
 
 <% if @results[:topics].empty? %>
-    console.log('here');
    $('#content2').html("<%= escape_javascript render(:partial => '/shared/no_results_found') %>");
 <% else %>
-  <% @results[:topics].each do |topic| %>
-    console.log("<%=topic.name%>");
-	<% end %>
-  console.log('okkk');
-
   $('#content2').html("<ul class='tags pl-0'></ul>");
 	<% @results[:topics].each do |topic| %>
     $('#content2 .tags').append("<li><a href='/topics/<%=topic.id%>' class='greyLink'><%=topic.name%></a></li>");
@@ -31,6 +25,6 @@ if ($('#search-tabs').length == 0) {
 <% if @results[:users].empty? %>
    $('#content3').html("<%= escape_javascript render(:partial => '/shared/no_results_found') %>");
 <% else %>
-
+  $('#content3').html("<%= escape_javascript render(:partial => '/users/user_item', collection:  @results[:users], as: :user ) %>");
 <% end %>
 }
