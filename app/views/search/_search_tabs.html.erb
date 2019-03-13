@@ -1,0 +1,50 @@
+<% if !@results.nil? %>
+<div class='row'>
+  <div class='col-md-8'>
+	  <div class='fancy-tabs mt-30 mb-30' id='search-tabs'>
+      <input id="tab1" type="radio" name="tabs" data-target='#content1' checked>
+      <label for="tab1" title='Problems'>Problems</label>
+
+      <input id="tab2" type="radio" name="tabs" data-target='#content2'>
+      <label for="tab2" title='Tags'>Tags</label>
+
+      <input id="tab3" type="radio" name="tabs" data-target='#content3'>
+      <label for="tab3" title='Users'>Users</label>
+
+
+      <section id="content1" class='pt-30 search-content' data-loaded='true' data-content='problems'>
+        <% if @results[:problems].empty? %>
+          <%= render partial: '/shared/no_results_found' %>
+        <% else %>
+          <% @results[:problems].each do |problem| %>
+            <%= render :partial => "problems/profile_stream_item", locals: { problem: problem } %>
+          <% end %>
+        <% end %>
+      </section>
+
+      <section id="content2" class='pt-30 search-content' data-loaded='true' data-content='tags'>
+        <% if @results[:topics].empty? %>
+          <%= render partial: '/shared/no_results_found' %>
+        <% else %>
+          <ul class='tags pl-0'>
+            <% @results[:topics].each do |topic| %>
+              <li>
+			          <%= link_to topic.name, topic_path(topic.id), class: 'greyLink' %>
+		      	  </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </section>
+
+		  <section id="content3" class='pt-30 search-content' data-loaded='false' data-content='users'>
+        <% if @results[:users].empty? %>
+          <%= render partial: '/shared/no_results_found' %>
+        <% else %>
+
+        <% end %>
+      </section>
+    </div>
+  </div>
+</div>
+<% end %>
+

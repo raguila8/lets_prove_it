@@ -1,0 +1,36 @@
+if ($('#search-tabs').length == 0) {
+  $('.container .search-header').after("<%= escape_javascript render(:partial => '/search/search_tabs', locals:  { :@results => @results }) %>");
+
+} else {
+<% if @results[:problems].empty? %>
+  $('#content1').html("<%= escape_javascript render(:partial => '/shared/no_results_found') %>");
+<% else %>
+  $('#content1').html("<%= escape_javascript render(:partial => '/problems/profile_stream_item', collection:  @results[:problems], as: :problem ) %>");
+
+  $content = $('#content1');
+    setTimeout(function() {
+	    MathJax.Hub.Queue(["Typeset", MathJax.Hub, $content[0]]);
+  } ,500);
+<% end %>
+
+<% if @results[:topics].empty? %>
+    console.log('here');
+   $('#content2').html("<%= escape_javascript render(:partial => '/shared/no_results_found') %>");
+<% else %>
+  <% @results[:topics].each do |topic| %>
+    console.log("<%=topic.name%>");
+	<% end %>
+  console.log('okkk');
+
+  $('#content2').html("<ul class='tags pl-0'></ul>");
+	<% @results[:topics].each do |topic| %>
+    $('#content2 .tags').append("<li><a href='/topics/<%=topic.id%>' class='greyLink'><%=topic.name%></a></li>");
+	<% end %>
+<% end %>
+
+<% if @results[:users].empty? %>
+   $('#content3').html("<%= escape_javascript render(:partial => '/shared/no_results_found') %>");
+<% else %>
+
+<% end %>
+}

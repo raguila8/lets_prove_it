@@ -120,8 +120,9 @@ class UsersController < ApplicationController
   def main_search
     respond_to do |format|
 			format.json {
-				@suggestions = User.search("%#{params[:query]}%")
-				render json: {suggestions: @suggestions }
+        @interactor = Search::SearchInteractor.call(self.params)
+				#@suggestions = User.search("%#{params[:query]}%")
+				render json: {suggestions: @interactor.results }
 			}
 		end
   end 

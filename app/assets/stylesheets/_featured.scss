@@ -283,8 +283,20 @@
 
 /*********************** Fancy Tabs **********************/
 
+#user-tabs {
+  label[for*='1']:before { content: '\f0f6'; }
+  label[for*='2']:before { content: '\f0c8'; }
+  label[for*='3']:before { content: '\f0e5'; }
+}
+
+#search-tabs {
+  label[for*='1']:before { content: '\f0f6'; }
+  label[for*='2']:before { content: '\f02b'; }
+  label[for*='3']:before { content: '\f007'; }
+}
+
 .fancy-tabs {
-  .profile-content {
+  .profile-content, .search-content {
     display: none;
     padding: 20px 0 0;
     border-top: 1px solid rgba(0,0,0,0.15);
@@ -310,10 +322,6 @@
     font-weight: normal;
     margin-right: 10px;
   }
-
-  label[for*='1']:before { content: '\f0f6'; }
-  label[for*='2']:before { content: '\f0c8'; }
-  label[for*='3']:before { content: '\f0e5'; }
 
   label:hover {
     color: rgba(0,0,0,0.64);

@@ -104,6 +104,10 @@ body {
   font-size: 0.60em;
 }
 
+.mh-100 {
+  min-height: 100vh;
+}
+
 .white-bg {
   background: white;
 }
@@ -532,7 +536,9 @@ body {
   margin-left: 14px;
   padding-left: 3px;
   padding-right: 3px;
-  font-weight: 600;
+  padding-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 
@@ -1371,4 +1377,18 @@ body {
   display: inline-block;
   text-align: left;
   vertical-align: middle;
+}
+
+/* --------------------------------------------------
+  No results
+ ---------------------------------------------------------*/
+
+.no-results-found {
+  width: 100%;
+  text-align: center;
+
+  img {
+    width: 40%;
+    height: auto;
+  }
 }

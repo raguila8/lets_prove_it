@@ -50,9 +50,10 @@ function initMainSearch() {
 		  source: function( request, response ) {
 			  $.ajax({
 				  type: "GET",
-				  url: "/main_search",
+				  url: "/search",
 				  data: {
-					  query: request.term
+					  query: request.term,
+            autocomplete: true
 				  },
 				  success: function(data) {
 					  response(data.suggestions);
@@ -80,7 +81,15 @@ function initMainSearch() {
         $(".ui-menu").css({ left: left + -15 + "px",
                                 top: top + 20 + "px"});
       }
-	  });	
-
+    }).keydown(function(e) {
+      if (event.keyCode == 13) {
+        event.preventDefault();
+        if($(this).val().length==0) {
+          return false;
+        } else {
+          window.location.href = "/search?query=" + $(this).val();
+        }
+      }
+    });
   }
 });

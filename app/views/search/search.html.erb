@@ -1,0 +1,6 @@
+<div class='container pt-40 pb-40 mh-100'>
+  <section class='pb-20 search-header'>
+    <%= search_input(@interactor.query) %>
+	</section>
+  <%= render "/search/search_tabs", locals: { :@results => @results } %>
+</div>

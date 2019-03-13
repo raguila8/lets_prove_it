@@ -9,6 +9,7 @@ $(document).on('turbolinks:load', function() {
   initVideoPlayer();
   initCommentsLinks();
 	initAccountPage();
+  initSearch();
 
   if ($('.vote-container').length > 0) {
     initVotingButtons();
@@ -26,7 +27,7 @@ $(document).on('turbolinks:load', function() {
     initTextarea();
   }
 
-  if ($('.fancy-tabs').length > 0) {
+  if ($('#user-tabs').length > 0) {
     initFancyTabs();
   }
 
@@ -340,6 +341,50 @@ $(document).on('turbolinks:load', function() {
         return false;
       }
     });
+  }
+
+  /* -----------------------------------------------------------
+    Search
+    ----------------------------------------------------------- */
+
+  function initSearch() {
+    if ($('#site-search').length > 0) {
+      let changeTimer = false;
+      $('#site-search').on('input', function(e) {
+        e.preventDefault();
+        let query = $(this).val();
+        if (changeTimer !== false) clearTimeout(changeTimer);
+
+        changeTimer = setTimeout(function() {
+
+          if (query == "") {
+            $('#search-tabs').closest('.row').remove();
+          } else {
+
+            $.ajax({
+              type: "GET",
+			        url: "/search",
+			        headers: {
+				      Accept: "text/javascript; charset=utf-8",
+				       "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8', 'X-CSRF-Token': Rails.csrfToken()
+			        },
+              data: {
+                query: query
+              },
+              beforeSend: function() {
+                //if ($('#search-tabs').length > 0) {
+                  //$($("#search-tabs input:checked").data('target')).html("<div class='spinner'> <div class='rect1'></div> <div class='rect2'></div> <div class='rect3'></div> <div class='rect4'></div> <div class='rect5'></div> </div>");
+                //}
+              },
+              success: function() {
+                //$('.spinner').slideUp(1000);
+              }
+            });
+          }
+          changeTimer = false;
+        }, 300);
+      });
+    }
   }
 
 /* -------------------------------------------------
@@ -1117,7 +1162,7 @@ $(document).on('turbolinks:load', function() {
       }
     }
 
-    $('.fancy-tabs').on('click', 'input', function() {
+    $('#user-tabs').on('click', 'input', function() {
       loadSection($(this));
     });
   }

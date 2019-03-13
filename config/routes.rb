@@ -146,6 +146,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/search', to: "search#search", as: :search
+
   get '/main_search', to: 'users#main_search', as: :main_search
   mathjax 'mathjax'
 

@@ -1,3 +1,18 @@
+#site-search {
+  width: 100%;
+  height: 80px;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  line-height: normal;
+  font-size: 42px;
+
+  &:focus {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+}
+
 .txtstuff {
     resize: none; /* remove this if you want the user to be able to resize it in modern browsers */
     overflow: hidden;
